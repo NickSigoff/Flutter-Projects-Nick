@@ -1,0 +1,62 @@
+name: oloha
+description: A new Flutter project.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.16.2 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^1.0.0
+
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - assets/label.png
+    - assets/avatars/0.jpg
+    - assets/avatars/1.jpg
+    - assets/avatars/2.jpg
+    - assets/avatars/3.jpg
+    - assets/avatars/4.jpg
+    - assets/avatars/5.jpg
+    - assets/avatars/6.jpg
+    - assets/avatars/7.jpg
+    - assets/avatars/8.jpg
+    - assets/avatars/9.jpg
+    - assets/avatars/10.jpg
+    - assets/avatars/11.jpg
+    - assets/restaurants/1.jpg
+    - assets/restaurants/2.jpg
+    - assets/restaurants/3.jpg
+    - assets/restaurants/4.jpg
+    - assets/restaurants/5.jpg
+    - assets/icons/earth.png
+    - assets/icons/foods.png
+    - assets/icons/hotel.png
+    - assets/icons/planet.png
+    - assets/icons/woman.png
+    - assets/map.png
+
+  fonts:
+    - family: Gilroy-regular
+      fonts:
+        - asset: assets/fonts/gilroy-regular.ttf
+
+    - family: Gilroy-semibold
+      fonts:
+        - asset: assets/fonts/gilroy-semibold.ttf
