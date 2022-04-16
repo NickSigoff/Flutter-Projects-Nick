@@ -1,4 +1,4 @@
-class RestaurantsList {
+abstract class RestaurantsList {
   static final restaurantList = [
     Restaurant(
       name: 'Hookah Place',
@@ -70,7 +70,6 @@ class Restaurant {
   final String waitingTime;
   final String about =
       'A nice quaint cafe with a good view of the lower city and mountains. Good to visit even when cloudy or raining because they have a friendly pupper to keep guests company as you.';
-
 
   Restaurant({
     required this.waitingTime,

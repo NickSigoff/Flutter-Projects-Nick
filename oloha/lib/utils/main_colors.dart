@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-class MainColors {
+abstract class MainColors {
   static const Color background = Color(0xffFEBD2F);
   static const Color hintColor = Color(0xff696974);
   static const Color textFieldBorder = Color(0xffe2e2ea);

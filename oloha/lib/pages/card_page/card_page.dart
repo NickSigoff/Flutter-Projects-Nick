@@ -3,12 +3,14 @@ import 'package:oloha/pages/card_page/widgets/about_widget_card_page.dart';
 import 'package:oloha/pages/card_page/widgets/appbar_card_page.dart';
 import 'package:oloha/pages/card_page/widgets/avatar_widget_card_page.dart';
 import 'package:oloha/pages/card_page/widgets/card_info_widget_card_page.dart';
+import 'package:oloha/pages/card_page/widgets/community_page_card_page.dart';
 import 'package:oloha/pages/card_page/widgets/custom_tabbar_card_page.dart';
 import 'package:oloha/pages/card_page/widgets/icon_features_card_page.dart';
 import 'package:oloha/pages/card_page/widgets/location_widget_card_page.dart';
 
 import '../../utils/main_colors.dart';
 import '../../utils/restourants.dart';
+import 'widgets/review_page_card_page.dart';
 
 class CardPage extends StatefulWidget {
   const CardPage({Key? key}) : super(key: key);
@@ -40,43 +42,43 @@ class _CardPageState extends State<CardPage> {
     ];
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(bottom: 50.0),
-        child: CustomScrollView(slivers: [
-          SliverAppBar(
-            backgroundColor: MainColors.background,
-            automaticallyImplyLeading: false,
-            floating: true,
-            pinned: true,
-            snap: false,
-            stretch: true,
-            collapsedHeight: 60,
-            expandedHeight: MediaQuery.of(context).size.height * 0.25,
-            flexibleSpace: FlexibleSpaceBar(
-              background: AppBarCardPage(item: item),
-              stretchModes: const [
-                StretchMode.blurBackground,
-                //StretchMode.fadeTitle,
-                //StretchMode.zoomBackground,
+      body: CustomScrollView(slivers: [
+        SliverAppBar(
+          backgroundColor: MainColors.background,
+          automaticallyImplyLeading: false,
+          floating: false,
+          pinned: true,
+          snap: false,
+          stretch: true,
+          collapsedHeight: 60,
+          expandedHeight: MediaQuery.of(context).size.height * 0.25,
+          flexibleSpace: FlexibleSpaceBar(
+            background: AppBarCardPage(item: item),
+            stretchModes: const [
+              StretchMode.blurBackground,
+              //StretchMode.fadeTitle,
+              //StretchMode.zoomBackground,
+            ],
+          ),
+        ),
+        SliverList(
+          delegate: SliverChildListDelegate([
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                CustomTabBar(
+                    item: item,
+                    onTap: _onTapChangePage,
+                    selectedPage: _selectedPage),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 50),
+                  child: pageList[_selectedPage],
+                ),
               ],
             ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CustomTabBar(
-                      item: item,
-                      onTap: _onTapChangePage,
-                      selectedPage: _selectedPage),
-                  pageList[_selectedPage],
-                ],
-              ),
-            ]),
-          ),
-        ]),
-      ),
+          ]),
+        ),
+      ]),
     );
   }
 }
@@ -111,34 +113,3 @@ class PhotoPage extends StatelessWidget {
   }
 }
 
-class ReviewPage extends StatelessWidget {
-  const ReviewPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Center(
-          child: Text('Review'),
-        ),
-        Container(
-          color: Colors.yellow,
-          height: 300,
-          width: 200,
-        ),
-      ],
-    );
-  }
-}
-
-class CommunityPage extends StatelessWidget {
-  const CommunityPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Community'),
-    );
-  }
-}

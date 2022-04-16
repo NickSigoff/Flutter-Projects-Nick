@@ -17,7 +17,7 @@ class IconFeatures extends StatelessWidget {
           child: HorizontalLine(),
         ),
         InfoLineIconWidget(
-            icon: Icon(Icons.coffee_outlined), text: 'Coffee / Breakfast'),
+            icon: Icon(Icons.coffee_outlined), text: 'Coffee / Breakfast' ),
         Padding(
           padding: EdgeInsets.symmetric(vertical: 18),
           child: HorizontalLine(),
@@ -49,7 +49,8 @@ class InfoLineIconWidget extends StatelessWidget {
       child: Row(
         children: [
           icon,
-          Text(text),
+          const SizedBox(width: 10,),
+          Text(text, style: const TextStyle( fontFamily: 'Gilroy-regular', fontSize: 14),),
         ],
       ),
     );

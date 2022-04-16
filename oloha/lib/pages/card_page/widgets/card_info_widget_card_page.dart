@@ -23,12 +23,12 @@ class CardInfoWidget extends StatelessWidget {
             text: TextSpan(
               text: 'Opening ',
               style: const TextStyle(
-                color: Colors.green,
-              ),
+                  color: Colors.green, fontFamily: 'Gilroy-regular'),
               children: [
                 TextSpan(
                     text: item.opening,
-                    style: const TextStyle(color: Colors.black))
+                    style: const TextStyle(
+                        color: Colors.black, fontFamily: 'Gilroy-regular'))
               ],
             ),
           ),
@@ -39,25 +39,43 @@ class CardInfoWidget extends StatelessWidget {
         ),
         InfoLineWidget(
             description: 'Waiting time',
-            itemInfo: Text('About ${item.waitingTime} minutes')),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 10),
-          child: HorizontalLine(),
-        ),
-        InfoLineWidget(description: 'Type', itemInfo: Text(item.type)),
+            itemInfo: Text(
+              'About ${item.waitingTime} minutes',
+              style:
+                  const TextStyle(fontFamily: 'Gilroy-regular', fontSize: 14),
+            )),
         const Padding(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: HorizontalLine(),
         ),
         InfoLineWidget(
-            description: 'Capacity', itemInfo: Text('${item.capacity} Adults')),
+            description: 'Type',
+            itemInfo: Text(
+              item.type,
+              style:
+                  const TextStyle(fontFamily: 'Gilroy-regular', fontSize: 14),
+            )),
+        const Padding(
+          padding: EdgeInsets.symmetric(vertical: 10),
+          child: HorizontalLine(),
+        ),
+        InfoLineWidget(
+            description: 'Capacity',
+            itemInfo: Text(
+              '${item.capacity} Adults',
+              style:
+                  const TextStyle(fontFamily: 'Gilroy-regular', fontSize: 14),
+            )),
         const Padding(
           padding: EdgeInsets.symmetric(vertical: 10),
           child: HorizontalLine(),
         ),
         const InfoLineWidget(
             description: 'Good for',
-            itemInfo: Text('Coffee, Snack food, Take away')),
+            itemInfo: Text(
+              'Coffee, Snack food, Take away',
+              style: TextStyle(fontFamily: 'Gilroy-regular', fontSize: 14),
+            )),
       ],
     );
   }

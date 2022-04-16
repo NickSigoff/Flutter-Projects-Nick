@@ -1,4 +1,4 @@
-class AvatarsList {
+abstract class AvatarsList {
   static final avatarsList = [
     'assets/avatars/0.jpg',
     'assets/avatars/1.jpg',
