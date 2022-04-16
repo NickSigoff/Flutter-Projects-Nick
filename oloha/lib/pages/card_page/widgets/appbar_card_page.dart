@@ -38,11 +38,11 @@ class AppBarCardPage extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 20),
+          padding: const EdgeInsets.only(left: 20, bottom: 24, top: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Spacer(),
               GestureDetector(
                 onTap: () {
                   Navigator.pop(context);
@@ -89,7 +89,6 @@ class AppBarCardPage extends StatelessWidget {
                   ),
                 ],
               ),
-              const Spacer(),
             ],
           ),
         ),
