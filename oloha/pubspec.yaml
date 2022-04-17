@@ -61,6 +61,11 @@ flutter:
     - assets/posts/8.jpg
     - assets/posts/9.jpg
     - assets/posts/10.jpg
+    - assets/food/1.jpg
+    - assets/food/2.jpg
+    - assets/food/3.jpg
+    - assets/food/4.jpg
+    - assets/food/5.jpg
 
   fonts:
     - family: Gilroy-regular
