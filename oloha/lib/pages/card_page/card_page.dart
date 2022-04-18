@@ -7,6 +7,7 @@ import 'package:oloha/pages/card_page/widgets/community_page_card_page.dart';
 import 'package:oloha/pages/card_page/widgets/custom_tabbar_card_page.dart';
 import 'package:oloha/pages/card_page/widgets/icon_features_card_page.dart';
 import 'package:oloha/pages/card_page/widgets/location_widget_card_page.dart';
+import 'package:oloha/pages/card_page/widgets/photo_page_card_page.dart';
 
 import '../../utils/main_colors.dart';
 import '../../utils/restourants.dart';
@@ -101,15 +102,3 @@ class OverviewPage extends StatelessWidget {
     );
   }
 }
-
-class PhotoPage extends StatelessWidget {
-  const PhotoPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Photo'),
-    );
-  }
-}
-
