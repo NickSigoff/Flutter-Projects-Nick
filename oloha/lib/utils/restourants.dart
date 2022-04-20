@@ -1,16 +1,17 @@
 abstract class RestaurantsList {
   static final restaurantList = [
     Restaurant(
-      name: 'Hookah Place',
-      price: 100,
-      description: "Unique Egg coffee class with local",
-      imageName: 'assets/restaurants/1.jpg',
-      rating: 4.7,
-      type: "Restaurant",
-      opening: '07:30 - 23:00',
-      capacity: 15,
-      waitingTime: '3-5',
-    ),
+        name: 'Hookah Place',
+        price: 100,
+        description: "Unique Egg coffee class with local",
+        imageName: 'assets/restaurants/1.jpg',
+        rating: 4.7,
+        type: "Restaurant",
+        opening: '07:30 - 23:00',
+        capacity: 15,
+        waitingTime: '3-5',
+        about:
+            'A nice quaint cafe with a good view of the lower city and mountains. Good to visit even when cloudy or raining because they have a friendly pupper to keep guests company as you. A nice quaint cafe with a good view of the lower city and mountains. Good to visit even when cloudy or raining because they have a friendly pupper to keep guests company as you.'),
     Restaurant(
       name: 'Ember Restaurant & Bar',
       price: 70,
@@ -68,8 +69,7 @@ class Restaurant {
   final String opening;
   final int capacity;
   final String waitingTime;
-  final String about =
-      'A nice quaint cafe with a good view of the lower city and mountains. Good to visit even when cloudy or raining because they have a friendly pupper to keep guests company as you.';
+  final String about;
 
   Restaurant({
     required this.waitingTime,
@@ -81,5 +81,7 @@ class Restaurant {
     required this.description,
     required this.rating,
     required this.type,
+    this.about =
+        'A nice quaint cafe with a good view of the lower city and mountains. Good to visit even when cloudy or raining because they have a friendly pupper to keep guests company as you.',
   });
 }

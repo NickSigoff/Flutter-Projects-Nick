@@ -45,21 +45,59 @@ class _CardPageState extends State<CardPage> {
     return Scaffold(
       body: CustomScrollView(slivers: [
         SliverAppBar(
+          titleSpacing: 80,
+          title: Container(
+            alignment: Alignment.bottomLeft,
+            height: 60,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: const [
+                    Icon(Icons.place_outlined, color: Colors.white),
+                    Text(
+                      'Hanoi, Vietnam',
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontFamily: 'Gilroy-regular'),
+                    ),
+                  ],
+                ),
+                Text(
+                  item.name,
+                  style: const TextStyle(
+                    fontSize: 26,
+                    color: Colors.white,
+                    fontFamily: 'Gilroy-semibold',
+                  ),
+                ),
+              ],
+            ),
+          ),
           backgroundColor: MainColors.background,
           automaticallyImplyLeading: false,
           floating: false,
           pinned: true,
           snap: false,
           stretch: true,
-          collapsedHeight: 60,
-          expandedHeight: MediaQuery.of(context).size.height * 0.25,
+          collapsedHeight: 110,
+          expandedHeight: MediaQuery.of(context).size.height * 0.27,
+
           flexibleSpace: FlexibleSpaceBar(
+            titlePadding: const EdgeInsets.all(0),
+            expandedTitleScale: 1,
+            title: Container(
+              color: Colors.white,
+              alignment: Alignment.centerLeft,
+              height: 55,
+              width: MediaQuery.of(context).size.width,
+              child: CustomTabBar(
+                  item: item,
+                  onTap: _onTapChangePage,
+                  selectedPage: _selectedPage),
+            ),
             background: AppBarCardPage(item: item),
-            stretchModes: const [
-              StretchMode.blurBackground,
-              //StretchMode.fadeTitle,
-              //StretchMode.zoomBackground,
-            ],
           ),
         ),
         SliverList(
@@ -67,10 +105,6 @@ class _CardPageState extends State<CardPage> {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomTabBar(
-                    item: item,
-                    onTap: _onTapChangePage,
-                    selectedPage: _selectedPage),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 50),
                   child: pageList[_selectedPage],

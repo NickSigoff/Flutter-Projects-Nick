@@ -1,4 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+import '../../../../utils/main_colors.dart';
 
 class PhotoPattern2 extends StatelessWidget {
   final String image1;

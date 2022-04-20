@@ -111,10 +111,6 @@ class CustomTabBar extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            height: 1,
-            color: MainColors.horizontalLine,
-          ),
         ],
       ),
     );

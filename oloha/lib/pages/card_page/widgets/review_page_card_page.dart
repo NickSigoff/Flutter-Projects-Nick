@@ -4,28 +4,14 @@ import 'package:oloha/utils/avatars_list.dart';
 import 'package:oloha/utils/food_list.dart';
 import 'package:oloha/utils/main_colors.dart';
 
-class ReviewPage extends StatelessWidget {
+class ReviewPage extends StatefulWidget {
   const ReviewPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        YourRatingWidget(),
-      ],
-    );
-  }
+  State<ReviewPage> createState() => _ReviewPageState();
 }
 
-class YourRatingWidget extends StatefulWidget {
-  const YourRatingWidget({Key? key}) : super(key: key);
-
-  @override
-  State<YourRatingWidget> createState() => _YourRatingWidgetState();
-}
-
-class _YourRatingWidgetState extends State<YourRatingWidget> {
+class _ReviewPageState extends State<ReviewPage> {
   List<Widget> posts = [];
 
   @override
@@ -52,6 +38,7 @@ class _YourRatingWidgetState extends State<YourRatingWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const Padding(
           padding: EdgeInsets.symmetric(vertical: 16.0),
@@ -60,42 +47,72 @@ class _YourRatingWidgetState extends State<YourRatingWidget> {
             style: TextStyle(fontSize: 16, fontFamily: 'Gilroy-semibold'),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 24),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: const [
-              Icon(
-                Icons.star_border_purple500_outlined,
-                color: MainColors.horizontalLine,
-                size: 50,
-              ),
-              Icon(
-                Icons.star_border_purple500_outlined,
-                color: MainColors.horizontalLine,
-                size: 50,
-              ),
-              Icon(
-                Icons.star_border_purple500_outlined,
-                color: MainColors.horizontalLine,
-                size: 50,
-              ),
-              Icon(
-                Icons.star_border_purple500_outlined,
-                color: MainColors.horizontalLine,
-                size: 50,
-              ),
-              Icon(
-                Icons.star_border_purple500_outlined,
-                color: MainColors.horizontalLine,
-                size: 50,
-              ),
-            ],
-          ),
-        ),
+        Rating((p0) => null),
         ...posts,
       ],
     );
+  }
+}
+
+class Rating extends StatefulWidget {
+  final int maximumRating;
+  final Function(int) onRatingSelected;
+
+  Rating(this.onRatingSelected, [this.maximumRating = 5]);
+
+  @override
+  _Rating createState() => _Rating();
+}
+
+class _Rating extends State<Rating> {
+  int _currentRating = 0;
+
+  Widget _buildRatingStar(int index) {
+    if (index < _currentRating) {
+      return const Icon(
+        Icons.star_border_purple500_outlined,
+        color: MainColors.background,
+        size: 50,
+      );
+    } else {
+      return const Icon(
+        Icons.star_border_purple500_outlined,
+        color: MainColors.horizontalLine,
+        size: 50,
+      );
+    }
+  }
+
+  Widget _buildBody() {
+    final stars = List<Widget>.generate(this.widget.maximumRating, (index) {
+      return GestureDetector(
+        child: _buildRatingStar(index),
+        onTap: () {
+          setState(() {
+            _currentRating = index + 1;
+          });
+
+          widget.onRatingSelected(_currentRating);
+        },
+      );
+    });
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 24),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            children: stars,
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _buildBody();
   }
 }
 
@@ -129,7 +146,9 @@ class CommentWidget extends StatelessWidget {
               ],
             ),
           ),
-          const Spacer(flex: 1,),
+          const Spacer(
+            flex: 1,
+          ),
           Expanded(
             flex: 12,
             child: Column(

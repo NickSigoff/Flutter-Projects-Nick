@@ -22,7 +22,7 @@ class AppBarCardPage extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: 49,
+          top: 30,
           right: 20,
           child: Container(
             height: 42,
@@ -38,7 +38,7 @@ class AppBarCardPage extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 20, bottom: 24, top: 24),
+          padding: const EdgeInsets.only(left: 20, bottom: 70, top: 24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,27 +50,6 @@ class AppBarCardPage extends StatelessWidget {
                 child: const Icon(
                   Icons.arrow_back_ios,
                   color: Colors.white,
-                ),
-              ),
-              const Spacer(),
-              Row(
-                children: const [
-                  Icon(Icons.place_outlined, color: Colors.white),
-                  Text(
-                    'Hanoi, Vietnam',
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.white,
-                        fontFamily: 'Gilroy-regular'),
-                  ),
-                ],
-              ),
-              Text(
-                item.name,
-                style: const TextStyle(
-                  fontSize: 26,
-                  color: Colors.white,
-                  fontFamily: 'Gilroy-semibold',
                 ),
               ),
               const Spacer(),
