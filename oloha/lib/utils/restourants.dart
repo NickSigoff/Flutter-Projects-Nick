@@ -70,6 +70,7 @@ class Restaurant {
   final int capacity;
   final String waitingTime;
   final String about;
+  int stars = 0;
 
   Restaurant({
     required this.waitingTime,

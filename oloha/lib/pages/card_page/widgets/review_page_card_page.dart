@@ -4,8 +4,12 @@ import 'package:oloha/utils/avatars_list.dart';
 import 'package:oloha/utils/food_list.dart';
 import 'package:oloha/utils/main_colors.dart';
 
+import '../../../utils/restourants.dart';
+
 class ReviewPage extends StatefulWidget {
-  const ReviewPage({Key? key}) : super(key: key);
+  final Restaurant item;
+
+  const ReviewPage({Key? key, required this.item}) : super(key: key);
 
   @override
   State<ReviewPage> createState() => _ReviewPageState();
@@ -47,7 +51,7 @@ class _ReviewPageState extends State<ReviewPage> {
             style: TextStyle(fontSize: 16, fontFamily: 'Gilroy-semibold'),
           ),
         ),
-        Rating((p0) => null),
+        Rating((p0) => null, widget.item),
         ...posts,
       ],
     );
@@ -55,10 +59,11 @@ class _ReviewPageState extends State<ReviewPage> {
 }
 
 class Rating extends StatefulWidget {
+  final Restaurant item;
   final int maximumRating;
   final Function(int) onRatingSelected;
 
-  Rating(this.onRatingSelected, [this.maximumRating = 5]);
+  const Rating(this.onRatingSelected, this.item, [this.maximumRating = 5]);
 
   @override
   _Rating createState() => _Rating();
@@ -66,6 +71,12 @@ class Rating extends StatefulWidget {
 
 class _Rating extends State<Rating> {
   int _currentRating = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentRating = widget.item.stars;
+  }
 
   Widget _buildRatingStar(int index) {
     if (index < _currentRating) {
@@ -84,14 +95,14 @@ class _Rating extends State<Rating> {
   }
 
   Widget _buildBody() {
-    final stars = List<Widget>.generate(this.widget.maximumRating, (index) {
+    final stars = List<Widget>.generate(widget.maximumRating, (index) {
       return GestureDetector(
         child: _buildRatingStar(index),
         onTap: () {
           setState(() {
             _currentRating = index + 1;
+            widget.item.stars = _currentRating;
           });
-
           widget.onRatingSelected(_currentRating);
         },
       );

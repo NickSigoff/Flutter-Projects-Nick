@@ -38,7 +38,7 @@ class _CardPageState extends State<CardPage> {
         item: item,
       ),
       const PhotoPage(),
-      const ReviewPage(),
+      ReviewPage(item: item),
       const CommunityPage(),
     ];
 
