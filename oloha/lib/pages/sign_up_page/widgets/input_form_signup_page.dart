@@ -27,7 +27,7 @@ class InputFormSignUpPage extends StatelessWidget {
         children: [
           const HeaderInputFormSignUpPage(),
           const TextFieldsSignUpPage(),
-          SwitchConfirmText(),
+          const SwitchConfirmText(),
           const SignUpButton(),
           Container(
             alignment: Alignment.center,

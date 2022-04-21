@@ -51,7 +51,7 @@ class CardRestaurantWidget extends StatelessWidget {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => CardPage(),
+            builder: (context) => const CardPage(),
             settings: RouteSettings(arguments: item)));
   }
 

@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:oloha/utils/main_colors.dart';
 
 import '../../../utils/restourants.dart';
 
@@ -7,16 +9,50 @@ class AboutWidgetCardPage extends StatefulWidget {
 
   const AboutWidgetCardPage({Key? key, required this.item}) : super(key: key);
 
+  Size textSize(String text, TextStyle style) {
+    final TextPainter textPainter = TextPainter(
+        text: TextSpan(text: text, style: style),
+        maxLines: 4,
+        textDirection: TextDirection.ltr);
+    textPainter.layout(minWidth: 0, maxWidth: double.infinity);
+    return textPainter.size;
+  }
+
   @override
   State<AboutWidgetCardPage> createState() => _AboutWidgetCardPageState();
 }
 
 class _AboutWidgetCardPageState extends State<AboutWidgetCardPage> {
-  //bool _readMore = true;
+  var maxLines = 6;
+  final TextStyle textStyle = const TextStyle(
+    fontSize: 15,
+    fontFamily: 'Gilriy-regular',
+    color: Color(0xff696974),
+  );
+  bool readMore = false;
 
-  // void _onTapLink() {
-  //   setState(() => _readMore = !_readMore);
-  // }
+  @override
+  void initState() {
+    super.initState();
+    Size size = widget.textSize(widget.item.about, textStyle);
+    if (size.width > 1300) {
+      readMore = true;
+    }
+  }
+
+  void tapReadLess() {
+    setState(() {
+      maxLines = 6;
+      readMore = !readMore;
+    });
+  }
+
+  void tapReadMore() {
+    setState(() {
+      maxLines = 100;
+      readMore = !readMore;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,67 +61,54 @@ class _AboutWidgetCardPageState extends State<AboutWidgetCardPage> {
         horizontal: 20.0,
         vertical: 14.0,
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text('About\n',
-              style: TextStyle(
-                fontSize: 18,
-                fontFamily: 'Gilroy-semibold',
-                color: Colors.black,
-              )),
-          CustomPaint(
-            size: Size(MediaQuery.of(context).size.width, 60),
-            painter: MyPainter(widget.item),
-          ),
-        ],
+      child: RichText(
+        maxLines: maxLines,
+        text: TextSpan(
+            text: 'About\n\n',
+            style: const TextStyle(
+              fontSize: 18,
+              fontFamily: 'Gilroy-semibold',
+              color: Colors.black,
+            ),
+            children: readMore
+                ? [
+                    TextSpan(
+                      text: widget.item.about.substring(0, 200) + '...',
+                      style: textStyle,
+                    ),
+                    TextSpan(
+                      text: ' more...',
+                      recognizer: TapGestureRecognizer()..onTap = tapReadMore,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'Gilriy-regular',
+                        color: MainColors.background,
+                      ),
+                    )
+                  ]
+                : [
+                    maxLines > 4
+                        ? TextSpan(
+                            text: widget.item.about,
+                            style: textStyle,
+                            children: [
+                                TextSpan(
+                                  text: ' \nless...',
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = tapReadLess,
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    fontFamily: 'Gilriy-regular',
+                                    color: MainColors.background,
+                                  ),
+                                )
+                              ])
+                        : TextSpan(
+                            text: widget.item.about,
+                            style: textStyle,
+                          ),
+                  ]),
       ),
     );
-  }
-}
-
-class MyPainter extends CustomPainter {
-  final String _kEllipsis = '\u2026';
-  final Restaurant item;
-  final fontSize = 16.0;
-  var overflow = false;
-
-  MyPainter(this.item);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    if (fontSize * 4 > size.height) {
-      overflow = true;
-      print(overflow);
-    }
-
-    final textStyle = TextStyle(
-          fontSize: fontSize,
-          fontFamily: 'Gilroy-regular',
-          color: const Color(0xff696974),
-        ),
-        textSpan = TextSpan(
-                text: item.about,
-                style: textStyle,
-              );
-
-    final textPainter = TextPainter(
-      maxLines: 4,
-      ellipsis: '...',
-      text: textSpan,
-      textDirection: TextDirection.ltr,
-    );
-    textPainter.layout(
-      minWidth: 0,
-      maxWidth: size.width,
-    );
-
-    const offset = Offset(0, 0);
-    textPainter.paint(canvas, offset);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false;
   }
 }

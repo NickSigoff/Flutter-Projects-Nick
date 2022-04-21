@@ -57,7 +57,7 @@ class InputFormSignInPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SignUpPage()));
+                                  builder: (context) => const SignUpPage()));
                         },
                       text: ' Sign Up',
                       style: const TextStyle(

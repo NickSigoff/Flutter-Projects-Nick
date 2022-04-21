@@ -22,7 +22,8 @@ abstract class RestaurantsList {
       opening: '08:30 - 21:00',
       capacity: 20,
       waitingTime: '2-5',
-    ),
+      about:             'A nice quaint cafe with a good view of the lower city and mountains. Good to visit even when cloudy or raining because they have a friendly pupper to keep guests company as you. A nice quaint cafe with '),
+
     Restaurant(
       name: 'Cocktail BarDuck',
       price: 50,
