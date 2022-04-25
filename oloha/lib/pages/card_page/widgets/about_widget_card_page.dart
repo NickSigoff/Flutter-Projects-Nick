@@ -27,7 +27,7 @@ class _AboutWidgetCardPageState extends State<AboutWidgetCardPage> {
   final TextStyle textStyle = const TextStyle(
     fontSize: 15,
     fontFamily: 'Gilriy-regular',
-    color: Color(0xff696974),
+    color: MainColors.hintColor,
   );
   bool readMore = false;
 
