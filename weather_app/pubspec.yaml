@@ -59,6 +59,10 @@ flutter:
 
   assets:
     - assets/images/start_icon.png
+    - assets/images/welcome_images/night.png
+    - assets/images/welcome_images/sun.png
+    - assets/images/welcome_images/rain.png
+    - assets/images/welcome_images/sun_cloud.png
 
   fonts:
     - family: Poppins

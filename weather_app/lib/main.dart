@@ -1,12 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/pages/more_information_pages/night_page.dart';
 
-import 'pages/welcome_page/welcome_page.dart';
 
 void main() {
   runApp(
     MaterialApp(
-      home: WelcomePage(),
+      home: NightPage(),
     ),
   );
 }
