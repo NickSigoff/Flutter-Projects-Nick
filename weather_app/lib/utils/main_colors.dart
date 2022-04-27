@@ -12,4 +12,7 @@ abstract class MainColors {
 
   static const Color selectedTextMainPage = Color(0xffe6e9ea);
   static const Color unSelectedTextMainPage = Color(0xff69708d);
+
+  static const Color currentDateWidgetColor = Color(0xff32333e);
+  static const Color dateTextColor = Color(0xff9b9ead);
 }

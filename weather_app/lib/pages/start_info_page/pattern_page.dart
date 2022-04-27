@@ -3,7 +3,7 @@ import 'package:weather_app/utils/main_styles.dart';
 
 import '../../utils/list_slides_page.dart';
 import '../main_page/main_page.dart';
-import 'widgets/next_widget_pattern_page.dart';
+import 'widgets/next_button_widget_pattern_page.dart';
 
 class PatternPage extends StatefulWidget {
   const PatternPage({Key? key}) : super(key: key);

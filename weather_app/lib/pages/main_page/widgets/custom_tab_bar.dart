@@ -15,28 +15,22 @@ class CustomTabBar extends StatelessWidget {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / tabBarPagesNames.length;
 
-    return SizedBox(
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              ...List<Widget>.generate(
-                tabBarPagesNames.length,
-                (index) => TabButton(
-                  pageNumber: index,
-                  onTap: () {
-                    onTap(index);
-                  },
-                  selectedPage: selectedPage,
-                  width: width,
-                  text: tabBarPagesNames[index],
-                ),
-              )
-            ],
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        ...List<Widget>.generate(
+          tabBarPagesNames.length,
+          (index) => TabButton(
+            pageNumber: index,
+            onTap: () {
+              onTap(index);
+            },
+            selectedPage: selectedPage,
+            width: width,
+            text: tabBarPagesNames[index],
           ),
-        ],
-      ),
+        )
+      ],
     );
   }
 }

@@ -65,6 +65,15 @@ flutter:
     - assets/images/welcome_images/sun.png
     - assets/images/welcome_images/rain.png
     - assets/images/welcome_images/sun_cloud.png
+    - assets/images/weather_images/cloudy.png
+    - assets/images/weather_images/night_storm.png
+    - assets/images/weather_images/partly_cloudy.png
+    - assets/images/weather_images/partly_day_storm.png
+    - assets/images/weather_images/rain_storm.png
+    - assets/images/weather_images/rainy.png
+    - assets/images/weather_images/slight_touch_happyday.png
+    - assets/images/weather_images/snowy.png
+    - assets/images/weather_images/thanderstorm.png
 
   fonts:
     - family: Poppins
