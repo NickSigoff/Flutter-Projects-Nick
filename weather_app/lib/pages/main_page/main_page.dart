@@ -1,15 +1,60 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:weather_app/pages/main_page/widgets/custom_tab_bar.dart';
+import 'package:weather_app/utils/main_colors.dart';
 
-class MainPage extends StatelessWidget{
+class MainPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-   return Scaffold(
-     body: Container(
-       alignment: Alignment.center,
-       child: Text('MainPage'),
-     ),
-   );
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  int _selectedPage = 0;
+
+  void _onTapChangePage(int pageNum) {
+    setState(() {
+      _selectedPage = pageNum;
+    });
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        titleTextStyle: TextStyle(
+            fontSize: 14, fontWeight: FontWeight.w500, fontFamily: 'Poppins'),
+        centerTitle: true,
+        leading: Icon(Icons.menu),
+        elevation: 0,
+        backgroundColor: MainColors.backgroundMainPageLight,
+        title: Text('Your city, Your country'),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Icon(Icons.more_vert),
+          )
+        ],
+      ),
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              MainColors.backgroundMainPageLight,
+              MainColors.backgroundMainPageDark,
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        alignment: Alignment.center,
+        child: Column(
+          children: [
+            CustomTabBar(
+              onTap: _onTapChangePage,
+              selectedPage: _selectedPage,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

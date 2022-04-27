@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/pages/slide_pages/pattern_page.dart';
-
+import 'package:weather_app/pages/main_page/main_page.dart';
 
 void main() {
   runApp(
     MaterialApp(
-      home: PatternPage(),
+      home: MainPage(),
     ),
   );
 }
