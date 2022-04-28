@@ -27,7 +27,8 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  percent_indicator: ^3.4.0
+  percent_indicator: ^4.0.0
+  intl: ^0.17.0
   flutter:
     sdk: flutter
 
@@ -35,7 +36,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.4
 
 dev_dependencies:
   flutter_test:
@@ -46,7 +47,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^1.0.0
+  flutter_lints: ^1.0.4
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -66,14 +67,19 @@ flutter:
     - assets/images/welcome_images/rain.png
     - assets/images/welcome_images/sun_cloud.png
     - assets/images/weather_images/cloudy.png
-    - assets/images/weather_images/night_storm.png
-    - assets/images/weather_images/partly_cloudy.png
-    - assets/images/weather_images/partly_day_storm.png
-    - assets/images/weather_images/rain_storm.png
+    - assets/images/weather_images/little_rainy.png
+    - assets/images/weather_images/little_snowly.png
+    - assets/images/weather_images/moon.png
+    - assets/images/weather_images/partly_cloludy.png
+    - assets/images/weather_images/patry_sunny.png
     - assets/images/weather_images/rainy.png
-    - assets/images/weather_images/slight_touch_happyday.png
-    - assets/images/weather_images/snowy.png
+    - assets/images/weather_images/snowly.png
+    - assets/images/weather_images/sunny.png
     - assets/images/weather_images/thanderstorm.png
+    - assets/images/common_weather_icons/humidity.png
+    - assets/images/common_weather_icons/precepiation.png
+    - assets/images/common_weather_icons/sunset.png
+    - assets/images/common_weather_icons/wind.png
 
   fonts:
     - family: Poppins

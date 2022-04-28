@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'main_colors.dart';
+
 abstract class MainStyles {
   static TextStyle topTextTextStyle = const TextStyle(
     fontSize: 28,
@@ -15,4 +17,17 @@ abstract class MainStyles {
     fontWeight: FontWeight.w400,
   );
 
+  static TextStyle smallInscriptionsLight = const TextStyle(
+    color: Colors.white,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Poppins',
+  );
+
+  static TextStyle smallInscriptionsDark = const TextStyle(
+    color: MainColors.dateTextColor,
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Poppins',
+  );
 }

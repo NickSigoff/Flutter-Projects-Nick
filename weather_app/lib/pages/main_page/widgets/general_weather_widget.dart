@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/utils/main_styles.dart';
+
+import '../../../global_widgets/GradientText.dart';
 
 class GeneralWeatherWidget extends StatelessWidget {
   final String image = 'assets/images/weather_images/partly_cloudy.png';
   final String temperature = '33\u2103\n';
   final String weatherName = 'Party cloudy';
-  final String feelsLike = '29\u2103/27\u2103 | Feels like 39\u2103';
-  final String wind = 'Wind 9 KM/H WSW';
+  final String feelsLike = '29\u2103/27\u2103 | Feels like ';
+  final String feelsLikeTemperature = '39\u2103';
+  final String wind = 'Wind WSW ';
+  final String windSpeed = '9 KM/H';
 
   const GeneralWeatherWidget({Key? key}) : super(key: key);
 
@@ -21,9 +26,9 @@ class GeneralWeatherWidget extends StatelessWidget {
           SizedBox(
             height: 130,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
+                  flex: 3,
                   child: Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -33,50 +38,63 @@ class GeneralWeatherWidget extends StatelessWidget {
                     ),
                   ),
                 ),
+                const Spacer(
+                  flex: 1,
+                ),
                 Expanded(
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(
-                        text: temperature,
+                  flex: 4,
+                  child: Stack(
+                    alignment: Alignment.topCenter,
+                    children: [
+                      GradientText(
+                        temperature,
                         style: const TextStyle(
-                          fontSize: 50,
+                          color: Colors.white,
+                          fontSize: 70,
                           fontWeight: FontWeight.w800,
                           fontFamily: 'Poppins',
                         ),
-                        children: [
-                          TextSpan(
-                            text: weatherName,
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: 'Poppins',
-                            ),
-                          ),
-                        ]),
+                        gradient: const LinearGradient(
+                          colors: [Color(0xffcccdd5), Color(0xff545760)],
+                        ),
+                      ),
+                      Positioned(
+                        bottom: 16,
+                        child: Text(
+                          weatherName,
+                          style: MainStyles.smallInscriptionsLight,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                feelsLike,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Poppins',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400),
+              RichText(
+                text: TextSpan(
+                    text: feelsLike,
+                    style: MainStyles.smallInscriptionsDark,
+                    children: [
+                      TextSpan(
+                        text: feelsLikeTemperature,
+                        style: MainStyles.smallInscriptionsLight,
+                      )
+                    ]),
               ),
-              Text(
-                wind,
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontFamily: 'Poppins',
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400),
+              RichText(
+                text: TextSpan(
+                    text: wind,
+                    style: MainStyles.smallInscriptionsDark,
+                    children: [
+                      TextSpan(
+                        text: windSpeed,
+                        style: MainStyles.smallInscriptionsLight,
+                      )
+                    ]),
               ),
             ],
           ),
