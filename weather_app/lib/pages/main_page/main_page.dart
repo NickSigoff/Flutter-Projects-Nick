@@ -11,8 +11,6 @@ import 'package:weather_app/utils/main_colors.dart';
 
 import '../../models/weather_forecast.dart';
 
-
-
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -23,7 +21,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   late Future<WeatherForecast> forecast;
   int _selectedPage = 0;
-  final String cityName = 'London';
+  final double latitude = 33.44;
+  final double longitude = -94.04;
 
   void _onTapChangePage(int pageNum) {
     setState(() {
@@ -35,61 +34,70 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
 
-    forecast = WeatherApi().getWeatherForecastWithCoor(city: 'London');
+    forecast =
+        WeatherApi().getWeatherForecastWithCoord(lat: latitude, lon: longitude);
 
-    forecast.then((value) {
-      print(value.main?.temp);
-      print(value.weather?[0].main);
-    });
+    forecast.then((value) => (value.timezone));
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        titleTextStyle: const TextStyle(
-            fontSize: 14, fontWeight: FontWeight.w500, fontFamily: 'Poppins'),
-        centerTitle: true,
-        leading: const Icon(Icons.menu),
-        elevation: 0,
-        backgroundColor: MainColors.backgroundMainPageLight,
-        title: const Text('Your city, Your country'),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
-            child: Icon(Icons.more_vert),
-          )
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.only(bottom: 24),
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [
-                MainColors.backgroundMainPageLight,
-                MainColors.backgroundMainPageDark,
-              ],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-            ),
-          ),
-          alignment: Alignment.center,
-          child: Column(
-            children: [
-              CustomTabBar(
-                onTap: _onTapChangePage,
-                selectedPage: _selectedPage,
-              ),
-              CurrentDateWidget(),
-              const GeneralWeatherWidget(),
-              GeneralParameters(),
-              const HourlyForecast(),
-              const DailyForecast(),
-            ],
-          ),
-        ),
-      ),
-    );
+    return FutureBuilder<WeatherForecast>(
+        future: forecast,
+        builder:
+            (BuildContext context, AsyncSnapshot<WeatherForecast> snapshot) {
+          return snapshot.hasData
+              ? Scaffold(
+                  appBar: AppBar(
+                    titleTextStyle: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: 'Poppins'),
+                    centerTitle: true,
+                    leading: const Icon(Icons.menu),
+                    elevation: 0,
+                    backgroundColor: MainColors.backgroundMainPageLight,
+                    title: Text(snapshot.data!.timezone!),
+                    //todo need check?
+                    actions: const [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Icon(Icons.more_vert),
+                      )
+                    ],
+                  ),
+                  body: SingleChildScrollView(
+                    child: Container(
+                      padding: const EdgeInsets.only(bottom: 24),
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            MainColors.backgroundMainPageLight,
+                            MainColors.backgroundMainPageDark,
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                        ),
+                      ),
+                      alignment: Alignment.center,
+                      child: Column(
+                        children: [
+                          CustomTabBar(
+                            snapshot: snapshot,
+                            onTap: _onTapChangePage,
+                            selectedPage: _selectedPage,
+                          ),
+                          CurrentDateWidget(),
+                          GeneralWeatherWidget(snapshot: snapshot),
+                          GeneralParameters(snapshot: snapshot),
+                          HourlyForecast(snapshot: snapshot),
+                          DailyForecast(snapshot: snapshot),
+                        ],
+                      ),
+                    ),
+                  ),
+                )
+              : const Center(child: CircularProgressIndicator());
+        });
   }
 }

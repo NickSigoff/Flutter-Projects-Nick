@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/models/weather_forecast.dart';
 import '../../../utils/main_styles.dart';
 
 class GeneralParameters extends StatelessWidget {
@@ -22,7 +23,9 @@ class GeneralParameters extends StatelessWidget {
     ' 29%',
   ];
 
-  GeneralParameters({Key? key}) : super(key: key);
+  final AsyncSnapshot<WeatherForecast>snapshot;
+
+  GeneralParameters({Key? key,required this.snapshot}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

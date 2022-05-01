@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/models/weather_forecast.dart';
 
 import '../../../utils/main_colors.dart';
 
 class CustomTabBar extends StatelessWidget {
   final Function onTap;
   final int selectedPage;
+  final AsyncSnapshot<WeatherForecast>snapshot;
 
-  CustomTabBar({Key? key, required this.onTap, required this.selectedPage})
+  CustomTabBar({Key? key,required this.snapshot, required this.onTap, required this.selectedPage})
       : super(key: key);
 
   final List<String> tabBarPagesNames = ['Today', 'Tomorrow', 'Forecast'];

@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_app/models/weather_forecast.dart';
 
 import '../../../utils/main_colors.dart';
 import '../../../utils/main_styles.dart';
 
 class DailyForecast extends StatelessWidget {
-  const DailyForecast({Key? key}) : super(key: key);
+  final AsyncSnapshot<WeatherForecast> snapshot;
+
+  const DailyForecast({Key? key, required this.snapshot}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/utils/main_styles.dart';
 
 import '../../../utils/main_colors.dart';
 
 class HourlyForecast extends StatelessWidget {
-  const HourlyForecast({Key? key}) : super(key: key);
+  final AsyncSnapshot<WeatherForecast>snapshot;
+
+  const HourlyForecast({Key? key, required this.snapshot}) : super(key: key);
+
 
   List<int> makeListHours() {
     List<int> result = [];
