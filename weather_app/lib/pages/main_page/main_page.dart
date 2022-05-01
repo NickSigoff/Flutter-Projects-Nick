@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/api/weather_api.dart';
+
 import 'package:weather_app/pages/main_page/widgets/current_date_widget_main_page.dart';
 import 'package:weather_app/pages/main_page/widgets/custom_tab_bar.dart';
 import 'package:weather_app/pages/main_page/widgets/daily_forecast.dart';
@@ -6,6 +8,10 @@ import 'package:weather_app/pages/main_page/widgets/general_weather_widget.dart'
 import 'package:weather_app/pages/main_page/widgets/general_parameters_widget.dart';
 import 'package:weather_app/pages/main_page/widgets/hourly_forecast_widget.dart';
 import 'package:weather_app/utils/main_colors.dart';
+
+import '../../models/weather_forecast.dart';
+
+
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -15,11 +21,25 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  late Future<WeatherForecast> forecast;
   int _selectedPage = 0;
+  final String cityName = 'London';
 
   void _onTapChangePage(int pageNum) {
     setState(() {
       _selectedPage = pageNum;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    forecast = WeatherApi().getWeatherForecastWithCoor(city: 'London');
+
+    forecast.then((value) {
+      print(value.main?.temp);
+      print(value.weather?[0].main);
     });
   }
 
@@ -63,10 +83,6 @@ class _MainPageState extends State<MainPage> {
               ),
               CurrentDateWidget(),
               const GeneralWeatherWidget(),
-              // Divider(
-              //   thickness: 1,
-              //   color: Colors.red,
-              // ),
               GeneralParameters(),
               const HourlyForecast(),
               const DailyForecast(),
