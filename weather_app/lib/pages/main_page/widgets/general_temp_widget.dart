@@ -12,11 +12,12 @@ class GeneralTempWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var currentWeather = snapshot.data!.current!;
     final String temperature =
-        '${snapshot.data!.current!.temp!.toStringAsFixed(0)}${Constants.degreeMetric}';
-    final String description = '${snapshot.data!.current!.weather![0].main} ';
+        '${currentWeather.temp!.toStringAsFixed(0)}${Constants.degreeMetric}';
+    final String description = '${currentWeather.weather![0].main} ';
     final String feelsLike =
-        '${snapshot.data!.current!.feelsLike!.toStringAsFixed(0)}${Constants.degreeMetric}';
+        '${currentWeather.feelsLike!.toStringAsFixed(0)}${Constants.degreeMetric}';
 
     // todo how to do checking null value for the whole object?
     return Container(

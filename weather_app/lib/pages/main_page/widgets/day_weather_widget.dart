@@ -23,6 +23,18 @@ class DayWeather extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String date = getDate(index);
+    var dailyWeather = snapshot.data!.daily![index];
+
+    Image weatherImage = Image.network(
+        dailyWeather.getDailyIconUrl() + Constants.imagesExtension);
+
+    Text minTemp = Text(
+        '${dailyWeather.temp!.min!.toStringAsFixed(0)}${Constants.degreeMetric}',
+        style: MainStyles.smallInscriptionsLight);
+
+    Text maxTemp = Text(
+        '${dailyWeather.temp!.max!.toStringAsFixed(0)}${Constants.degreeMetric}',
+        style: MainStyles.smallInscriptionsLight);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -48,29 +60,15 @@ class DayWeather extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
           ),
-          Expanded(
-              flex: 1,
-              child: Image.network(
-                  snapshot.data!.daily![index].getDailyIconUrl() +
-                      Constants.imagesExtension)),
-          const Spacer(
-            flex: 1,
-          ),
+          Expanded(flex: 1, child: weatherImage),
+          const Spacer(flex: 1),
           Expanded(
             flex: 2,
             child: Row(
               children: [
-                Text(
-                  '${snapshot.data!.daily![index].temp!.min!.toStringAsFixed(0)}${Constants.degreeMetric}',
-                  style: MainStyles.smallInscriptionsLight,
-                ),
-                const SizedBox(
-                  width: 16,
-                ),
-                Text(
-                  '${snapshot.data!.daily![index].temp!.max!.toStringAsFixed(0)}${Constants.degreeMetric}',
-                  style: MainStyles.smallInscriptionsLight,
-                ),
+                minTemp,
+                const SizedBox(width: 16),
+                maxTemp,
               ],
             ),
           ),

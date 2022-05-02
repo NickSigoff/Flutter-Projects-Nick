@@ -12,6 +12,7 @@ abstract class Constants {
   static const String imagesExtension = '.png';
   static const String degreeMetric = '\u2103';
   static const String speedMetric = 'KM/H';
+  static const String pressureMetric = 'mm Hg';
 
   static const String degreeSymbol = '\u00B0';
 }

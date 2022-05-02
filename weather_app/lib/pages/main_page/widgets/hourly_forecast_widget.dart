@@ -11,6 +11,7 @@ class HourlyForecast extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var hourlyWeather = snapshot.data!.hourly!;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
@@ -31,11 +32,11 @@ class HourlyForecast extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) =>
                   HourWeatherWidget(
                       dateTime: DateTime.fromMillisecondsSinceEpoch(
-                          snapshot.data!.hourly![index].dt! * 1000 +
+                          hourlyWeather[index].dt! * 1000 +
                               snapshot.data!.timezoneOffset! * 1000),
-                      temperature: snapshot.data!.hourly![index].temp!,
-                      icon: snapshot.data!.hourly![index].getHourlyIconUrl()),
-              itemCount: snapshot.data!.hourly!.length,
+                      temperature: hourlyWeather[index].temp!,
+                      icon: hourlyWeather[index].getHourlyIconUrl()),
+              itemCount: hourlyWeather.length,
               separatorBuilder: (BuildContext context, int index) =>
                   const SizedBox(
                 width: 16,

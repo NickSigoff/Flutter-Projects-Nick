@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/api/weather_api.dart';
 
-import 'package:weather_app/pages/main_page/widgets/current_date_widget_main_page.dart';
+import 'package:weather_app/pages/main_page/widgets/current_date_widget.dart';
 import 'package:weather_app/pages/main_page/widgets/custom_tab_bar.dart';
 import 'package:weather_app/pages/main_page/widgets/daily_forecast_widget.dart';
 import 'package:weather_app/pages/main_page/widgets/general_temp_widget.dart';

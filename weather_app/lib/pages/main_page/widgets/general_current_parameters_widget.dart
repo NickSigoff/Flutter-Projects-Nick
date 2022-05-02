@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/pages/main_page/widgets/current_parameter_widget.dart';
 import '../../../utils/constants.dart';
@@ -24,17 +25,20 @@ class GeneralCurrentParameters extends StatelessWidget {
 
   final AsyncSnapshot<WeatherForecast> snapshot;
 
-  GeneralCurrentParameters({Key? key, required this.snapshot}) : super(key: key);
+  GeneralCurrentParameters({Key? key, required this.snapshot})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var currentWeather = snapshot.data!.current!;
+    var timeOffset = snapshot.data!.timezoneOffset! * 1000;
     List<String> values = [
-      ' ${DateTime.fromMillisecondsSinceEpoch(snapshot.data!.current!.sunrise! * 1000).hour}:${DateTime.fromMillisecondsSinceEpoch(snapshot.data!.current!.sunrise! * 1000).minute}',
-      ' ${DateTime.fromMillisecondsSinceEpoch(snapshot.data!.current!.sunset! * 1000).hour}:${DateTime.fromMillisecondsSinceEpoch(snapshot.data!.current!.sunset! * 1000).minute}',
-      ' ${WindDirection.chooseWindDirection(snapshot.data!.current!.windDeg!)}',
-      ' ${snapshot.data!.current!.windSpeed} ${Constants.speedMetric}',
-      ' ${snapshot.data!.current!.pressure!}',
-      ' ${snapshot.data!.current!.humidity}%',
+      ' ${DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(currentWeather.sunrise! * 1000 + timeOffset))}',
+      ' ${DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(currentWeather.sunset! * 1000 + timeOffset))}',
+      ' ${WindDirection.chooseWindDirection(currentWeather.windDeg!)}',
+      ' ${currentWeather.windSpeed} ${Constants.speedMetric}',
+      ' ${currentWeather.pressure!} ${Constants.pressureMetric}',
+      ' ${currentWeather.humidity}%',
     ];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
@@ -52,5 +56,3 @@ class GeneralCurrentParameters extends StatelessWidget {
     );
   }
 }
-
-
