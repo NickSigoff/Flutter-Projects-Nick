@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../../../models/weather_forecast.dart';
 import '../../../utils/main_colors.dart';
 
 class CurrentDateWidget extends StatelessWidget {
-  CurrentDateWidget({Key? key}) : super(key: key); // 8:18pm
+  final AsyncSnapshot<WeatherForecast> snapshot;
+
+  CurrentDateWidget({Key? key, required this.snapshot})
+      : super(key: key); // 8:18pm
 
   getCurrentDate() {
-    var date = DateTime.now();
+    var date = DateTime.fromMillisecondsSinceEpoch(
+        snapshot.data!.hourly![0].dt! * 1000);
     return DateFormat('EEEE, d MMM, yyyy').format(date);
   }
 

@@ -4,7 +4,7 @@ import 'package:weather_app/api/weather_api.dart';
 import 'package:weather_app/pages/main_page/widgets/current_date_widget_main_page.dart';
 import 'package:weather_app/pages/main_page/widgets/custom_tab_bar.dart';
 import 'package:weather_app/pages/main_page/widgets/daily_forecast.dart';
-import 'package:weather_app/pages/main_page/widgets/general_weather_widget.dart';
+import 'package:weather_app/pages/main_page/widgets/general_temp_widget.dart';
 import 'package:weather_app/pages/main_page/widgets/general_parameters_widget.dart';
 import 'package:weather_app/pages/main_page/widgets/hourly_forecast_widget.dart';
 import 'package:weather_app/utils/main_colors.dart';
@@ -87,8 +87,8 @@ class _MainPageState extends State<MainPage> {
                             onTap: _onTapChangePage,
                             selectedPage: _selectedPage,
                           ),
-                          CurrentDateWidget(),
-                          GeneralWeatherWidget(snapshot: snapshot),
+                          CurrentDateWidget(snapshot: snapshot),
+                          GeneralTempWidget(snapshot: snapshot),
                           GeneralParameters(snapshot: snapshot),
                           HourlyForecast(snapshot: snapshot),
                           DailyForecast(snapshot: snapshot),

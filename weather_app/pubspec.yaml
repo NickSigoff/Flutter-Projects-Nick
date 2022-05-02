@@ -47,8 +47,10 @@ flutter:
     - assets/images/weather_images/sunny.png
     - assets/images/weather_images/thanderstorm.png
     - assets/images/common_weather_icons/humidity.png
-    - assets/images/common_weather_icons/precepiation.png
+    - assets/images/common_weather_icons/pressure.png
+    - assets/images/common_weather_icons/wind_direction.png
     - assets/images/common_weather_icons/sunset.png
+    - assets/images/common_weather_icons/sun.png
     - assets/images/common_weather_icons/wind.png
 
   fonts:

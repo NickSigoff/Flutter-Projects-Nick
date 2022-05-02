@@ -6,7 +6,8 @@ abstract class Constants {
   static const String weatherStart = 'https://';
   static const String weatherDomainName = 'api.openweathermap.org';
   static const String weatherExclude = 'alerts,minutely';
-
-  //static const String weatherForecastPath = '/data/2.5/weather';
   static const String weatherForecastPath = '/data/2.5/onecall';
+  static const String imagesExtension = '.png';
+
+  static const String weatherImagesPath = 'https://openweathermap.org/img/wn/';
 }

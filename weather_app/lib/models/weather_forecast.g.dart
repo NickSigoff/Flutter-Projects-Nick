@@ -11,7 +11,7 @@ WeatherForecast _$WeatherForecastFromJson(Map<String, dynamic> json) =>
       lat: (json['lat'] as num?)?.toDouble(),
       lon: (json['lon'] as num?)?.toDouble(),
       timezone: json['timezone'] as String?,
-      timezoneOffset: json['timezoneOffset'] as int?,
+      timezoneOffset: json['timezone_offset'] as int?,
       current: json['current'] == null
           ? null
           : Current.fromJson(json['current'] as Map<String, dynamic>),
@@ -28,7 +28,7 @@ Map<String, dynamic> _$WeatherForecastToJson(WeatherForecast instance) =>
       'lat': instance.lat,
       'lon': instance.lon,
       'timezone': instance.timezone,
-      'timezoneOffset': instance.timezoneOffset,
+      'timezone_offset': instance.timezoneOffset,
       'current': instance.current,
       'hourly': instance.hourly,
       'daily': instance.daily,

@@ -1,41 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/models/weather_forecast.dart';
 import '../../../utils/main_styles.dart';
+import '../../../utils/wind_direction.dart';
 
 class GeneralParameters extends StatelessWidget {
+  final String speedMetric = 'KM/H';
+
   final List<String> iconsText = [
-    'Precipitation:',
-    'Wind:',
+    'Sunrise',
+    'Sunset:',
+    'Wind direction:',
+    'Wind speed',
+    'Pressure:',
     'Humidity:',
-    'Sunset:'
   ];
   final List<String> icons = [
-    'assets/images/common_weather_icons/precepiation.png',
-    'assets/images/common_weather_icons/wind.png',
-    'assets/images/common_weather_icons/humidity.png',
+    'assets/images/common_weather_icons/sun.png',
     'assets/images/common_weather_icons/sunset.png',
+    'assets/images/common_weather_icons/wind_direction.png',
+    'assets/images/common_weather_icons/wind.png',
+    'assets/images/common_weather_icons/pressure.png',
+    'assets/images/common_weather_icons/humidity.png',
   ];
 
-  final List<String> values = [
-    ' 21%',
-    ' 10 km/h',
-    ' 59%',
-    ' 29%',
-  ];
+  final AsyncSnapshot<WeatherForecast> snapshot;
 
-  final AsyncSnapshot<WeatherForecast>snapshot;
-
-  GeneralParameters({Key? key,required this.snapshot}) : super(key: key);
+  GeneralParameters({Key? key, required this.snapshot}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<String> values = [
+      ' ${DateTime.fromMillisecondsSinceEpoch(snapshot.data!.current!.sunrise! * 1000).hour}:${DateTime.fromMillisecondsSinceEpoch(snapshot.data!.current!.sunrise! * 1000).minute}',
+      ' ${DateTime.fromMillisecondsSinceEpoch(snapshot.data!.current!.sunset! * 1000).hour}:${DateTime.fromMillisecondsSinceEpoch(snapshot.data!.current!.sunset! * 1000).minute}',
+      ' ${WindDirection.chooseWindDirection(snapshot.data!.current!.windDeg!)}',
+      ' ${snapshot.data!.current!.windSpeed} $speedMetric',
+      ' ${snapshot.data!.current!.pressure!}',
+      ' ${snapshot.data!.current!.humidity}%',
+    ];
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
       child: Wrap(
         alignment: WrapAlignment.center,
         children: [
           ...List<Widget>.generate(
-              4,
+              values.length,
               (index) => Item(
                   text: iconsText[index],
                   icon: icons[index],
@@ -65,13 +73,14 @@ class Item extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 40,
-            height: 40,
+            width: 30,
+            height: 30,
             decoration: BoxDecoration(
-                image: DecorationImage(
-              image: AssetImage(icon),
-              fit: BoxFit.fill,
-            )),
+              image: DecorationImage(
+                image: AssetImage(icon),
+                fit: BoxFit.fill,
+              ),
+            ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
