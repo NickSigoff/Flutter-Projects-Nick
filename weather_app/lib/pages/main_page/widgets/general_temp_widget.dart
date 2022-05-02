@@ -6,9 +6,6 @@ import '../../../global_widgets/GradientText.dart';
 import '../../../utils/constants.dart';
 
 class GeneralTempWidget extends StatelessWidget {
-  final String metric = '\u2103';
-  final String degreeSymbol = '\u00B0';
-
   final AsyncSnapshot<WeatherForecast> snapshot;
 
   const GeneralTempWidget({Key? key, required this.snapshot}) : super(key: key);
@@ -16,10 +13,10 @@ class GeneralTempWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String temperature =
-        '${snapshot.data!.current!.temp!.toStringAsFixed(0)}$metric';
+        '${snapshot.data!.current!.temp!.toStringAsFixed(0)}${Constants.degreeMetric}';
     final String description = '${snapshot.data!.current!.weather![0].main} ';
     final String feelsLike =
-        '${snapshot.data!.current!.feelsLike!.toStringAsFixed(0)}$metric';
+        '${snapshot.data!.current!.feelsLike!.toStringAsFixed(0)}${Constants.degreeMetric}';
 
     // todo how to do checking null value for the whole object?
     return Container(
@@ -32,7 +29,6 @@ class GeneralTempWidget extends StatelessWidget {
             child: Image.network(
               snapshot.data!.getCurrentIconUrl() + Constants.imagesExtension,
               scale: 0.5,
-              color: Colors.yellow,
             ),
           ),
           Expanded(
