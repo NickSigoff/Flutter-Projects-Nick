@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/models/weather_forecast.dart';
 
+import '../../../utils/constants.dart';
 import '../../../utils/main_colors.dart';
 import '../../../utils/main_styles.dart';
 
@@ -25,7 +26,6 @@ class DailyForecast extends StatelessWidget {
             ),
           ),
           Container(
-            //height: 250,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.0),
               gradient: const LinearGradient(
@@ -36,8 +36,8 @@ class DailyForecast extends StatelessWidget {
             ),
             child: Column(
               children: [
-                ...List<Widget>.generate(
-                    7, (index) => DayCommonInfo(index: index))
+                ...List<Widget>.generate(7,
+                    (index) => DayCommonInfo(snapshot: snapshot, index: index))
               ],
             ),
           ),
@@ -48,15 +48,22 @@ class DailyForecast extends StatelessWidget {
 }
 
 class DayCommonInfo extends StatelessWidget {
+  final AsyncSnapshot<WeatherForecast> snapshot;
   final int index;
-  DateTime startDate = DateTime.now();
 
-  DayCommonInfo({required this.index, Key? key}) : super(key: key);
+  const DayCommonInfo({required this.index, required this.snapshot, Key? key})
+      : super(key: key);
+
+  String getDate(int index) {
+    var date = DateTime.fromMillisecondsSinceEpoch(
+        snapshot.data!.daily![index].dt! * 1000 +
+            snapshot.data!.timezoneOffset! * 1000);
+    return DateFormat('EEEE, d MMM, yyyy').format(date);
+  }
 
   @override
   Widget build(BuildContext context) {
-    DateTime nextDate =
-        DateTime.utc(startDate.year, startDate.month, startDate.day + index);
+    String date = getDate(index);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -77,17 +84,14 @@ class DayCommonInfo extends StatelessWidget {
                     style: MainStyles.smallInscriptionsLight,
                   )
                 : Text(
-                    DateFormat('EEEE, d MMM, yyyy').format(nextDate),
+                    date,
                     style: MainStyles.smallInscriptionsLight,
                     overflow: TextOverflow.ellipsis,
                   ),
           ),
-          const Expanded(
+           Expanded(
             flex: 1,
-            child: Icon(
-              Icons.cloud,
-              color: Colors.white,
-            ),
+            child: Image.network(snapshot.data!.daily![index].getDailyIconUrl() + Constants.imagesExtension)
           ),
           const Spacer(
             flex: 1,
@@ -97,14 +101,14 @@ class DayCommonInfo extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  '86\u2103',
+                  '${snapshot.data!.daily![index].temp!.min!.toStringAsFixed(0)}\u2103',
                   style: MainStyles.smallInscriptionsLight,
                 ),
                 const SizedBox(
                   width: 16,
                 ),
                 Text(
-                  '67\u2103',
+                  '${snapshot.data!.daily![index].temp!.max!.toStringAsFixed(0)}\u2103',
                   style: MainStyles.smallInscriptionsLight,
                 ),
               ],

@@ -192,6 +192,10 @@ class Daily {
   factory Daily.fromJson(Map<String, dynamic> json) => _$DailyFromJson(json);
 
   Map<String, dynamic> toJson() => _$DailyToJson(this);
+
+  String getDailyIconUrl() {
+   return Constants.weatherImagesPath + weather![0].icon!;
+  }
 }
 
 @JsonSerializable()

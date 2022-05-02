@@ -7,12 +7,13 @@ import '../../../utils/main_colors.dart';
 class CurrentDateWidget extends StatelessWidget {
   final AsyncSnapshot<WeatherForecast> snapshot;
 
-  CurrentDateWidget({Key? key, required this.snapshot})
+  const CurrentDateWidget({Key? key, required this.snapshot})
       : super(key: key); // 8:18pm
 
-  getCurrentDate() {
+  String getCurrentDate() {
     var date = DateTime.fromMillisecondsSinceEpoch(
-        snapshot.data!.hourly![0].dt! * 1000);
+        snapshot.data!.hourly![0].dt! * 1000 +
+            snapshot.data!.timezoneOffset! * 1000);
     return DateFormat('EEEE, d MMM, yyyy').format(date);
   }
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/utils/main_styles.dart';
 
@@ -11,27 +10,9 @@ class HourlyForecast extends StatelessWidget {
 
   const HourlyForecast({Key? key, required this.snapshot}) : super(key: key);
 
-  List<int> makeListHours() {
-    List<int> result = [];
-    var date = DateTime.now();
-    var currentHour = date.hour;
-
-    while (currentHour < 23) {
-      result.add(++currentHour);
-    }
-    for (int i = 0; i < date.hour; i++) {
-      result.add(i);
-    }
-    return result;
-  }
-
   @override
   Widget build(BuildContext context) {
-    var date = DateTime.fromMillisecondsSinceEpoch(
-        snapshot.data!.hourly![0].dt! * 1000 +
-            snapshot.data!.timezoneOffset! * 1000);
-    print(date);
-    List<int> hours = makeListHours();
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
@@ -48,18 +29,20 @@ class HourlyForecast extends StatelessWidget {
             height: 100,
             width: MediaQuery.of(context).size.width,
             child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemBuilder: (BuildContext context, int index) =>
-                    HourWeatherWidget(
-                        dateTime: DateTime.fromMillisecondsSinceEpoch(
-                            snapshot.data!.hourly![index].dt! * 1000),
-                        temperature: snapshot.data!.hourly![index].temp!,
-                        icon: snapshot.data!.hourly![index].getHourlyIconUrl()),
-                itemCount: hours.length,
-                separatorBuilder: (BuildContext context, int index) =>
-                    const SizedBox(
-                      width: 14,
-                    )),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) =>
+                  HourWeatherWidget(
+                      dateTime: DateTime.fromMillisecondsSinceEpoch(
+                          snapshot.data!.hourly![index].dt! * 1000 +
+                              snapshot.data!.timezoneOffset! * 1000),
+                      temperature: snapshot.data!.hourly![index].temp!,
+                      icon: snapshot.data!.hourly![index].getHourlyIconUrl()),
+              itemCount: snapshot.data!.hourly!.length,
+              separatorBuilder: (BuildContext context, int index) =>
+                  const SizedBox(
+                width: 16,
+              ),
+            ),
           ),
         ],
       ),
@@ -94,7 +77,10 @@ class HourWeatherWidget extends StatelessWidget {
             '${dateTime.hour}:00',
             style: MainStyles.smallInscriptionsLight,
           ),
-          Image.network(icon + Constants.imagesExtension, scale: 1.4,),
+          Image.network(
+            icon + Constants.imagesExtension,
+            scale: 1.4,
+          ),
           Text(
             '${temperature.toStringAsFixed(0)}\u2103',
             style: MainStyles.smallInscriptionsLight,

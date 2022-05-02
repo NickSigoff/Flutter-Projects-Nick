@@ -32,7 +32,7 @@ class GeneralTempWidget extends StatelessWidget {
             child: Image.network(
               snapshot.data!.getCurrentIconUrl() + Constants.imagesExtension,
               scale: 0.5,
-              color: Colors.blue,
+              color: Colors.yellow,
             ),
           ),
           Expanded(
@@ -52,22 +52,23 @@ class GeneralTempWidget extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                    bottom: 0,
-                    child: RichText(
-                      text: TextSpan(
-                          text: description,
-                          style: MainStyles.smallInscriptionsLight,
-                          children: [
-                            TextSpan(
-                              text: 'Feels like ',
-                              style: MainStyles.smallInscriptionsDark,
-                            ),
-                            TextSpan(
-                              text: feelsLike,
-                              style: MainStyles.smallInscriptionsLight,
-                            ),
-                          ]),
-                    ))
+                  bottom: 0,
+                  child: RichText(
+                    text: TextSpan(
+                        text: description,
+                        style: MainStyles.smallInscriptionsLight,
+                        children: [
+                          TextSpan(
+                            text: 'Feels like ',
+                            style: MainStyles.smallInscriptionsDark,
+                          ),
+                          TextSpan(
+                            text: feelsLike,
+                            style: MainStyles.smallInscriptionsLight,
+                          ),
+                        ]),
+                  ),
+                )
               ],
             ),
           ),
