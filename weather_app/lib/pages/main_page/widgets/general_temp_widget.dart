@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/utils/main_styles.dart';
 
-import '../../../global_widgets/GradientText.dart';
+import '../../../global_widgets/gradient_text.dart';
 import '../../../utils/constants.dart';
 
 class GeneralTempWidget extends StatelessWidget {

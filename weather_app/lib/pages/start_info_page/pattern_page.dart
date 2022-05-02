@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/pages/start_info_page/widgets/skip_button_widget.dart';
 import 'package:weather_app/utils/main_styles.dart';
 
 import '../../utils/list_slides_page.dart';
@@ -27,7 +28,7 @@ class _PatternPageState extends State<PatternPage> {
 
   void skipTap() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => MainPage()));
+        context, MaterialPageRoute(builder: (context) => const MainPage()));
   }
 
   @override
@@ -86,32 +87,16 @@ class _PatternPageState extends State<PatternPage> {
                         softWrap: true,
                         textAlign: TextAlign.center,
                       ),
-                      NextButton(onTap: nextButtonTap, percent: pageInfoHolder.percent),
+                      NextButton(
+                          onTap: nextButtonTap,
+                          percent: pageInfoHolder.percent),
                     ],
                   ),
                 )
               ],
             ),
           ),
-
-          ///skip
-          Positioned(
-            top: 32,
-            right: 32,
-            child: GestureDetector(
-              onTap: () {
-                skipTap();
-              },
-              child: const Text(
-                'Skip',
-                style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white),
-              ),
-            ),
-          ),
+          SkipButton(skipTap: skipTap),
         ],
       ),
     );

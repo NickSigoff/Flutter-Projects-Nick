@@ -43,5 +43,3 @@ class PageInfoHolder {
       required this.image,
       required this.percent});
 }
-
-abstract class Info {}

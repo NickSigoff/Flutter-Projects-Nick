@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/pages/main_page/widgets/tab_button_widget.dart';
 
-class CustomTabBar extends StatelessWidget {
+class TabBarWidget extends StatelessWidget {
   final Function onTap;
   final int selectedPage;
   final AsyncSnapshot<WeatherForecast> snapshot;
 
-  CustomTabBar(
+  TabBarWidget(
       {Key? key,
       required this.snapshot,
       required this.onTap,

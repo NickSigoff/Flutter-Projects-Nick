@@ -3,7 +3,7 @@ import 'package:weather_app/pages/main_page/main_page.dart';
 
 void main() {
   runApp(
-    MaterialApp(
+    const MaterialApp(
       home: MainPage(),
     ),
   );

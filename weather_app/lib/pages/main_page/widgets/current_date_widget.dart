@@ -8,7 +8,7 @@ class CurrentDateWidget extends StatelessWidget {
   final AsyncSnapshot<WeatherForecast> snapshot;
 
   const CurrentDateWidget({Key? key, required this.snapshot})
-      : super(key: key); // 8:18pm
+      : super(key: key);
 
   String getCurrentDate() {
     var date = DateTime.fromMillisecondsSinceEpoch(
