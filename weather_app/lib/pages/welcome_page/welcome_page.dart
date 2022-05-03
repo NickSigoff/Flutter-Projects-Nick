@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/api/weather_api.dart';
+import 'package:weather_app/models/weather_forecast.dart';
+import 'package:weather_app/pages/main_page/main_page.dart';
 import 'package:weather_app/utils/main_colors.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
 
+  @override
+  State<WelcomePage> createState() => _WelcomePageState();
+}
+
+class _WelcomePageState extends State<WelcomePage> {
   final ratioImageHeight = 0.3;
+
   final ratioImageWidth = 0.7;
 
   final TextStyle boldStyle = const TextStyle(
@@ -18,6 +27,26 @@ class WelcomePage extends StatelessWidget {
       fontSize: 24,
       fontFamily: "Poppins",
       fontWeight: FontWeight.w400);
+
+  void getLocation() async {
+    WeatherForecast weatherLocationData =
+        await WeatherApi().getWeatherForecastWithCoordinates();
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MainPage(
+          location: weatherLocationData,
+        ),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    getLocation();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +82,16 @@ class WelcomePage extends StatelessWidget {
             ),
             Text('Weather', style: boldStyle),
             Text('Forecast', style: regularStyle),
+            const Padding(
+              padding: EdgeInsets.all(16.0),
+              child: CircularProgressIndicator(),
+            ),
+            const Text('Determination your location',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
+                    fontFamily: "Poppins",
+                    fontWeight: FontWeight.w400)),
           ],
         ),
       ),

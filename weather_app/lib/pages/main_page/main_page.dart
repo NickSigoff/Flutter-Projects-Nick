@@ -11,17 +11,17 @@ import 'package:weather_app/utils/main_colors.dart';
 import '../../models/weather_forecast.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  final WeatherForecast location;
+
+  const MainPage({Key? key, required this.location}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  late Future<WeatherForecast> forecast;
   int _selectedPage = 0;
-  final double latitude = 33.44;
-  final double longitude = -94.04;
+  late Future<WeatherForecast> forecast;
 
   void _onTapChangePage(int pageNum) {
     setState(() {
@@ -32,11 +32,7 @@ class _MainPageState extends State<MainPage> {
   @override
   void initState() {
     super.initState();
-
-    forecast = WeatherApi()
-        .getWeatherForecastWithCoordinates(lat: latitude, lon: longitude);
-
-    // forecast.then((value) => (value.timezone));
+    forecast = WeatherApi().getWeatherForecastWithCoordinates();
   }
 
   @override
@@ -58,10 +54,18 @@ class _MainPageState extends State<MainPage> {
                     backgroundColor: MainColors.backgroundMainPageLight,
                     title: Text(snapshot.data!.timezone!),
                     //todo need check?
-                    actions: const [
+                    actions: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Icon(Icons.more_vert),
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: GestureDetector(
+                          child: const Icon(Icons.place),
+                          onTap: () {
+                            setState(() {
+                              forecast = WeatherApi()
+                                  .getWeatherForecastWithCoordinates();
+                            });
+                          },
+                        ),
                       )
                     ],
                   ),
@@ -89,7 +93,8 @@ class _MainPageState extends State<MainPage> {
 
   Widget chooseTabBarPage(
       //todo inherited better?
-      int selectedPage, AsyncSnapshot<WeatherForecast> snapshot) {
+      int selectedPage,
+      AsyncSnapshot<WeatherForecast> snapshot) {
     switch (selectedPage) {
       case 0:
         return TodayPage(snapshot: snapshot);

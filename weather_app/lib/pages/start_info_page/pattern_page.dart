@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/pages/start_info_page/widgets/skip_button_widget.dart';
+import 'package:weather_app/pages/welcome_page/welcome_page.dart';
 import 'package:weather_app/utils/main_styles.dart';
 
 import '../../utils/list_slides_page.dart';
-import '../main_page/main_page.dart';
 import 'widgets/next_button_widget_pattern_page.dart';
 
 class PatternPage extends StatefulWidget {
@@ -28,7 +28,7 @@ class _PatternPageState extends State<PatternPage> {
 
   void skipTap() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const MainPage()));
+        context, MaterialPageRoute(builder: (context) => const WelcomePage()));
   }
 
   @override
