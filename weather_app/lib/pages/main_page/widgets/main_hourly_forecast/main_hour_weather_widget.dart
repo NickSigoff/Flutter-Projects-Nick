@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/utils/main_colors.dart';
 import 'package:weather_app/utils/main_styles.dart';
 
-import '../../../utils/constants.dart';
+import '../../../../utils/constants.dart';
 
-class HourWeatherWidget extends StatelessWidget {
+class MainHourWeatherWidget extends StatelessWidget {
   final String icon;
   final double temperature;
   final DateTime dateTime;
 
-  const HourWeatherWidget(
+  const MainHourWeatherWidget(
       {Key? key,
       required this.dateTime,
       required this.temperature,

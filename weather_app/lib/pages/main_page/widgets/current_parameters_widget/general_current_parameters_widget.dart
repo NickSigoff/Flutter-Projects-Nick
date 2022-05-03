@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/models/weather_forecast.dart';
-import 'package:weather_app/pages/main_page/widgets/current_parameter_widget.dart';
-import '../../../utils/constants.dart';
-import '../../../utils/wind_direction.dart';
+import 'package:weather_app/pages/main_page/widgets/current_parameters_widget/current_parameter_widget.dart';
+import '../../../../utils/constants.dart';
+import '../../../../utils/wind_direction.dart';
 
 class GeneralCurrentParameters extends StatelessWidget {
   final List<String> iconsText = [

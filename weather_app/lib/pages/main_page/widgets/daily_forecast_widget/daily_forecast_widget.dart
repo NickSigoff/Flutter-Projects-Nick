@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 import 'package:weather_app/models/weather_forecast.dart';
-import '../../../utils/main_styles.dart';
-import 'day_weather_widget.dart';
+import 'package:weather_app/pages/main_page/widgets/daily_forecast_widget/day_weather_widget.dart';
+import '../../../../utils/main_styles.dart';
 
 class DailyForecast extends StatelessWidget {
   final AsyncSnapshot<WeatherForecast> snapshot;

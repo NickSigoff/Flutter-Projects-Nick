@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/models/weather_forecast.dart';
-import 'package:weather_app/pages/main_page/widgets/tab_button_widget.dart';
+import 'package:weather_app/pages/main_page/widgets/tab_bar_widget/tab_button_widget.dart';
 
 class TabBarWidget extends StatelessWidget {
   final Function onTap;
