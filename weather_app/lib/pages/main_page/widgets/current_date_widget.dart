@@ -12,8 +12,7 @@ class CurrentDateWidget extends StatelessWidget {
 
   String getCurrentDate() {
     var date = DateTime.fromMillisecondsSinceEpoch(
-        snapshot.data!.hourly![0].dt! * 1000 +
-            snapshot.data!.timezoneOffset! * 1000);
+        snapshot.data!.hourly![0].dt! * 1000);
     return DateFormat('EEEE d MMM yyyy | hh:mm aaa').format(date);
   }
 

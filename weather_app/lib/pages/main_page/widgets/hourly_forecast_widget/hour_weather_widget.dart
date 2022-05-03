@@ -4,12 +4,12 @@ import 'package:weather_app/utils/main_styles.dart';
 
 import '../../../../utils/constants.dart';
 
-class MainHourWeatherWidget extends StatelessWidget {
+class HourWeatherWidget extends StatelessWidget {
   final String icon;
   final double temperature;
   final DateTime dateTime;
 
-  const MainHourWeatherWidget(
+  const HourWeatherWidget(
       {Key? key,
       required this.dateTime,
       required this.temperature,

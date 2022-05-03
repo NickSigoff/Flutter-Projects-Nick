@@ -50,7 +50,7 @@ class _DayWeatherState extends State<DayWeather> {
         style: MainStyles.smallInscriptionsLight);
 
     return showMore
-        ? MoreInfoDatWeatherWidget(
+        ? MoreInfoDayWeatherWidget(
             snapshot: widget.snapshot,
             onTap: onTapArrow,
             date: date,

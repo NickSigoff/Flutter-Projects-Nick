@@ -37,22 +37,16 @@ flutter:
     - assets/images/welcome_images/sun.png
     - assets/images/welcome_images/rain.png
     - assets/images/welcome_images/sun_cloud.png
-    - assets/images/weather_images/cloudy.png
-    - assets/images/weather_images/little_rainy.png
-    - assets/images/weather_images/little_snowly.png
-    - assets/images/weather_images/moon.png
-    - assets/images/weather_images/partly_cloludy.png
-    - assets/images/weather_images/patry_sunny.png
-    - assets/images/weather_images/rainy.png
-    - assets/images/weather_images/snowly.png
-    - assets/images/weather_images/sunny.png
-    - assets/images/weather_images/thanderstorm.png
     - assets/images/common_weather_icons/humidity.png
     - assets/images/common_weather_icons/pressure.png
     - assets/images/common_weather_icons/wind_direction.png
     - assets/images/common_weather_icons/sunset.png
     - assets/images/common_weather_icons/sun.png
     - assets/images/common_weather_icons/wind.png
+    - assets/images/common_weather_icons/day_temp.png
+    - assets/images/common_weather_icons/night_temp.png
+    - assets/images/common_weather_icons/max_temp.png
+    - assets/images/common_weather_icons/min_temp.png
 
   fonts:
     - family: Poppins

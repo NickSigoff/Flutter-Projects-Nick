@@ -18,9 +18,15 @@ class DailyForecast extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
-            child: Text(
-              'Daily Forecast',
-              style: MainStyles.bottomTextTextStyle,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Daily Forecast',
+                  style: MainStyles.bottomTextTextStyle,
+                ),
+                Text('Min | Max', style: MainStyles.bottomTextTextStyle,)
+              ],
             ),
           ),
           Container(

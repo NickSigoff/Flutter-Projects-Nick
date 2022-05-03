@@ -5,15 +5,14 @@ class CurrentParameter extends StatelessWidget {
   final String text;
   final String icon;
   final String value;
+  final double width;
 
   const CurrentParameter(
-      {Key? key, required this.text, required this.icon, required this.value})
+      {Key? key, required this.text, required this.icon, required this.value, required this.width})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double width = (MediaQuery.of(context).size.width - 32) / 2;
-
     return SizedBox(
       height: 40,
       width: width,
@@ -32,6 +31,7 @@ class CurrentParameter extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: RichText(
+              overflow: TextOverflow.visible,
               text: TextSpan(
                   text: text,
                   style: MainStyles.smallInscriptionsDark,

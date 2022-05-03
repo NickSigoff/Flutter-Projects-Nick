@@ -86,7 +86,7 @@ class _WelcomePageState extends State<WelcomePage> {
               padding: EdgeInsets.all(16.0),
               child: CircularProgressIndicator(),
             ),
-            const Text('Determination your location',
+            const Text('Determining your location',
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 14,

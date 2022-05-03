@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/models/weather_forecast.dart';
-import 'package:weather_app/pages/main_page/widgets/more_info_day_weather_widget/more_info_hourly_forecast_widget.dart';
+import 'package:weather_app/pages/main_page/widgets/more_info_day_weather_widget/more_info_forecast_widget.dart';
 import 'package:weather_app/utils/main_colors.dart';
 import 'package:weather_app/utils/main_styles.dart';
 
-class MoreInfoDatWeatherWidget extends StatelessWidget {
+class MoreInfoDayWeatherWidget extends StatelessWidget {
   final Function onTap;
   final Image weatherImage;
   final Text minTemp;
@@ -13,7 +13,7 @@ class MoreInfoDatWeatherWidget extends StatelessWidget {
   final String date;
   final AsyncSnapshot<WeatherForecast> snapshot;
 
-  const MoreInfoDatWeatherWidget({
+  const MoreInfoDayWeatherWidget({
     Key? key,
     required this.snapshot,
     required this.onTap,
@@ -71,9 +71,9 @@ class MoreInfoDatWeatherWidget extends StatelessWidget {
               ],
             ),
           ),
-          MoreInfoHourlyWeatherWidget(
+          MoreInfoWeatherWidget(
             snapshot: snapshot,
-            index: index,
+            dayIndex: index,
           ),
         ],
       ),

@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/utils/main_styles.dart';
 
-import 'main_hour_weather_widget.dart';
+import 'hour_weather_widget.dart';
 
-class MainHourlyForecast extends StatelessWidget {
+class HourlyForecast extends StatelessWidget {
   final AsyncSnapshot<WeatherForecast> snapshot;
 
-  const MainHourlyForecast({Key? key, required this.snapshot}) : super(key: key);
+  const HourlyForecast({Key? key, required this.snapshot}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,9 @@ class MainHourlyForecast extends StatelessWidget {
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) =>
-                  MainHourWeatherWidget(
+                  HourWeatherWidget(
                       dateTime: DateTime.fromMillisecondsSinceEpoch(
-                          hourlyWeather[index].dt! * 1000 +
-                              snapshot.data!.timezoneOffset! * 1000),
+                          hourlyWeather[index].dt! * 1000),
                       temperature: hourlyWeather[index].temp!,
                       icon: hourlyWeather[index].getHourlyIconUrl()),
               itemCount: hourlyWeather.length,
