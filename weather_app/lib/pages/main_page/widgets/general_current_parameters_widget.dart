@@ -23,15 +23,14 @@ class GeneralCurrentParameters extends StatelessWidget {
     'assets/images/common_weather_icons/humidity.png',
   ];
 
-  final AsyncSnapshot<WeatherForecast> snapshot;
+  final Current currentWeather;
 
-  GeneralCurrentParameters({Key? key, required this.snapshot})
+  GeneralCurrentParameters({Key? key, required this.currentWeather})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double width = (MediaQuery.of(context).size.width - 32) / 2;
-    var currentWeather = snapshot.data!.current!;
     List<String> values = [
       ' ${DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(currentWeather.sunrise! * 1000))}',
       ' ${DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(currentWeather.sunset! * 1000))}',

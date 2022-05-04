@@ -14,13 +14,14 @@ class TodayPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var data = snapshot.data!;
     return Column(
       children: [
-        CurrentDateWidget(snapshot: snapshot),
-        GeneralTempWidget(snapshot: snapshot),
-        GeneralCurrentParameters(snapshot: snapshot),
-        HourlyForecast(snapshot: snapshot),
-        DailyForecast(snapshot: snapshot),
+        CurrentDateWidget(currentTime: data.current!.dt!),
+        GeneralTempWidget(currentWeather: data.current!),
+        GeneralCurrentParameters(currentWeather: data.current!),
+        HourlyForecast(hourlyWeather: data.hourly!),
+        DailyForecast(dailyWeather: data.daily!),
       ],
     );
   }

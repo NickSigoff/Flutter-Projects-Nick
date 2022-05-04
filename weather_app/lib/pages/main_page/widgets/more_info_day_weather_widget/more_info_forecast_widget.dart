@@ -27,17 +27,14 @@ class MoreInfoWeatherWidget extends StatelessWidget {
     'assets/images/common_weather_icons/min_temp.png',
   ];
 
-  final AsyncSnapshot<WeatherForecast> snapshot;
-  final int dayIndex;
+  final Daily dailyWeather;
 
-  MoreInfoWeatherWidget(
-      {Key? key, required this.snapshot, required this.dayIndex})
+  MoreInfoWeatherWidget({Key? key, required this.dailyWeather})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    var dailyWeather = snapshot.data!.daily![dayIndex];
     List<String> values = [
       ' ${DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(dailyWeather.sunrise! * 1000))}',
       ' ${DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(dailyWeather.sunset! * 1000))}',
@@ -51,7 +48,7 @@ class MoreInfoWeatherWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
       child: Column(
-       crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ...List<Widget>.generate(
               values.length,

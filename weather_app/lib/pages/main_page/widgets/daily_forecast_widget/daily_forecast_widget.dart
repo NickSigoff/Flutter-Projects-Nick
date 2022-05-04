@@ -5,9 +5,9 @@ import 'package:weather_app/pages/main_page/widgets/daily_forecast_widget/day_we
 import '../../../../utils/main_styles.dart';
 
 class DailyForecast extends StatelessWidget {
-  final AsyncSnapshot<WeatherForecast> snapshot;
+  final List<Daily> dailyWeather;
 
-  const DailyForecast({Key? key, required this.snapshot}) : super(key: key);
+  const DailyForecast({Key? key, required this.dailyWeather}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class DailyForecast extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
+            padding: const EdgeInsets.only(top: 16, bottom: 16, right: 16),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -25,7 +25,10 @@ class DailyForecast extends StatelessWidget {
                   'Daily Forecast',
                   style: MainStyles.bottomTextTextStyle,
                 ),
-                Text('Min | Max', style: MainStyles.bottomTextTextStyle,)
+                Text(
+                  'Min | Max',
+                  style: MainStyles.bottomTextTextStyle,
+                )
               ],
             ),
           ),
@@ -41,7 +44,11 @@ class DailyForecast extends StatelessWidget {
             child: Column(
               children: [
                 ...List<Widget>.generate(
-                    7, (index) => DayWeather(snapshot: snapshot, index: index))
+                    7,
+                    (index) => DayWeather(
+                          dailyWeather: dailyWeather[index],
+                          index: index,
+                        ))
               ],
             ),
           ),

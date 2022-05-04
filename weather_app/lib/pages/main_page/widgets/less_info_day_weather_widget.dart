@@ -1,27 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/utils/main_colors.dart';
 import 'package:weather_app/utils/main_styles.dart';
 
+import '../../../utils/constants.dart';
+
 class LessInfoDayWeatherWidget extends StatelessWidget {
   final Function onTap;
-  final Image weatherImage;
-  final Text minTemp;
-  final Text maxTemp;
+  final Daily dailyWeather;
   final int index;
-  final String date;
 
-  const LessInfoDayWeatherWidget(
-      {Key? key,
-      required this.maxTemp,
-      required this.onTap,
-      required this.minTemp,
-      required this.weatherImage,
-      required this.index,
-      required this.date})
-      : super(key: key);
+  const LessInfoDayWeatherWidget({
+    Key? key,
+    required this.onTap,
+    required this.dailyWeather,
+    required this.index,
+  }) : super(key: key);
+
+  String getDate() {
+    var date =
+    DateTime.fromMillisecondsSinceEpoch(dailyWeather.dt! * 1000);
+    return DateFormat('EEEE, d MMM, yyyy').format(date);
+  }
 
   @override
   Widget build(BuildContext context) {
+    Image weatherImage = Image.network(
+        dailyWeather.getDailyIconUrl() + Constants.imagesExtension);
+
+    Text minTemp = Text(
+        '${dailyWeather.temp!.min!.toStringAsFixed(0)}${Constants.degreeMetric}',
+        style: MainStyles.smallInscriptionsLight);
+
+    Text maxTemp = Text(
+        '${dailyWeather.temp!.max!.toStringAsFixed(0)}${Constants.degreeMetric}',
+        style: MainStyles.smallInscriptionsLight);
+
+    Text date = Text(
+      getDate(),
+      style: MainStyles.smallInscriptionsLight,
+      overflow: TextOverflow.ellipsis,
+    );
+
     return GestureDetector(
       onTap: () {
         onTap();
@@ -44,11 +65,7 @@ class LessInfoDayWeatherWidget extends StatelessWidget {
                       'Today',
                       style: MainStyles.smallInscriptionsLight,
                     )
-                  : Text(
-                      date,
-                      style: MainStyles.smallInscriptionsLight,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+                  : date,
             ),
             Expanded(flex: 1, child: weatherImage),
             const Spacer(flex: 1),

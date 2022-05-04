@@ -1,31 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/pages/main_page/widgets/more_info_day_weather_widget/more_info_forecast_widget.dart';
+import 'package:weather_app/utils/constants.dart';
 import 'package:weather_app/utils/main_colors.dart';
 import 'package:weather_app/utils/main_styles.dart';
 
 class MoreInfoDayWeatherWidget extends StatelessWidget {
   final Function onTap;
-  final Image weatherImage;
-  final Text minTemp;
-  final Text maxTemp;
   final int index;
-  final String date;
-  final AsyncSnapshot<WeatherForecast> snapshot;
+  final Daily dailyWeather;
 
   const MoreInfoDayWeatherWidget({
     Key? key,
-    required this.snapshot,
     required this.onTap,
-    required this.date,
+    required this.dailyWeather,
     required this.index,
-    required this.weatherImage,
-    required this.minTemp,
-    required this.maxTemp,
   }) : super(key: key);
+
+  String getDate() {
+    var date =
+    DateTime.fromMillisecondsSinceEpoch(dailyWeather.dt! * 1000);
+    return DateFormat('EEEE, d MMM, yyyy').format(date);
+  }
 
   @override
   Widget build(BuildContext context) {
+    Image weatherImage = Image.network(
+        dailyWeather.getDailyIconUrl() + Constants.imagesExtension);
+
+    Text minTemp = Text(
+        '${dailyWeather.temp!.min!.toStringAsFixed(0)}${Constants.degreeMetric}',
+        style: MainStyles.smallInscriptionsLight);
+
+    Text maxTemp = Text(
+        '${dailyWeather.temp!.max!.toStringAsFixed(0)}${Constants.degreeMetric}',
+        style: MainStyles.smallInscriptionsLight);
+
+    Text date = Text(
+      getDate(),
+      style: MainStyles.smallInscriptionsLight,
+      overflow: TextOverflow.ellipsis,
+    );
+
     return GestureDetector(
       onTap: () {
         onTap();
@@ -50,11 +67,7 @@ class MoreInfoDayWeatherWidget extends StatelessWidget {
                           'Today',
                           style: MainStyles.smallInscriptionsLight,
                         )
-                      : Text(
-                          date,
-                          style: MainStyles.smallInscriptionsLight,
-                          overflow: TextOverflow.ellipsis,
-                        ),
+                      : date,
                 ),
                 Expanded(flex: 1, child: weatherImage),
                 const Spacer(flex: 1),
@@ -72,8 +85,7 @@ class MoreInfoDayWeatherWidget extends StatelessWidget {
             ),
           ),
           MoreInfoWeatherWidget(
-            snapshot: snapshot,
-            dayIndex: index,
+            dailyWeather: dailyWeather,
           ),
         ],
       ),

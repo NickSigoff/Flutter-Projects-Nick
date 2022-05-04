@@ -6,13 +6,12 @@ import '../../../global_widgets/gradient_text.dart';
 import '../../../utils/constants.dart';
 
 class GeneralTempWidget extends StatelessWidget {
-  final AsyncSnapshot<WeatherForecast> snapshot;
+  final Current currentWeather;
 
-  const GeneralTempWidget({Key? key, required this.snapshot}) : super(key: key);
+  const GeneralTempWidget({Key? key, required this.currentWeather}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var currentWeather = snapshot.data!.current!;
     final String temperature =
         '${currentWeather.temp!.toStringAsFixed(0)}${Constants.degreeMetric}';
     final String description = '${currentWeather.weather![0].main} ';
@@ -28,7 +27,7 @@ class GeneralTempWidget extends StatelessWidget {
         children: [
           Expanded(
             child: Image.network(
-              snapshot.data!.getCurrentIconUrl() + Constants.imagesExtension,
+              currentWeather.getCurrentIconUrl() + Constants.imagesExtension,
               scale: 0.5,
             ),
           ),

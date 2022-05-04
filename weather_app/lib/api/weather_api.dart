@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:weather_app/utils/constants.dart';
@@ -13,7 +14,7 @@ class WeatherApi {
   Future<WeatherForecast> getWeatherForecastWithCoordinates() async {
     //todo getting current location here?
     Location location = Location();
-    //LocationPermission permission = await Geolocator.requestPermission();
+    LocationPermission permission = await Geolocator.requestPermission();
 
     await location.getCurrentLocation();
 

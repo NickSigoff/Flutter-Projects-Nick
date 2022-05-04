@@ -5,13 +5,12 @@ import 'package:weather_app/utils/main_styles.dart';
 import 'hour_weather_widget.dart';
 
 class HourlyForecast extends StatelessWidget {
-  final AsyncSnapshot<WeatherForecast> snapshot;
+  final List<Hourly> hourlyWeather;
 
-  const HourlyForecast({Key? key, required this.snapshot}) : super(key: key);
+  const HourlyForecast({Key? key, required this.hourlyWeather}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var hourlyWeather = snapshot.data!.hourly!;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(

@@ -28,10 +28,6 @@ class WeatherForecast {
       _$WeatherForecastFromJson(json);
 
   Map<String, dynamic> toJson() => _$WeatherForecastToJson(this);
-
-String getCurrentIconUrl() {
- return Constants.weatherImagesPath + current!.weather![0].icon!;
-}
 }
 
 @JsonSerializable()
@@ -53,6 +49,10 @@ class Current {
   @JsonKey(name: 'wind_deg')
   int? windDeg;
   List<Weather>? weather;
+
+  String getCurrentIconUrl() {
+   return Constants.weatherImagesPath + weather![0].icon!;
+  }
 
   Current(
       {this.dt,
