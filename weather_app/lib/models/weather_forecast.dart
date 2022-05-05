@@ -155,11 +155,14 @@ class Daily {
   int? moonset;
   double? moonPhase;
   Temp? temp;
+  @JsonKey(name: 'feels_like')
   FeelsLike? feelsLike;
   int? pressure;
   int? humidity;
   double? dewPoint;
+  @JsonKey(name: 'wind_speed')
   double? windSpeed;
+  @JsonKey(name: 'wind_deg')
   int? windDeg;
   double? windGust;
   List<Weather>? weather;

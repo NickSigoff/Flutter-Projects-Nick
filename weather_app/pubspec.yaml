@@ -47,6 +47,10 @@ flutter:
     - assets/images/common_weather_icons/night_temp.png
     - assets/images/common_weather_icons/max_temp.png
     - assets/images/common_weather_icons/min_temp.png
+    - assets/images/common_weather_icons/cloud.png
+    - assets/images/common_weather_icons/temp_high.png
+    - assets/images/common_weather_icons/temp_quarter.png
+    - assets/images/common_weather_icons/temp_empty.png
 
   fonts:
     - family: Poppins

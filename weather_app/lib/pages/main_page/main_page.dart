@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/api/weather_api.dart';
 import 'package:weather_app/pages/main_page/tab_bar_pages/forecast_page.dart';
 import 'package:weather_app/pages/main_page/tab_bar_pages/today_page.dart';
-import 'package:weather_app/pages/main_page/tab_bar_pages/tomorrow_page.dart';
+import 'package:weather_app/pages/main_page/tab_bar_pages/daily_details_page.dart';
 
 import 'package:weather_app/pages/main_page/widgets/tab_bar_widget/tab_bar_widget.dart';
 import 'package:weather_app/utils/main_gradients.dart';
@@ -99,7 +99,7 @@ class _MainPageState extends State<MainPage> {
       case 0:
         return TodayPage(snapshot: snapshot);
       case 1:
-        return TomorrowPage(snapshot: snapshot);
+        return DailyDetailsPage(snapshot: snapshot);
       case 2:
         return ForecastPage(snapshot: snapshot);
       default:

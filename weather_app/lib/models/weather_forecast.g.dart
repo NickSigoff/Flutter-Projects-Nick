@@ -142,14 +142,14 @@ Daily _$DailyFromJson(Map<String, dynamic> json) => Daily(
       temp: json['temp'] == null
           ? null
           : Temp.fromJson(json['temp'] as Map<String, dynamic>),
-      feelsLike: json['feelsLike'] == null
+      feelsLike: json['feels_like'] == null
           ? null
-          : FeelsLike.fromJson(json['feelsLike'] as Map<String, dynamic>),
+          : FeelsLike.fromJson(json['feels_like'] as Map<String, dynamic>),
       pressure: json['pressure'] as int?,
       humidity: json['humidity'] as int?,
       dewPoint: (json['dewPoint'] as num?)?.toDouble(),
-      windSpeed: (json['windSpeed'] as num?)?.toDouble(),
-      windDeg: json['windDeg'] as int?,
+      windSpeed: (json['wind_speed'] as num?)?.toDouble(),
+      windDeg: json['wind_deg'] as int?,
       windGust: (json['windGust'] as num?)?.toDouble(),
       weather: (json['weather'] as List<dynamic>?)
           ?.map((e) => Weather.fromJson(e as Map<String, dynamic>))
@@ -168,12 +168,12 @@ Map<String, dynamic> _$DailyToJson(Daily instance) => <String, dynamic>{
       'moonset': instance.moonset,
       'moonPhase': instance.moonPhase,
       'temp': instance.temp,
-      'feelsLike': instance.feelsLike,
+      'feels_like': instance.feelsLike,
       'pressure': instance.pressure,
       'humidity': instance.humidity,
       'dewPoint': instance.dewPoint,
-      'windSpeed': instance.windSpeed,
-      'windDeg': instance.windDeg,
+      'wind_speed': instance.windSpeed,
+      'wind_deg': instance.windDeg,
       'windGust': instance.windGust,
       'weather': instance.weather,
       'clouds': instance.clouds,
