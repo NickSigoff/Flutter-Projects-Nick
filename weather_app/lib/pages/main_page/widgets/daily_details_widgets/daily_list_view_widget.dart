@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:weather_app/pages/main_page/widgets/daily_list_view_day_widget.dart';
+import 'package:weather_app/pages/main_page/widgets/daily_details_widgets/daily_list_view_day_widget.dart';
 
-import '../../../models/weather_forecast.dart';
+import '../../../../models/weather_forecast.dart';
 
 class DailyListView extends StatelessWidget {
   final WeatherForecast weatherData;

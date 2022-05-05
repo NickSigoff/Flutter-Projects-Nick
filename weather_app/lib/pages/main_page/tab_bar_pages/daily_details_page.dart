@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/models/weather_forecast.dart';
 import '../../../utils/main_colors.dart';
 import '../../../utils/main_gradients.dart';
-import '../widgets/daily_info_widget.dart';
-import '../widgets/daily_list_view_widget.dart';
+import '../widgets/daily_details_widgets/daily_info_widget.dart';
+import '../widgets/daily_details_widgets/daily_list_view_widget.dart';
 
 // todo Statefull the upper widget
 // todo stick of death
@@ -40,6 +40,7 @@ class _DailyDetailsPageState extends State<DailyDetailsPage> {
   Widget build(BuildContext context) {
     var weatherData = widget.snapshot.data!;
     return Container(
+      padding: const EdgeInsets.only(bottom: 140), //appbar + tab bar
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       decoration: MainGradients.backgroundMainPageGradient,

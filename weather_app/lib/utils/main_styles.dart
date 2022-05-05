@@ -30,4 +30,11 @@ abstract class MainStyles {
     fontWeight: FontWeight.w400,
     fontFamily: 'Poppins',
   );
+
+  static TextStyle dailyDetails = const TextStyle(
+    color: Colors.white,
+    fontSize: 20,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Poppins',
+  );
 }

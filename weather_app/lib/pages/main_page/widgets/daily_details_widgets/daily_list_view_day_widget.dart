@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-import '../../../utils/main_colors.dart';
+import '../../../../utils/main_colors.dart';
 
 class DailyListViewDayWidget extends StatelessWidget {
   final int dailyTime;
@@ -34,14 +34,14 @@ class DailyListViewDayWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: selectedPage == pageIndex ? Colors.red : Colors.transparent,
+          color: selectedPage == pageIndex ? MainColors.currentDateWidgetColor : Colors.transparent,
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Text(
           getCurrentDate(),
           textAlign: TextAlign.center,
           style: const TextStyle(
-            color: MainColors.dateTextColor,
+            color: MainColors.selectedTextMainPage,
             fontSize: 12,
             fontFamily: 'Poppins',
             fontWeight: FontWeight.w400,
