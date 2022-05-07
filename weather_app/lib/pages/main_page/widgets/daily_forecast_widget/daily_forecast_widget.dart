@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/pages/main_page/widgets/daily_forecast_widget/day_weather_widget.dart';
 import '../../../../utils/main_styles.dart';
 
 class DailyForecast extends StatelessWidget {
-  final List<Daily> dailyWeather;
 
-  const DailyForecast({Key? key, required this.dailyWeather}) : super(key: key);
+
+  const DailyForecast({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final dailyForecast = context.watch<WeatherForecast>().daily!;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
@@ -44,11 +46,12 @@ class DailyForecast extends StatelessWidget {
             child: Column(
               children: [
                 ...List<Widget>.generate(
-                    7,
-                    (index) => DayWeather(
-                          dailyWeather: dailyWeather[index],
-                          index: index,
-                        ))
+                  7,
+                  (index) => DayWeather(
+                    dailyWeather: dailyForecast[index],
+                    index: index,
+                  ),
+                )
               ],
             ),
           ),

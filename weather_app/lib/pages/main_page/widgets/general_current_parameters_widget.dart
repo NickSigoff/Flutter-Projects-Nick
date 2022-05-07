@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/pages/main_page/widgets/current_parameter_widget.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/wind_direction.dart';
 
 class GeneralCurrentParameters extends StatelessWidget {
-  final List<String> iconsText = [
+  final List<String> _iconsText = const [
     'Sunrise:',
     'Sunset:',
     'Wind direction:',
@@ -14,7 +15,7 @@ class GeneralCurrentParameters extends StatelessWidget {
     'Pressure:',
     'Humidity:',
   ];
-  final List<String> icons = [
+  final List<String> _icons = const [
     'assets/images/common_weather_icons/sun.png',
     'assets/images/common_weather_icons/sunset.png',
     'assets/images/common_weather_icons/wind_direction.png',
@@ -23,20 +24,18 @@ class GeneralCurrentParameters extends StatelessWidget {
     'assets/images/common_weather_icons/humidity.png',
   ];
 
-  final Current currentWeather;
-
-  GeneralCurrentParameters({Key? key, required this.currentWeather})
-      : super(key: key);
+  const GeneralCurrentParameters({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final currentWeather = context.watch<WeatherForecast>().current!;
     double width = (MediaQuery.of(context).size.width - 32) / 2;
     List<String> values = [
       ' ${DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(currentWeather.sunrise! * 1000))}',
       ' ${DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(currentWeather.sunset! * 1000))}',
       ' ${WindDirection.chooseWindDirection(currentWeather.windDeg!)}',
       ' ${currentWeather.windSpeed} ${Constants.speedMetric}',
-      ' ${currentWeather.pressure!} ${Constants.pressureMetric}',
+      ' ${currentWeather.pressure} ${Constants.pressureMetric}',
       ' ${currentWeather.humidity}%',
     ];
     return Padding(
@@ -48,8 +47,8 @@ class GeneralCurrentParameters extends StatelessWidget {
               values.length,
               (index) => CurrentParameter(
                   width: width,
-                  text: iconsText[index],
-                  icon: icons[index],
+                  text: _iconsText[index],
+                  icon: _icons[index],
                   value: values[index]))
         ],
       ),

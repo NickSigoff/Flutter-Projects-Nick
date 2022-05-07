@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/utils/main_styles.dart';
 
@@ -6,19 +7,17 @@ import '../../../global_widgets/gradient_text.dart';
 import '../../../utils/constants.dart';
 
 class GeneralTempWidget extends StatelessWidget {
-  final Current currentWeather;
-
-  const GeneralTempWidget({Key? key, required this.currentWeather}) : super(key: key);
+  const GeneralTempWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final currentWeather = context.watch<WeatherForecast>().current!;
     final String temperature =
         '${currentWeather.temp!.toStringAsFixed(0)}${Constants.degreeMetric}';
     final String description = '${currentWeather.weather![0].main} ';
     final String feelsLike =
         '${currentWeather.feelsLike!.toStringAsFixed(0)}${Constants.degreeMetric}';
 
-    // todo how to do checking null value for the whole object?
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       height: 150,

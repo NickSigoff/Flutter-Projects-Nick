@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/api/weather_api.dart';
+import 'package:provider/provider.dart';
+
 import 'package:weather_app/pages/main_page/tab_bar_pages/calendar_page.dart';
 import 'package:weather_app/pages/main_page/tab_bar_pages/today_page.dart';
 import 'package:weather_app/pages/main_page/tab_bar_pages/daily_details_page.dart';
@@ -19,7 +20,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedPage = 0;
-  late Future<WeatherForecast> forecast;
+  late WeatherForecast forecast;
 
   void _onTapChangePage(int pageNum) {
     setState(() {
@@ -28,76 +29,62 @@ class _MainPageState extends State<MainPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    forecast = WeatherApi().fetchWeatherForecastWithCoordinates();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return FutureBuilder<WeatherForecast>(
-        future: forecast,
-        builder:
-            (BuildContext context, AsyncSnapshot<WeatherForecast> snapshot) {
-          return snapshot.hasData
-              ? Scaffold(
-            appBar: AppBar(
-              titleTextStyle: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: 'Poppins'),
-              centerTitle: true,
-              leading: const Icon(Icons.menu),
-              elevation: 0,
-              backgroundColor: MainColors.backgroundMainPageLight,
-              title: Text(snapshot.data!.timezone!),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: GestureDetector(
-                    child: const Icon(Icons.place),
-                    onTap: () {
-                      setState(() {
-                        forecast = WeatherApi()
-                            .fetchWeatherForecastWithCoordinates();
-                      });
-                    },
-                  ),
-                )
+    forecast = ModalRoute.of(context)!.settings.arguments as WeatherForecast;
+
+    return Provider(
+      create: (BuildContext context) => forecast,
+      child: Scaffold(
+        appBar: AppBar(
+          titleTextStyle: const TextStyle(
+              fontSize: 14, fontWeight: FontWeight.w500, fontFamily: 'Poppins'),
+          centerTitle: true,
+          leading: const Icon(Icons.menu),
+          elevation: 0,
+          backgroundColor: MainColors.backgroundMainPageLight,
+          title: Text(forecast.timezone!),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: GestureDetector(
+                child: const Icon(Icons.place),
+                onTap: () {
+                  setState(() {
+                    //forecast = WeatherApi().fetchWeatherForecastWithCoordinates();
+                  });
+                },
+              ),
+            )
+          ],
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.only(bottom: 24),
+            decoration: MainGradients.backgroundMainPageGradient,
+            alignment: Alignment.center,
+            child: Column(
+              children: [
+                TabBarWidget(
+                  onTap: _onTapChangePage,
+                  selectedPage: _selectedPage,
+                ),
+                chooseTabBarPage(_selectedPage),
               ],
             ),
-            body: SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.only(bottom: 24),
-                decoration: MainGradients.backgroundMainPageGradient,
-                alignment: Alignment.center,
-                child: Column(
-                  children: [
-                    TabBarWidget(
-                      snapshot: snapshot,
-                      onTap: _onTapChangePage,
-                      selectedPage: _selectedPage,
-                    ),
-                    chooseTabBarPage(_selectedPage, snapshot),
-                  ],
-                ),
-              ),
-            ),
-          )
-              : const Center(child: CircularProgressIndicator());
-        });
+          ),
+        ),
+      ),
+    );
   }
 
-  Widget chooseTabBarPage(
-      int selectedPage,
-      AsyncSnapshot<WeatherForecast> snapshot) {
+  Widget chooseTabBarPage(int selectedPage) {
     switch (selectedPage) {
       case 0:
-        return TodayPage(snapshot: snapshot);
+        return const TodayPage();
       case 1:
-        return DailyDetailsPage(snapshot: snapshot);
+        return const DailyDetailsPage();
       case 2:
-        return CalendarPage(snapshot: snapshot);
+        return const CalendarPage();
       default:
         return Container();
     }

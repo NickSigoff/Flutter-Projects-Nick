@@ -5,11 +5,9 @@ import 'package:weather_app/pages/main_page/widgets/tab_bar_widget/tab_button_wi
 class TabBarWidget extends StatelessWidget {
   final Function onTap;
   final int selectedPage;
-  final AsyncSnapshot<WeatherForecast> snapshot;
 
   TabBarWidget(
       {Key? key,
-      required this.snapshot,
       required this.onTap,
       required this.selectedPage})
       : super(key: key);

@@ -29,13 +29,13 @@ class _WelcomePageState extends State<WelcomePage> {
       fontWeight: FontWeight.w400);
 
   void getLocation() async {
-    WeatherForecast weatherLocationData =
+    WeatherForecast weatherForecastLocationData =
         await WeatherApi().fetchWeatherForecastWithCoordinates();
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const MainPage(
-        ),
+        settings: RouteSettings(arguments: weatherForecastLocationData),
+        builder: (context) => const MainPage(),
       ),
     );
   }
@@ -43,8 +43,8 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   void initState() {
     super.initState();
-
     getLocation();
+
   }
 
   @override

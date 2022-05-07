@@ -17,7 +17,7 @@ class DailyInfoWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> icons = [
+    List<String> icons = const [
       'assets/images/common_weather_icons/min_temp.png',
       'assets/images/common_weather_icons/max_temp.png',
       'assets/images/common_weather_icons/temp_quarter.png',
@@ -30,7 +30,7 @@ class DailyInfoWidget extends StatelessWidget {
       'assets/images/common_weather_icons/sun.png',
       'assets/images/common_weather_icons/cloud.png',
     ];
-    List<String> parameters = [
+    List<String> parameters = const [
       'Min temp',
       'Max temp',
       'Day temp',

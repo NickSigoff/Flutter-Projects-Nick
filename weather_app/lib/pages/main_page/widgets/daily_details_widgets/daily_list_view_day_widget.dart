@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../models/weather_forecast.dart';
 import '../../../../utils/main_colors.dart';
 
 class DailyListViewDayWidget extends StatelessWidget {
-  final int dailyTime;
   final Function onTap;
   final int pageIndex;
   final int selectedPage;
 
   const DailyListViewDayWidget({
     Key? key,
-    required this.dailyTime,
     required this.onTap,
     required this.pageIndex,
     required this.selectedPage,
   }) : super(key: key);
 
-  String getCurrentDate() {
+  String getCurrentDate(int dailyTime) {
     var date = DateTime.fromMillisecondsSinceEpoch(dailyTime * 1000);
     return DateFormat('EEEE\nd MM').format(date);
   }
 
   @override
   Widget build(BuildContext context) {
+    final dailyTime = context.watch<WeatherForecast>().daily![pageIndex].dt!;
     return GestureDetector(
       onTap: () {
         onTap(pageIndex);
@@ -38,7 +39,7 @@ class DailyListViewDayWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Text(
-          getCurrentDate(),
+          getCurrentDate(dailyTime),
           textAlign: TextAlign.center,
           style: const TextStyle(
             color: MainColors.selectedTextMainPage,

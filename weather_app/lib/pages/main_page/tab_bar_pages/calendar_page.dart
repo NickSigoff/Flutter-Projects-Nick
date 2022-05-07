@@ -3,9 +3,8 @@ import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/utils/main_gradients.dart';
 
 class CalendarPage extends StatelessWidget {
-  final AsyncSnapshot<WeatherForecast> snapshot;
 
-  const CalendarPage({Key? key, required this.snapshot}) : super(key: key);
+  const CalendarPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
