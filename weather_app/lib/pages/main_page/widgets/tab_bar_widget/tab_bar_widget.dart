@@ -14,7 +14,7 @@ class TabBarWidget extends StatelessWidget {
       required this.selectedPage})
       : super(key: key);
 
-  final List<String> tabBarPagesNames = ['Today', 'Daily Details', 'Forecast'];
+  final List<String> tabBarPagesNames = ['Today', 'Daily Details', 'Calendar'];
 
   @override
   Widget build(BuildContext context) {

@@ -30,12 +30,11 @@ class _WelcomePageState extends State<WelcomePage> {
 
   void getLocation() async {
     WeatherForecast weatherLocationData =
-        await WeatherApi().getWeatherForecastWithCoordinates();
+        await WeatherApi().fetchWeatherForecastWithCoordinates();
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => MainPage(
-          location: weatherLocationData,
+        builder: (context) => const MainPage(
         ),
       ),
     );

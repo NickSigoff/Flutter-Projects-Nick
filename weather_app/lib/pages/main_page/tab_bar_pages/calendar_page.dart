@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/utils/main_gradients.dart';
 
-class ForecastPage extends StatelessWidget {
+class CalendarPage extends StatelessWidget {
   final AsyncSnapshot<WeatherForecast> snapshot;
 
-  const ForecastPage({Key? key, required this.snapshot}) : super(key: key);
+  const CalendarPage({Key? key, required this.snapshot}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +13,7 @@ class ForecastPage extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       decoration: MainGradients.backgroundMainPageGradient,
       child: const Center(
-        child: Text('Forecast Page', style: TextStyle(color: Colors.white),),
+        child: Text('Calendar', style: TextStyle(color: Colors.white),),
       ),
     );
   }

@@ -11,16 +11,18 @@ import '../models/weather_forecast.dart';
 
 //https://api.openweathermap.org/data/2.5/weather?q=London&appid=8f497a8cda33335076d8575eb89a68a8
 class WeatherApi {
-  Future<WeatherForecast> getWeatherForecastWithCoordinates() async {
-    //todo getting current location here?
+  Future<WeatherForecast> fetchWeatherForecastWithCoordinates(
+      {double? lat, double? lon}) async {
     Location location = Location();
     LocationPermission permission = await Geolocator.requestPermission();
 
-    await location.getCurrentLocation();
+    if (lat == null || lon == null) {
+      await location.getCurrentLocation();
+    }
 
     var parameters = {
-      'lat': location.lat.toString(),
-      'lon': location.lon.toString(),
+      'lat': lat ?? location.lat.toString(),
+      'lon': lon ?? location.lon.toString(),
       'exclude': Constants.weatherExclude,
       'appid': Constants.weatherAppId,
       'units': 'metric',
