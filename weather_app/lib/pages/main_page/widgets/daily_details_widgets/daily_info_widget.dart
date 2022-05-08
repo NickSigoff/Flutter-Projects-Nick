@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/pages/main_page/widgets/daily_details_widgets/information_row_widget.dart';
 import 'package:weather_app/utils/constants.dart';
@@ -8,10 +9,9 @@ import 'package:weather_app/utils/wind_direction.dart';
 import '../../../../utils/main_gradients.dart';
 
 class DailyInfoWidget extends StatelessWidget {
-  final Daily dailyWeather;
+  final int index;
 
-  const DailyInfoWidget({Key? key, required this.dailyWeather})
-      : super(key: key);
+  const DailyInfoWidget({Key? key, required this.index}) : super(key: key);
 
   get chooseWindDirection => null;
 
@@ -43,6 +43,7 @@ class DailyInfoWidget extends StatelessWidget {
       'UV index',
       'Clouds',
     ];
+    final dailyWeather = context.watch<WeatherForecast>().daily![index];
     List<String> values = [
       '${dailyWeather.temp!.min}${Constants.degreeMetric}',
       '${dailyWeather.temp!.max}${Constants.degreeMetric}',
@@ -82,7 +83,9 @@ class DailyInfoWidget extends StatelessWidget {
           Text(
               '${dailyWeather.weather![0].main}, ${dailyWeather.weather![0].description}',
               style: MainStyles.dailyDetails),
-          const SizedBox(height: 16.0,),
+          const SizedBox(
+            height: 16.0,
+          ),
           ...List.generate(
             icons.length,
             (index) => InformationRow(

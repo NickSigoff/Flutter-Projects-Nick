@@ -35,7 +35,9 @@ class DailyListViewDayWidget extends StatelessWidget {
         padding: const EdgeInsets.all(8),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: selectedPage == pageIndex ? MainColors.currentDateWidgetColor : Colors.transparent,
+          color: selectedPage == pageIndex
+              ? MainColors.currentDateWidgetColor
+              : Colors.transparent,
           borderRadius: BorderRadius.circular(8.0),
         ),
         child: Text(

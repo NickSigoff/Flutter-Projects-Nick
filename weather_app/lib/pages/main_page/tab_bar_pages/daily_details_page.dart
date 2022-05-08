@@ -7,7 +7,6 @@ import '../widgets/daily_details_widgets/daily_info_widget.dart';
 import '../widgets/daily_details_widgets/daily_list_view_widget.dart';
 
 class DailyDetailsPage extends StatefulWidget {
-
   const DailyDetailsPage({Key? key}) : super(key: key);
 
   @override
@@ -29,11 +28,10 @@ class _DailyDetailsPageState extends State<DailyDetailsPage> {
   Widget build(BuildContext context) {
     final forecast = context.watch<WeatherForecast>().daily!;
     mainInfoList = List.generate(
-        forecast.length,
-            (index) =>
-            DailyInfoWidget(dailyWeather: forecast[index]));
+        forecast.length, (index) => DailyInfoWidget(index: index));
     return Container(
-      padding: const EdgeInsets.only(bottom: 140), //appbar + tab bar
+      padding: const EdgeInsets.only(bottom: 140),
+      //appbar + tab bar
       height: MediaQuery.of(context).size.height,
       width: MediaQuery.of(context).size.width,
       decoration: MainGradients.backgroundMainPageGradient,

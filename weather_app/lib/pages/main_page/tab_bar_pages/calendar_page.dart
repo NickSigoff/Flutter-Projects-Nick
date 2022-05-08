@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/utils/main_gradients.dart';
 
 class CalendarPage extends StatelessWidget {
-
   const CalendarPage({Key? key}) : super(key: key);
 
   @override
@@ -12,7 +10,10 @@ class CalendarPage extends StatelessWidget {
       height: MediaQuery.of(context).size.height,
       decoration: MainGradients.backgroundMainPageGradient,
       child: const Center(
-        child: Text('Calendar', style: TextStyle(color: Colors.white),),
+        child: Text(
+          'Calendar',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     );
   }

@@ -6,9 +6,7 @@ import 'package:weather_app/models/weather_forecast.dart';
 import '../../../utils/main_colors.dart';
 
 class CurrentDateWidget extends StatelessWidget {
-
-  const CurrentDateWidget({Key? key})
-      : super(key: key);
+  const CurrentDateWidget({Key? key}) : super(key: key);
 
   String getCurrentDate(int currentTime) {
     var date = DateTime.fromMillisecondsSinceEpoch(currentTime * 1000);

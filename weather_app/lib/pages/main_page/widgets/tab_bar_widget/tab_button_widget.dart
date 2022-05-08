@@ -10,11 +10,11 @@ class TabButton extends StatelessWidget {
 
   const TabButton(
       {Key? key,
-        required this.onTap,
-        required this.width,
-        required this.text,
-        required this.pageNumber,
-        required this.selectedPage})
+      required this.onTap,
+      required this.width,
+      required this.text,
+      required this.pageNumber,
+      required this.selectedPage})
       : super(key: key);
 
   @override

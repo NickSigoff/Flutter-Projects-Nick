@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/pages/main_page/widgets/more_info_day_weather_widget/more_info_forecast_widget.dart';
 import 'package:weather_app/utils/constants.dart';
@@ -9,23 +10,23 @@ import 'package:weather_app/utils/main_styles.dart';
 class MoreInfoDayWeatherWidget extends StatelessWidget {
   final Function onTap;
   final int index;
-  final Daily dailyWeather;
+
+  //final Daily dailyWeather;
 
   const MoreInfoDayWeatherWidget({
     Key? key,
     required this.onTap,
-    required this.dailyWeather,
     required this.index,
   }) : super(key: key);
 
-  String getDate() {
-    var date =
-    DateTime.fromMillisecondsSinceEpoch(dailyWeather.dt! * 1000);
+  String getDate(int time) {
+    var date = DateTime.fromMillisecondsSinceEpoch(time * 1000);
     return DateFormat('EEEE, d MMM, yyyy').format(date);
   }
 
   @override
   Widget build(BuildContext context) {
+    final dailyWeather = context.watch<WeatherForecast>().daily![index];
     Image weatherImage = Image.network(
         dailyWeather.getDailyIconUrl() + Constants.imagesExtension);
 
@@ -38,7 +39,7 @@ class MoreInfoDayWeatherWidget extends StatelessWidget {
         style: MainStyles.smallInscriptionsLight);
 
     Text date = Text(
-      getDate(),
+      getDate(dailyWeather.dt!),
       style: MainStyles.smallInscriptionsLight,
       overflow: TextOverflow.ellipsis,
     );
@@ -84,9 +85,7 @@ class MoreInfoDayWeatherWidget extends StatelessWidget {
               ],
             ),
           ),
-          MoreInfoWeatherWidget(
-            dailyWeather: dailyWeather,
-          ),
+          MoreInfoWeatherWidget(index: index),
         ],
       ),
     );

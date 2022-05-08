@@ -8,7 +8,11 @@ class CurrentParameter extends StatelessWidget {
   final double width;
 
   const CurrentParameter(
-      {Key? key, required this.text, required this.icon, required this.value, required this.width})
+      {Key? key,
+      required this.text,
+      required this.icon,
+      required this.value,
+      required this.width})
       : super(key: key);
 
   @override

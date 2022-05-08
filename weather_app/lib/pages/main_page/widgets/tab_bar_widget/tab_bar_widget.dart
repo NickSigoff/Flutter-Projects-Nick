@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/pages/main_page/widgets/tab_bar_widget/tab_button_widget.dart';
 
 class TabBarWidget extends StatelessWidget {
   final Function onTap;
   final int selectedPage;
 
-  TabBarWidget(
-      {Key? key,
-      required this.onTap,
-      required this.selectedPage})
+  TabBarWidget({Key? key, required this.onTap, required this.selectedPage})
       : super(key: key);
 
   final List<String> tabBarPagesNames = ['Today', 'Daily Details', 'Calendar'];
