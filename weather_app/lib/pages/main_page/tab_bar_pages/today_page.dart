@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/utils/main_colors.dart';
 
 import '../widgets/current_date_widget.dart';
 import '../widgets/daily_forecast_widget/daily_forecast_widget.dart';

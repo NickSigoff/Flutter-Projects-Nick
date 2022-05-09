@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/pages/main_page/widgets/tab_bar_widget/tab_button_widget.dart';
+import 'package:weather_app/utils/main_colors.dart';
 
 class TabBarWidget extends StatelessWidget {
   final Function onTap;
@@ -8,27 +9,36 @@ class TabBarWidget extends StatelessWidget {
   TabBarWidget({Key? key, required this.onTap, required this.selectedPage})
       : super(key: key);
 
-  final List<String> tabBarPagesNames = ['Today', 'Daily Details', 'Calendar'];
+  final List<String> tabBarPagesNames = ['Today', 'Daily Details'];
 
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width / tabBarPagesNames.length;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Column(
       children: [
-        ...List<Widget>.generate(
-          tabBarPagesNames.length,
-          (index) => TabButton(
-            pageNumber: index,
-            onTap: () {
-              onTap(index);
-            },
-            selectedPage: selectedPage,
-            width: width,
-            text: tabBarPagesNames[index],
-          ),
-        )
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ...List<Widget>.generate(
+              tabBarPagesNames.length,
+              (index) => TabButton(
+                pageNumber: index,
+                onTap: () {
+                  onTap(index);
+                },
+                selectedPage: selectedPage,
+                width: width,
+                text: tabBarPagesNames[index],
+              ),
+            )
+          ],
+        ),
+        const Divider(
+          height: 1.0,
+          color: MainColors.unSelectedTextMainPage,
+          thickness: 1.0,
+        ),
       ],
     );
   }

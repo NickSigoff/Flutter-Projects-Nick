@@ -12,4 +12,15 @@ abstract class MainGradients {
       end: Alignment.bottomCenter,
     ),
   );
+
+  static const BoxDecoration drawerBackgroundGradient = BoxDecoration(
+    gradient: LinearGradient(
+      colors: [
+        MainColors.drawerDark,
+        MainColors.drawerLight,
+      ],
+      begin: Alignment.topCenter,
+      end: Alignment.bottomCenter,
+    ),
+  );
 }

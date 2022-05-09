@@ -15,4 +15,7 @@ abstract class MainColors {
 
   static const Color currentDateWidgetColor = Color(0xff32333e);
   static const Color dateTextColor = Color(0xff9b9ead);
+
+  static const Color drawerLight = Color(0xff2f313a);
+  static const Color drawerDark = Color(0xff232329);
 }

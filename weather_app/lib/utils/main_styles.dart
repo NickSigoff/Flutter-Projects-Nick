@@ -37,4 +37,18 @@ abstract class MainStyles {
     fontWeight: FontWeight.w400,
     fontFamily: 'Poppins',
   );
+
+  static TextStyle drawerMain = const TextStyle(
+    color: Colors.white,
+    fontSize: 16,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Poppins',
+  );
+
+  static TextStyle drawerEdit = const TextStyle(
+    color: Colors.blue,
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'Poppins',
+  );
 }

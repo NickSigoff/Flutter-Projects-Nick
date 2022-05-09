@@ -9,6 +9,7 @@ environment:
   sdk: ">=2.16.2 <3.0.0"
 
 dependencies:
+  syncfusion_flutter_calendar: ^20.1.52
   provider: ^6.0.2
   geolocator: ^8.2.0
   percent_indicator: ^4.0.0

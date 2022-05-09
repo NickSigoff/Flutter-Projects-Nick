@@ -18,18 +18,23 @@ class DailyListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final forecast = context.watch<WeatherForecast>().daily!;
-    return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 50,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: forecast.length,
-        itemBuilder: (context, index) => DailyListViewDayWidget(
-          onTap: onTap,
-          pageIndex: index,
-          selectedPage: selectedPage,
+    return Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.only(top: 8),
+          width: MediaQuery.of(context).size.width,
+          height: 55,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: forecast.length,
+            itemBuilder: (context, index) => DailyListViewDayWidget(
+              onTap: onTap,
+              pageIndex: index,
+              selectedPage: selectedPage,
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }
