@@ -59,7 +59,7 @@ class _MainPageState extends State<MainPage> {
             )
           ],
         ),
-        drawer: DrawerMainPageWidget(),
+        drawer: const DrawerMainPageWidget(),
         body: SingleChildScrollView(
           child: Container(
             padding: const EdgeInsets.only(bottom: 24),

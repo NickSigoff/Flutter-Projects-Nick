@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_app/models/weather_forecast.dart';
+import 'package:weather_app/utils/constants.dart';
 import 'package:weather_app/utils/main_colors.dart';
 import 'package:weather_app/utils/main_gradients.dart';
 import 'package:weather_app/utils/main_styles.dart';
@@ -45,6 +48,7 @@ class DrawerMainPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var weatherForecast = context.watch<WeatherForecast>();
     return Drawer(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),
@@ -76,6 +80,23 @@ class DrawerMainPageWidget extends StatelessWidget {
                   ),
                 ),
                 Text('Edit', style: MainStyles.drawerEdit),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                const Icon(Icons.location_on_rounded, color: Colors.white),
+                RichText(
+                  text: TextSpan(
+                      text: '${weatherForecast.timezone}\n',
+                      style: MainStyles.smallInscriptionsLight,
+                      children: [
+                        TextSpan(
+                            text:
+                                '${weatherForecast.current!.temp!.toStringAsFixed(0)}${Constants.degreeMetric}, ${weatherForecast.current!.weather![0].main}',
+                            style: MainStyles.smallInscriptionsDark)
+                      ]),
+                )
               ],
             ),
             const Divider(
