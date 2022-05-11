@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/pages/main_page/widgets/current_parameter_widget.dart';
+import '../../../data/data_provider.dart';
 import '../../../utils/constants.dart';
 import '../../../utils/wind_direction.dart';
 
@@ -28,7 +28,7 @@ class GeneralCurrentParameters extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentWeather = context.watch<WeatherForecast>().current!;
+    final currentWeather = context.watch<DataProvider>().getForecast.current!;
     double width = (MediaQuery.of(context).size.width - 32) / 2;
     List<String> values = [
       ' ${DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(currentWeather.sunrise! * 1000))}',

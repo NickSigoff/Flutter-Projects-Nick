@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/pages/main_page/widgets/more_info_day_weather_widget/more_info_forecast_widget.dart';
 import 'package:weather_app/utils/constants.dart';
 import 'package:weather_app/utils/main_colors.dart';
 import 'package:weather_app/utils/main_styles.dart';
+
+import '../../../../data/data_provider.dart';
 
 class MoreInfoDayWeatherWidget extends StatelessWidget {
   final Function onTap;
@@ -26,7 +27,7 @@ class MoreInfoDayWeatherWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dailyWeather = context.watch<WeatherForecast>().daily![index];
+    final dailyWeather = context.watch<DataProvider>().getForecast.daily![index];
     Image weatherImage = Image.network(
         dailyWeather.getDailyIconUrl() + Constants.imagesExtension);
 

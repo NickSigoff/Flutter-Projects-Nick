@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_app/data/data_provider.dart';
 
-import '../../../../models/weather_forecast.dart';
 import '../../../../utils/main_colors.dart';
 
 class DailyListViewDayWidget extends StatelessWidget {
@@ -24,7 +24,7 @@ class DailyListViewDayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dailyTime = context.watch<WeatherForecast>().daily![pageIndex].dt!;
+    final dailyTime = context.watch<DataProvider>().getForecast.daily![pageIndex].dt!;
     return GestureDetector(
       onTap: () {
         onTap(pageIndex);

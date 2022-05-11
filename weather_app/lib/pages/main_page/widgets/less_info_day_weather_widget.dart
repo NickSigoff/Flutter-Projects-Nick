@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/utils/main_colors.dart';
 import 'package:weather_app/utils/main_styles.dart';
 
+import '../../../data/data_provider.dart';
 import '../../../utils/constants.dart';
 
 class LessInfoDayWeatherWidget extends StatelessWidget {
@@ -24,7 +24,7 @@ class LessInfoDayWeatherWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dailyWeather = context.watch<WeatherForecast>().daily![index];
+    final dailyWeather = context.watch<DataProvider>().getForecast.daily![index];
     Image weatherImage = Image.network(
         dailyWeather.getDailyIconUrl() + Constants.imagesExtension);
 

@@ -10,6 +10,7 @@ import 'package:weather_app/utils/main_gradients.dart';
 import 'package:weather_app/utils/main_colors.dart';
 
 import '../../api/weather_api.dart';
+import '../../data/data_provider.dart';
 import '../../models/weather_forecast.dart';
 
 class MainPage extends StatefulWidget {
@@ -22,6 +23,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedPage = 0;
   late WeatherForecast forecast;
+  DataProvider dataProvider = DataProvider();
 
   void _onTapChangePage(int pageNum) {
     setState(() {
@@ -33,12 +35,13 @@ class _MainPageState extends State<MainPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     forecast = ModalRoute.of(context)!.settings.arguments as WeatherForecast;
+    dataProvider.forecast = forecast;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Provider(
-      create: (BuildContext context) => forecast,
+    return ChangeNotifierProvider<DataProvider>(
+      create: (BuildContext context) => dataProvider,
       child: Scaffold(
         appBar: AppBar(
           titleTextStyle: const TextStyle(
@@ -46,14 +49,16 @@ class _MainPageState extends State<MainPage> {
           centerTitle: true,
           elevation: 0,
           backgroundColor: MainColors.backgroundMainPageLight,
-          title: Text(forecast.timezone!),
+          title: Text(dataProvider.getForecast.timezone!),
           actions: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: GestureDetector(
                   child: const Icon(Icons.place),
                   onTap: () async {
-                    forecast = await getWeather();
+                    dataProvider.forecast = await WeatherApi()
+                        .fetchWeatherForecastWithCoordinates();
+                    dataProvider.notify();
                     setState(() {});
                   }),
             )
@@ -95,5 +100,3 @@ class _MainPageState extends State<MainPage> {
     return await WeatherApi().fetchWeatherForecastWithCoordinates();
   }
 }
-
-

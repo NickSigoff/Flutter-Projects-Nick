@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/utils/main_styles.dart';
 
+import '../../../../data/data_provider.dart';
 import 'hour_weather_widget.dart';
 
 class HourlyForecast extends StatelessWidget {
@@ -10,7 +10,7 @@ class HourlyForecast extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final hourlyForecast = context.watch<WeatherForecast>().hourly!;
+    final hourlyForecast = context.watch<DataProvider>().getForecast.hourly!;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/pages/main_page/widgets/current_parameter_widget.dart';
 
+import '../../../../data/data_provider.dart';
 import '../../../../utils/constants.dart';
 
 class MoreInfoWeatherWidget extends StatelessWidget {
@@ -35,7 +35,7 @@ class MoreInfoWeatherWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    final dailyWeather = context.watch<WeatherForecast>().daily![index];
+    final dailyWeather = context.watch<DataProvider>().getForecast.daily![index];
     List<String> values = [
       ' ${DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(dailyWeather.sunrise! * 1000))}',
       ' ${DateFormat('h:mm a').format(DateTime.fromMillisecondsSinceEpoch(dailyWeather.sunset! * 1000))}',

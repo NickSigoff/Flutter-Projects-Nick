@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/models/weather_forecast.dart';
+import 'package:weather_app/data/data_provider.dart';
 import '../../../utils/main_colors.dart';
 import '../../../utils/main_gradients.dart';
 import '../widgets/daily_details_widgets/daily_info_widget.dart';
@@ -26,7 +26,7 @@ class _DailyDetailsPageState extends State<DailyDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    final forecast = context.watch<WeatherForecast>().daily!;
+    final forecast = context.watch<DataProvider>().getForecast.daily!;
     mainInfoList = List.generate(
         forecast.length, (index) => DailyInfoWidget(index: index));
     return Container(

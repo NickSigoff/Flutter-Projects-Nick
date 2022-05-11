@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/utils/constants.dart';
 import 'package:weather_app/utils/main_colors.dart';
 import 'package:weather_app/utils/main_gradients.dart';
 import 'package:weather_app/utils/main_styles.dart';
+
+import '../../../data/data_provider.dart';
 
 class DrawerMainPageWidget extends StatelessWidget {
   const DrawerMainPageWidget({Key? key}) : super(key: key);
@@ -48,7 +49,7 @@ class DrawerMainPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var weatherForecast = context.watch<WeatherForecast>();
+    var weatherForecast = context.watch<DataProvider>().getForecast;
     return Drawer(
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 24),

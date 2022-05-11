@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/models/weather_forecast.dart';
 
+import '../../../data/data_provider.dart';
 import '../../../utils/main_colors.dart';
 
 class CurrentDateWidget extends StatelessWidget {
@@ -15,7 +15,7 @@ class CurrentDateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int currentTime = context.watch<WeatherForecast>().current!.dt!;
+    int currentTime = context.watch<DataProvider>().getForecast.current!.dt!;
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16.0),
       child: FittedBox(

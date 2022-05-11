@@ -3,7 +3,8 @@ import 'package:provider/provider.dart';
 
 import 'package:weather_app/pages/main_page/widgets/daily_details_widgets/daily_list_view_day_widget.dart';
 
-import '../../../../models/weather_forecast.dart';
+import '../../../../data/data_provider.dart';
+
 
 class DailyListView extends StatelessWidget {
   final Function onTap;
@@ -17,7 +18,7 @@ class DailyListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final forecast = context.watch<WeatherForecast>().daily!;
+    final forecast = context.watch<DataProvider>().getForecast.daily!;
     return Column(
       children: [
         Container(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/models/weather_forecast.dart';
 import 'package:weather_app/utils/main_styles.dart';
 
+import '../../../data/data_provider.dart';
 import '../../../global_widgets/gradient_text.dart';
 import '../../../utils/constants.dart';
 
@@ -11,7 +11,7 @@ class GeneralTempWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final currentWeather = context.watch<WeatherForecast>().current!;
+    final currentWeather = context.watch<DataProvider>().getForecast.current!;
     final String temperature =
         '${currentWeather.temp!.toStringAsFixed(0)}${Constants.degreeMetric}';
     final String description = '${currentWeather.weather![0].main} ';

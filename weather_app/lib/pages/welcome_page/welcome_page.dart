@@ -44,7 +44,6 @@ class _WelcomePageState extends State<WelcomePage> {
   void initState() {
     super.initState();
     getLocation();
-
   }
 
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/models/weather_forecast.dart';
+import 'package:weather_app/data/data_provider.dart';
 import 'package:weather_app/pages/main_page/widgets/daily_details_widgets/information_row_widget.dart';
 import 'package:weather_app/utils/constants.dart';
 import 'package:weather_app/utils/main_styles.dart';
@@ -43,7 +43,7 @@ class DailyInfoWidget extends StatelessWidget {
       'UV index',
       'Clouds',
     ];
-    final dailyWeather = context.watch<WeatherForecast>().daily![index];
+    final dailyWeather = context.watch<DataProvider>().getForecast.daily![index];
     List<String> values = [
       '${dailyWeather.temp!.min}${Constants.degreeMetric}',
       '${dailyWeather.temp!.max}${Constants.degreeMetric}',
