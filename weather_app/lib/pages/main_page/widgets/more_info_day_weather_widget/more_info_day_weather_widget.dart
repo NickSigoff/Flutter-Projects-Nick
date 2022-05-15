@@ -9,10 +9,8 @@ import 'package:weather_app/utils/main_styles.dart';
 import '../../../../data/data_provider.dart';
 
 class MoreInfoDayWeatherWidget extends StatelessWidget {
-  final Function onTap;
+  final void Function(int index) onTap;
   final int index;
-
-  //final Daily dailyWeather;
 
   const MoreInfoDayWeatherWidget({
     Key? key,
@@ -20,14 +18,10 @@ class MoreInfoDayWeatherWidget extends StatelessWidget {
     required this.index,
   }) : super(key: key);
 
-  String getDate(int time) {
-    var date = DateTime.fromMillisecondsSinceEpoch(time * 1000);
-    return DateFormat('EEEE, d MMM, yyyy').format(date);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final dailyWeather = context.watch<DataProvider>().getForecast.daily![index];
+    final dailyWeather =
+        context.watch<DataProvider>().getForecast.daily![index];
     Image weatherImage = Image.network(
         dailyWeather.getDailyIconUrl() + Constants.imagesExtension);
 
@@ -47,48 +41,56 @@ class MoreInfoDayWeatherWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        onTap();
+        onTap(index);
       },
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              children: [
-                const Expanded(
-                  flex: 1,
-                  child: Icon(
-                    Icons.keyboard_arrow_down,
-                    color: MainColors.backgroundDark,
+      child: Container(
+        color: Colors.green,
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                children: [
+                  const Expanded(
+                    flex: 1,
+                    child: Icon(
+                      Icons.keyboard_arrow_up,
+                      color: MainColors.backgroundDark,
+                    ),
                   ),
-                ),
-                Expanded(
-                  flex: 4,
-                  child: index == 0
-                      ? Text(
-                          'Today',
-                          style: MainStyles.smallInscriptionsLight,
-                        )
-                      : date,
-                ),
-                Expanded(flex: 1, child: weatherImage),
-                const Spacer(flex: 1),
-                Expanded(
-                  flex: 2,
-                  child: Row(
-                    children: [
-                      minTemp,
-                      const SizedBox(width: 16),
-                      maxTemp,
-                    ],
+                  Expanded(
+                    flex: 4,
+                    child: index == 0
+                        ? Text(
+                            'Today',
+                            style: MainStyles.smallInscriptionsLight,
+                          )
+                        : date,
                   ),
-                ),
-              ],
+                  Expanded(flex: 1, child: weatherImage),
+                  const Spacer(flex: 1),
+                  Expanded(
+                    flex: 2,
+                    child: Row(
+                      children: [
+                        minTemp,
+                        const SizedBox(width: 16),
+                        maxTemp,
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          MoreInfoWeatherWidget(index: index),
-        ],
+            MoreInfoWeatherWidget(index: index),
+          ],
+        ),
       ),
     );
+  }
+
+  String getDate(int time) {
+    var date = DateTime.fromMillisecondsSinceEpoch(time * 1000);
+    return DateFormat('EEEE, d MMM, yyyy').format(date);
   }
 }

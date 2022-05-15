@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/data/data_provider.dart';
@@ -12,8 +13,6 @@ class DailyInfoWidget extends StatelessWidget {
   final int index;
 
   const DailyInfoWidget({Key? key, required this.index}) : super(key: key);
-
-  get chooseWindDirection => null;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +42,8 @@ class DailyInfoWidget extends StatelessWidget {
       'UV index',
       'Clouds',
     ];
-    final dailyWeather = context.watch<DataProvider>().getForecast.daily![index];
+    final dailyWeather =
+        context.watch<DataProvider>().getForecast.daily![index];
     List<String> values = [
       '${dailyWeather.temp!.min}${Constants.degreeMetric}',
       '${dailyWeather.temp!.max}${Constants.degreeMetric}',
@@ -65,10 +65,27 @@ class DailyInfoWidget extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.network(
-                dailyWeather.getDailyIconUrl() + Constants.imagesExtension,
-                scale: 0.5,
+              CachedNetworkImage(
+              imageUrl: dailyWeather.getDailyIconUrl() + Constants.imagesExtension,
+              placeholder: (context, url) => const CircularProgressIndicator(),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
+              // Padding(
+              //   padding: const EdgeInsets.all(8.0),
+              //   child: Image.network(
+              //     dailyWeather.getDailyIconUrl() + Constants.imagesExtension,
+              //     scale: 0.7,
+              //     loadingBuilder: (BuildContext context, Widget child,
+              //         ImageChunkEvent? loadingProgress) {
+              //       if (loadingProgress == null) {
+              //         return child;
+              //       }
+              //       return const Center(
+              //         child: CircularProgressIndicator(),
+              //       );
+              //     },
+              //   ),
+              // ),
               Text(
                 '${dailyWeather.temp!.day!.toStringAsFixed(0)}${Constants.degreeMetric}',
                 style: const TextStyle(

@@ -17,14 +17,10 @@ class DailyListViewDayWidget extends StatelessWidget {
     required this.selectedPage,
   }) : super(key: key);
 
-  String getCurrentDate(int dailyTime) {
-    var date = DateTime.fromMillisecondsSinceEpoch(dailyTime * 1000);
-    return DateFormat('EEEE\nd MM').format(date);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final dailyTime = context.watch<DataProvider>().getForecast.daily![pageIndex].dt!;
+    final dailyTime =
+        context.watch<DataProvider>().getForecast.daily![pageIndex].dt!;
     return GestureDetector(
       onTap: () {
         onTap(pageIndex);
@@ -52,5 +48,10 @@ class DailyListViewDayWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getCurrentDate(int dailyTime) {
+    var date = DateTime.fromMillisecondsSinceEpoch(dailyTime * 1000);
+    return DateFormat('EEEE\nd MM').format(date);
   }
 }

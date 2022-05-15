@@ -43,6 +43,7 @@ class _MainPageState extends State<MainPage> {
     return ChangeNotifierProvider<DataProvider>(
       create: (BuildContext context) => dataProvider,
       child: Scaffold(
+        backgroundColor: MainColors.backgroundMainPageDark,
         appBar: AppBar(
           titleTextStyle: const TextStyle(
               fontSize: 14, fontWeight: FontWeight.w500, fontFamily: 'Poppins'),

@@ -8,11 +8,6 @@ import '../../../utils/main_colors.dart';
 class CurrentDateWidget extends StatelessWidget {
   const CurrentDateWidget({Key? key}) : super(key: key);
 
-  String getCurrentDate(int currentTime) {
-    var date = DateTime.fromMillisecondsSinceEpoch(currentTime * 1000);
-    return DateFormat('EEEE d MMM yyyy | hh:mm aaa').format(date);
-  }
-
   @override
   Widget build(BuildContext context) {
     int currentTime = context.watch<DataProvider>().getForecast.current!.dt!;
@@ -38,5 +33,10 @@ class CurrentDateWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getCurrentDate(int currentTime) {
+    var date = DateTime.fromMillisecondsSinceEpoch(currentTime * 1000);
+    return DateFormat('EEEE d MMM yyyy | hh:mm aaa').format(date);
   }
 }

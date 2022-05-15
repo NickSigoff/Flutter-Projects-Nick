@@ -18,12 +18,6 @@ class _DailyDetailsPageState extends State<DailyDetailsPage> {
 
   late List<DailyInfoWidget> mainInfoList;
 
-  void _onTapChangePage(int pageNum) {
-    setState(() {
-      _selectedPage = pageNum;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final forecast = context.watch<DataProvider>().getForecast.daily!;
@@ -58,5 +52,11 @@ class _DailyDetailsPageState extends State<DailyDetailsPage> {
         ],
       ),
     );
+  }
+
+  void _onTapChangePage(int pageNum) {
+    setState(() {
+      _selectedPage = pageNum;
+    });
   }
 }

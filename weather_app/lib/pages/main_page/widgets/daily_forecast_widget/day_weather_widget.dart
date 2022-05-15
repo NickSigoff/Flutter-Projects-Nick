@@ -3,34 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/pages/main_page/widgets/less_info_day_weather_widget.dart';
 import 'package:weather_app/pages/main_page/widgets/more_info_day_weather_widget/more_info_day_weather_widget.dart';
 
-class DayWeather extends StatefulWidget {
+class DayWeather extends StatelessWidget {
   final int index;
+  final void Function(int index) setOpenedDay;
+  final bool showMore;
 
-  const DayWeather({required this.index, Key? key}) : super(key: key);
-
-  @override
-  State<DayWeather> createState() => _DayWeatherState();
-}
-
-class _DayWeatherState extends State<DayWeather> {
-  bool showMore = false;
-
-  void onTapArrow() {
-    setState(() {
-      showMore = !showMore;
-    });
-  }
+  const DayWeather(
+      {required this.index,
+      required this.setOpenedDay,
+      this.showMore = false,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return showMore
         ? MoreInfoDayWeatherWidget(
-            onTap: onTapArrow,
-            index: widget.index,
+            onTap: setOpenedDay,
+            index: index,
           )
         : LessInfoDayWeatherWidget(
-            onTap: onTapArrow,
-            index: widget.index,
+            onTap: setOpenedDay,
+            index: index,
           );
   }
 }

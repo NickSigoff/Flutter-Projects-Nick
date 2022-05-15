@@ -4,7 +4,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../../../utils/main_colors.dart';
 
 class NextButton extends StatelessWidget {
-  final Function onTap;
+  final void Function() onTap;
   final double percent;
 
   const NextButton({required this.onTap, required this.percent, Key? key})

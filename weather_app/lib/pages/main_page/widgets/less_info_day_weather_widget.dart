@@ -8,7 +8,7 @@ import '../../../data/data_provider.dart';
 import '../../../utils/constants.dart';
 
 class LessInfoDayWeatherWidget extends StatelessWidget {
-  final Function onTap;
+  final void Function(int index) onTap;
   final int index;
 
   const LessInfoDayWeatherWidget({
@@ -17,14 +17,10 @@ class LessInfoDayWeatherWidget extends StatelessWidget {
     required this.index,
   }) : super(key: key);
 
-  String getDate(int time) {
-    var date = DateTime.fromMillisecondsSinceEpoch(time * 1000);
-    return DateFormat('EEEE, d MMM, yyyy').format(date);
-  }
-
   @override
   Widget build(BuildContext context) {
-    final dailyWeather = context.watch<DataProvider>().getForecast.daily![index];
+    final dailyWeather =
+        context.watch<DataProvider>().getForecast.daily![index];
     Image weatherImage = Image.network(
         dailyWeather.getDailyIconUrl() + Constants.imagesExtension);
 
@@ -44,7 +40,7 @@ class LessInfoDayWeatherWidget extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        onTap();
+        onTap(index);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -82,5 +78,10 @@ class LessInfoDayWeatherWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getDate(int time) {
+    var date = DateTime.fromMillisecondsSinceEpoch(time * 1000);
+    return DateFormat('EEEE, d MMM, yyyy').format(date);
   }
 }

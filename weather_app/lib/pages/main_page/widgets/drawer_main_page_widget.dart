@@ -10,43 +10,6 @@ import '../../../data/data_provider.dart';
 class DrawerMainPageWidget extends StatelessWidget {
   const DrawerMainPageWidget({Key? key}) : super(key: key);
 
-  List<Widget> _buildTollsRows() {
-    List<Widget> result = [];
-    const Map<String, IconData> toolsMap = {
-      'Notifications': Icons.notifications,
-      'Settings': Icons.settings,
-      'Sed feedback': Icons.feedback,
-      'Rate this app': Icons.star,
-      'Share your weather': Icons.share,
-    };
-    toolsMap.forEach((key, value) {
-      result.add(Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
-        child: Row(
-          children: [
-            Icon(value, color: Colors.white),
-            const SizedBox(width: 16.0),
-            Text(key, style: MainStyles.drawerMain),
-          ],
-        ),
-      ));
-    });
-    return result;
-  }
-
-  Widget _buildAvatarWidget() {
-    return Container(
-      width: 36.0,
-      height: 36.0,
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(36.0)),
-      child: const Icon(
-        Icons.person,
-        color: Colors.black,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     var weatherForecast = context.watch<DataProvider>().getForecast;
@@ -111,5 +74,42 @@ class DrawerMainPageWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildAvatarWidget() {
+    return Container(
+      width: 36.0,
+      height: 36.0,
+      decoration: BoxDecoration(
+          color: Colors.white, borderRadius: BorderRadius.circular(36.0)),
+      child: const Icon(
+        Icons.person,
+        color: Colors.black,
+      ),
+    );
+  }
+
+  List<Widget> _buildTollsRows() {
+    List<Widget> result = [];
+    const Map<String, IconData> toolsMap = {
+      'Notifications': Icons.notifications,
+      'Settings': Icons.settings,
+      'Sed feedback': Icons.feedback,
+      'Rate this app': Icons.star,
+      'Share your weather': Icons.share,
+    };
+    toolsMap.forEach((key, value) {
+      result.add(Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          children: [
+            Icon(value, color: Colors.white),
+            const SizedBox(width: 16.0),
+            Text(key, style: MainStyles.drawerMain),
+          ],
+        ),
+      ));
+    });
+    return result;
   }
 }

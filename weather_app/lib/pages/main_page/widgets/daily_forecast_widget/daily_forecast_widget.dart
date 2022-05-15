@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
 
 import 'package:weather_app/pages/main_page/widgets/daily_forecast_widget/day_weather_widget.dart';
+import 'package:weather_app/utils/constants.dart';
 import '../../../../utils/main_styles.dart';
 
-class DailyForecast extends StatelessWidget {
+class DailyForecast extends StatefulWidget {
   const DailyForecast({Key? key}) : super(key: key);
+
+  @override
+  State<DailyForecast> createState() => _DailyForecastState();
+}
+
+class _DailyForecastState extends State<DailyForecast> {
+  int indexOpenedDay = Constants.initialIndexOpenedDay;
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +48,29 @@ class DailyForecast extends StatelessWidget {
             ),
             child: Column(
               children: [
-                ...List<Widget>.generate(
-                  7,
-                  (index) => DayWeather(
-                    index: index,
-                  ),
-                )
+                ...makeDayWeatherWidgetsList(),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  List<DayWeather> makeDayWeatherWidgetsList() {
+    return List<DayWeather>.generate(
+      7,
+      (index) => DayWeather(
+        showMore: indexOpenedDay == index ? true : false,
+        index: index,
+        setOpenedDay: (int index) {
+          if (indexOpenedDay == index) {
+            indexOpenedDay = Constants.initialIndexOpenedDay;
+          } else {
+            indexOpenedDay = index;
+          }
+          setState(() {});
+        },
       ),
     );
   }

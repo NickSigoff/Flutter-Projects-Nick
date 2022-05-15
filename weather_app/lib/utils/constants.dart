@@ -15,4 +15,5 @@ abstract class Constants {
   static const String pressureMetric = 'mm Hg';
 
   static const String degreeSymbol = '\u00B0';
+  static const int initialIndexOpenedDay = -1;
 }
