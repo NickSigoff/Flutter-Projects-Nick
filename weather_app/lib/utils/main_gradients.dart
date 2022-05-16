@@ -8,6 +8,7 @@ abstract class MainGradients {
         MainColors.backgroundMainPageLight,
         MainColors.backgroundMainPageDark,
       ],
+      stops: [0.5,1.0],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
     ),

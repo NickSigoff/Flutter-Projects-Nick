@@ -42,39 +42,45 @@ class LessInfoDayWeatherWidget extends StatelessWidget {
       onTap: () {
         onTap(index);
       },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: Row(
-          children: [
-            const Expanded(
-              flex: 1,
-              child: Icon(
-                Icons.keyboard_arrow_down,
-                color: MainColors.backgroundDark,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(color: MainColors.unSelectedTextMainPage)),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Row(
+            children: [
+              const Expanded(
+                flex: 1,
+                child: Icon(
+                  Icons.keyboard_arrow_down,
+                  color: MainColors.backgroundDark,
+                ),
               ),
-            ),
-            Expanded(
-              flex: 4,
-              child: index == 0
-                  ? Text(
-                      'Today',
-                      style: MainStyles.smallInscriptionsLight,
-                    )
-                  : date,
-            ),
-            Expanded(flex: 1, child: weatherImage),
-            const Spacer(flex: 1),
-            Expanded(
-              flex: 2,
-              child: Row(
-                children: [
-                  minTemp,
-                  const SizedBox(width: 16),
-                  maxTemp,
-                ],
+              Expanded(
+                flex: 4,
+                child: index == 0
+                    ? Text(
+                        'Today',
+                        style: MainStyles.smallInscriptionsLight,
+                      )
+                    : date,
               ),
-            ),
-          ],
+              Expanded(flex: 1, child: weatherImage),
+              const Spacer(flex: 1),
+              Expanded(
+                flex: 2,
+                child: Row(
+                  children: [
+                    minTemp,
+                    const SizedBox(width: 16),
+                    maxTemp,
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

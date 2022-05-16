@@ -34,8 +34,8 @@ class _WelcomePageState extends State<WelcomePage> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        settings: RouteSettings(arguments: weatherForecastLocationData),
-        builder: (context) => const MainPage(),
+        builder: (context) =>
+            MainPage(weatherForecast: weatherForecastLocationData),
       ),
     );
   }

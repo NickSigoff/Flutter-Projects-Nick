@@ -14,7 +14,9 @@ import '../../data/data_provider.dart';
 import '../../models/weather_forecast.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  final WeatherForecast weatherForecast;
+
+  const MainPage({required this.weatherForecast, Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -22,20 +24,12 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedPage = 0;
-  late WeatherForecast forecast;
   DataProvider dataProvider = DataProvider();
 
-  void _onTapChangePage(int pageNum) {
-    setState(() {
-      _selectedPage = pageNum;
-    });
-  }
-
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    forecast = ModalRoute.of(context)!.settings.arguments as WeatherForecast;
-    dataProvider.forecast = forecast;
+  void initState() {
+    super.initState();
+    dataProvider.forecast = widget.weatherForecast;
   }
 
   @override
@@ -84,6 +78,12 @@ class _MainPageState extends State<MainPage> {
         ),
       ),
     );
+  }
+
+  void _onTapChangePage(int pageNum) {
+    setState(() {
+      _selectedPage = pageNum;
+    });
   }
 
   Widget chooseTabBarPage(int selectedPage) {
