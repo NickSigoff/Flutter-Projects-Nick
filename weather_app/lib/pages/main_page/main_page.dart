@@ -14,9 +14,9 @@ import '../../data/data_provider.dart';
 import '../../models/weather_forecast.dart';
 
 class MainPage extends StatefulWidget {
-  final WeatherForecast weatherForecast;
+  final DataProvider dataProvider;
 
-  const MainPage({required this.weatherForecast, Key? key}) : super(key: key);
+  const MainPage({required this.dataProvider, Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -24,18 +24,16 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedPage = 0;
-  DataProvider dataProvider = DataProvider();
 
   @override
   void initState() {
     super.initState();
-    dataProvider.forecast = widget.weatherForecast;
   }
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<DataProvider>(
-      create: (BuildContext context) => dataProvider,
+      create: (BuildContext context) => widget.dataProvider,
       child: Scaffold(
         backgroundColor: MainColors.backgroundMainPageDark,
         appBar: AppBar(
@@ -44,17 +42,16 @@ class _MainPageState extends State<MainPage> {
           centerTitle: true,
           elevation: 0,
           backgroundColor: MainColors.backgroundMainPageLight,
-          title: Text(dataProvider.getForecast.timezone!),
+          title: Text(widget.dataProvider.getForecast.timezone!),
           actions: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: GestureDetector(
                   child: const Icon(Icons.place),
                   onTap: () async {
-                    dataProvider.forecast = await WeatherApi()
-                        .fetchWeatherForecastWithCoordinates();
-                    dataProvider.notify();
-                    setState(() {});
+                    widget.dataProvider.fetchData(() {
+                      setState(() {});
+                    });
                   }),
             )
           ],

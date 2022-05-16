@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/api/weather_api.dart';
-import 'package:weather_app/models/weather_forecast.dart';
+import 'package:weather_app/data/data_provider.dart';
 import 'package:weather_app/pages/main_page/main_page.dart';
 import 'package:weather_app/utils/main_colors.dart';
 
@@ -27,18 +26,6 @@ class _WelcomePageState extends State<WelcomePage> {
       fontSize: 24,
       fontFamily: "Poppins",
       fontWeight: FontWeight.w400);
-
-  void getLocation() async {
-    WeatherForecast weatherForecastLocationData =
-        await WeatherApi().fetchWeatherForecastWithCoordinates();
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            MainPage(weatherForecast: weatherForecastLocationData),
-      ),
-    );
-  }
 
   @override
   void initState() {
@@ -94,5 +81,11 @@ class _WelcomePageState extends State<WelcomePage> {
         ),
       ),
     );
+  }
+
+  void getLocation() async {
+    DataProvider dataProvider = DataProvider();
+    dataProvider.fetchDataAndPushRoute(
+        context, MainPage(dataProvider: dataProvider));
   }
 }
