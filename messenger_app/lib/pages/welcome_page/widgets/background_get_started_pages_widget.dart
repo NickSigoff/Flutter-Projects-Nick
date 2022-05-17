@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:messenger_app/utils/constants.dart';
 
-class BackgroundWelcomePage extends StatelessWidget {
-  const BackgroundWelcomePage({Key? key}) : super(key: key);
+class BackgroundGetStartedPages extends StatelessWidget {
+  const BackgroundGetStartedPages({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
