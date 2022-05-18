@@ -31,6 +31,8 @@ flutter:
 
   assets:
     - assets/images/label.png
+    - assets/images/start_call_image.png
+    - assets/images/start_message_image.png
 
   fonts:
     - family: Poppins

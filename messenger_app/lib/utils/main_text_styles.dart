@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_shadows.dart';
 
 abstract class MainTextStyles {
   static TextStyle largeGetStartedPageStyle = TextStyle(
+    color: MainColors.creamWhite,
     fontFamily: 'Poppins',
     shadows: MainShadows.textShadow,
     fontSize: 50,
@@ -10,6 +12,7 @@ abstract class MainTextStyles {
   );
 
   static TextStyle mediumGetStartedPageStyle = TextStyle(
+    color: MainColors.creamWhite,
     fontFamily: 'Poppins',
     shadows: MainShadows.textShadow,
     fontSize: 20,
@@ -17,8 +20,8 @@ abstract class MainTextStyles {
   );
 
   static TextStyle smallGetStartedPageStyle = TextStyle(
+    color: MainColors.creamWhite,
     fontFamily: 'Poppins',
-    color: Colors.white,
     shadows: MainShadows.textShadow,
     fontSize: 15,
     fontWeight: FontWeight.w400,
