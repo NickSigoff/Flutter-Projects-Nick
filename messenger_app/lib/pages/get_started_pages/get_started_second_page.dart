@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:messenger_app/pages/get_started_pages/get_started_third_page.dart';
-import 'package:messenger_app/pages/get_started_pages/widgets/background_get_started_pages_widget.dart';
-import 'package:messenger_app/pages/get_started_pages/widgets/continue_button_widget.dart';
+import 'package:messenger_app/global_widgets/confirm_button_widget.dart';
 import 'package:messenger_app/pages/get_started_pages/widgets/navigation_status_widget.dart';
 import 'package:messenger_app/pages/get_started_pages/widgets/skip_button_widget.dart';
-import 'package:messenger_app/utils/constants.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
+import 'package:messenger_app/utils/size_constants.dart';
 
+import '../../global_widgets/background_widget.dart';
 import '../../utils/main_colors.dart';
 
 class GetStartedSecondPage extends StatelessWidget {
@@ -14,13 +14,15 @@ class GetStartedSecondPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: MainColors.lightBlue,
       body: Stack(
         children: [
-          const BackgroundGetStartedPages(),
+          const BackgroundWidget(
+            minClipperHeight: SizeConstants.minRatioHeightBackgroundClipperStart,
+            maxClipperHeight: SizeConstants.maxRatioHeightBackgroundClipperStart,
+          ),
           Padding(
             padding: const EdgeInsets.all(32.0),
             child: Column(
@@ -28,7 +30,7 @@ class GetStartedSecondPage extends StatelessWidget {
               children: [
                 Container(
                   alignment: Alignment.bottomCenter,
-                  height: height * Constants.maxHeightBackgroundClipper,
+                  height: height * SizeConstants.maxRatioHeightBackgroundClipperStart,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       image:
@@ -58,7 +60,7 @@ class GetStartedSecondPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const Spacer(flex: 3),
-                ContinueButton(
+                ConfirmButton(
                     route: MaterialPageRoute(
                         builder: (context) => const GetStartedThirdPage())),
                 const Spacer(flex: 1),

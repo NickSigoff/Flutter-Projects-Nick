@@ -26,4 +26,18 @@ abstract class MainTextStyles {
     fontSize: 15,
     fontWeight: FontWeight.w400,
   );
+
+  static const TextStyle largeInputBlockStyle = TextStyle(
+    color: MainColors.black,
+    fontFamily: 'Poppins',
+    fontSize: 18,
+    fontWeight: FontWeight.w600,
+  );
+
+  static const TextStyle smallInputBlockStyle = TextStyle(
+    color: MainColors.black,
+    fontFamily: 'Poppins',
+    fontSize: 14,
+    fontWeight: FontWeight.w400,
+  );
 }

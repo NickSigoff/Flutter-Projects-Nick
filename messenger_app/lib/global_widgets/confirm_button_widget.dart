@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:messenger_app/pages/get_started_pages/get_started_second_page.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_shadows.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
-class ContinueButton extends StatelessWidget {
- final MaterialPageRoute route;
+class ConfirmButton extends StatelessWidget {
+  final MaterialPageRoute route;
+  final String text;
+  final double width;
+  final Color color;
 
-  const ContinueButton({
+  const ConfirmButton({
+    this.color = Colors.white,
+    this.width = 200,
+    this.text = 'Continue',
     required this.route,
     Key? key,
   }) : super(key: key);
@@ -20,17 +25,19 @@ class ContinueButton extends StatelessWidget {
       },
       child: Container(
         alignment: Alignment.center,
-        width: 200,
+        width: width,
         height: 50,
         decoration: BoxDecoration(
           boxShadow: MainShadows.containerShadow,
-          borderRadius: BorderRadius.circular(50),
-          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          color: color,
         ),
         child: Text(
-          'Continue',
-          style: MainTextStyles.mediumGetStartedPageStyle
-              .copyWith(color: MainColors.lightBlue, shadows: []),
+          text,
+          style: MainTextStyles.mediumGetStartedPageStyle.copyWith(
+              color:
+                  color == Colors.white ? MainColors.lightBlue : Colors.white,
+              shadows: []),
         ),
       ),
     );
