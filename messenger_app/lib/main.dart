@@ -5,6 +5,6 @@ import 'package:messenger_app/pages/registration_page/registration_page.dart';
 
 void main() {
   runApp( MaterialApp(
-    home: AuthPage(),
+    home: GetStartedFirstPage(),
   ));
 }
