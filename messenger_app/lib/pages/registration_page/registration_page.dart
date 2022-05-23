@@ -1,6 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/global_widgets/background_widget.dart';
 import 'package:messenger_app/pages/registration_page/widgets/input_block_registration_page.dart';
+import 'package:messenger_app/pages/splash_page/splash_page.dart';
 import 'package:messenger_app/utils/image_constants.dart';
 import 'package:messenger_app/utils/size_constants.dart';
 
@@ -20,8 +22,10 @@ class RegistrationPage extends StatelessWidget {
           child: Stack(
             children: [
               const BackgroundWidget(
-                minClipperHeight: SizeConstants.minRatioHeightBackgroundClipperReg,
-                maxClipperHeight: SizeConstants.maxRatioHeightBackgroundClipperReg,
+                minClipperHeight:
+                    SizeConstants.minRatioHeightBackgroundClipperReg,
+                maxClipperHeight:
+                    SizeConstants.maxRatioHeightBackgroundClipperReg,
               ),
               Padding(
                 padding: const EdgeInsets.all(32.0),
@@ -30,7 +34,7 @@ class RegistrationPage extends StatelessWidget {
                   children: [
                     _buildLogoWidget(height),
                     const Spacer(),
-                    const InputBlockRegistrationPage(),
+                    InputBlockRegistrationPage(signUp: signUp),
                     //const Spacer(),
                   ],
                 ),
@@ -40,6 +44,25 @@ class RegistrationPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void signUp(
+      {required String email,
+      required String password,
+      required BuildContext context}) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(child: CircularProgressIndicator()));
+    try {
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      print(e);
+    }
+    Navigator.push(context, MaterialPageRoute(builder: (context) => SplashPage()));
   }
 
   Widget _buildLogoWidget(double height) {

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:messenger_app/pages/auth_page/auth_page.dart';
-import 'package:messenger_app/pages/get_started_pages/get_started_first_page.dart';
-import 'package:messenger_app/pages/registration_page/registration_page.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:messenger_app/pages/splash_page/splash_page.dart';
 
-void main() {
-  runApp( MaterialApp(
-    home: GetStartedFirstPage(),
-  ));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(
+    const MaterialApp(
+      home: SplashPage(),
+    ),
+  );
 }

@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/global_widgets/confirm_button_widget.dart';
 import 'package:messenger_app/pages/auth_page/auth_page.dart';
-import 'package:messenger_app/pages/main_page/main_page.dart';
 import 'package:messenger_app/pages/registration_page/widgets/text_fields_input_form.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
@@ -11,7 +10,17 @@ import 'package:messenger_app/utils/size_constants.dart';
 import '../../../global_widgets/social_media_authorize_widget.dart';
 
 class InputBlockRegistrationPage extends StatelessWidget {
-  const InputBlockRegistrationPage({Key? key}) : super(key: key);
+  static final nameController = TextEditingController();
+  static final passwordController = TextEditingController();
+  static final emailController = TextEditingController();
+
+  final void Function(
+      {required String email,
+      required String password,
+      required BuildContext context}) signUp;
+
+  const InputBlockRegistrationPage({Key? key, required this.signUp})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,11 +48,17 @@ class InputBlockRegistrationPage extends StatelessWidget {
                     .copyWith(color: MainColors.lightBlue)),
           ),
           ConfirmButton(
-              color: MainColors.lightBlue,
-              width: double.infinity,
-              text: 'Sign up',
-              route: MaterialPageRoute(
-                  builder: (BuildContext context) => const MainPage())),
+            color: MainColors.lightBlue,
+            width: double.infinity,
+            text: 'Sign up',
+            onTap: () {
+              signUp(
+                email: emailController.text.trim(),
+                password: passwordController.text.trim(),
+                context: context,
+              );
+            },
+          ),
           Container(
             alignment: Alignment.center,
             child: RichText(
@@ -57,8 +72,7 @@ class InputBlockRegistrationPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (BuildContext context) =>
-                                      AuthPage()));
+                                  builder: (context) => const AuthPage()));
                         },
                       text: ' Sign in',
                       style: MainTextStyles.smallInputBlockStyle

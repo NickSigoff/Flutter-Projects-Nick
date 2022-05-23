@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
 import '../../../utils/main_colors.dart';
+import 'input_block_registration_page.dart';
 
 class TextFieldsInputForm extends StatefulWidget {
-  static final nameController = TextEditingController();
-  static final passwordController = TextEditingController();
-  static final emailController = TextEditingController();
-
   final OutlineInputBorder _outlineInputBorderFocus = const OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(16)),
       borderSide: BorderSide(color: MainColors.lightBlue));
@@ -23,8 +20,7 @@ class TextFieldsInputForm extends StatefulWidget {
 }
 
 class _TextFieldsSignUpPageState extends State<TextFieldsInputForm> {
-  bool _visiblePassword = false;
-  bool _visibleEmail = false;
+  bool _visiblePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +30,7 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputForm> {
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: TextFormField(
             style: MainTextStyles.smallInputBlockStyle,
-            controller: TextFieldsInputForm.nameController,
+            controller: InputBlockRegistrationPage.nameController,
             keyboardType: TextInputType.name,
             decoration: InputDecoration(
               labelText: 'Your name',
@@ -47,22 +43,9 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputForm> {
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: TextField(
             style: MainTextStyles.smallInputBlockStyle,
-            obscureText: !_visibleEmail,
-            controller: TextFieldsInputForm.emailController,
+            controller: InputBlockRegistrationPage.emailController,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
-              suffixIcon: IconButton(
-                onPressed: () {
-                  setState(() {
-                    _visibleEmail = !_visibleEmail;
-                  });
-                },
-                icon: Icon(
-                  _visibleEmail
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined,
-                ),
-              ),
               labelText: 'Email',
               focusedBorder: widget._outlineInputBorderFocus,
               enabledBorder: widget._outlineInputBorderEnable,
@@ -74,7 +57,7 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputForm> {
           child: TextField(
             style: MainTextStyles.smallInputBlockStyle,
             obscureText: _visiblePassword,
-            controller: TextFieldsInputForm.passwordController,
+            controller: InputBlockRegistrationPage.passwordController,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               suffixIcon: IconButton(
@@ -85,8 +68,8 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputForm> {
                 },
                 icon: Icon(
                   _visiblePassword
-                      ? Icons.visibility_outlined
-                      : Icons.visibility_off_outlined,
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility_outlined,
                 ),
               ),
               labelText: 'Password',

@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/global_widgets/confirm_button_widget.dart';
-import 'package:messenger_app/pages/auth_page/widgets/text_filds_input_form_widget.dart';
+import 'package:messenger_app/pages/auth_page/widgets/text_fields_input_form_widget.dart';
 import 'package:messenger_app/pages/registration_page/registration_page.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 import 'package:messenger_app/utils/size_constants.dart';
@@ -11,7 +11,14 @@ import '../../../utils/main_colors.dart';
 import '../../main_page/main_page.dart';
 
 class InputBlockAuthPage extends StatelessWidget {
-  const InputBlockAuthPage({Key? key}) : super(key: key);
+  static final emailController = TextEditingController();
+  static final passwordController = TextEditingController();
+  final void Function(
+      {required String email,
+      required String password,
+      required BuildContext context})? signIn;
+
+  const InputBlockAuthPage({Key? key, this.signIn}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,8 +49,14 @@ class InputBlockAuthPage extends StatelessWidget {
               color: MainColors.lightBlue,
               width: double.infinity,
               text: 'Sign in',
-              route: MaterialPageRoute(
-                  builder: (BuildContext context) => const MainPage())),
+              onTap: () {
+                signIn == null
+                    ? {}
+                    : signIn!(
+                        context: context,
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim());
+              }),
           Container(
             alignment: Alignment.center,
             child: RichText(

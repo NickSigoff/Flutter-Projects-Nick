@@ -20,8 +20,10 @@ class GetStartedSecondPage extends StatelessWidget {
       body: Stack(
         children: [
           const BackgroundWidget(
-            minClipperHeight: SizeConstants.minRatioHeightBackgroundClipperStart,
-            maxClipperHeight: SizeConstants.maxRatioHeightBackgroundClipperStart,
+            minClipperHeight:
+                SizeConstants.minRatioHeightBackgroundClipperStart,
+            maxClipperHeight:
+                SizeConstants.maxRatioHeightBackgroundClipperStart,
           ),
           Padding(
             padding: const EdgeInsets.all(32.0),
@@ -30,7 +32,8 @@ class GetStartedSecondPage extends StatelessWidget {
               children: [
                 Container(
                   alignment: Alignment.bottomCenter,
-                  height: height * SizeConstants.maxRatioHeightBackgroundClipperStart,
+                  height: height *
+                      SizeConstants.maxRatioHeightBackgroundClipperStart,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       image:
@@ -60,9 +63,7 @@ class GetStartedSecondPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const Spacer(flex: 3),
-                ConfirmButton(
-                    route: MaterialPageRoute(
-                        builder: (context) => const GetStartedThirdPage())),
+                ConfirmButton(onTap: () {}),
                 const Spacer(flex: 1),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:messenger_app/global_widgets/background_widget.dart';
 import 'package:messenger_app/global_widgets/confirm_button_widget.dart';
+import 'package:messenger_app/pages/auth_page/auth_page.dart';
 import 'package:messenger_app/pages/get_started_pages/widgets/navigation_status_widget.dart';
-import 'package:messenger_app/pages/registration_page/registration_page.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/size_constants.dart';
 
@@ -19,8 +19,10 @@ class GetStartedThirdPage extends StatelessWidget {
       body: Stack(
         children: [
           const BackgroundWidget(
-            minClipperHeight: SizeConstants.minRatioHeightBackgroundClipperStart,
-            maxClipperHeight: SizeConstants.maxRatioHeightBackgroundClipperStart,
+            minClipperHeight:
+                SizeConstants.minRatioHeightBackgroundClipperStart,
+            maxClipperHeight:
+                SizeConstants.maxRatioHeightBackgroundClipperStart,
           ),
           Padding(
             padding: const EdgeInsets.all(32.0),
@@ -29,8 +31,8 @@ class GetStartedThirdPage extends StatelessWidget {
               children: [
                 Container(
                   alignment: Alignment.bottomCenter,
-                  height:
-                      height * SizeConstants.maxRatioHeightBackgroundClipperStart,
+                  height: height *
+                      SizeConstants.maxRatioHeightBackgroundClipperStart,
                   decoration: const BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/images/start_call_image.png'),
@@ -60,9 +62,9 @@ class GetStartedThirdPage extends StatelessWidget {
                 ),
                 const Spacer(flex: 3),
                 ConfirmButton(
-                    text: 'Get started',
-                    route: MaterialPageRoute(
-                        builder: (context) => const RegistrationPage())),
+                  text: 'Get started',
+                  onTap: () {},
+                ),
                 const Spacer(flex: 1),
                 Align(
                   alignment: Alignment.centerLeft,

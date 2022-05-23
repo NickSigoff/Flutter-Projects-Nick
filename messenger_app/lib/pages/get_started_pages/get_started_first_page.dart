@@ -49,9 +49,7 @@ class GetStartedFirstPage extends StatelessWidget {
                       ]),
                 ),
                 const Spacer(flex: 3),
-                ConfirmButton(
-                    route: MaterialPageRoute(
-                        builder: (context) => const GetStartedSecondPage())),
+                ConfirmButton(onTap: (){},),
                 const Spacer(flex: 1),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

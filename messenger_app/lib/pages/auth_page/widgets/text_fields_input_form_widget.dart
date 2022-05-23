@@ -1,16 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:messenger_app/pages/auth_page/widgets/input_block_auth_page_widget.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
 class TextFieldsInputForm extends StatefulWidget {
-  static final emailController = TextEditingController();
-  static final passwordController = TextEditingController();
-
-
-  final OutlineInputBorder _outlineInputBorderFocus = const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(16)),
-      borderSide: BorderSide(color: MainColors.lightBlue));
-
   final OutlineInputBorder _outlineInputBorderEnable = const OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(16)),
       borderSide: BorderSide(color: MainColors.grey));
@@ -32,11 +25,12 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputForm> {
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: TextField(
             style: MainTextStyles.smallInputBlockStyle,
-            controller: TextFieldsInputForm.emailController,
+            controller: InputBlockAuthPage.emailController,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               labelText: 'Email',
-              focusedBorder: widget._outlineInputBorderFocus,
+              focusedBorder: widget._outlineInputBorderEnable.copyWith(
+                  borderSide: const BorderSide(color: MainColors.lightBlue)),
               enabledBorder: widget._outlineInputBorderEnable,
             ),
           ),
@@ -46,7 +40,7 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputForm> {
           child: TextField(
             style: MainTextStyles.smallInputBlockStyle,
             obscureText: _visiblePassword,
-            controller: TextFieldsInputForm.passwordController,
+            controller: InputBlockAuthPage.passwordController,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               suffixIcon: IconButton(
@@ -62,7 +56,8 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputForm> {
                 ),
               ),
               labelText: 'Password',
-              focusedBorder: widget._outlineInputBorderFocus,
+              focusedBorder: widget._outlineInputBorderEnable.copyWith(
+                  borderSide: const BorderSide(color: MainColors.lightBlue)),
               enabledBorder: widget._outlineInputBorderEnable,
             ),
           ),
