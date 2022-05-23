@@ -4,7 +4,7 @@ import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
 class TextFieldsInputForm extends StatefulWidget {
-  final OutlineInputBorder _outlineInputBorderEnable = const OutlineInputBorder(
+  final OutlineInputBorder _outlineInputBorder = const OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(16)),
       borderSide: BorderSide(color: MainColors.grey));
 
@@ -29,9 +29,9 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputForm> {
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               labelText: 'Email',
-              focusedBorder: widget._outlineInputBorderEnable.copyWith(
+              focusedBorder: widget._outlineInputBorder.copyWith(
                   borderSide: const BorderSide(color: MainColors.lightBlue)),
-              enabledBorder: widget._outlineInputBorderEnable,
+              enabledBorder: widget._outlineInputBorder,
             ),
           ),
         ),
@@ -56,9 +56,9 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputForm> {
                 ),
               ),
               labelText: 'Password',
-              focusedBorder: widget._outlineInputBorderEnable.copyWith(
+              focusedBorder: widget._outlineInputBorder.copyWith(
                   borderSide: const BorderSide(color: MainColors.lightBlue)),
-              enabledBorder: widget._outlineInputBorderEnable,
+              enabledBorder: widget._outlineInputBorder,
             ),
           ),
         ),

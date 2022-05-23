@@ -18,8 +18,10 @@ class InputBlockRegistrationPage extends StatelessWidget {
       {required String email,
       required String password,
       required BuildContext context}) signUp;
+  final GlobalKey formKey;
 
-  const InputBlockRegistrationPage({Key? key, required this.signUp})
+  const InputBlockRegistrationPage(
+      {Key? key, required this.signUp, required this.formKey})
       : super(key: key);
 
   @override
@@ -40,7 +42,7 @@ class InputBlockRegistrationPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _buildHeaderInputForm(),
-          const TextFieldsInputForm(),
+          TextFieldsInputForm(formKey: formKey),
           Container(
             alignment: Alignment.centerRight,
             child: Text('Forgot Password?',

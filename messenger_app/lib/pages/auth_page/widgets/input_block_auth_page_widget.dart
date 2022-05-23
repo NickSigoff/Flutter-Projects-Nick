@@ -71,7 +71,7 @@ class InputBlockAuthPage extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const RegistrationPage()));
+                                        RegistrationPage()));
                           },
                         text: ' Sign Up',
                         style: MainTextStyles.smallInputBlockStyle
