@@ -63,7 +63,12 @@ class GetStartedSecondPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
                 const Spacer(flex: 3),
-                ConfirmButton(onTap: () {}),
+                ConfirmButton(onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const GetStartedThirdPage()));
+                }),
                 const Spacer(flex: 1),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

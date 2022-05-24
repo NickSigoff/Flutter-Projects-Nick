@@ -36,31 +36,30 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
-      backgroundColor: Colors.orange,
-      appBar: AppBar(
-        actions: user != null
-            ? [
-                _buildAppbarInfoWidget(
-                    email: user.email, name: user.displayName)
-              ]
-            : [],
-        backgroundColor: MainColors.creamWhite,
-        title: Row(
-          children: [
-            Image.asset(
-              ImageConstants.labelImage,
-              width: 50,
-              height: 50,
-            ),
-            Text(
-              'Tapo',
-              style: MainTextStyles.mediumGetStartedPageStyle
-                  .copyWith(color: MainColors.lightBlue, shadows: []),
-            ),
-          ],
-        ),
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            backgroundColor: MainColors.creamWhite,
+            automaticallyImplyLeading: false,
+            floating: true,
+            pinned: false,
+            snap: true,
+            stretch: true,
+            title: _buildLogoWidget(),
+            actions: user != null
+                ? [
+                    _buildAppbarInfoWidget(
+                        email: user.email, name: user.displayName)
+                  ]
+                : [],
+          ),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              _getBody(_currentIndex),
+            ]),
+          ),
+        ],
       ),
-      body: _getBody(_currentIndex),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (int index) {
@@ -87,6 +86,23 @@ class _MainPageState extends State<MainPage> {
       default:
         return Container();
     }
+  }
+
+  Row _buildLogoWidget() {
+    return Row(
+      children: [
+        Image.asset(
+          ImageConstants.labelImage,
+          width: 50,
+          height: 50,
+        ),
+        Text(
+          'Tapo',
+          style: MainTextStyles.mediumGetStartedPageStyle
+              .copyWith(color: MainColors.lightBlue, shadows: []),
+        ),
+      ],
+    );
   }
 
   Widget _buildAppbarInfoWidget({String? email, String? name}) {

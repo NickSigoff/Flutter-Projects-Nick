@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:messenger_app/global_widgets/background_widget.dart';
 import 'package:messenger_app/global_widgets/confirm_button_widget.dart';
-import 'package:messenger_app/pages/auth_page/auth_page.dart';
 import 'package:messenger_app/pages/get_started_pages/widgets/navigation_status_widget.dart';
+import 'package:messenger_app/pages/splash_page/splash_page.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/size_constants.dart';
 
@@ -63,7 +63,8 @@ class GetStartedThirdPage extends StatelessWidget {
                 const Spacer(flex: 3),
                 ConfirmButton(
                   text: 'Get started',
-                  onTap: () {},
+                  onTap: () {Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => const SplashPage()));},
                 ),
                 const Spacer(flex: 1),
                 Align(
