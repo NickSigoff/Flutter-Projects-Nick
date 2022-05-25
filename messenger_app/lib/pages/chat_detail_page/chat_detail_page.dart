@@ -38,19 +38,19 @@ class ChatDetailsPage extends StatelessWidget {
       messageType: 'receiver',
     ),
     ChatMessage(
-      messageContent: 'Hello, World',
+      messageContent: 'Hello, Worldnjdfhdfj gryigiqrhg giqerjgjrjg beqyrgy rgr',
       messageType: 'sender',
     ),
     ChatMessage(
-      messageContent: 'Hello, World',
+      messageContent: 'Hello, World jshfgj gy wegyfweq fwue fefkrwegwryfyrewgb ',
       messageType: 'receiver',
     ),
     ChatMessage(
-      messageContent: 'Hello, World',
+      messageContent: 'Hello, Worldtttttt ttttt ttttttttttt tttttttt ttt tttt tt tttttttt',
       messageType: 'sender',
     ),
     ChatMessage(
-      messageContent: 'Hello, World',
+      messageContent: 'Hello, World.Hello, World.Hello, World.Hello, World.Hello, Worldmmghhhhhuuuuuuuuuuuuuuuhhhhh',
       messageType: 'receiver',
     ),
     ChatMessage(
@@ -61,14 +61,13 @@ class ChatDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: _buildAppBarWidget(context),
-      body: SizedBox(
-        height: height,
-        child: Stack(
-          children: [
-            ListView.builder(
+      body: Stack(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 60.0),
+            child: ListView.builder(
               itemCount: messages.length,
               shrinkWrap: true,
               padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -78,9 +77,9 @@ class ChatDetailsPage extends StatelessWidget {
                     : _buildRightDialog(messages[index].messageContent);
               },
             ),
-            const InputTextFieldWidget(),
-          ],
-        ),
+          ),
+          const InputTextFieldWidget(),
+        ],
       ),
     );
   }

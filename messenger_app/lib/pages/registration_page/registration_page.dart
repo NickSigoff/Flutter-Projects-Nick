@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/global_widgets/background_widget.dart';
+import 'package:messenger_app/models/user_model.dart';
 import 'package:messenger_app/pages/get_started_pages/get_started_first_page.dart';
 import 'package:messenger_app/pages/registration_page/widgets/input_block_registration_page.dart';
-import 'package:messenger_app/pages/splash_page/splash_page.dart';
+import 'package:messenger_app/services/firebase_methods.dart';
 import 'package:messenger_app/utils/image_constants.dart';
 import 'package:messenger_app/utils/size_constants.dart';
 
@@ -54,7 +55,6 @@ class RegistrationPage extends StatelessWidget {
       {required String email,
       required String password,
       required BuildContext context}) async {
-
     if (formKey.currentState != null) {
       final isValid = formKey.currentState!.validate();
       if (!isValid) return;
@@ -72,8 +72,15 @@ class RegistrationPage extends StatelessWidget {
     } on FirebaseAuthException catch (e) {
       print(e);
     }
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const GetStartedFirstPage()));
+
+    UserModel user = UserModel(
+      name: InputBlockRegistrationPage.nameController.text,
+      email: InputBlockRegistrationPage.emailController.text,
+    );
+
+    FirebaseMethods.uploadUserInfo(user.toJson());
+    Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) => const GetStartedFirstPage()));
   }
 
   Widget _buildLogoWidget(double height) {

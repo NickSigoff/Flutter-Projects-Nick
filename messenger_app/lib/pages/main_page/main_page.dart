@@ -16,6 +16,13 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
+  @override
+  void initState(){
+    super.initState();
+
+  }
+
   int _currentIndex = 0;
   final List<BottomNavigationBarItem> _bottomBarItems = const [
     BottomNavigationBarItem(

@@ -1,8 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/global_widgets/background_widget.dart';
 import 'package:messenger_app/pages/auth_page/widgets/input_block_auth_page_widget.dart';
-import 'package:messenger_app/pages/main_page/main_page.dart';
 import 'package:messenger_app/utils/image_constants.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/size_constants.dart';

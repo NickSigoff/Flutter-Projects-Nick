@@ -8,7 +8,6 @@ import 'package:messenger_app/utils/size_constants.dart';
 
 import '../../../global_widgets/social_media_authorize_widget.dart';
 import '../../../utils/main_colors.dart';
-import '../../main_page/main_page.dart';
 
 class InputBlockAuthPage extends StatelessWidget {
   static final emailController = TextEditingController();

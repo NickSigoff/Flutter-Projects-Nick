@@ -12,7 +12,7 @@ class ProfilePage extends StatelessWidget {
         children: [
           ElevatedButton(
               onPressed: () => {FirebaseAuth.instance.signOut()},
-              child: Text('Sign out'))
+              child: const Text('Sign out'))
         ],
       ),
     );

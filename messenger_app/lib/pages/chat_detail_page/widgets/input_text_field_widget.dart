@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:messenger_app/utils/main_text_styles.dart';
+
+import '../../../utils/main_colors.dart';
 
 class InputTextFieldWidget extends StatelessWidget {
   const InputTextFieldWidget({
@@ -7,13 +10,17 @@ class InputTextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomLeft,
+    return Positioned(
+      bottom: 0,
+      left: 0,
       child: Container(
-        padding: EdgeInsets.only(left: 10, bottom: 10, top: 10),
+        padding: const EdgeInsets.only(left: 8, bottom: 8, top: 8),
         height: 60,
-        width: double.infinity,
-        color: Colors.white,
+        width: MediaQuery.of(context).size.width,
+        decoration: const BoxDecoration(
+            color: MainColors.creamWhite,
+            border: Border.symmetric(
+                horizontal: BorderSide(color: MainColors.lightGrey))),
         child: Row(
           children: <Widget>[
             GestureDetector(
@@ -22,39 +29,39 @@ class InputTextFieldWidget extends StatelessWidget {
                 height: 30,
                 width: 30,
                 decoration: BoxDecoration(
-                  color: Colors.lightBlue,
+                  color: MainColors.deepBlue,
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: Icon(
+                child: const Icon(
                   Icons.add,
-                  color: Colors.white,
+                  color: MainColors.creamWhite,
                   size: 20,
                 ),
               ),
             ),
-            SizedBox(
-              width: 15,
+            const SizedBox(
+              width: 16,
             ),
-            Expanded(
+            const Expanded(
               child: TextField(
                 decoration: InputDecoration(
-                    hintText: "Write message...",
-                    hintStyle: TextStyle(color: Colors.black54),
+                    hintText: "Write a message...",
+                    hintStyle: MainTextStyles.smallInputBlockStyle,
                     border: InputBorder.none),
               ),
             ),
-            SizedBox(
-              width: 15,
+            const SizedBox(
+              width: 16,
             ),
             FloatingActionButton(
               onPressed: () {},
-              child: Icon(
+              backgroundColor: MainColors.deepBlue,
+              elevation: 0,
+              child: const Icon(
                 Icons.send,
-                color: Colors.white,
+                color: MainColors.creamWhite,
                 size: 18,
               ),
-              backgroundColor: Colors.blue,
-              elevation: 0,
             ),
           ],
         ),

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/models/chat_users_model.dart';
 import 'package:messenger_app/pages/chats_page/widgets/user_chat_widget.dart';
