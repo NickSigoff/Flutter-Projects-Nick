@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/pages/calls_page/calls_page.dart';
 import 'package:messenger_app/pages/chats_page/chats_page.dart';
 import 'package:messenger_app/pages/profile_page/profile_page.dart';
+import 'package:messenger_app/pages/search_page/search_page.dart';
 import 'package:messenger_app/utils/image_constants.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
@@ -18,9 +18,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
-
   }
 
   int _currentIndex = 0;
@@ -41,38 +40,53 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            backgroundColor: MainColors.creamWhite,
-            automaticallyImplyLeading: false,
-            floating: true,
-            pinned: false,
-            snap: true,
-            stretch: true,
-            title: _buildLogoWidget(),
-            actions: user != null
-                ? [
-                    _buildAppbarInfoWidget(
-                        email: user.email, name: user.displayName)
-                  ]
-                : [],
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              _getBody(_currentIndex),
-            ]),
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (int index) {
-          _onTap(index);
-        },
-        items: [..._bottomBarItems],
+    return SafeArea(
+      child: Scaffold(
+        body: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              backgroundColor: MainColors.creamWhite,
+              automaticallyImplyLeading: false,
+              floating: true,
+              pinned: false,
+              snap: true,
+              stretch: true,
+              flexibleSpace: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    _buildLogoWidget(),
+                    const Spacer(),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SearchPage()));
+                      },
+                      icon: const Icon(
+                        Icons.search,
+                        color: MainColors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SliverList(
+              delegate: SliverChildListDelegate([
+                _getBody(_currentIndex),
+              ]),
+            ),
+          ],
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: _currentIndex,
+          onTap: (int index) {
+            _onTap(index);
+          },
+          items: [..._bottomBarItems],
+        ),
       ),
     );
   }
@@ -109,28 +123,6 @@ class _MainPageState extends State<MainPage> {
               .copyWith(color: MainColors.lightBlue, shadows: []),
         ),
       ],
-    );
-  }
-
-  Widget _buildAppbarInfoWidget({String? email, String? name}) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: [
-          Column(
-            children: [
-              Text(email ?? 'Default email',
-                  style: MainTextStyles.smallInputBlockStyle
-                      .copyWith(fontSize: 10)),
-              const Spacer(),
-              Text(name ?? 'Default name',
-                  style: MainTextStyles.smallInputBlockStyle
-                      .copyWith(fontSize: 10)),
-            ],
-          ),
-          const Icon(Icons.person_pin, color: MainColors.lightBlue, size: 40),
-        ],
-      ),
     );
   }
 }

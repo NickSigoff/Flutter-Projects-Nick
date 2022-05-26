@@ -59,22 +59,20 @@ class _ChatsPageState extends State<ChatsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: ListView.builder(
-        itemCount: chatUsers.length,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (context, index) {
-          return UserChatWidget(
-            name: chatUsers[index].name,
-            messageText: chatUsers[index].messageText,
-            imageUrl: chatUsers[index].imageUrl,
-            time: chatUsers[index].time,
-            index: index,
-            isMessageRead: (index == 0 || index == 3) ? true : false,
-          );
-        },
-      ),
+    return ListView.builder(
+      itemCount: chatUsers.length,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        return UserChatWidget(
+          name: chatUsers[index].name,
+          messageText: chatUsers[index].messageText,
+          imageUrl: chatUsers[index].imageUrl,
+          time: chatUsers[index].time,
+          index: index,
+          isMessageRead: (index == 0 || index == 3) ? true : false,
+        );
+      },
     );
   }
 }
