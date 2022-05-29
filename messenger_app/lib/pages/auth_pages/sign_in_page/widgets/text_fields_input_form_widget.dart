@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:messenger_app/pages/auth_page/widgets/input_block_auth_page_widget.dart';
+import 'package:messenger_app/pages/auth_pages/sign_in_page/widgets/input_block_auth_page_widget.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 

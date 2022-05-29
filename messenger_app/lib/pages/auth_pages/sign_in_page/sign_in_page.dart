@@ -1,17 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/global_widgets/background_widget.dart';
-import 'package:messenger_app/pages/auth_page/widgets/input_block_auth_page_widget.dart';
+import 'package:messenger_app/pages/auth_pages/sign_in_page/widgets/input_block_auth_page_widget.dart';
 import 'package:messenger_app/utils/image_constants.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/size_constants.dart';
 
-class AuthPage extends StatelessWidget {
-  final void Function(
-      {required String email,
-      required String password,
-      required BuildContext context})? signIn;
+class SignInPage extends StatelessWidget {
 
-  const AuthPage({this.signIn, Key? key}) : super(key: key);
+  const SignInPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -45,6 +42,25 @@ class AuthPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void signIn(
+      {required String email,
+        required String password,
+        required BuildContext context}) async {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => const Center(child: CircularProgressIndicator()));
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      print('By auth something went wrong $e');
+    }
+    Navigator.pop(context);
   }
 
   Widget _buildLogoWidget(double height) {

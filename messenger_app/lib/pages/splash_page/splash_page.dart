@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:messenger_app/pages/auth_page/auth_page.dart';
+import 'package:messenger_app/pages/auth_pages/sign_in_page/sign_in_page.dart';
 import 'package:messenger_app/pages/main_page/main_page.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
@@ -24,28 +24,9 @@ class SplashPage extends StatelessWidget {
           } else if (snapshot.hasData) {
             return const MainPage();
           } else {
-            return AuthPage(signIn: signIn);
+            return const SignInPage();
           }
         });
-  }
-
-  void signIn(
-      {required String email,
-      required String password,
-      required BuildContext context}) async {
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => const Center(child: CircularProgressIndicator()));
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } on FirebaseAuthException catch (e) {
-      print('By auth something went wrong $e');
-    }
-    Navigator.pop(context);
   }
 }
 

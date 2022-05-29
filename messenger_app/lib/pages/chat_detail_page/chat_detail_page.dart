@@ -90,7 +90,7 @@ class ChatDetailsPage extends StatelessWidget {
       backgroundColor: MainColors.creamWhite,
       flexibleSpace: SafeArea(
         child: Container(
-          padding: const EdgeInsets.only(right: 16),
+          padding: const EdgeInsets.only(right: 16.0),
           child: Row(
             children: [
               IconButton(

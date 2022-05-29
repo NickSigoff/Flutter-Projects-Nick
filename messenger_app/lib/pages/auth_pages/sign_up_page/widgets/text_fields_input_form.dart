@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
-import '../../../utils/main_colors.dart';
 import 'input_block_registration_page.dart';
 
 class TextFieldsInputForm extends StatefulWidget {
-  final OutlineInputBorder _outlineInputBorder = const OutlineInputBorder(
+  final OutlineInputBorder _outlineInputBorder =  const OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(16)),
       borderSide: BorderSide(color: MainColors.lightBlue));
   final GlobalKey formKey;

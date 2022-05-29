@@ -1,13 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/global_widgets/confirm_button_widget.dart';
-import 'package:messenger_app/pages/auth_page/auth_page.dart';
-import 'package:messenger_app/pages/registration_page/widgets/text_fields_input_form.dart';
+import 'package:messenger_app/global_widgets/social_media_authorize_widget.dart';
+import 'package:messenger_app/pages/auth_pages/sign_in_page/sign_in_page.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 import 'package:messenger_app/utils/size_constants.dart';
 
-import '../../../global_widgets/social_media_authorize_widget.dart';
+import '../../sign_in_page/widgets/text_fields_input_form_widget.dart';
 
 class InputBlockRegistrationPage extends StatelessWidget {
   static final nameController = TextEditingController();
@@ -42,7 +42,7 @@ class InputBlockRegistrationPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _buildHeaderInputForm(),
-          TextFieldsInputForm(formKey: formKey),
+          const TextFieldsInputForm(),
           Container(
             alignment: Alignment.centerRight,
             child: Text('Forgot Password?',
@@ -74,7 +74,7 @@ class InputBlockRegistrationPage extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const AuthPage()));
+                                  builder: (context) => const SignInPage()));
                         },
                       text: ' Sign in',
                       style: MainTextStyles.smallInputBlockStyle

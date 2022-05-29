@@ -1,10 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_shadows.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
-
-import '../pages/auth_page/widgets/text_fields_input_form_widget.dart';
 
 class ConfirmButton extends StatelessWidget {
   final VoidCallback onTap;
