@@ -74,17 +74,9 @@ class SignUpPage extends StatelessWidget {
       print(e);
     }
 
-    UserModel user = UserModel(
-      name: InputBlockSignUpPage.nameController.text,
-      email: InputBlockSignUpPage.emailController.text,
-    );
-
-    FirebaseMethods.uploadUserInfo(user.toJson());
-    SharedPreferencesMethods.setUserLoggedInSharedPreferences(true);
-    SharedPreferencesMethods.setUserNameSharedPreferences(
-        InputBlockSignUpPage.nameController.text);
-    SharedPreferencesMethods.setUserEmailSharedPreferences(
-        InputBlockSignUpPage.emailController.text);
+    FirebaseMethods.uploadUserInfo(
+        name: InputBlockSignUpPage.nameController.text,
+    email: InputBlockSignUpPage.emailController.text);
 
     Navigator.pushReplacement(context,
         MaterialPageRoute(builder: (context) => const GetStartedFirstPage()));

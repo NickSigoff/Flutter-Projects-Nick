@@ -16,7 +16,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-
   @override
   void initState() {
     super.initState();
@@ -103,7 +102,7 @@ class _MainPageState extends State<MainPage> {
       case 1:
         return const CallsPage();
       case 2:
-        return const ProfilePage();
+        return ProfilePage();
       default:
         return Container();
     }

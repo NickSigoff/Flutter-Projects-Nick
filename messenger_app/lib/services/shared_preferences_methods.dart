@@ -4,7 +4,9 @@ abstract class SharedPreferencesMethods {
   static String sharedPreferencesUserLoggedInKey = 'IsLoggedIn';
   static String sharedPreferencesNameKey = 'UserNameKey';
   static String sharedPreferencesEmailKey = 'UserEmailKey';
+  static String sharedPreferencesIdKey = 'UserIdKey';
 
+  ///set
   static Future<bool> setUserLoggedInSharedPreferences(
       bool isUserLoggedIn) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -22,14 +24,25 @@ abstract class SharedPreferencesMethods {
     return await sharedPreferences.setString(sharedPreferencesEmailKey, email);
   }
 
-  static Future<bool?> getUserEmailSharedPreferences() async {
+  static Future<bool> setUserIdSharedPreferences(String id) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.getBool(sharedPreferencesEmailKey);
+    return await sharedPreferences.setString(sharedPreferencesIdKey, id);
   }
 
-  static Future<bool?> getUserNameSharedPreferences() async {
+  ///get
+  static Future<String?> getUserEmailSharedPreferences() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.getBool(sharedPreferencesNameKey);
+    return sharedPreferences.getString(sharedPreferencesEmailKey);
+  }
+
+  static Future<String?> getUserNameSharedPreferences() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getString(sharedPreferencesNameKey);
+  }
+
+  static Future<String?> getUserIdSharedPreferences() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getString(sharedPreferencesIdKey);
   }
 
   static Future<bool?> getUserIsLoggedSharedPreferences() async {

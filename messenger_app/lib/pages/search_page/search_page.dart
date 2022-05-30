@@ -24,6 +24,9 @@ class _SearchPageState extends State<SearchPage> {
         searchedUsers.add(value);
       }
       setState(() {});
+
+      //Navigator.
+
     });
   }
 
@@ -123,6 +126,7 @@ class SearchedUser extends StatelessWidget {
                   )),
               GestureDetector(
                 onTap: () {
+                  //createChatRoom();
                   Navigator.pushReplacement(context, MaterialPageRoute(
                       builder: (context) => ChatDetailsPage()));
                 },
@@ -172,4 +176,8 @@ class SearchedUser extends StatelessWidget {
     }
     return Container();
   }
+
+  // void createChatRoom(String userName) {
+  //   List<String> users = [userName, sha]
+  // }
 }
