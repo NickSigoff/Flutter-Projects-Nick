@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/global_widgets/confirm_button_widget.dart';
-import 'package:messenger_app/pages/auth_pages/sign_in_page/widgets/text_fields_input_form_widget.dart';
+import 'package:messenger_app/pages/auth_pages/sign_in_page/widgets/text_fields_input_form_sign_in.dart';
 
 import 'package:messenger_app/utils/main_text_styles.dart';
 import 'package:messenger_app/utils/size_constants.dart';
@@ -11,7 +11,7 @@ import '../../../../utils/main_colors.dart';
 import '../../sign_up_page/sign_up_page.dart';
 
 
-class InputBlockAuthPage extends StatelessWidget {
+class InputBlockSignInPage extends StatelessWidget {
   static final emailController = TextEditingController();
   static final passwordController = TextEditingController();
   final void Function(
@@ -19,7 +19,7 @@ class InputBlockAuthPage extends StatelessWidget {
       required String password,
       required BuildContext context})? signIn;
 
-  const InputBlockAuthPage({Key? key, this.signIn}) : super(key: key);
+  const InputBlockSignInPage({Key? key, this.signIn}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class InputBlockAuthPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _buildHeaderInputForm(),
-          const TextFieldsInputForm(),
+          const TextFieldsInputFormSignIn(),
           Container(
             alignment: Alignment.centerRight,
             child: Text(

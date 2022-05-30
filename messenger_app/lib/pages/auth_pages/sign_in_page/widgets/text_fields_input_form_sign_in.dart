@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:messenger_app/pages/auth_pages/sign_in_page/widgets/input_block_auth_page_widget.dart';
+import 'package:messenger_app/pages/auth_pages/sign_in_page/widgets/input_block_sign_in_page_widget.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
-class TextFieldsInputForm extends StatefulWidget {
+class TextFieldsInputFormSignIn extends StatefulWidget {
   final OutlineInputBorder _outlineInputBorder = const OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(16)),
       borderSide: BorderSide(color: MainColors.grey));
 
-  const TextFieldsInputForm({Key? key}) : super(key: key);
+  const TextFieldsInputFormSignIn({Key? key}) : super(key: key);
 
   @override
-  State<TextFieldsInputForm> createState() => _TextFieldsSignUpPageState();
+  State<TextFieldsInputFormSignIn> createState() => _TextFieldsSignUpPageState();
 }
 
-class _TextFieldsSignUpPageState extends State<TextFieldsInputForm> {
+class _TextFieldsSignUpPageState extends State<TextFieldsInputFormSignIn> {
   bool _visiblePassword = false;
 
   @override
@@ -25,7 +25,7 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputForm> {
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: TextField(
             style: MainTextStyles.smallInputBlockStyle,
-            controller: InputBlockAuthPage.emailController,
+            controller: InputBlockSignInPage.emailController,
             keyboardType: TextInputType.emailAddress,
             decoration: InputDecoration(
               labelText: 'Email',
@@ -40,7 +40,7 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputForm> {
           child: TextField(
             style: MainTextStyles.smallInputBlockStyle,
             obscureText: _visiblePassword,
-            controller: InputBlockAuthPage.passwordController,
+            controller: InputBlockSignInPage.passwordController,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               suffixIcon: IconButton(

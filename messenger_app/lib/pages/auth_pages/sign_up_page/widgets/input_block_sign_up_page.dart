@@ -7,9 +7,9 @@ import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 import 'package:messenger_app/utils/size_constants.dart';
 
-import '../../sign_in_page/widgets/text_fields_input_form_widget.dart';
+import '../../sign_in_page/widgets/text_fields_input_form_sign_in.dart';
 
-class InputBlockRegistrationPage extends StatelessWidget {
+class InputBlockSignUpPage extends StatelessWidget {
   static final nameController = TextEditingController();
   static final passwordController = TextEditingController();
   static final emailController = TextEditingController();
@@ -20,7 +20,7 @@ class InputBlockRegistrationPage extends StatelessWidget {
       required BuildContext context}) signUp;
   final GlobalKey formKey;
 
-  const InputBlockRegistrationPage(
+  const InputBlockSignUpPage(
       {Key? key, required this.signUp, required this.formKey})
       : super(key: key);
 
@@ -42,7 +42,7 @@ class InputBlockRegistrationPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _buildHeaderInputForm(),
-          const TextFieldsInputForm(),
+          const TextFieldsInputFormSignIn(),
           Container(
             alignment: Alignment.centerRight,
             child: Text('Forgot Password?',

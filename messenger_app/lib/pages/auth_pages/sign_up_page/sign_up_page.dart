@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/global_widgets/background_widget.dart';
 import 'package:messenger_app/models/user_model.dart';
-import 'package:messenger_app/pages/auth_pages/sign_up_page/widgets/input_block_registration_page.dart';
+import 'package:messenger_app/pages/auth_pages/sign_up_page/widgets/input_block_sign_up_page.dart';
 import 'package:messenger_app/pages/get_started_pages/get_started_first_page.dart';
 
 
@@ -42,7 +42,7 @@ class SignUpPage extends StatelessWidget {
                   children: [
                     _buildLogoWidget(height),
                     const Spacer(),
-                    InputBlockRegistrationPage(
+                    InputBlockSignUpPage(
                         signUp: signUp, formKey: formKey),
                     //const Spacer(),
                   ],
@@ -78,8 +78,8 @@ class SignUpPage extends StatelessWidget {
     }
 
     UserModel user = UserModel(
-      name: InputBlockRegistrationPage.nameController.text,
-      email: InputBlockRegistrationPage.emailController.text,
+      name: InputBlockSignUpPage.nameController.text,
+      email: InputBlockSignUpPage.emailController.text,
     );
 
     FirebaseMethods.uploadUserInfo(user.toJson());
