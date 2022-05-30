@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
+import '../../../../utils/main_borders.dart';
 import 'input_block_sign_up_page.dart';
 
 class TextFieldsInputFormSignUpPage extends StatefulWidget {
-  final OutlineInputBorder _outlineInputBorder =  const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(16)),
-      borderSide: BorderSide(color: MainColors.lightBlue));
   final GlobalKey formKey;
 
-  const TextFieldsInputFormSignUpPage({Key? key,required this.formKey}) : super(key: key);
+  const TextFieldsInputFormSignUpPage({Key? key, required this.formKey})
+      : super(key: key);
 
   @override
-  State<TextFieldsInputFormSignUpPage> createState() => _TextFieldsSignUpPageState();
+  State<TextFieldsInputFormSignUpPage> createState() =>
+      _TextFieldsSignUpPageState();
 }
 
 class _TextFieldsSignUpPageState extends State<TextFieldsInputFormSignUpPage> {
-
   bool _visiblePassword = true;
 
   @override
@@ -33,12 +31,10 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputFormSignUpPage> {
               style: MainTextStyles.smallInputBlockStyle,
               controller: InputBlockSignUpPage.nameController,
               keyboardType: TextInputType.name,
-              decoration: InputDecoration(
-                labelText: 'Your name',
-                focusedBorder: widget._outlineInputBorder,
-                enabledBorder: widget._outlineInputBorder.copyWith(
-                    borderSide: const BorderSide(color: MainColors.grey)),
-              ),
+              decoration: const InputDecoration(
+                  labelText: 'Your name',
+                  focusedBorder: MainBorders.outlineInputBorderFocused,
+                  enabledBorder: MainBorders.outlineInputBorder),
             ),
           ),
           Container(
@@ -49,11 +45,10 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputFormSignUpPage> {
               keyboardType: TextInputType.emailAddress,
               validator: (email) =>
                   email == null ? 'Enter correct email' : null,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Email',
-                focusedBorder: widget._outlineInputBorder,
-                enabledBorder: widget._outlineInputBorder.copyWith(
-                    borderSide: const BorderSide(color: MainColors.grey)),
+                focusedBorder: MainBorders.outlineInputBorderFocused,
+                enabledBorder: MainBorders.outlineInputBorder,
               ),
             ),
           ),
@@ -68,23 +63,21 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputFormSignUpPage> {
                   ? 'Enter min 6 char'
                   : null,
               decoration: InputDecoration(
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    setState(() {
-                      _visiblePassword = !_visiblePassword;
-                    });
-                  },
-                  icon: Icon(
-                    _visiblePassword
-                        ? Icons.visibility_off_outlined
-                        : Icons.visibility_outlined,
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        _visiblePassword = !_visiblePassword;
+                      });
+                    },
+                    icon: Icon(
+                      _visiblePassword
+                          ? Icons.visibility_off_outlined
+                          : Icons.visibility_outlined,
+                    ),
                   ),
-                ),
-                labelText: 'Password',
-                focusedBorder: widget._outlineInputBorder,
-                enabledBorder: widget._outlineInputBorder.copyWith(
-                    borderSide: const BorderSide(color: MainColors.grey)),
-              ),
+                  labelText: 'Password',
+                  focusedBorder: MainBorders.outlineInputBorderFocused,
+                  enabledBorder: MainBorders.outlineInputBorder),
             ),
           ),
         ],

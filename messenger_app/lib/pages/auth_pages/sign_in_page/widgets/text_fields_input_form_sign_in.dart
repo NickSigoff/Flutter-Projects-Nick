@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:messenger_app/pages/auth_pages/sign_in_page/widgets/input_block_sign_in_page_widget.dart';
+import 'package:messenger_app/utils/main_borders.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
 class TextFieldsInputFormSignIn extends StatefulWidget {
-  final OutlineInputBorder _outlineInputBorder = const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(16)),
-      borderSide: BorderSide(color: MainColors.grey));
-
   const TextFieldsInputFormSignIn({Key? key}) : super(key: key);
 
   @override
-  State<TextFieldsInputFormSignIn> createState() => _TextFieldsSignUpPageState();
+  State<TextFieldsInputFormSignIn> createState() =>
+      _TextFieldsSignUpPageState();
 }
 
 class _TextFieldsSignUpPageState extends State<TextFieldsInputFormSignIn> {
@@ -27,11 +25,10 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputFormSignIn> {
             style: MainTextStyles.smallInputBlockStyle,
             controller: InputBlockSignInPage.emailController,
             keyboardType: TextInputType.emailAddress,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               labelText: 'Email',
-              focusedBorder: widget._outlineInputBorder.copyWith(
-                  borderSide: const BorderSide(color: MainColors.lightBlue)),
-              enabledBorder: widget._outlineInputBorder,
+              focusedBorder: MainBorders.outlineInputBorderFocused,
+              enabledBorder: MainBorders.outlineInputBorder,
             ),
           ),
         ),
@@ -56,9 +53,8 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputFormSignIn> {
                 ),
               ),
               labelText: 'Password',
-              focusedBorder: widget._outlineInputBorder.copyWith(
-                  borderSide: const BorderSide(color: MainColors.lightBlue)),
-              enabledBorder: widget._outlineInputBorder,
+              focusedBorder: MainBorders.outlineInputBorderFocused,
+              enabledBorder: MainBorders.outlineInputBorder,
             ),
           ),
         ),

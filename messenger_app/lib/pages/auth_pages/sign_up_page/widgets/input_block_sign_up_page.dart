@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:messenger_app/global_widgets/confirm_button_widget.dart';
 import 'package:messenger_app/global_widgets/social_media_authorize_widget.dart';
 import 'package:messenger_app/pages/auth_pages/sign_in_page/sign_in_page.dart';
+import 'package:messenger_app/pages/auth_pages/sign_up_page/widgets/text_fields_input_form_sign_up_page.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 import 'package:messenger_app/utils/size_constants.dart';
@@ -42,7 +43,9 @@ class InputBlockSignUpPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _buildHeaderInputForm(),
-          const TextFieldsInputFormSignIn(),
+          TextFieldsInputFormSignUpPage(
+            formKey: formKey,
+          ),
           Container(
             alignment: Alignment.centerRight,
             child: Text('Forgot Password?',
