@@ -41,17 +41,51 @@ class InputBlockSignUpPage extends StatelessWidget {
           TextFieldsInputFormSignUpPage(
             formKey: formKey,
           ),
-          ConfirmButton(
-            color: MainColors.lightBlue,
-            width: double.infinity,
-            text: 'Sign up',
-            onTap: () {
-              context.read<AuthCubit>().signUp(
-                    formKey: formKey,
-                    name: nameController.text.trim(),
-                    email: emailController.text.trim(),
-                    password: passwordController.text.trim(),
-                  );
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              if (state is AuthInitial) {
+                return ConfirmButton(
+                  color: MainColors.lightBlue,
+                  width: double.infinity,
+                  text: 'Sign up',
+                  onTap: () {
+                    context.read<AuthCubit>().signUp(
+                          formKey: formKey,
+                          name: nameController.text.trim(),
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim(),
+                        );
+                  },
+                );
+              } else if (state is AuthError) {
+                return ConfirmButton(
+                    color: MainColors.lightBlue,
+                    width: double.infinity,
+                    text: 'Something wrong. Try again',
+                    onTap: () {
+                      context.read<AuthCubit>().signUp(
+                          formKey: formKey,
+                          name: nameController.text.trim(),
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim());
+                    });
+              } else if (state is AuthLoading) {
+                return ConfirmButton(
+                    color: MainColors.lightBlue,
+                    width: double.infinity,
+                    child: const Center(child: CircularProgressIndicator()),
+                    onTap: () {});
+              } else {
+                return ConfirmButton(
+                    color: MainColors.lightBlue,
+                    width: double.infinity,
+                    text: 'Sign up',
+                    onTap: () {
+                      context.read<AuthCubit>().signIn(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim());
+                    });
+              }
             },
           ),
           Container(

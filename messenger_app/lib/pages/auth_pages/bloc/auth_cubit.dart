@@ -47,17 +47,9 @@ class AuthCubit extends Cubit<AuthState> {
         password: password,
       );
       FirebaseMethods.uploadUserInfo(name: name, email: email);
-      // await FirebaseAuth.instance.signInWithEmailAndPassword(
-      //   email: email,
-      //   password: password,
-      // );
       emit(AuthSuccess());
     } on FirebaseAuthException catch (_) {
       emit(AuthError());
     }
-
-    //   Navigator.pushReplacement(context,
-    //       MaterialPageRoute(builder: (context) => const GetStartedFirstPage()));
-    // }
   }
 }

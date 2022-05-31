@@ -64,7 +64,7 @@ class GetStartedThirdPage extends StatelessWidget {
                 ConfirmButton(
                   text: 'Get started',
                   onTap: () {Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => const SplashPage()));},
+                      context, MaterialPageRoute(builder: (context) => const SplashSignInPage()));},
                 ),
                 const Spacer(flex: 1),
                 Align(

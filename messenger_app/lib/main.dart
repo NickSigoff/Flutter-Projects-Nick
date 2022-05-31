@@ -13,7 +13,7 @@ void main() async {
         BlocProvider(create: (_) => AuthCubit()),
       ],
       child: const MaterialApp(
-        home: SplashPage(),
+        home: SplashSignInPage(),
       ),
     ),
   );

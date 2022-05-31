@@ -11,7 +11,7 @@ class SkipButton extends StatelessWidget {
       child: Text('Skip', style: MainTextStyles.smallGetStartedPageStyle),
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const SplashPage()));
+            MaterialPageRoute(builder: (context) => const SplashSignInPage()));
       },
     );
   }
