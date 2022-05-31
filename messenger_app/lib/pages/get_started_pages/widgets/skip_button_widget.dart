@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:messenger_app/pages/splash_page/splash_page.dart';
+import 'package:messenger_app/pages/splash_page/sign_in_splash_page.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
 class SkipButton extends StatelessWidget {

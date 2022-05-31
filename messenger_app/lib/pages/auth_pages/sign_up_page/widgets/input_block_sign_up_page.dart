@@ -1,7 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messenger_app/global_widgets/confirm_button_widget.dart';
 import 'package:messenger_app/global_widgets/social_media_authorize_widget.dart';
+import 'package:messenger_app/pages/auth_pages/bloc/auth_cubit.dart';
 import 'package:messenger_app/pages/auth_pages/sign_in_page/sign_in_page.dart';
 import 'package:messenger_app/pages/auth_pages/sign_up_page/widgets/text_fields_input_form_sign_up_page.dart';
 import 'package:messenger_app/utils/main_colors.dart';
@@ -11,19 +13,12 @@ import 'package:messenger_app/utils/size_constants.dart';
 import '../../sign_in_page/widgets/text_fields_input_form_sign_in.dart';
 
 class InputBlockSignUpPage extends StatelessWidget {
+  final formKey = GlobalKey<FormState>();
   static final nameController = TextEditingController();
   static final passwordController = TextEditingController();
   static final emailController = TextEditingController();
 
-  final void Function(
-      {required String email,
-      required String password,
-      required BuildContext context}) signUp;
-  final GlobalKey formKey;
-
-  const InputBlockSignUpPage(
-      {Key? key, required this.signUp, required this.formKey})
-      : super(key: key);
+  InputBlockSignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,22 +41,17 @@ class InputBlockSignUpPage extends StatelessWidget {
           TextFieldsInputFormSignUpPage(
             formKey: formKey,
           ),
-          Container(
-            alignment: Alignment.centerRight,
-            child: Text('Forgot Password?',
-                style: MainTextStyles.smallInputBlockStyle
-                    .copyWith(color: MainColors.lightBlue)),
-          ),
           ConfirmButton(
             color: MainColors.lightBlue,
             width: double.infinity,
             text: 'Sign up',
             onTap: () {
-              signUp(
-                email: emailController.text.trim(),
-                password: passwordController.text.trim(),
-                context: context,
-              );
+              context.read<AuthCubit>().signUp(
+                    formKey: formKey,
+                    name: nameController.text.trim(),
+                    email: emailController.text.trim(),
+                    password: passwordController.text.trim(),
+                  );
             },
           ),
           Container(

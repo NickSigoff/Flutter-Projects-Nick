@@ -37,7 +37,7 @@ class SignInPage extends StatelessWidget {
                   children: [
                     _buildLogoWidget(height),
                     const Spacer(),
-                    InputBlockSignInPage(signIn: signIn),
+                    InputBlockSignInPage(),
                   ],
                 ),
               ),
@@ -46,32 +46,6 @@ class SignInPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void signIn(
-      {required String email,
-      required String password,
-      required BuildContext context}) async {
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => const Center(child: CircularProgressIndicator()));
-    try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } on FirebaseAuthException catch (e) {
-      print('By auth something went wrong $e');
-    }
-
-    final currentUser = FirebaseAuth.instance.currentUser;
-   
-    if (currentUser != null) {
-      final userId = currentUser.uid;
-      FirebaseMethods.downloadUserInfo(userId);
-    }
-    Navigator.pop(context);
   }
 
   Widget _buildLogoWidget(double height) {

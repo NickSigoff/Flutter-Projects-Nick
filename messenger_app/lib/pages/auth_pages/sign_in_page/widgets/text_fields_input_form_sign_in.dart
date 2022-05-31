@@ -20,7 +20,7 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputFormSignIn> {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(vertical: 5),
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: TextField(
             style: MainTextStyles.smallInputBlockStyle,
             controller: InputBlockSignInPage.emailController,
@@ -33,7 +33,7 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputFormSignIn> {
           ),
         ),
         Container(
-          padding: const EdgeInsets.symmetric(vertical: 5),
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: TextField(
             style: MainTextStyles.smallInputBlockStyle,
             obscureText: _visiblePassword,

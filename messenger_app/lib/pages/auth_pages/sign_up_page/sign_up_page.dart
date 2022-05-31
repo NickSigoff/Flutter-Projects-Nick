@@ -13,7 +13,6 @@ import 'package:messenger_app/utils/size_constants.dart';
 import '../../../utils/main_colors.dart';
 
 class SignUpPage extends StatelessWidget {
-  final formKey = GlobalKey<FormState>();
 
   SignUpPage({Key? key}) : super(key: key);
 
@@ -40,7 +39,7 @@ class SignUpPage extends StatelessWidget {
                   children: [
                     _buildLogoWidget(height),
                     const Spacer(),
-                    InputBlockSignUpPage(signUp: signUp, formKey: formKey),
+                    InputBlockSignUpPage(),
                     //const Spacer(),
                   ],
                 ),
@@ -50,36 +49,6 @@ class SignUpPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void signUp(
-      {required String email,
-      required String password,
-      required BuildContext context}) async {
-    if (formKey.currentState != null) {
-      final isValid = formKey.currentState!.validate();
-      if (!isValid) return;
-    }
-
-    showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) => const Center(child: CircularProgressIndicator()));
-    try {
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-    } on FirebaseAuthException catch (e) {
-      print(e);
-    }
-
-    FirebaseMethods.uploadUserInfo(
-        name: InputBlockSignUpPage.nameController.text,
-    email: InputBlockSignUpPage.emailController.text);
-
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => const GetStartedFirstPage()));
   }
 
   Widget _buildLogoWidget(double height) {

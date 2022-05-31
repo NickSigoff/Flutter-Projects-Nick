@@ -21,7 +21,7 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputFormSignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: widget.formKey,
+      //key: widget.formKey,
       //autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         children: [
@@ -44,7 +44,7 @@ class _TextFieldsSignUpPageState extends State<TextFieldsInputFormSignUpPage> {
               controller: InputBlockSignUpPage.emailController,
               keyboardType: TextInputType.emailAddress,
               validator: (email) =>
-                  email == null ? 'Enter correct email' : null,
+              email == null ? 'Enter correct email' : null,
               decoration: const InputDecoration(
                 labelText: 'Email',
                 focusedBorder: MainBorders.outlineInputBorderFocused,

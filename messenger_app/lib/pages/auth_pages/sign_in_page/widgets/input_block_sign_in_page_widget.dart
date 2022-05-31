@@ -1,7 +1,10 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messenger_app/global_widgets/confirm_button_widget.dart';
+import 'package:messenger_app/pages/auth_pages/bloc/auth_cubit.dart';
 import 'package:messenger_app/pages/auth_pages/sign_in_page/widgets/text_fields_input_form_sign_in.dart';
+import 'package:messenger_app/pages/main_page/main_page.dart';
 
 import 'package:messenger_app/utils/main_text_styles.dart';
 import 'package:messenger_app/utils/size_constants.dart';
@@ -10,16 +13,11 @@ import '../../../../global_widgets/social_media_authorize_widget.dart';
 import '../../../../utils/main_colors.dart';
 import '../../sign_up_page/sign_up_page.dart';
 
-
 class InputBlockSignInPage extends StatelessWidget {
   static final emailController = TextEditingController();
   static final passwordController = TextEditingController();
-  final void Function(
-      {required String email,
-      required String password,
-      required BuildContext context})? signIn;
 
-  const InputBlockSignInPage({Key? key, this.signIn}) : super(key: key);
+  const InputBlockSignInPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,18 +44,47 @@ class InputBlockSignInPage extends StatelessWidget {
                   .copyWith(color: MainColors.lightBlue),
             ),
           ),
-          ConfirmButton(
-              color: MainColors.lightBlue,
-              width: double.infinity,
-              text: 'Sign in',
-              onTap: () {
-                signIn == null
-                    ? {}
-                    : signIn!(
-                        context: context,
-                        email: emailController.text.trim(),
-                        password: passwordController.text.trim());
-              }),
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) {
+              if (state is AuthInitial) {
+                return ConfirmButton(
+                    color: MainColors.lightBlue,
+                    width: double.infinity,
+                    text: 'Sign in',
+                    onTap: () {
+                      context.read<AuthCubit>().signIn(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim());
+                    });
+              } else if (state is AuthLoading) {
+                return ConfirmButton(
+                    color: MainColors.lightBlue,
+                    width: double.infinity,
+                    child: const Center(child: CircularProgressIndicator()),
+                    onTap: () {});
+              } else if (state is AuthError) {
+                return ConfirmButton(
+                    color: MainColors.lightBlue,
+                    width: double.infinity,
+                    text: 'Something wrong. Try again',
+                    onTap: () {
+                      context.read<AuthCubit>().signIn(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim());
+                    });
+              } else {
+                return ConfirmButton(
+                    color: MainColors.lightBlue,
+                    width: double.infinity,
+                    text: 'Sign in',
+                    onTap: () {
+                      context.read<AuthCubit>().signIn(
+                          email: emailController.text.trim(),
+                          password: passwordController.text.trim());
+                    });
+              }
+            },
+          ),
           Container(
             alignment: Alignment.center,
             child: RichText(
@@ -71,8 +98,7 @@ class InputBlockSignInPage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        SignUpPage()));
+                                    builder: (context) => SignUpPage()));
                           },
                         text: ' Sign Up',
                         style: MainTextStyles.smallInputBlockStyle

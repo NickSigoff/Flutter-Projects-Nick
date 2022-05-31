@@ -28,10 +28,10 @@ class FirebaseMethods {
     );
     await userDocument.set(user.toJson());
 
-    SharedPreferencesMethods.setUserLoggedInSharedPreferences(true);
-    SharedPreferencesMethods.setUserNameSharedPreferences(name);
-    SharedPreferencesMethods.setUserEmailSharedPreferences(email);
-    SharedPreferencesMethods.setUserIdSharedPreferences(userDocument.id);
+    await SharedPreferencesMethods.setUserLoggedInSharedPreferences(true);
+    await SharedPreferencesMethods.setUserNameSharedPreferences(name);
+    await SharedPreferencesMethods.setUserEmailSharedPreferences(email);
+    await SharedPreferencesMethods.setUserIdSharedPreferences(userDocument.id);
   }
 
   static downloadUserInfo(String userId) async {
@@ -41,9 +41,10 @@ class FirebaseMethods {
         .get();
     UserModel userModel = UserModel.fromJson(userMap.data()!);
 
-    SharedPreferencesMethods.setUserLoggedInSharedPreferences(true);
-    SharedPreferencesMethods.setUserNameSharedPreferences(userModel.name);
-    SharedPreferencesMethods.setUserEmailSharedPreferences(userModel.email);
-    SharedPreferencesMethods.setUserIdSharedPreferences(userModel.id);
+    await SharedPreferencesMethods.setUserLoggedInSharedPreferences(true);
+    await SharedPreferencesMethods.setUserNameSharedPreferences(userModel.name);
+    await SharedPreferencesMethods.setUserEmailSharedPreferences(
+        userModel.email);
+    await SharedPreferencesMethods.setUserIdSharedPreferences(userModel.id);
   }
 }

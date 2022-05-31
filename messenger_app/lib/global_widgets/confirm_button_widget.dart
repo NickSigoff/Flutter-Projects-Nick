@@ -6,10 +6,12 @@ import 'package:messenger_app/utils/main_text_styles.dart';
 class ConfirmButton extends StatelessWidget {
   final VoidCallback onTap;
   final String text;
+  final Widget? child;
   final double width;
   final Color color;
 
   const ConfirmButton({
+    this.child,
     this.color = Colors.white,
     this.width = 200,
     this.text = 'Continue',
@@ -32,13 +34,13 @@ class ConfirmButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(16),
           color: color,
         ),
-        child: Text(
-          text,
-          style: MainTextStyles.mediumGetStartedPageStyle.copyWith(
-              color:
-                  color == Colors.white ? MainColors.lightBlue : Colors.white,
-              shadows: []),
-        ),
+        child: child ??
+            Text(text,
+                style: MainTextStyles.mediumGetStartedPageStyle.copyWith(
+                    color: color == Colors.white
+                        ? MainColors.lightBlue
+                        : Colors.white,
+                    shadows: [])),
       ),
     );
   }
