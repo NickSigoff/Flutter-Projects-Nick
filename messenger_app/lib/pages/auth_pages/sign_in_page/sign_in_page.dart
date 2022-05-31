@@ -66,6 +66,7 @@ class SignInPage extends StatelessWidget {
     }
 
     final currentUser = FirebaseAuth.instance.currentUser;
+   
     if (currentUser != null) {
       final userId = currentUser.uid;
       FirebaseMethods.downloadUserInfo(userId);

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:messenger_app/models/user_model.dart';
 import 'package:messenger_app/services/shared_preferences_methods.dart';
 import 'package:messenger_app/utils/firebase_constants.dart';
@@ -14,13 +15,16 @@ class FirebaseMethods {
 
   static void uploadUserInfo(
       {required String name, required String email}) async {
+    //todo the Stick of death
+    String userId = FirebaseAuth.instance.currentUser!.uid;
     final userDocument = FirebaseFirestore.instance
         .collection(FirebaseConstants.userCollectionName)
-        .doc();
+        .doc(userId);
+
     UserModel user = UserModel(
       name: name,
       email: email,
-      id: userDocument.id,
+      id: userId,
     );
     await userDocument.set(user.toJson());
 

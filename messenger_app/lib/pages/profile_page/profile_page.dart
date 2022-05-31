@@ -31,9 +31,9 @@ class _ProfilePageState extends State<ProfilePage> {
             onPressed: () {
               FirebaseAuth.instance.signOut();
               SharedPreferencesMethods.setUserLoggedInSharedPreferences(false);
-              SharedPreferencesMethods.setUserNameSharedPreferences('');
-              SharedPreferencesMethods.setUserEmailSharedPreferences('');
-              SharedPreferencesMethods.setUserIdSharedPreferences('');
+              SharedPreferencesMethods.setUserNameSharedPreferences('1');
+              SharedPreferencesMethods.setUserEmailSharedPreferences('1');
+              SharedPreferencesMethods.setUserIdSharedPreferences('1');
             },
             child: const Text('Sign out')),
         _buildAppbarInfoWidget(),
@@ -42,6 +42,7 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   Widget _buildAppbarInfoWidget() {
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
