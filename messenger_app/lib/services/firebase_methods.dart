@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:messenger_app/models/chat_message_model.dart';
 import 'package:messenger_app/models/user_model.dart';
 import 'package:messenger_app/services/shared_preferences_methods.dart';
 import 'package:messenger_app/utils/firebase_constants.dart';
@@ -55,7 +56,7 @@ class FirebaseMethods {
       throw Exception();
     } else {
       List<String> chatRoomUsers = [userName, myName];
-      String chatRoomId = _createChatRoomId(userName, myName);
+      String chatRoomId = createChatRoomId(userName, myName);
       Map<String, dynamic> chatRoom = {
         'users': chatRoomUsers,
         'chatRoomId': chatRoomId,
@@ -64,7 +65,7 @@ class FirebaseMethods {
     }
   }
 
-  static String _createChatRoomId(String userOne, String userTwo) {
+  static String createChatRoomId(String userOne, String userTwo) {
     return userOne.codeUnitAt(0) > userTwo.codeUnitAt(0)
         ? '$userOne\_$userTwo'
         : '$userTwo\_$userOne';
@@ -77,5 +78,27 @@ class FirebaseMethods {
         .doc(chatRoomId)
         .set(chatRoom)
         .catchError((e) => print(e));
+  }
+
+  static void addMessage(
+      {required String chatRoomId, required ChatMessage chatMessage}) async {
+    await FirebaseFirestore.instance
+        .collection(FirebaseConstants.chatRoomName)
+        .doc(chatRoomId)
+        .collection('messages')
+        .doc()
+        .set(chatMessage.toJson());
+  }
+
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getChats(
+      String chatRoomId) {
+    return FirebaseFirestore.instance
+        .collection(FirebaseConstants.chatRoomName)
+        .doc(chatRoomId)
+        .collection('messages')
+        .snapshots();
+    // .collection("chats")
+    // .orderBy('time')
+    // .snapshots();
   }
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:messenger_app/pages/chat_detail_page/chat_detail_page.dart';
+import 'package:messenger_app/services/firebase_methods.dart';
+import 'package:messenger_app/services/shared_preferences_methods.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
@@ -29,9 +31,26 @@ class _UserChatWidgetState extends State<UserChatWidget> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ChatDetailsPage(userName: widget.name, email: '',)));
+      onTap: () async {
+        {
+          String? myName =
+              await SharedPreferencesMethods.getUserNameSharedPreferences();
+          if (myName == null) {
+            throw Exception();
+          } else {
+            //todo copy text
+            String chatRoomId =
+                FirebaseMethods.createChatRoomId(widget.name, myName);
+            //FirebaseMethods.createChatRoom(userName: name);
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ChatDetailsPage(
+                        userName: widget.name,
+                        email: 'email',
+                        chatRoomId: chatRoomId)));
+          }
+        }
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

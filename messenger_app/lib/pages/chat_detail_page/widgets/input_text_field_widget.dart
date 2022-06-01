@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:messenger_app/models/chat_message_model.dart';
+import 'package:messenger_app/services/firebase_methods.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
+import '../../../services/shared_preferences_methods.dart';
 import '../../../utils/main_colors.dart';
 
 class InputTextFieldWidget extends StatelessWidget {
-  const InputTextFieldWidget({
+  final String chatRoomId;
+  final messageController = TextEditingController();
+
+  InputTextFieldWidget({
+    required this.chatRoomId,
     Key? key,
   }) : super(key: key);
 
@@ -42,9 +50,10 @@ class InputTextFieldWidget extends StatelessWidget {
             const SizedBox(
               width: 16,
             ),
-            const Expanded(
+            Expanded(
               child: TextField(
-                decoration: InputDecoration(
+                controller: messageController,
+                decoration: const InputDecoration(
                     hintText: "Write a message...",
                     hintStyle: MainTextStyles.smallInputBlockStyle,
                     border: InputBorder.none),
@@ -54,7 +63,23 @@ class InputTextFieldWidget extends StatelessWidget {
               width: 16,
             ),
             FloatingActionButton(
-              onPressed: () {},
+              onPressed: () async {
+                String? myName = await SharedPreferencesMethods
+                    .getUserNameSharedPreferences();
+                if (myName == null) {
+                  throw Exception();
+                } else {
+                  DateTime now = DateTime.now();
+                  String formattedDate = DateFormat('kk:mm').format(now);
+                  ChatMessage chatMessage = ChatMessage(
+                      messageTime: formattedDate,
+                      messageContent: messageController.text,
+                      messageSender: myName);
+                  FirebaseMethods.addMessage(
+                      chatMessage: chatMessage, chatRoomId: chatRoomId);
+                  messageController.text = '';
+                }
+              },
               backgroundColor: MainColors.deepBlue,
               elevation: 0,
               child: const Icon(

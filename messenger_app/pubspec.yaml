@@ -17,6 +17,7 @@ dependencies:
   cloud_firestore: ^3.1.16
   flutter_bloc: ^8.0.1
   shared_preferences: ^2.0.15
+  intl: ^0.17.0
 
 
 

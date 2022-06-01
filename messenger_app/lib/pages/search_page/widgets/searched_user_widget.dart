@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:messenger_app/pages/chat_detail_page/chat_detail_page.dart';
 import 'package:messenger_app/services/firebase_methods.dart';
+import 'package:messenger_app/services/shared_preferences_methods.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
@@ -31,19 +32,30 @@ class SearchedUser extends StatelessWidget {
               ),
               Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(name, style: MainTextStyles.smallInputBlockStyle),
-                      Text(email, style: MainTextStyles.smallInputBlockStyle),
-                    ],
-                  )),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(name, style: MainTextStyles.smallInputBlockStyle),
+                  Text(email, style: MainTextStyles.smallInputBlockStyle),
+                ],
+              )),
               GestureDetector(
-                onTap: () {
-                  FirebaseMethods.createChatRoom(userName: name);
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ChatDetailsPage(userName: name, email: email)));
+                onTap: () async {
+                  String? myName = await SharedPreferencesMethods
+                      .getUserNameSharedPreferences();
+                  if (myName == null) {
+                    throw Exception();
+                  } else {
+                    String chatRoomId =
+                        FirebaseMethods.createChatRoomId(name, myName);
+                    FirebaseMethods.createChatRoom(userName: name);
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChatDetailsPage(
+                                userName: name,
+                                email: email,
+                                chatRoomId: chatRoomId)));
+                  }
                 },
                 child: Container(
                   alignment: Alignment.center,
