@@ -31,7 +31,7 @@ class _UserChatWidgetState extends State<UserChatWidget> {
     return GestureDetector(
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ChatDetailsPage()));
+            MaterialPageRoute(builder: (context) => ChatDetailsPage(userName: widget.name, email: '',)));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

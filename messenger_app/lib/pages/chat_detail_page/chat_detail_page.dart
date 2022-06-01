@@ -6,80 +6,38 @@ import 'package:messenger_app/utils/main_text_styles.dart';
 import '../../utils/main_colors.dart';
 
 class ChatDetailsPage extends StatelessWidget {
-  ChatDetailsPage({Key? key}) : super(key: key);
+  final String userName;
+  final String email;
 
-  final List<ChatMessage> messages = [
-    ChatMessage(
-      messageContent: 'Hello, World',
-      messageType: 'receiver',
-    ),
-    ChatMessage(
-      messageContent: 'Hello, World',
-      messageType: 'sender',
-    ),
-    ChatMessage(
-      messageContent: 'Hello, World',
-      messageType: 'receiver',
-    ),
-    ChatMessage(
-      messageContent: 'Hello, World',
-      messageType: 'sender',
-    ),
-    ChatMessage(
-      messageContent: 'Hello, World',
-      messageType: 'receiver',
-    ),
-    ChatMessage(
-      messageContent: 'Hello, World',
-      messageType: 'sender',
-    ),
-    ChatMessage(
-      messageContent: 'Hello, World',
-      messageType: 'receiver',
-    ),
-    ChatMessage(
-      messageContent: 'Hello, Worldnjdfhdfj gryigiqrhg giqerjgjrjg beqyrgy rgr',
-      messageType: 'sender',
-    ),
-    ChatMessage(
-      messageContent: 'Hello, World jshfgj gy wegyfweq fwue fefkrwegwryfyrewgb ',
-      messageType: 'receiver',
-    ),
-    ChatMessage(
-      messageContent: 'Hello, Worldtttttt ttttt ttttttttttt tttttttt ttt tttt tt tttttttt',
-      messageType: 'sender',
-    ),
-    ChatMessage(
-      messageContent: 'Hello, World.Hello, World.Hello, World.Hello, World.Hello, Worldmmghhhhhuuuuuuuuuuuuuuuhhhhh',
-      messageType: 'receiver',
-    ),
-    ChatMessage(
-      messageContent: 'End, World',
-      messageType: 'sender',
-    ),
-  ];
+  const ChatDetailsPage({required this.userName, required this.email, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<ChatMessage> messages = [];
     return Scaffold(
       appBar: _buildAppBarWidget(context),
-      body: Stack(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 60.0),
-            child: ListView.builder(
-              itemCount: messages.length,
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              itemBuilder: (context, index) {
-                return messages[index].messageType == "receiver"
-                    ? _buildLeftDialog(messages[index].messageContent)
-                    : _buildRightDialog(messages[index].messageContent);
-              },
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: Stack(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 60.0),
+              child: ListView.builder(
+                itemCount: messages.length,
+                shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                itemBuilder: (context, index) {
+                  return messages[index].messageSender == "receiver"
+                      ? _buildLeftDialog(messages[index].messageContent)
+                      : _buildRightDialog(messages[index].messageContent);
+                },
+              ),
             ),
-          ),
-          const InputTextFieldWidget(),
-        ],
+            const InputTextFieldWidget(),
+          ],
+        ),
       ),
     );
   }
@@ -114,12 +72,15 @@ class ChatDetailsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Kriss Benwat",
+                    Text(userName,
+                        style: MainTextStyles.smallInputBlockStyle
+                            .copyWith(fontWeight: FontWeight.w500)),
+                    Text(email,
                         style: MainTextStyles.smallInputBlockStyle
                             .copyWith(fontWeight: FontWeight.w500)),
                     Text("Online",
-                        style: MainTextStyles.smallInputBlockStyle
-                            .copyWith(color: MainColors.lightBlue)),
+                        style: MainTextStyles.smallInputBlockStyle.copyWith(
+                            color: MainColors.lightBlue, fontSize: 8)),
                   ],
                 ),
               ),
@@ -184,3 +145,54 @@ class ChatDetailsPage extends StatelessWidget {
     );
   }
 }
+
+//final List<ChatMessage> messages = [
+//   ChatMessage(
+//     messageContent: 'Hello, World',
+//     messageType: 'receiver',
+//   ),
+//   ChatMessage(
+//     messageContent: 'Hello, World',
+//     messageType: 'sender',
+//   ),
+//   ChatMessage(
+//     messageContent: 'Hello, World',
+//     messageType: 'receiver',
+//   ),
+//   ChatMessage(
+//     messageContent: 'Hello, World',
+//     messageType: 'sender',
+//   ),
+//   ChatMessage(
+//     messageContent: 'Hello, World',
+//     messageType: 'receiver',
+//   ),
+//   ChatMessage(
+//     messageContent: 'Hello, World',
+//     messageType: 'sender',
+//   ),
+//   ChatMessage(
+//     messageContent: 'Hello, World',
+//     messageType: 'receiver',
+//   ),
+//   ChatMessage(
+//     messageContent: 'Hello, Worldnjdfhdfj gryigiqrhg giqerjgjrjg beqyrgy rgr',
+//     messageType: 'sender',
+//   ),
+//   ChatMessage(
+//     messageContent: 'Hello, World jshfgj gy wegyfweq fwue fefkrwegwryfyrewgb ',
+//     messageType: 'receiver',
+//   ),
+//   ChatMessage(
+//     messageContent: 'Hello, Worldtttttt ttttt ttttttttttt tttttttt ttt tttt tt tttttttt',
+//     messageType: 'sender',
+//   ),
+//   ChatMessage(
+//     messageContent: 'Hello, World.Hello, World.Hello, World.Hello, World.Hello, Worldmmghhhhhuuuuuuuuuuuuuuuhhhhh',
+//     messageType: 'receiver',
+//   ),
+//   ChatMessage(
+//     messageContent: 'End, World',
+//     messageType: 'sender',
+//   ),
+// ];

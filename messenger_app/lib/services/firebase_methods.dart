@@ -7,7 +7,7 @@ import 'package:messenger_app/utils/firebase_constants.dart';
 class FirebaseMethods {
   Future getUserByName(String username) async {
     QuerySnapshot<Map<String, dynamic>> data = await FirebaseFirestore.instance
-        .collection('users')
+        .collection(FirebaseConstants.userCollectionName)
         .where('name', isEqualTo: username)
         .get();
     return data;
@@ -46,5 +46,36 @@ class FirebaseMethods {
     await SharedPreferencesMethods.setUserEmailSharedPreferences(
         userModel.email);
     await SharedPreferencesMethods.setUserIdSharedPreferences(userModel.id);
+  }
+
+  static void createChatRoom({required String userName}) async {
+    String? myName =
+        await SharedPreferencesMethods.getUserNameSharedPreferences();
+    if (myName == null) {
+      throw Exception();
+    } else {
+      List<String> chatRoomUsers = [userName, myName];
+      String chatRoomId = _createChatRoomId(userName, myName);
+      Map<String, dynamic> chatRoom = {
+        'users': chatRoomUsers,
+        'chatRoomId': chatRoomId,
+      };
+      FirebaseMethods._addChatRoom(chatRoomId: chatRoomId, chatRoom: chatRoom);
+    }
+  }
+
+  static String _createChatRoomId(String userOne, String userTwo) {
+    return userOne.codeUnitAt(0) > userTwo.codeUnitAt(0)
+        ? '$userOne\_$userTwo'
+        : '$userTwo\_$userOne';
+  }
+
+  static void _addChatRoom(
+      {required dynamic chatRoom, required String chatRoomId}) {
+    FirebaseFirestore.instance
+        .collection(FirebaseConstants.chatRoomName)
+        .doc(chatRoomId)
+        .set(chatRoom)
+        .catchError((e) => print(e));
   }
 }
