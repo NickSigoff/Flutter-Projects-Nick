@@ -7,11 +7,16 @@ import 'package:messenger_app/utils/main_text_styles.dart';
 
 class SearchedUser extends StatelessWidget {
   final int index;
-  final String name;
-  final String email;
+  final String searchedUserName;
+  final String searchedUserEmail;
+  final String searchedUserId;
 
   const SearchedUser(
-      {required this.index, required this.name, required this.email, Key? key})
+      {required this.index,
+      required this.searchedUserName,
+      required this.searchedUserEmail,
+      required this.searchedUserId,
+      Key? key})
       : super(key: key);
 
   @override
@@ -25,42 +30,51 @@ class SearchedUser extends StatelessWidget {
             children: [
               const CircleAvatar(
                 backgroundImage: AssetImage('assets/images/avatars/10.jpg'),
-                maxRadius: 30,
+                maxRadius: 30.0,
               ),
               const SizedBox(
-                width: 16,
+                width: 16.0,
               ),
               Expanded(
                   child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(name, style: MainTextStyles.smallInputBlockStyle),
-                  Text(email, style: MainTextStyles.smallInputBlockStyle),
+                  Text(searchedUserName,
+                      style: MainTextStyles.smallInputBlockStyle),
+                  Text(searchedUserEmail,
+                      style: MainTextStyles.smallInputBlockStyle),
                 ],
               )),
               GestureDetector(
+                //todo checking twin chats
                 onTap: () async {
-                  String? myName = await SharedPreferencesMethods
+                  String? currentUserName = await SharedPreferencesMethods
                       .getUserNameSharedPreferences();
-                  if (myName == null) {
+                  String? currentUserId = await SharedPreferencesMethods
+                      .getUserIdSharedPreferences();
+                  if (currentUserName == null) {
                     throw Exception();
                   } else {
-                    String chatRoomId =
-                        FirebaseMethods.createChatRoomId(name, myName);
-                    FirebaseMethods.createChatRoom(userName: name);
+                    String chatRoomId = FirebaseMethods.createChatRoomId(
+                        searchedUserName, currentUserName);
+                    FirebaseMethods.createChatRoom(
+                        currentUserName: currentUserName,
+                        searchedUserName: searchedUserName);
+                    FirebaseMethods.addChatRoomToList(chatRoomId: chatRoomId, userId: currentUserId!);
+                    FirebaseMethods.addChatRoomToList(chatRoomId: chatRoomId, userId: searchedUserId);
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => ChatDetailsPage(
-                                userName: name,
-                                email: email,
+                                userName: searchedUserName,
+                                email: searchedUserEmail,
                                 chatRoomId: chatRoomId)));
                   }
                 },
                 child: Container(
                   alignment: Alignment.center,
-                  width: 100,
-                  height: 40,
+                  width: 100.0,
+                  height: 40.0,
                   decoration: BoxDecoration(
                       color: MainColors.deepBlue,
                       borderRadius: BorderRadius.circular(16.0)),

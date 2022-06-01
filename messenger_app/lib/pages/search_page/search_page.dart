@@ -66,10 +66,12 @@ class _SearchPageState extends State<SearchPage> {
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
+                  var searchedUserData = searchedUsers[index].docs.first;
                   return SearchedUser(
                     index: index,
-                    name: searchedUsers[index].docs.first.get('name'),
-                    email: searchedUsers[index].docs.first.get('email'),
+                    searchedUserId: searchedUserData.get('id'),
+                    searchedUserName: searchedUserData.get('name'),
+                    searchedUserEmail: searchedUserData.get('email'),
                   );
                 },
               ),
@@ -79,7 +81,7 @@ class _SearchPageState extends State<SearchPage> {
 
   Future<void> searchItem() async {
     searchedUsers = [];
-    FirebaseMethods().getUserByName(searchController.text).then((value) {
+    FirebaseMethods.getUserByName(searchController.text).then((value) {
       if (value.docs.isNotEmpty) {
         searchedUsers.add(value);
       }
