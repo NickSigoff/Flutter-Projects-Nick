@@ -1,3 +1,8 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'chat_message_model.g.dart';
+
+@JsonSerializable()
 class ChatMessage {
   String messageContent;
   String messageSender;
@@ -11,16 +16,8 @@ class ChatMessage {
     required this.messageTimeOrder,
   });
 
-  factory ChatMessage.fromJson(Map<String, dynamic> json) => ChatMessage(
-      messageTimeOrder: json['messageTimeOrder'],
-      messageTime: json['messageTime'],
-      messageContent: json['messageContent'],
-      messageSender: json['messageSender']);
+  factory ChatMessage.fromJson(Map<String, dynamic> json) =>
+      _$ChatMessageFromJson(json);
 
-  Map<String, dynamic> toJson() => {
-        'messageTimeOrder': messageTimeOrder,
-        'messageContent': messageContent,
-        'messageSender': messageSender,
-        'messageTime': messageTime,
-      };
+  Map<String, dynamic> toJson() => _$ChatMessageToJson(this);
 }

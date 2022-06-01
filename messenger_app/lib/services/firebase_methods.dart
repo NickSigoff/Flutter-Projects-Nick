@@ -26,6 +26,7 @@ class FirebaseMethods {
       name: name,
       email: email,
       id: userId,
+      chatRoomList: [],
     );
     await userDocument.set(user.toJson());
 
