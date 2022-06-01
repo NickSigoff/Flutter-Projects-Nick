@@ -10,7 +10,6 @@ class UserChatWidget extends StatefulWidget {
   final String messageText;
   final String imageUrl;
   final String time;
-  final bool isMessageRead;
   final int index;
 
   const UserChatWidget(
@@ -18,7 +17,6 @@ class UserChatWidget extends StatefulWidget {
       required this.imageUrl,
       required this.time,
       required this.name,
-      required this.isMessageRead,
       required this.index,
       Key? key})
       : super(key: key);
@@ -90,10 +88,8 @@ class _UserChatWidgetState extends State<UserChatWidget> {
                                 style: MainTextStyles.smallInputBlockStyle
                                     .copyWith(
                                         fontSize: 12,
-                                        fontWeight: widget.isMessageRead
-                                            ? FontWeight.w400
-                                            : FontWeight.bold),
-                              ),
+                                        fontWeight: FontWeight.w400),
+                              )
                             ],
                           ),
                         ),
@@ -103,11 +99,8 @@ class _UserChatWidgetState extends State<UserChatWidget> {
                 ),
                 Text(
                   widget.time,
-                  style: MainTextStyles.smallInputBlockStyle.copyWith(
-                      fontSize: 12,
-                      fontWeight: widget.isMessageRead
-                          ? FontWeight.w400
-                          : FontWeight.bold),
+                  style: MainTextStyles.smallInputBlockStyle
+                      .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
                 ),
               ],
             ),

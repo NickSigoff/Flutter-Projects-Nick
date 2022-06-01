@@ -72,6 +72,7 @@ class InputTextFieldWidget extends StatelessWidget {
                   DateTime now = DateTime.now();
                   String formattedDate = DateFormat('kk:mm').format(now);
                   ChatMessage chatMessage = ChatMessage(
+                      messageTimeOrder: now.millisecondsSinceEpoch.toString(),
                       messageTime: formattedDate,
                       messageContent: messageController.text,
                       messageSender: myName);

@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:messenger_app/models/chat_message_model.dart';
 import 'package:messenger_app/pages/chat_detail_page/widgets/input_text_field_widget.dart';
 import 'package:messenger_app/services/firebase_methods.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
@@ -34,7 +33,6 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    List<ChatMessage> messages = [];
     return Scaffold(
       appBar: _buildAppBarWidget(context),
       body: SizedBox(
@@ -49,16 +47,21 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
                   builder: (BuildContext context, snapshot) {
                     return snapshot.hasData
                         ? ListView.builder(
+                            reverse: true,
                             itemCount: snapshot.data?.docs.length,
                             shrinkWrap: true,
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             itemBuilder: (context, index) {
-                              return snapshot.data?.docs[index]
+                              int reverseIndex =
+                                  snapshot.data!.docs.length - 1 - index;
+                              return snapshot.data?.docs[reverseIndex]
                                           .get('messageSender') ==
                                       widget.userName
-                                  ? _buildLeftDialog(snapshot.data?.docs[index]
+                                  ? _buildLeftDialog(snapshot
+                                      .data?.docs[reverseIndex]
                                       .get('messageContent'))
-                                  : _buildRightDialog(snapshot.data?.docs[index]
+                                  : _buildRightDialog(snapshot
+                                      .data?.docs[reverseIndex]
                                       .get('messageContent'));
                             },
                           )
@@ -175,54 +178,3 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
     );
   }
 }
-
-//final List<ChatMessage> messages = [
-//   ChatMessage(
-//     messageContent: 'Hello, World',
-//     messageType: 'receiver',
-//   ),
-//   ChatMessage(
-//     messageContent: 'Hello, World',
-//     messageType: 'sender',
-//   ),
-//   ChatMessage(
-//     messageContent: 'Hello, World',
-//     messageType: 'receiver',
-//   ),
-//   ChatMessage(
-//     messageContent: 'Hello, World',
-//     messageType: 'sender',
-//   ),
-//   ChatMessage(
-//     messageContent: 'Hello, World',
-//     messageType: 'receiver',
-//   ),
-//   ChatMessage(
-//     messageContent: 'Hello, World',
-//     messageType: 'sender',
-//   ),
-//   ChatMessage(
-//     messageContent: 'Hello, World',
-//     messageType: 'receiver',
-//   ),
-//   ChatMessage(
-//     messageContent: 'Hello, Worldnjdfhdfj gryigiqrhg giqerjgjrjg beqyrgy rgr',
-//     messageType: 'sender',
-//   ),
-//   ChatMessage(
-//     messageContent: 'Hello, World jshfgj gy wegyfweq fwue fefkrwegwryfyrewgb ',
-//     messageType: 'receiver',
-//   ),
-//   ChatMessage(
-//     messageContent: 'Hello, Worldtttttt ttttt ttttttttttt tttttttt ttt tttt tt tttttttt',
-//     messageType: 'sender',
-//   ),
-//   ChatMessage(
-//     messageContent: 'Hello, World.Hello, World.Hello, World.Hello, World.Hello, Worldmmghhhhhuuuuuuuuuuuuuuuhhhhh',
-//     messageType: 'receiver',
-//   ),
-//   ChatMessage(
-//     messageContent: 'End, World',
-//     messageType: 'sender',
-//   ),
-// ];

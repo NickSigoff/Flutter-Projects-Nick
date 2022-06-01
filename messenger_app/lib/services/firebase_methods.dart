@@ -96,8 +96,8 @@ class FirebaseMethods {
         .collection(FirebaseConstants.chatRoomName)
         .doc(chatRoomId)
         .collection('messages')
+        .orderBy('messageTimeOrder')
         .snapshots();
-    // .collection("chats")
     // .orderBy('time')
     // .snapshots();
   }
