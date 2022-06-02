@@ -67,7 +67,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  _getDataFromSharedPreferences() async {
+  Future<void> _getDataFromSharedPreferences() async {
     _userEmail = await SharedPreferencesMethods.getUserEmailSharedPreferences();
     _userName = await SharedPreferencesMethods.getUserNameSharedPreferences();
     _userId = await SharedPreferencesMethods.getUserIdSharedPreferences();

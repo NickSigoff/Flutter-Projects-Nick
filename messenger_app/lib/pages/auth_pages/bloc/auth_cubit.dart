@@ -9,7 +9,10 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
-  void signIn({required String email, required String password}) async {
+  void signIn({
+    required String email,
+    required String password,
+  }) async {
     try {
       emit(AuthLoading());
       await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -30,11 +33,12 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
-  void signUp(
-      {required String email,
-      required String name,
-      required String password,
-      required formKey}) async {
+  void signUp({
+    required String email,
+    required String name,
+    required String password,
+    required formKey,
+  }) async {
     if (formKey.currentState != null) {
       final isValid = formKey.currentState!.validate();
       if (!isValid) emit(AuthError());

@@ -117,12 +117,12 @@ class FirebaseMethods {
     } else {
       for (String chatRoomIdFromList in userModel.chatRoomList) {
         if (chatRoomIdFromList.compareTo(chatRoomId) == 0) {
-          break;
+          return;
         } else {
-          userModel.chatRoomList.add(chatRoomId);
-          break;
+          continue;
         }
       }
+      userModel.chatRoomList.add(chatRoomId);
     }
 
     await FirebaseFirestore.instance
@@ -145,7 +145,7 @@ class FirebaseMethods {
   }
 
   ///
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getChats(
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getChatsStream(
     String chatRoomId,
   ) {
     return FirebaseFirestore.instance
@@ -154,5 +154,26 @@ class FirebaseMethods {
         .collection('messages')
         .orderBy('messageTimeOrder')
         .snapshots();
+  }
+
+  ///
+  static Stream<DocumentSnapshot<Map<String, dynamic>>> getUserDataStream(
+    String currentUserId,
+  ) {
+    return FirebaseFirestore.instance
+        .collection(FirebaseConstants.userCollectionName)
+        .doc(currentUserId)
+        .snapshots();
+  }
+
+  ///
+  static Future<QuerySnapshot<Map<String, dynamic>>> getMessagesFromChatRoom({
+    required String chatRoomId,
+  }) async {
+    return await FirebaseFirestore.instance
+        .collection(FirebaseConstants.chatRoomName)
+        .doc(chatRoomId)
+        .collection('messages')
+        .get();
   }
 }

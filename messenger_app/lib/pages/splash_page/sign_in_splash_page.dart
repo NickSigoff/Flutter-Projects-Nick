@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/pages/auth_pages/sign_in_page/sign_in_page.dart';
-import 'package:messenger_app/pages/main_page/main_page.dart';
+
 import 'package:messenger_app/pages/splash_page/widgets/waiting_page_widget.dart';
+
+import '../home_page/home_page.dart';
 
 class SplashSignInPage extends StatelessWidget {
   const SplashSignInPage({Key? key}) : super(key: key);
@@ -17,7 +19,7 @@ class SplashSignInPage extends StatelessWidget {
           } else if (snapshot.hasError) {
             return const WaitingPage(text: 'Something went wrong');
           } else if (snapshot.hasData) {
-            return const MainPage();
+            return const HomePage();
           } else {
             return const SignInPage();
           }

@@ -5,22 +5,18 @@ import 'package:messenger_app/pages/profile_page/profile_page.dart';
 import 'package:messenger_app/pages/search_page/search_page.dart';
 import 'package:messenger_app/utils/image_constants.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/main_colors.dart';
 
-class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<MainPage> createState() => _MainPageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MainPageState extends State<MainPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
   final List<BottomNavigationBarItem> _bottomBarItems = const [
     BottomNavigationBarItem(
@@ -38,53 +34,62 @@ class _MainPageState extends State<MainPage> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              backgroundColor: MainColors.creamWhite,
-              automaticallyImplyLeading: false,
-              floating: true,
-              pinned: false,
-              snap: true,
-              stretch: true,
-              flexibleSpace: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: [
-                    _buildLogoWidget(),
-                    const Spacer(),
-                    IconButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SearchPage()));
-                      },
-                      icon: const Icon(
-                        Icons.search,
-                        color: MainColors.black,
+      //todo provider!!!
+      child: Provider(
+        create: (BuildContext context) {  },
+        child: Scaffold(
+          body: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                backgroundColor: MainColors.creamWhite,
+                automaticallyImplyLeading: false,
+                floating: true,
+                pinned: false,
+                snap: true,
+                stretch: true,
+                flexibleSpace: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      _buildLogoWidget(),
+                      const Spacer(),
+                      IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SearchPage()));
+                        },
+                        icon: const Icon(
+                          Icons.search,
+                          color: MainColors.black,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate([
-                _getBody(_currentIndex),
-              ]),
-            ),
-          ],
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (int index) {
-            _onTap(index);
-          },
-          items: [..._bottomBarItems],
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  _getBody(_currentIndex),
+                ]),
+              ),
+            ],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _currentIndex,
+            onTap: (int index) {
+              _onTap(index);
+            },
+            items: [..._bottomBarItems],
+          ),
         ),
       ),
     );

@@ -28,7 +28,7 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
   @override
   void initState() {
     super.initState();
-    chats = FirebaseMethods.getChats(widget.chatRoomId);
+    chats = FirebaseMethods.getChatsStream(widget.chatRoomId);
   }
 
   @override
