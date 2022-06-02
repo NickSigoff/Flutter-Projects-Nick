@@ -5,7 +5,8 @@ import 'package:messenger_app/services/shared_preferences_methods.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
-class UserChatWidget extends StatefulWidget {
+class UserChatWidget extends StatelessWidget {
+  final String chatRoomId;
   final String name;
   final String messageText;
   final String imageUrl;
@@ -15,6 +16,7 @@ class UserChatWidget extends StatefulWidget {
   const UserChatWidget(
       {required this.messageText,
       required this.imageUrl,
+      required this.chatRoomId,
       required this.time,
       required this.name,
       required this.index,
@@ -22,46 +24,27 @@ class UserChatWidget extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<UserChatWidget> createState() => _UserChatWidgetState();
-}
-
-class _UserChatWidgetState extends State<UserChatWidget> {
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () async {
-        {
-          String? myName =
-              await SharedPreferencesMethods.getUserNameSharedPreferences();
-          if (myName == null) {
-            throw Exception();
-          } else {
-            //todo copy text
-            // String chatRoomId =
-            //     FirebaseMethods.createChatRoomId(widget.name, myName);
-            //FirebaseMethods.createChatRoom(userName: name);
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => ChatDetailsPage(
-            //             userName: widget.name,
-            //             email: 'email',
-            //             chatRoomId: chatRoomId)));
-          }
-        }
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ChatDetailsPage(
+                    userName: name, email: 'email', chatRoomId: chatRoomId)));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Column(
           children: [
-            _buildFirstDivider(widget.index),
+            _buildFirstDivider(index),
             Row(
               children: [
                 Expanded(
                   child: Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage: AssetImage(widget.imageUrl),
+                        backgroundImage: AssetImage(imageUrl),
                         maxRadius: 30,
                       ),
                       const SizedBox(
@@ -74,7 +57,7 @@ class _UserChatWidgetState extends State<UserChatWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                widget.name,
+                                name,
                                 style: MainTextStyles.smallInputBlockStyle
                                     .copyWith(
                                   color: MainColors.lightBlue,
@@ -84,7 +67,7 @@ class _UserChatWidgetState extends State<UserChatWidget> {
                                 height: 8,
                               ),
                               Text(
-                                widget.messageText,
+                                messageText,
                                 style: MainTextStyles.smallInputBlockStyle
                                     .copyWith(
                                         fontSize: 12,
@@ -98,7 +81,7 @@ class _UserChatWidgetState extends State<UserChatWidget> {
                   ),
                 ),
                 Text(
-                  widget.time,
+                  time,
                   style: MainTextStyles.smallInputBlockStyle
                       .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
                 ),

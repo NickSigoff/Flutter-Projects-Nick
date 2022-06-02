@@ -1,14 +1,15 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPreferencesMethods {
+abstract class SharedPreferencesMethods {
   static const String _sharedPreferencesUserLoggedInKey = 'IsLoggedIn';
   static const String _sharedPreferencesNameKey = 'UserNameKey';
   static const String _sharedPreferencesEmailKey = 'UserEmailKey';
   static const String _sharedPreferencesIdKey = 'UserIdKey';
 
-  static const String _currentUserName;
-  static const String _currentUserEmail;
-  static const String _currentUserId;
+  // static const String currentUserName;
+  // static const String currentUserEmail;
+  // static const String currentUserId;
+
 
   ///set
   static Future<bool> setUserLoggedInSharedPreferences(

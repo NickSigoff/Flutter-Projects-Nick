@@ -17,6 +17,13 @@ class FirebaseMethods {
   }
 
   ///
+  static DocumentReference<Map<String, dynamic>> getUserById(String userId) {
+    return FirebaseFirestore.instance
+        .collection(FirebaseConstants.userCollectionName)
+        .doc(userId);
+  }
+
+  ///
   static void uploadUserInfo(
       {required String name, required String email}) async {
     //todo the Stick of death
@@ -164,16 +171,5 @@ class FirebaseMethods {
         .collection(FirebaseConstants.userCollectionName)
         .doc(currentUserId)
         .snapshots();
-  }
-
-  ///
-  static Future<QuerySnapshot<Map<String, dynamic>>> getMessagesFromChatRoom({
-    required String chatRoomId,
-  }) async {
-    return await FirebaseFirestore.instance
-        .collection(FirebaseConstants.chatRoomName)
-        .doc(chatRoomId)
-        .collection('messages')
-        .get();
   }
 }
