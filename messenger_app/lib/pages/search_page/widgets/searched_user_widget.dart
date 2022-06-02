@@ -48,20 +48,16 @@ class SearchedUser extends StatelessWidget {
               GestureDetector(
                 //todo checking twin chats
                 onTap: () async {
-                  String? currentUserName = await SharedPreferencesMethods
-                      .getUserNameSharedPreferences();
                   String? currentUserId = await SharedPreferencesMethods
                       .getUserIdSharedPreferences();
-                  if (currentUserName == null) {
+                  if (currentUserId == null) {
                     throw Exception();
                   } else {
-                    String chatRoomId = FirebaseMethods.createChatRoomId(
-                        searchedUserName, currentUserName);
-                    FirebaseMethods.createChatRoom(
-                        currentUserName: currentUserName,
-                        searchedUserName: searchedUserName);
-                    FirebaseMethods.addChatRoomToList(chatRoomId: chatRoomId, userId: currentUserId!);
-                    FirebaseMethods.addChatRoomToList(chatRoomId: chatRoomId, userId: searchedUserId);
+                    String chatRoomId = FirebaseMethods.createChatRoomAddToUsersList(
+                      searchedUserId: searchedUserId,
+                      currentUserId: currentUserId,
+                    );
+
                     Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

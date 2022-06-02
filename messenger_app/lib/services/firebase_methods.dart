@@ -55,28 +55,44 @@ class FirebaseMethods {
   }
 
   ///
-  static void createChatRoom(
-      {required String currentUserName,
-      required String searchedUserName}) async {
-    List<String> chatRoomUsers = [currentUserName, searchedUserName];
-    String chatRoomId = createChatRoomId(currentUserName, searchedUserName);
+  static String createChatRoomAddToUsersList({
+    required String searchedUserId,
+    required String currentUserId,
+  }) {
+    String chatRoomId = _createChatRoomId(
+        searchedUserId: searchedUserId, currentUserId: currentUserId);
+    _createChatRoom(
+      currentUserId: currentUserId,
+      searchedUserId: searchedUserId,
+      chatRoomId: chatRoomId,
+    );
+    _addChatRoomToList(chatRoomId: chatRoomId, userId: currentUserId);
+    _addChatRoomToList(chatRoomId: chatRoomId, userId: searchedUserId);
+    return chatRoomId;
+  }
+
+  ///
+  static String _createChatRoomId({
+    required String currentUserId,
+    required String searchedUserId,
+  }) {
+    return currentUserId.compareTo(searchedUserId) > 0
+        ? '$currentUserId\_$searchedUserId'
+        : '$searchedUserId\_$currentUserId';
+  }
+
+  ///
+  static void _createChatRoom({
+    required String currentUserId,
+    required String searchedUserId,
+    required String chatRoomId,
+  }) async {
+    List<String> chatRoomUsers = [currentUserId, searchedUserId];
+
     Map<String, dynamic> chatRoom = {
       'users': chatRoomUsers,
       'chatRoomId': chatRoomId,
     };
-    FirebaseMethods._addChatRoom(chatRoomId: chatRoomId, chatRoom: chatRoom);
-  }
-
-  ///
-  static String createChatRoomId(String userOne, String userTwo) {
-    return userOne.codeUnitAt(0) > userTwo.codeUnitAt(0)
-        ? '$userOne\_$userTwo'
-        : '$userTwo\_$userOne';
-  }
-
-  ///
-  static void _addChatRoom(
-      {required dynamic chatRoom, required String chatRoomId}) {
     FirebaseFirestore.instance
         .collection(FirebaseConstants.chatRoomName)
         .doc(chatRoomId)
@@ -84,8 +100,42 @@ class FirebaseMethods {
   }
 
   ///
-  static void addMessage(
-      {required String chatRoomId, required ChatMessage chatMessage}) async {
+  //todo is there a simple way?
+  static void _addChatRoomToList({
+    required String chatRoomId,
+    required String userId,
+  }) async {
+    DocumentSnapshot<Map<String, dynamic>> userMap = await FirebaseFirestore
+        .instance
+        .collection(FirebaseConstants.userCollectionName)
+        .doc(userId)
+        .get();
+
+    UserModel userModel = UserModel.fromJson(userMap.data()!);
+    if (userModel.chatRoomList.isEmpty) {
+      userModel.chatRoomList.add(chatRoomId);
+    } else {
+      for (String chatRoomIdFromList in userModel.chatRoomList) {
+        if (chatRoomIdFromList.compareTo(chatRoomId) == 0) {
+          break;
+        } else {
+          userModel.chatRoomList.add(chatRoomId);
+          break;
+        }
+      }
+    }
+
+    await FirebaseFirestore.instance
+        .collection(FirebaseConstants.userCollectionName)
+        .doc(userId)
+        .set(userModel.toJson());
+  }
+
+  ///
+  static void addMessage({
+    required String chatRoomId,
+    required ChatMessage chatMessage,
+  }) async {
     await FirebaseFirestore.instance
         .collection(FirebaseConstants.chatRoomName)
         .doc(chatRoomId)
@@ -96,30 +146,13 @@ class FirebaseMethods {
 
   ///
   static Stream<QuerySnapshot<Map<String, dynamic>>> getChats(
-      String chatRoomId) {
+    String chatRoomId,
+  ) {
     return FirebaseFirestore.instance
         .collection(FirebaseConstants.chatRoomName)
         .doc(chatRoomId)
         .collection('messages')
         .orderBy('messageTimeOrder')
         .snapshots();
-  }
-
-  //todo is there a simple way?
-  static void addChatRoomToList(
-      {required String chatRoomId, required String userId}) async {
-    DocumentSnapshot<Map<String, dynamic>> userMap = await FirebaseFirestore
-        .instance
-        .collection(FirebaseConstants.userCollectionName)
-        .doc(userId)
-        .get();
-
-    UserModel userModel = UserModel.fromJson(userMap.data()!);
-    userModel.chatRoomList.add(chatRoomId);
-
-    await FirebaseFirestore.instance
-        .collection(FirebaseConstants.userCollectionName)
-        .doc(userId)
-        .set(userModel.toJson());
   }
 }

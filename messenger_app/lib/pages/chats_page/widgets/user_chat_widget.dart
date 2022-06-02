@@ -37,16 +37,16 @@ class _UserChatWidgetState extends State<UserChatWidget> {
             throw Exception();
           } else {
             //todo copy text
-            String chatRoomId =
-                FirebaseMethods.createChatRoomId(widget.name, myName);
+            // String chatRoomId =
+            //     FirebaseMethods.createChatRoomId(widget.name, myName);
             //FirebaseMethods.createChatRoom(userName: name);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ChatDetailsPage(
-                        userName: widget.name,
-                        email: 'email',
-                        chatRoomId: chatRoomId)));
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (context) => ChatDetailsPage(
+            //             userName: widget.name,
+            //             email: 'email',
+            //             chatRoomId: chatRoomId)));
           }
         }
       },
