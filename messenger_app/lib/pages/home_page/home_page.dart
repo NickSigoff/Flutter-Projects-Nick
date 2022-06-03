@@ -1,116 +1,91 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messenger_app/pages/calls_page/calls_page.dart';
 import 'package:messenger_app/pages/chats_page/chats_page.dart';
+import 'package:messenger_app/pages/home_page/bloc/bottom_bar_cubit.dart';
 import 'package:messenger_app/pages/profile_page/profile_page.dart';
 import 'package:messenger_app/pages/search_page/search_page.dart';
 import 'package:messenger_app/utils/image_constants.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
-import 'package:provider/provider.dart';
 
 import '../../utils/main_colors.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
-  final List<BottomNavigationBarItem> _bottomBarItems = const [
-    BottomNavigationBarItem(
-        icon: Icon(Icons.chat_sharp, color: MainColors.grey),
-        activeIcon: Icon(Icons.chat_sharp, color: MainColors.lightBlue),
-        label: 'Chats'),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.call, color: MainColors.grey),
-        activeIcon: Icon(Icons.call, color: MainColors.lightBlue),
-        label: 'Calls'),
-    BottomNavigationBarItem(
-        icon: Icon(Icons.person, color: MainColors.grey),
-        activeIcon: Icon(Icons.person, color: MainColors.lightBlue),
-        label: 'Profile'),
-  ];
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      //todo provider!!!
-      child: Provider(
-        create: (BuildContext context) {  },
-        child: Scaffold(
-          body: CustomScrollView(
-            slivers: [
-              SliverAppBar(
-                backgroundColor: MainColors.creamWhite,
-                automaticallyImplyLeading: false,
-                floating: true,
-                pinned: false,
-                snap: true,
-                stretch: true,
-                flexibleSpace: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    children: [
-                      _buildLogoWidget(),
-                      const Spacer(),
-                      IconButton(
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SearchPage()));
-                        },
-                        icon: const Icon(
-                          Icons.search,
-                          color: MainColors.black,
+      child: BlocBuilder<BottomBarCubit, BottomBarState>(
+        builder: (context, state) {
+          return Scaffold(
+            body: CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  backgroundColor: MainColors.creamWhite,
+                  automaticallyImplyLeading: false,
+                  floating: true,
+                  pinned: false,
+                  snap: true,
+                  stretch: true,
+                  flexibleSpace: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      children: [
+                        _buildLogoWidget(),
+                        const Spacer(),
+                        IconButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SearchPage()));
+                          },
+                          icon: const Icon(
+                            Icons.search,
+                            color: MainColors.black,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SliverList(
-                delegate: SliverChildListDelegate([
-                  _getBody(_currentIndex),
-                ]),
-              ),
-            ],
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            currentIndex: _currentIndex,
-            onTap: (int index) {
-              _onTap(index);
-            },
-            items: [..._bottomBarItems],
-          ),
-        ),
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    if (state is BottomBarChatsState)
+                      const ChatsPage()
+                    else if (state is BottomBarCallsState)
+                      const CallsPage()
+                    else if (state is BottomBarProfileState)
+                      const ProfilePage(),
+                  ]),
+                ),
+              ],
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+              currentIndex:
+                  context.read<BottomBarCubit>().chooseCurrentIndex(state),
+              onTap: (int index) => context.read<BottomBarCubit>().onTap(index),
+              items: const [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.chat_sharp, color: MainColors.grey),
+                    activeIcon:
+                        Icon(Icons.chat_sharp, color: MainColors.lightBlue),
+                    label: 'Chats'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.call, color: MainColors.grey),
+                    activeIcon: Icon(Icons.call, color: MainColors.lightBlue),
+                    label: 'Calls'),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.person, color: MainColors.grey),
+                    activeIcon: Icon(Icons.person, color: MainColors.lightBlue),
+                    label: 'Profile'),
+              ],
+            ),
+          );
+        },
       ),
     );
-  }
-
-  void _onTap(int index) {
-    _currentIndex = index;
-    setState(() {});
-  }
-
-  Widget _getBody(int index) {
-    switch (index) {
-      case 0:
-        return const ChatsPage();
-      case 1:
-        return const CallsPage();
-      case 2:
-        return ProfilePage();
-      default:
-        return Container();
-    }
   }
 
   Row _buildLogoWidget() {
