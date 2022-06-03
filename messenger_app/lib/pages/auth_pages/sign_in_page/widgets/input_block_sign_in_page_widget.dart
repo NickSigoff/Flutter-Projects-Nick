@@ -22,13 +22,13 @@ class InputBlockSignInPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(24.0),
       height: MediaQuery.of(context).size.height *
           SizeConstants.ratioInputBlockAuth,
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(
           color: MainColors.creamWhite,
-          borderRadius: BorderRadius.all(Radius.circular(24))),
+          borderRadius: BorderRadius.all(Radius.circular(24.0))),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,46 +44,7 @@ class InputBlockSignInPage extends StatelessWidget {
             ),
           ),
           BlocBuilder<AuthCubit, AuthState>(
-            builder: (context, state) {
-              if (state is AuthInitial) {
-                return ConfirmButton(
-                    color: MainColors.lightBlue,
-                    width: double.infinity,
-                    text: 'Sign in',
-                    onTap: () {
-                      context.read<AuthCubit>().signIn(
-                          email: emailController.text.trim(),
-                          password: passwordController.text.trim());
-                    });
-              } else if (state is AuthLoading) {
-                return ConfirmButton(
-                    color: MainColors.lightBlue,
-                    width: double.infinity,
-                    child: const Center(child: CircularProgressIndicator()),
-                    onTap: () {});
-              } else if (state is AuthError) {
-                return ConfirmButton(
-                    color: MainColors.lightBlue,
-                    width: double.infinity,
-                    text: 'Something wrong. Try again',
-                    onTap: () {
-                      context.read<AuthCubit>().signIn(
-                          email: emailController.text.trim(),
-                          password: passwordController.text.trim());
-                    });
-              } else {
-                return ConfirmButton(
-                    color: MainColors.lightBlue,
-                    width: double.infinity,
-                    text: 'Sign in',
-                    onTap: () {
-                      context.read<AuthCubit>().signIn(
-                          email: emailController.text.trim(),
-                          password: passwordController.text.trim());
-                    });
-              }
-            },
-          ),
+              builder: (context, state) => _buildConfirmButton(context, state)),
           Container(
             alignment: Alignment.center,
             child: RichText(
@@ -97,7 +58,8 @@ class InputBlockSignInPage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => const SplashSignUpPage()));
+                                    builder: (context) =>
+                                        const SplashSignUpPage()));
                           },
                         text: ' Sign Up',
                         style: MainTextStyles.smallInputBlockStyle
@@ -123,5 +85,22 @@ class InputBlockSignInPage extends StatelessWidget {
                 style: MainTextStyles.smallInputBlockStyle),
           ]),
     );
+  }
+
+  Widget _buildConfirmButton(BuildContext context, AuthState state) {
+    return ConfirmButton(
+        color: MainColors.lightBlue,
+        width: double.infinity,
+        text: state is AuthError ? 'Something wrong. Try again' : 'Sign in',
+        onTap: () {
+          state is AuthLoading?
+              ? {}
+              : context.read<AuthCubit>().signIn(
+                  email: emailController.text.trim(),
+                  password: passwordController.text.trim());
+        },
+        child: state is AuthLoading
+            ? const Center(child: CircularProgressIndicator())
+            : null);
   }
 }

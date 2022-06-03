@@ -10,8 +10,6 @@ import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 import 'package:messenger_app/utils/size_constants.dart';
 
-import '../../sign_in_page/widgets/text_fields_input_form_sign_in.dart';
-
 class InputBlockSignUpPage extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
   static final nameController = TextEditingController();

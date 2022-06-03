@@ -56,4 +56,12 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthError());
     }
   }
+
+  void onTapVisiblePasswordSignIn(bool isVisiblePassword) {
+    emit(AuthVisiblePasswordSignIn(visiblePassword: isVisiblePassword));
+  }
+
+  void onTapVisiblePasswordSignUp(bool isVisiblePassword) {
+    emit(AuthVisiblePasswordSignUp(visiblePassword: isVisiblePassword));
+  }
 }
