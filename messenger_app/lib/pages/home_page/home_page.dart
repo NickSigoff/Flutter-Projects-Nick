@@ -15,10 +15,10 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: BlocBuilder<BottomBarCubit, BottomBarState>(
-        builder: (context, state) {
-          return Scaffold(
+    return BlocBuilder<BottomBarCubit, BottomBarState>(
+      builder: (context, state) {
+        return SafeArea(
+          child: Scaffold(
             body: CustomScrollView(
               slivers: [
                 SliverAppBar(
@@ -35,12 +35,10 @@ class HomePage extends StatelessWidget {
                         _buildLogoWidget(),
                         const Spacer(),
                         IconButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const SearchPage()));
-                          },
+                          onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const SearchPage())),
                           icon: const Icon(
                             Icons.search,
                             color: MainColors.black,
@@ -82,9 +80,9 @@ class HomePage extends StatelessWidget {
                     label: 'Profile'),
               ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 

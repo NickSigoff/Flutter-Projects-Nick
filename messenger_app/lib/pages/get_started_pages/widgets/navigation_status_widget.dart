@@ -31,16 +31,6 @@ class NavigationStatusWidget extends StatelessWidget {
       return [_buildElement(), _buildElement(), _buildElement(30)];
     }
     return [];
-    // switch (pageNumber) {
-    //   case 1:
-    //
-    //   case 2:
-    //
-    //   case 3:
-    //
-    //   default:
-    //     return [];
-    // }
   }
 
   Widget _buildElement([double width = 10]) {

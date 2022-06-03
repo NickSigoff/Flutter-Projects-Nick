@@ -1,4 +1,4 @@
-name: weather_app
+name: weather_app_task
 description: A new Flutter project.
 
 publish_to: 'none'
@@ -21,16 +21,19 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.4
+  cupertino_icons: ^1.0.2
 
 dev_dependencies:
+
   flutter_test:
     sdk: flutter
   build_runner:
 
-  flutter_lints: ^1.0.4
+  flutter_lints: ^2.0.0
+
 
 flutter:
+
 
   uses-material-design: true
 
@@ -55,24 +58,3 @@ flutter:
     - assets/images/common_weather_icons/temp_quarter.png
     - assets/images/common_weather_icons/temp_empty.png
 
-  fonts:
-    - family: Poppins
-      fonts:
-        - asset: assets/fonts/Poppins-Thin.ttf
-          weight: 100
-        - asset: assets/fonts/Poppins-ExtraLight.ttf
-          weight: 200
-        - asset: assets/fonts/Poppins-Light.ttf
-          weight: 300
-        - asset: assets/fonts/Poppins-Regular.ttf
-          weight: 400
-        - asset: assets/fonts/Poppins-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Poppins-SemiBold.ttf
-          weight: 600
-        - asset: assets/fonts/Poppins-ExtraBold.ttf
-          weight: 700
-        - asset: assets/fonts/Poppins-Bold.ttf
-          weight: 800
-        - asset: assets/fonts/Poppins-Black.ttf
-          weight: 900
