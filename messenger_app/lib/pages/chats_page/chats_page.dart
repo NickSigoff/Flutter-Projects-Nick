@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/pages/chats_page/widgets/user_chat_widget.dart';
+import 'package:messenger_app/services/current_user_data.dart';
 import 'package:messenger_app/services/firebase_methods.dart';
 
-import '../../services/shared_preferences_methods.dart';
+
 
 class ChatsPage extends StatefulWidget {
   const ChatsPage({Key? key}) : super(key: key);
@@ -14,16 +15,6 @@ class ChatsPage extends StatefulWidget {
 
 class _ChatsPageState extends State<ChatsPage> {
   Stream<DocumentSnapshot>? userDataStream;
-  String? _currentUserId;
-
-  @override
-  void initState() {
-    super.initState();
-    _getDataFromSharedPreferences().then((_) => {
-          userDataStream = FirebaseMethods.getUserDataStream(_currentUserId!),
-          setState(() {})
-        });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +32,7 @@ class _ChatsPageState extends State<ChatsPage> {
                     String anotherUserId = 'Undefined name';
 
                     anotherUserId =
-                        _getAnotherUser(chatRoomId, _currentUserId!);
+                        _getAnotherUser(chatRoomId, CurrentUserData.currentUserId);
                     DocumentReference<Map<String, dynamic>> us =
                         FirebaseMethods.getUserById(anotherUserId);
 
@@ -57,11 +48,6 @@ class _ChatsPageState extends State<ChatsPage> {
                 )
               : Container();
         });
-  }
-
-  Future<void> _getDataFromSharedPreferences() async {
-    _currentUserId =
-        await SharedPreferencesMethods.getUserIdSharedPreferences();
   }
 
   String _getAnotherUser(String chatRoomId, String currentUserId) {

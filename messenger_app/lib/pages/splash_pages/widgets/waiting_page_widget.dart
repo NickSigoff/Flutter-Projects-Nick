@@ -13,25 +13,24 @@ class WaitingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: MainColors.lightBlue,
       body: Stack(
         children: [
-           const BackgroundWidget(
+          const BackgroundWidget(
               minClipperHeight:
-              SizeConstants.minRatioHeightBackgroundClipperReg,
+                  SizeConstants.minRatioHeightBackgroundClipperReg,
               maxClipperHeight:
-              SizeConstants.maxRatioHeightBackgroundClipperReg),
+                  SizeConstants.maxRatioHeightBackgroundClipperReg),
           Padding(
             padding: const EdgeInsets.all(32.0),
             child: Column(
               children: [
-                _buildLogoWidget(height),
+                _buildLogoWidget(MediaQuery.of(context).size.height),
                 const Spacer(),
-                text == 'Loading'
-                    ? const CircularProgressIndicator()
-                    : Container(),
+                text == 'Something went wrong'
+                    ? Container()
+                    : const CircularProgressIndicator(),
                 Text(
                   text,
                   style: MainTextStyles.mediumGetStartedPageStyle,

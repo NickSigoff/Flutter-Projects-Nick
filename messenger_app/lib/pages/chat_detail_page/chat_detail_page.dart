@@ -137,13 +137,13 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
         child: Container(
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(16),
-              bottomRight: Radius.circular(16),
+              topLeft: Radius.circular(16.0),
+              topRight: Radius.circular(16.0),
+              bottomRight: Radius.circular(16.0),
             ),
             color: MainColors.lightGrey,
           ),
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16.0),
           child: Text(
             message,
             style: MainTextStyles.smallInputBlockStyle,
@@ -161,13 +161,13 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
         child: Container(
           decoration: const BoxDecoration(
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(16),
-              bottomLeft: Radius.circular(16),
+              topLeft: Radius.circular(16.0),
+              topRight: Radius.circular(16.0),
+              bottomLeft: Radius.circular(16.0),
             ),
             color: MainColors.deepBlue,
           ),
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16.0),
           child: Text(
             message,
             style: MainTextStyles.smallInputBlockStyle

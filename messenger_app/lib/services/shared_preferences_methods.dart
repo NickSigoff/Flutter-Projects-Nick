@@ -17,19 +17,16 @@ abstract class SharedPreferencesMethods {
 
   static Future<bool> setUserNameSharedPreferences(String name) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    CurrentUserData.currentUserName = name;
     return sharedPreferences.setString(_sharedPreferencesNameKey, name);
   }
 
   static Future<bool> setUserEmailSharedPreferences(String email) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    CurrentUserData.currentUserEmail = email;
     return sharedPreferences.setString(_sharedPreferencesEmailKey, email);
   }
 
   static Future<bool> setUserIdSharedPreferences(String id) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    CurrentUserData.currentUserId = id;
     return sharedPreferences.setString(_sharedPreferencesIdKey, id);
   }
 
@@ -52,5 +49,13 @@ abstract class SharedPreferencesMethods {
   static Future<bool?> getUserIsLoggedSharedPreferences() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.getBool(_sharedPreferencesUserLoggedInKey);
+  }
+
+  static Future<bool> setCurrentsUser() async {
+    CurrentUserData.currentUserName = await getUserNameSharedPreferences()?? '';
+    CurrentUserData.currentUserEmail = await getUserEmailSharedPreferences()?? '';
+    CurrentUserData.currentUserId = await getUserIdSharedPreferences()?? '';
+    await Future.delayed(const Duration(seconds: 1));
+    return true;
   }
 }

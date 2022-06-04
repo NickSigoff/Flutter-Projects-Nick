@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:messenger_app/models/chat_message_model.dart';
 import 'package:messenger_app/models/user_model.dart';
+import 'package:messenger_app/services/current_user_data.dart';
 import 'package:messenger_app/services/shared_preferences_methods.dart';
 import 'package:messenger_app/utils/firebase_constants.dart';
 
@@ -9,8 +10,10 @@ class FirebaseMethods {
   ///
   static Future<QuerySnapshot<Map<String, dynamic>>> getUserByName(
       String username) async {
+    print(CurrentUserData.currentUserName);
     QuerySnapshot<Map<String, dynamic>> data = await FirebaseFirestore.instance
         .collection(FirebaseConstants.userCollectionName)
+        .where('name', isNotEqualTo: 'Abc')
         .where('name', isEqualTo: username)
         .get();
     return data;

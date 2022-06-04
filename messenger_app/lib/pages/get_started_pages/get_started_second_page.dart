@@ -46,9 +46,9 @@ class GetStartedSecondPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Icon(Icons.message,
-                        color: MainColors.creamWhite, size: 35),
+                        color: MainColors.creamWhite, size: 35.0),
                     const SizedBox(
-                      width: 8,
+                      width: 8.0,
                     ),
                     Text(
                       'Message',

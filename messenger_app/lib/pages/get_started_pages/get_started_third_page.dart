@@ -44,9 +44,9 @@ class GetStartedThirdPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Icon(Icons.call,
-                        color: MainColors.creamWhite, size: 35),
+                        color: MainColors.creamWhite, size: 35.0),
                     const SizedBox(
-                      width: 8,
+                      width: 8.0,
                     ),
                     Text(
                       'Call',
