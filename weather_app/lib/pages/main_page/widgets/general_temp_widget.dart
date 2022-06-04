@@ -40,7 +40,6 @@ class GeneralTempWidget extends StatelessWidget {
                     color: Colors.white,
                     fontSize: 72,
                     fontWeight: FontWeight.w800,
-                    fontFamily: 'Poppins',
                   ),
                   gradient: const LinearGradient(
                     colors: [Color(0xffcccdd5), Color(0xff545760)],

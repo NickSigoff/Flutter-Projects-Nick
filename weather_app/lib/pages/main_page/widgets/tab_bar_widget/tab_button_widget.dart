@@ -33,7 +33,6 @@ class TabButton extends StatelessWidget {
               text,
               style: TextStyle(
                   fontSize: 16,
-                  fontFamily: 'Poppins',
                   fontWeight: FontWeight.w400,
                   color: selectedPage == pageNumber
                       ? MainColors.selectedTextMainPage

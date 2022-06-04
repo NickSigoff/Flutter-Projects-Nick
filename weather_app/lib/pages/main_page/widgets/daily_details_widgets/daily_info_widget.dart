@@ -70,29 +70,12 @@ class DailyInfoWidget extends StatelessWidget {
               placeholder: (context, url) => const CircularProgressIndicator(),
               errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.all(8.0),
-              //   child: Image.network(
-              //     dailyWeather.getDailyIconUrl() + Constants.imagesExtension,
-              //     scale: 0.7,
-              //     loadingBuilder: (BuildContext context, Widget child,
-              //         ImageChunkEvent? loadingProgress) {
-              //       if (loadingProgress == null) {
-              //         return child;
-              //       }
-              //       return const Center(
-              //         child: CircularProgressIndicator(),
-              //       );
-              //     },
-              //   ),
-              // ),
               Text(
                 '${dailyWeather.temp!.day!.toStringAsFixed(0)}${Constants.degreeMetric}',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 40,
                   fontWeight: FontWeight.w800,
-                  fontFamily: 'Poppins',
                 ),
               ),
             ],

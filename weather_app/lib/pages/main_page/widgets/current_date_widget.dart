@@ -26,7 +26,6 @@ class CurrentDateWidget extends StatelessWidget {
             style: const TextStyle(
               color: MainColors.dateTextColor,
               fontSize: 12,
-              fontFamily: 'Poppins',
               fontWeight: FontWeight.w400,
             ),
           ),

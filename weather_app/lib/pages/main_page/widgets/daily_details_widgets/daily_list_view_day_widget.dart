@@ -42,7 +42,6 @@ class DailyListViewDayWidget extends StatelessWidget {
           style: const TextStyle(
             color: MainColors.selectedTextMainPage,
             fontSize: 12,
-            fontFamily: 'Poppins',
             fontWeight: FontWeight.w400,
           ),
         ),

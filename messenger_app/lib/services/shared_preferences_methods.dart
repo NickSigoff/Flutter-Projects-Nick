@@ -1,3 +1,4 @@
+import 'package:messenger_app/services/current_user_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class SharedPreferencesMethods {
@@ -6,32 +7,30 @@ abstract class SharedPreferencesMethods {
   static const String _sharedPreferencesEmailKey = 'UserEmailKey';
   static const String _sharedPreferencesIdKey = 'UserIdKey';
 
-  // static const String currentUserName;
-  // static const String currentUserEmail;
-  // static const String currentUserId;
-
-
   ///set
   static Future<bool> setUserLoggedInSharedPreferences(
       bool isUserLoggedIn) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return await sharedPreferences.setBool(
+    return sharedPreferences.setBool(
         _sharedPreferencesUserLoggedInKey, isUserLoggedIn);
   }
 
   static Future<bool> setUserNameSharedPreferences(String name) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return await sharedPreferences.setString(_sharedPreferencesNameKey, name);
+    CurrentUserData.currentUserName = name;
+    return sharedPreferences.setString(_sharedPreferencesNameKey, name);
   }
 
   static Future<bool> setUserEmailSharedPreferences(String email) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return await sharedPreferences.setString(_sharedPreferencesEmailKey, email);
+    CurrentUserData.currentUserEmail = email;
+    return sharedPreferences.setString(_sharedPreferencesEmailKey, email);
   }
 
   static Future<bool> setUserIdSharedPreferences(String id) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return await sharedPreferences.setString(_sharedPreferencesIdKey, id);
+    CurrentUserData.currentUserId = id;
+    return sharedPreferences.setString(_sharedPreferencesIdKey, id);
   }
 
   ///get

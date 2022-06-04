@@ -18,13 +18,11 @@ class _WelcomePageState extends State<WelcomePage> {
   final TextStyle boldStyle = const TextStyle(
       color: Colors.black,
       fontSize: 32,
-      fontFamily: "Poppins",
       fontWeight: FontWeight.w700);
 
   final TextStyle regularStyle = const TextStyle(
       color: Colors.black,
       fontSize: 24,
-      fontFamily: "Poppins",
       fontWeight: FontWeight.w400);
 
   @override
@@ -75,7 +73,6 @@ class _WelcomePageState extends State<WelcomePage> {
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 14,
-                    fontFamily: "Poppins",
                     fontWeight: FontWeight.w400)),
           ],
         ),
