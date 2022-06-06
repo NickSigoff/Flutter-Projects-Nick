@@ -48,6 +48,7 @@ flutter:
     - assets/images/label.png
     - assets/images/start_call_image.png
     - assets/images/start_message_image.png
+    - assets/images/empty_chats.png
     - assets/images/avatars/0.jpg
     - assets/images/avatars/1.jpg
     - assets/images/avatars/2.jpg
@@ -60,6 +61,7 @@ flutter:
     - assets/images/avatars/9.jpg
     - assets/images/avatars/10.jpg
     - assets/images/avatars/11.jpg
+    - assets/images/empty_chats.png
 
   fonts:
     - family: Poppins

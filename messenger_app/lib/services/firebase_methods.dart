@@ -54,11 +54,13 @@ class FirebaseMethods {
         .collection(FirebaseConstants.userCollectionName)
         .doc(userId)
         .get();
+
     UserModel userModel = UserModel.fromJson(userMap.data()!);
     await SharedPreferencesMethods.setUserNameSharedPreferences(userModel.name);
     await SharedPreferencesMethods.setUserEmailSharedPreferences(
         userModel.email);
     await SharedPreferencesMethods.setUserIdSharedPreferences(userModel.id);
+    await SharedPreferencesMethods.setCurrentsUser();
   }
 
   ///

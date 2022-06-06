@@ -7,8 +7,8 @@ import 'package:messenger_app/utils/main_text_styles.dart';
 import '../../utils/main_colors.dart';
 
 class ChatDetailsPage extends StatefulWidget {
-  final String userName;
-  final String email;
+  final String? userName;
+  final String? email;
   final String chatRoomId;
 
   const ChatDetailsPage(
@@ -106,10 +106,14 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(widget.userName,
-                        style: MainTextStyles.smallInputBlockStyle
-                            .copyWith(fontWeight: FontWeight.w500)),
-                    Text(widget.email,
+                    widget.userName == null
+                        ? const CircularProgressIndicator()
+                        : Text(widget.userName!,
+                            style: MainTextStyles.smallInputBlockStyle
+                                .copyWith(fontWeight: FontWeight.w500)),
+                    widget.email == null
+                        ? const CircularProgressIndicator()
+                        : Text(widget.email!,
                         style: MainTextStyles.smallInputBlockStyle
                             .copyWith(fontWeight: FontWeight.w500)),
                     Text("Online",

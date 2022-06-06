@@ -9,6 +9,15 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
+  Future<bool> uploadToSharedPreferences() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (currentUser != null) {
+      await FirebaseMethods.downloadUserInfo(currentUser.uid);
+      return true;
+    }
+    return false;
+  }
+
   void signIn({
     required String email,
     required String password,
@@ -19,14 +28,7 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
       );
-      final currentUser = FirebaseAuth.instance.currentUser;
-
-      if (currentUser != null) {
-        await FirebaseMethods.downloadUserInfo(currentUser.uid);
-        emit(AuthSuccess());
-      } else {
-        emit(AuthError());
-      }
+      emit(AuthSuccess());
     } on FirebaseAuthException catch (_) {
       emit(AuthError());
     }

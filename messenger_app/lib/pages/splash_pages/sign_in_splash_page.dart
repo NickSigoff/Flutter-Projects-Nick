@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:messenger_app/pages/auth_pages/bloc/auth_cubit.dart';
 import 'package:messenger_app/pages/auth_pages/sign_in_page/sign_in_page.dart';
 
 import 'package:messenger_app/pages/splash_pages/widgets/waiting_page_widget.dart';
-import 'package:messenger_app/services/shared_preferences_methods.dart';
 
 import '../home_page/home_page.dart';
 
@@ -21,7 +22,7 @@ class SplashSignInPage extends StatelessWidget {
             return const WaitingPage(text: 'Something went wrong');
           } else if (snapshot.hasData) {
             return FutureBuilder(
-                future: SharedPreferencesMethods.setCurrentsUser(),
+                future: context.read<AuthCubit>().uploadToSharedPreferences(),
                 builder: (context, snapshot) {
                   return snapshot.hasData
                       ? const HomePage()

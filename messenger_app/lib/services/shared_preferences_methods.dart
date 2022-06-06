@@ -40,13 +40,12 @@ abstract class SharedPreferencesMethods {
   }
 
   static Future<bool> setCurrentsUser() async {
-    await Future.delayed(const Duration(seconds: 1));
     CurrentUserData.currentUserName =
         await getUserNameSharedPreferences() ?? '';
     CurrentUserData.currentUserEmail =
         await getUserEmailSharedPreferences() ?? '';
     CurrentUserData.currentUserId = await getUserIdSharedPreferences() ?? '';
-    await Future.delayed(const Duration(seconds: 1));
+    await Future.delayed(const Duration(milliseconds: 500));
     return true;
 
   }

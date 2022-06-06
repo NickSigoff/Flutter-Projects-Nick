@@ -12,7 +12,7 @@ class ConfirmButton extends StatelessWidget {
 
   const ConfirmButton({
     this.child,
-    this.color = Colors.white,
+    this.color = MainColors.creamWhite,
     this.width = 200.0,
     this.text = 'Continue',
     required this.onTap,
