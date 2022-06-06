@@ -54,15 +54,16 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
                             itemBuilder: (context, index) {
                               int reverseIndex =
                                   snapshot.data!.docs.length - 1 - index;
-                              return snapshot.data?.docs[reverseIndex]
-                                          .get('messageSender') ==
-                                      widget.userName
-                                  ? _buildLeftDialog(snapshot
-                                      .data?.docs[reverseIndex]
-                                      .get('messageContent'))
-                                  : _buildRightDialog(snapshot
-                                      .data?.docs[reverseIndex]
-                                      .get('messageContent'));
+                              //todo stick of death
+                              var doc = snapshot.data!.docs[reverseIndex];
+                              return doc.get('messageSender') == widget.userName
+                                  ? _buildLeftDialog(
+                                      message: doc.get('messageContent'),
+                                      time: doc.get('messageTime'))
+                                  : _buildRightDialog(
+                                      message: doc.get('messageContent'),
+                                      time: doc.get('messageTime'),
+                                    );
                             },
                           )
                         : Container();
@@ -129,7 +130,7 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
     );
   }
 
-  Widget _buildLeftDialog(String message) {
+  Widget _buildLeftDialog({required String message, required String time}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Align(
@@ -143,17 +144,29 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
             ),
             color: MainColors.lightGrey,
           ),
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            message,
-            style: MainTextStyles.smallInputBlockStyle,
+          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 4.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                message,
+                style: MainTextStyles.smallInputBlockStyle,
+              ),
+              Text(
+                time,
+                textAlign: TextAlign.start,
+                style:
+                    MainTextStyles.smallInputBlockStyle.copyWith(fontSize: 10),
+              ),
+            ],
           ),
         ),
       ),
     );
   }
 
-  Widget _buildRightDialog(String message) {
+  Widget _buildRightDialog({required String message, required String time}) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Align(
@@ -167,11 +180,23 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
             ),
             color: MainColors.deepBlue,
           ),
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            message,
-            style: MainTextStyles.smallInputBlockStyle
-                .copyWith(color: MainColors.creamWhite),
+          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 4.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                message,
+                style: MainTextStyles.smallInputBlockStyle
+                    .copyWith(color: MainColors.creamWhite),
+              ),
+              Text(
+                time,
+                textAlign: TextAlign.start,
+                style: MainTextStyles.smallInputBlockStyle
+                    .copyWith(fontSize: 10, color: MainColors.creamWhite),
+              ),
+            ],
           ),
         ),
       ),

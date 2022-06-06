@@ -1,0 +1,101 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:messenger_app/services/current_user_data.dart';
+
+import '../../services/shared_preferences_methods.dart';
+import '../../utils/main_colors.dart';
+import '../../utils/main_text_styles.dart';
+
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Settings',
+            style: MainTextStyles.largeInputBlockStyle
+                .copyWith(color: MainColors.lightBlue),
+          ),
+          const SizedBox(height: 16.0),
+          Row(
+            children: [
+              const Icon(Icons.person_pin,
+                  color: MainColors.lightBlue, size: 70),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(CurrentUserData.currentUserName,
+                      style: MainTextStyles.smallInputBlockStyle
+                          .copyWith(fontSize: 24, color: MainColors.lightBlue)),
+                  Text(CurrentUserData.currentUserEmail,
+                      style: MainTextStyles.smallInputBlockStyle),
+                ],
+              ),
+              const Spacer(),
+              IconButton(
+                  onPressed: () async{
+                    FirebaseAuth.instance.signOut();
+                    await SharedPreferencesMethods.setUserNameSharedPreferences(
+                        'Default name');
+                    await SharedPreferencesMethods.setUserEmailSharedPreferences(
+                        'Default email');
+                    await SharedPreferencesMethods.setUserIdSharedPreferences(
+                        'Default id');
+                  },
+                  icon: const Icon(
+                    Icons.exit_to_app,
+                    color: MainColors.lightBlue,
+                  )),
+            ],
+          ),
+          const Divider(
+            thickness: 1.0,
+            color: MainColors.lightGrey,
+          ),
+          ..._buildOptionListWidget(),
+        ],
+      ),
+    );
+  }
+}
+
+List<Widget> _buildOptionListWidget() {
+  const List<Icon> iconsList = [
+    Icon(Icons.account_box, color: MainColors.lightBlue),
+    Icon(Icons.notifications, color: MainColors.lightBlue),
+    Icon(Icons.chat_bubble, color: MainColors.lightBlue),
+    Icon(Icons.storage, color: MainColors.lightBlue),
+    Icon(Icons.security, color: MainColors.lightBlue),
+    Icon(Icons.warning, color: MainColors.lightBlue),
+  ];
+  const List<String> textList = [
+    'Account',
+    'Notification',
+    'Chat settings',
+    'Data and storage',
+    'Privacy and security',
+    'About',
+  ];
+  return List<Widget>.generate(
+      iconsList.length,
+      (index) => Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: Row(
+              children: [
+                iconsList[index],
+                const SizedBox(width: 8.0),
+                Expanded(
+                    child: Text(
+                  textList[index],
+                  style: MainTextStyles.smallInputBlockStyle,
+                )),
+                const Icon(Icons.arrow_forward_ios,color: MainColors.grey)
+              ],
+            ),
+          ));
+}

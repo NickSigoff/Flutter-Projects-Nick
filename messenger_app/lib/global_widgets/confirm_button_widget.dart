@@ -13,7 +13,7 @@ class ConfirmButton extends StatelessWidget {
   const ConfirmButton({
     this.child,
     this.color = Colors.white,
-    this.width = 200,
+    this.width = 200.0,
     this.text = 'Continue',
     required this.onTap,
     Key? key,
@@ -28,18 +28,18 @@ class ConfirmButton extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         width: width,
-        height: 50,
+        height: 50.0,
         decoration: BoxDecoration(
           boxShadow: MainShadows.containerShadow,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(16.0),
           color: color,
         ),
         child: child ??
             Text(text,
                 style: MainTextStyles.mediumGetStartedPageStyle.copyWith(
-                    color: color == Colors.white
+                    color: color == MainColors.creamWhite
                         ? MainColors.lightBlue
-                        : Colors.white,
+                        : MainColors.creamWhite,
                     shadows: [])),
       ),
     );

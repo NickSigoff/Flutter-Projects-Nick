@@ -22,8 +22,7 @@ class AuthCubit extends Cubit<AuthState> {
       final currentUser = FirebaseAuth.instance.currentUser;
 
       if (currentUser != null) {
-        final userId = currentUser.uid;
-        await FirebaseMethods.downloadUserInfo(userId);
+        await FirebaseMethods.downloadUserInfo(currentUser.uid);
         emit(AuthSuccess());
       } else {
         emit(AuthError());

@@ -12,7 +12,7 @@ class SocialMediaAuthorizeWidget extends StatelessWidget {
       children: [
         _buildHeaderInscription(),
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -50,7 +50,7 @@ class SocialMediaAuthorizeWidget extends StatelessWidget {
 
   Widget _buildHeaderInscription() {
     return Container(
-      padding: const EdgeInsets.only(bottom: 20, left: 41, right: 41),
+      padding: const EdgeInsets.only(bottom: 20.0, left: 41.0, right: 41.0),
       alignment: Alignment.center,
       child: Row(
         children: [
@@ -96,8 +96,8 @@ class SocialAuthWidget extends StatelessWidget {
         decoration: BoxDecoration(
             boxShadow: MainShadows.containerShadow,
             color: color,
-            borderRadius: const BorderRadius.all(Radius.circular(16))),
-        height: 52,
+            borderRadius: const BorderRadius.all(Radius.circular(16.0))),
+        height: 52.0,
         child: child,
       ),
     );

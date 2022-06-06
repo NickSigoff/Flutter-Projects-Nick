@@ -10,20 +10,20 @@ class FirebaseMethods {
   ///
   static Future<QuerySnapshot<Map<String, dynamic>>> getUserByName(
       String username) async {
-    print(CurrentUserData.currentUserName);
-    QuerySnapshot<Map<String, dynamic>> data = await FirebaseFirestore.instance
+    return await FirebaseFirestore.instance
         .collection(FirebaseConstants.userCollectionName)
-        .where('name', isNotEqualTo: 'Abc')
+        .where('name', isNotEqualTo: CurrentUserData.currentUserName)
         .where('name', isEqualTo: username)
         .get();
-    return data;
   }
 
   ///
-  static DocumentReference<Map<String, dynamic>> getUserById(String userId) {
+  static Future<DocumentSnapshot<Map<String, dynamic>>> getUserById(
+      String userId) {
     return FirebaseFirestore.instance
         .collection(FirebaseConstants.userCollectionName)
-        .doc(userId);
+        .doc(userId)
+        .get();
   }
 
   ///
@@ -43,7 +43,6 @@ class FirebaseMethods {
     );
     await userDocument.set(user.toJson());
 
-    await SharedPreferencesMethods.setUserLoggedInSharedPreferences(true);
     await SharedPreferencesMethods.setUserNameSharedPreferences(name);
     await SharedPreferencesMethods.setUserEmailSharedPreferences(email);
     await SharedPreferencesMethods.setUserIdSharedPreferences(userDocument.id);
@@ -56,8 +55,6 @@ class FirebaseMethods {
         .doc(userId)
         .get();
     UserModel userModel = UserModel.fromJson(userMap.data()!);
-
-    await SharedPreferencesMethods.setUserLoggedInSharedPreferences(true);
     await SharedPreferencesMethods.setUserNameSharedPreferences(userModel.name);
     await SharedPreferencesMethods.setUserEmailSharedPreferences(
         userModel.email);

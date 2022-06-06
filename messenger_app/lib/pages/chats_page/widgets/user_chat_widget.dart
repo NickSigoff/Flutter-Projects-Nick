@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:messenger_app/pages/chat_detail_page/chat_detail_page.dart';
-import 'package:messenger_app/services/firebase_methods.dart';
-import 'package:messenger_app/services/shared_preferences_methods.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
 class UserChatWidget extends StatelessWidget {
   final String chatRoomId;
-  final String name;
+  final String searchedUserName;
   final String messageText;
   final String imageUrl;
   final String time;
@@ -18,7 +16,7 @@ class UserChatWidget extends StatelessWidget {
       required this.imageUrl,
       required this.chatRoomId,
       required this.time,
-      required this.name,
+      required this.searchedUserName,
       required this.index,
       Key? key})
       : super(key: key);
@@ -31,7 +29,7 @@ class UserChatWidget extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => ChatDetailsPage(
-                    userName: name, email: 'email', chatRoomId: chatRoomId)));
+                    userName: searchedUserName, email: 'email', chatRoomId: chatRoomId)));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -57,7 +55,7 @@ class UserChatWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                name,
+                                searchedUserName,
                                 style: MainTextStyles.smallInputBlockStyle
                                     .copyWith(
                                   color: MainColors.lightBlue,

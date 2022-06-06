@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messenger_app/pages/calls_page/calls_page.dart';
 import 'package:messenger_app/pages/chats_page/chats_page.dart';
 import 'package:messenger_app/pages/home_page/bloc/bottom_bar_cubit.dart';
-import 'package:messenger_app/pages/profile_page/profile_page.dart';
 import 'package:messenger_app/pages/search_page/search_page.dart';
+import 'package:messenger_app/pages/settings_page/settings_page.dart';
 import 'package:messenger_app/utils/image_constants.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
@@ -55,7 +55,7 @@ class HomePage extends StatelessWidget {
                     else if (state is BottomBarCallsState)
                       const CallsPage()
                     else if (state is BottomBarProfileState)
-                      const ProfilePage(),
+                      const SettingsPage(),
                   ]),
                 ),
               ],
@@ -75,9 +75,9 @@ class HomePage extends StatelessWidget {
                     activeIcon: Icon(Icons.call, color: MainColors.lightBlue),
                     label: 'Calls'),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.person, color: MainColors.grey),
-                    activeIcon: Icon(Icons.person, color: MainColors.lightBlue),
-                    label: 'Profile'),
+                    icon: Icon(Icons.settings, color: MainColors.grey),
+                    activeIcon: Icon(Icons.settings, color: MainColors.lightBlue),
+                    label: 'Settings'),
               ],
             ),
           ),

@@ -2,32 +2,25 @@ import 'package:messenger_app/services/current_user_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class SharedPreferencesMethods {
-  static const String _sharedPreferencesUserLoggedInKey = 'IsLoggedIn';
   static const String _sharedPreferencesNameKey = 'UserNameKey';
   static const String _sharedPreferencesEmailKey = 'UserEmailKey';
   static const String _sharedPreferencesIdKey = 'UserIdKey';
 
   ///set
-  static Future<bool> setUserLoggedInSharedPreferences(
-      bool isUserLoggedIn) async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.setBool(
-        _sharedPreferencesUserLoggedInKey, isUserLoggedIn);
-  }
 
   static Future<bool> setUserNameSharedPreferences(String name) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.setString(_sharedPreferencesNameKey, name);
+    return await sharedPreferences.setString(_sharedPreferencesNameKey, name);
   }
 
   static Future<bool> setUserEmailSharedPreferences(String email) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.setString(_sharedPreferencesEmailKey, email);
+    return await sharedPreferences.setString(_sharedPreferencesEmailKey, email);
   }
 
   static Future<bool> setUserIdSharedPreferences(String id) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.setString(_sharedPreferencesIdKey, id);
+    return await sharedPreferences.setString(_sharedPreferencesIdKey, id);
   }
 
   ///get
@@ -46,16 +39,15 @@ abstract class SharedPreferencesMethods {
     return sharedPreferences.getString(_sharedPreferencesIdKey);
   }
 
-  static Future<bool?> getUserIsLoggedSharedPreferences() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    return sharedPreferences.getBool(_sharedPreferencesUserLoggedInKey);
-  }
-
   static Future<bool> setCurrentsUser() async {
-    CurrentUserData.currentUserName = await getUserNameSharedPreferences()?? '';
-    CurrentUserData.currentUserEmail = await getUserEmailSharedPreferences()?? '';
-    CurrentUserData.currentUserId = await getUserIdSharedPreferences()?? '';
+    await Future.delayed(const Duration(seconds: 1));
+    CurrentUserData.currentUserName =
+        await getUserNameSharedPreferences() ?? '';
+    CurrentUserData.currentUserEmail =
+        await getUserEmailSharedPreferences() ?? '';
+    CurrentUserData.currentUserId = await getUserIdSharedPreferences() ?? '';
     await Future.delayed(const Duration(seconds: 1));
     return true;
+
   }
 }
