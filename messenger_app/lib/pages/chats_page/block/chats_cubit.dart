@@ -17,9 +17,7 @@ class ChatsCubit extends Cubit<ChatsState> {
   void getDataStream(String userId) {
     Stream<DocumentSnapshot>? userDataStream =
         FirebaseMethods.getUserDataStream(userId);
-
     emit(ChatsEnabledChats(userDataStream: userDataStream));
-    print('in');
   }
 
   void ff() {

@@ -42,11 +42,9 @@ class SearchPage extends StatelessWidget {
                     ),
                   ),
                   IconButton(
-                    onPressed: () {
-                      context
-                          .read<SearchCubit>()
-                          .searchUser(searchController.text.trim());
-                    },
+                    onPressed: () => context
+                        .read<SearchCubit>()
+                        .searchUser(searchController.text.trim()),
                     icon: const Icon(Icons.search),
                   ),
                 ]),
@@ -58,7 +56,8 @@ class SearchPage extends StatelessWidget {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      var searchedUserData = state.searchedUsers[index].docs.first;
+                      var searchedUserData =
+                          state.searchedUsers[index].docs.first;
                       return SearchedUser(
                         index: index,
                         searchedUserId: searchedUserData.get('id'),

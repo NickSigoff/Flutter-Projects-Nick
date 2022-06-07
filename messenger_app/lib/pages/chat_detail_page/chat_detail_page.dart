@@ -95,7 +95,7 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
                 ),
               ),
               const CircleAvatar(
-                backgroundImage: AssetImage('assets/images/avatars/0.jpg'),
+                backgroundImage: AssetImage('assets/images/avatars/11.jpg'),
                 maxRadius: 20,
               ),
               const SizedBox(

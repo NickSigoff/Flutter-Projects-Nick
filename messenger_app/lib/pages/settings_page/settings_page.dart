@@ -1,8 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:messenger_app/pages/settings_page/bloc/settings_cubit.dart';
 import 'package:messenger_app/services/current_user_data.dart';
 
-import '../../services/shared_preferences_methods.dart';
 import '../../utils/main_colors.dart';
 import '../../utils/main_text_styles.dart';
 
@@ -25,7 +25,7 @@ class SettingsPage extends StatelessWidget {
           Row(
             children: [
               const Icon(Icons.person_pin,
-                  color: MainColors.lightBlue, size: 70),
+                  color: MainColors.lightBlue, size: 70.0),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -39,13 +39,7 @@ class SettingsPage extends StatelessWidget {
               const Spacer(),
               IconButton(
                   onPressed: () async{
-                    FirebaseAuth.instance.signOut();
-                    await SharedPreferencesMethods.setUserNameSharedPreferences(
-                        'Default name');
-                    await SharedPreferencesMethods.setUserEmailSharedPreferences(
-                        'Default email');
-                    await SharedPreferencesMethods.setUserIdSharedPreferences(
-                        'Default id');
+                    await context.read<SettingsCubit>().signOut();
                   },
                   icon: const Icon(
                     Icons.exit_to_app,

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:messenger_app/models/chat_message_model.dart';
+import 'package:messenger_app/services/current_user_data.dart';
 import 'package:messenger_app/services/firebase_methods.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
-import '../../../services/shared_preferences_methods.dart';
 import '../../../utils/main_colors.dart';
 
 class InputTextFieldWidget extends StatelessWidget {
@@ -22,8 +22,8 @@ class InputTextFieldWidget extends StatelessWidget {
       bottom: 0,
       left: 0,
       child: Container(
-        padding: const EdgeInsets.only(left: 8, bottom: 8, top: 8),
-        height: 60,
+        padding: const EdgeInsets.only(left: 8.0, bottom: 8.0, top: 8.0),
+        height: 60.0,
         width: MediaQuery.of(context).size.width,
         decoration: const BoxDecoration(
             color: MainColors.creamWhite,
@@ -34,11 +34,11 @@ class InputTextFieldWidget extends StatelessWidget {
             GestureDetector(
               onTap: () {},
               child: Container(
-                height: 30,
-                width: 30,
+                height: 30.0,
+                width: 30.0,
                 decoration: BoxDecoration(
                   color: MainColors.deepBlue,
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(30.0),
                 ),
                 child: const Icon(
                   Icons.add,
@@ -48,7 +48,7 @@ class InputTextFieldWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              width: 16,
+              width: 16.0,
             ),
             Expanded(
               child: TextField(
@@ -60,26 +60,20 @@ class InputTextFieldWidget extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              width: 16,
+              width: 16.0,
             ),
             FloatingActionButton(
-              onPressed: () async {
-                String? myName = await SharedPreferencesMethods
-                    .getUserNameSharedPreferences();
-                if (myName == null) {
-                  throw Exception();
-                } else {
-                  DateTime now = DateTime.now();
-                  String formattedDate = DateFormat('kk:mm').format(now);
-                  ChatMessage chatMessage = ChatMessage(
-                      messageTimeOrder: now.millisecondsSinceEpoch.toString(),
-                      messageTime: formattedDate,
-                      messageContent: messageController.text,
-                      messageSender: myName);
-                  FirebaseMethods.addMessage(
-                      chatMessage: chatMessage, chatRoomId: chatRoomId);
-                  messageController.text = '';
-                }
+              onPressed: () {
+                DateTime now = DateTime.now();
+                String formattedDate = DateFormat('kk:mm').format(now);
+                ChatMessage chatMessage = ChatMessage(
+                    messageTimeOrder: now.millisecondsSinceEpoch.toString(),
+                    messageTime: formattedDate,
+                    messageContent: messageController.text,
+                    messageSender: CurrentUserData.currentUserName);
+                FirebaseMethods.addMessage(
+                    chatMessage: chatMessage, chatRoomId: chatRoomId);
+                messageController.text = '';
               },
               backgroundColor: MainColors.deepBlue,
               elevation: 0,
