@@ -38,7 +38,7 @@ class SettingsPage extends StatelessWidget {
               ),
               const Spacer(),
               IconButton(
-                  onPressed: () async{
+                  onPressed: () async {
                     await context.read<SettingsCubit>().signOut();
                   },
                   icon: const Icon(
@@ -88,7 +88,7 @@ List<Widget> _buildOptionListWidget() {
                   textList[index],
                   style: MainTextStyles.smallInputBlockStyle,
                 )),
-                const Icon(Icons.arrow_forward_ios,color: MainColors.grey)
+                const Icon(Icons.arrow_forward_ios, color: MainColors.grey)
               ],
             ),
           ));

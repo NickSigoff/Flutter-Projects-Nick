@@ -27,7 +27,6 @@ class TextFieldsInputFormSignIn extends StatelessWidget {
         ),
         BlocBuilder<AuthCubit, AuthState>(
             builder: (BuildContext context, state) {
-              print(state.runtimeType);
           bool isVisiblePasswordState =
               state is AuthVisiblePasswordSignIn ? state.visiblePassword : false;
           return Container(

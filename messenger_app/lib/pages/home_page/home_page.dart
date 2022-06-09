@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BottomBarCubit, BottomBarState>(
+    return BlocBuilder<BottomBarCubit, int>(
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
@@ -50,19 +50,20 @@ class HomePage extends StatelessWidget {
                 ),
                 SliverList(
                   delegate: SliverChildListDelegate([
-                    if (state is BottomBarChatsState)
-                      const ChatsPage()
-                    else if (state is BottomBarCallsState)
-                      const CallsPage()
-                    else if (state is BottomBarProfileState)
-                      const SettingsPage(),
+                    IndexedStack(
+                      index: state,
+                      children: const [
+                        ChatsPage(),
+                        CallsPage(),
+                        SettingsPage(),
+                      ],
+                    ),
                   ]),
                 ),
               ],
             ),
             bottomNavigationBar: BottomNavigationBar(
-              currentIndex:
-                  context.read<BottomBarCubit>().chooseCurrentIndex(state),
+              currentIndex: state,
               onTap: (int index) => context.read<BottomBarCubit>().onTap(index),
               items: const [
                 BottomNavigationBarItem(
@@ -76,7 +77,8 @@ class HomePage extends StatelessWidget {
                     label: 'Calls'),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.settings, color: MainColors.grey),
-                    activeIcon: Icon(Icons.settings, color: MainColors.lightBlue),
+                    activeIcon:
+                        Icon(Icons.settings, color: MainColors.lightBlue),
                     label: 'Settings'),
               ],
             ),
