@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:messenger_app/pages/settings_page/bloc/settings_cubit.dart';
+
 import 'package:messenger_app/services/current_user_data.dart';
+import 'package:messenger_app/services/firebase_service.dart';
 
 import '../../utils/main_colors.dart';
 import '../../utils/main_text_styles.dart';
@@ -39,7 +39,7 @@ class SettingsPage extends StatelessWidget {
               const Spacer(),
               IconButton(
                   onPressed: () async {
-                    await context.read<SettingsCubit>().signOut();
+                    await FirebaseService().signOut();
                   },
                   icon: const Icon(
                     Icons.exit_to_app,

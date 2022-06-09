@@ -168,12 +168,18 @@ class FirebaseService {
   }
 
   ///
-  static Stream<DocumentSnapshot<Map<String, dynamic>>> getUserDataStream(
-    String currentUserId,
-  ) {
+  static Stream<DocumentSnapshot<Map<String, dynamic>>> getUserDataStream() {
     return FirebaseFirestore.instance
         .collection(FirebaseConstants.userCollectionName)
-        .doc(currentUserId)
+        .doc(CurrentUserData.currentUserId)
         .snapshots();
+  }
+
+  Future<void> signOut() async {
+    FirebaseAuth.instance.signOut();
+    await SharedPreferencesService.setUserNameSharedPreferences('Default name');
+    await SharedPreferencesService.setUserEmailSharedPreferences(
+        'Default email');
+    await SharedPreferencesService.setUserIdSharedPreferences('Default id');
   }
 }

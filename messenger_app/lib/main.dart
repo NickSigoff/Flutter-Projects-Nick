@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:messenger_app/bloc/chat_cubit.dart';
 import 'package:messenger_app/pages/auth_pages/bloc/auth_cubit.dart';
 import 'package:messenger_app/pages/chat_detail_page/bloc/input_field_cubit.dart';
-import 'package:messenger_app/pages/chats_page/block/chats_cubit.dart';
 import 'package:messenger_app/pages/search_page/bloc/search_cubit.dart';
-import 'package:messenger_app/pages/settings_page/bloc/settings_cubit.dart';
 import 'package:messenger_app/pages/splash_pages/sign_in_splash_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,9 +18,8 @@ void main() async {
         BlocProvider(create: (_) => AuthCubit()),
         BlocProvider(create: (_) => BottomBarCubit()),
         BlocProvider(create: (_) => SearchCubit()),
-        BlocProvider(create: (_) => ChatsCubit()),
-        BlocProvider(create: (_) => SettingsCubit()),
         BlocProvider(create: (_) => InputFieldCubit()),
+        BlocProvider(create: (_) => ChatCubit()),
       ],
       child: const MaterialApp(
         home: SplashSignInPage(),
