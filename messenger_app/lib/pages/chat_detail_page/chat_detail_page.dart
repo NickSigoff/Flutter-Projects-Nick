@@ -24,11 +24,12 @@ class ChatDetailsPage extends StatefulWidget {
 
 class _ChatDetailsPageState extends State<ChatDetailsPage> {
   Stream<QuerySnapshot>? chats;
+  final messageController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    chats = FirebaseService.getChatsStream(widget.chatRoomId);
+    chats = FirebaseService().getChatsStream(widget.chatRoomId);
   }
 
   @override
@@ -69,7 +70,7 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
                         : Container();
                   }),
             ),
-            InputTextFieldWidget(chatRoomId: widget.chatRoomId),
+            InputTextFieldWidget(chatRoomId: widget.chatRoomId, messageController: messageController),
           ],
         ),
       ),
@@ -87,6 +88,9 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
             children: [
               IconButton(
                 onPressed: () {
+                  if(messageController.text != '') {
+
+                  }
                   Navigator.pop(context);
                 },
                 icon: const Icon(

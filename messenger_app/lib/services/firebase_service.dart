@@ -18,8 +18,7 @@ class FirebaseService {
   }
 
   ///
-  static Future<DocumentSnapshot<Map<String, dynamic>>> getUserById(
-      String userId) {
+  Future<DocumentSnapshot<Map<String, dynamic>>> getUserById(String userId) {
     return FirebaseFirestore.instance
         .collection(FirebaseConstants.userCollectionName)
         .doc(userId)
@@ -27,8 +26,7 @@ class FirebaseService {
   }
 
   ///
-  static void uploadUserInfo(
-      {required String name, required String email}) async {
+  void uploadUserInfo({required String name, required String email}) async {
     //todo the Stick of death
     String userId = FirebaseAuth.instance.currentUser!.uid;
     final userDocument = FirebaseFirestore.instance
@@ -43,9 +41,10 @@ class FirebaseService {
     );
     await userDocument.set(user.toJson());
 
-    await SharedPreferencesService.setUserNameSharedPreferences(name);
-    await SharedPreferencesService.setUserEmailSharedPreferences(email);
-    await SharedPreferencesService.setUserIdSharedPreferences(userDocument.id);
+    await SharedPreferencesService().setUserNameSharedPreferences(name);
+    await SharedPreferencesService().setUserEmailSharedPreferences(email);
+    await SharedPreferencesService()
+        .setUserIdSharedPreferences(userDocument.id);
   }
 
   ///
@@ -57,16 +56,17 @@ class FirebaseService {
         .get();
 
     UserModel userModel = UserModel.fromJson(userMap.data()!);
-    await SharedPreferencesService.setUserNameSharedPreferences(userModel.name);
-    await SharedPreferencesService.setUserEmailSharedPreferences(
-        userModel.email);
-    await SharedPreferencesService.setUserIdSharedPreferences(userModel.id);
-    await SharedPreferencesService.setCurrentsUser();
+    await SharedPreferencesService()
+        .setUserNameSharedPreferences(userModel.name);
+    await SharedPreferencesService()
+        .setUserEmailSharedPreferences(userModel.email);
+    await SharedPreferencesService().setUserIdSharedPreferences(userModel.id);
+    await SharedPreferencesService().setCurrentsUser();
     return true;
   }
 
   ///
-  static String createChatRoomAddToUsersList({
+  String createChatRoomAddToUsersList({
     required String searchedUserId,
     required String currentUserId,
   }) {
@@ -83,7 +83,7 @@ class FirebaseService {
   }
 
   ///
-  static String _createChatRoomId({
+  String _createChatRoomId({
     required String currentUserId,
     required String searchedUserId,
   }) {
@@ -93,7 +93,7 @@ class FirebaseService {
   }
 
   ///
-  static void _createChatRoom({
+  void _createChatRoom({
     required String currentUserId,
     required String searchedUserId,
     required String chatRoomId,
@@ -112,7 +112,7 @@ class FirebaseService {
 
   ///
   //todo is there a simple way?
-  static void _addChatRoomToList({
+  void _addChatRoomToList({
     required String chatRoomId,
     required String userId,
   }) async {
@@ -143,7 +143,7 @@ class FirebaseService {
   }
 
   ///
-  static void addMessage({
+  void addMessage({
     required String chatRoomId,
     required ChatMessage chatMessage,
   }) async {
@@ -156,7 +156,7 @@ class FirebaseService {
   }
 
   ///
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getChatsStream(
+  Stream<QuerySnapshot<Map<String, dynamic>>> getChatsStream(
     String chatRoomId,
   ) {
     return FirebaseFirestore.instance
@@ -168,7 +168,7 @@ class FirebaseService {
   }
 
   ///
-  static Stream<DocumentSnapshot<Map<String, dynamic>>> getUserDataStream() {
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getUserDataStream() {
     return FirebaseFirestore.instance
         .collection(FirebaseConstants.userCollectionName)
         .doc(CurrentUserData.currentUserId)
@@ -177,9 +177,10 @@ class FirebaseService {
 
   Future<void> signOut() async {
     FirebaseAuth.instance.signOut();
-    await SharedPreferencesService.setUserNameSharedPreferences('Default name');
-    await SharedPreferencesService.setUserEmailSharedPreferences(
-        'Default email');
-    await SharedPreferencesService.setUserIdSharedPreferences('Default id');
+    await SharedPreferencesService()
+        .setUserNameSharedPreferences('Default name');
+    await SharedPreferencesService()
+        .setUserEmailSharedPreferences('Default email');
+    await SharedPreferencesService().setUserIdSharedPreferences('Default id');
   }
 }

@@ -61,7 +61,7 @@ class ChatsPage extends StatelessWidget {
             currentUserId: CurrentUserData.currentUserId,
             chatRoomId: chatRoomId);
         return FutureBuilder(
-          future: FirebaseService.getUserById(searchedUserId),
+          future: FirebaseService().getUserById(searchedUserId),
           builder: (BuildContext context,
               AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>> snapshot) {
             return UserChatWidget(

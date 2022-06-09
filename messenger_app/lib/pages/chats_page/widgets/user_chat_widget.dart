@@ -24,7 +24,7 @@ class UserChatWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<Object?>>(
-        stream: FirebaseService.getChatsStream(chatRoomId),
+        stream: FirebaseService().getChatsStream(chatRoomId),
         builder: (BuildContext context, snapshot) {
           return GestureDetector(
             onTap: () {

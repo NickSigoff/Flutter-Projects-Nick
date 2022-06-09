@@ -49,7 +49,7 @@ class SearchedUser extends StatelessWidget {
                 //todo checking twin chats
                 onTap: () {
                   String chatRoomId =
-                      FirebaseService.createChatRoomAddToUsersList(
+                      FirebaseService().createChatRoomAddToUsersList(
                     searchedUserId: searchedUserId,
                     currentUserId: CurrentUserData.currentUserId,
                   );

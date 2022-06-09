@@ -9,9 +9,10 @@ import '../../../utils/main_colors.dart';
 
 class InputTextFieldWidget extends StatelessWidget {
   final String chatRoomId;
-  final messageController = TextEditingController();
+  final TextEditingController messageController;
 
-  InputTextFieldWidget({
+  const InputTextFieldWidget({
+    required this.messageController,
     required this.chatRoomId,
     Key? key,
   }) : super(key: key);
@@ -71,7 +72,7 @@ class InputTextFieldWidget extends StatelessWidget {
                     messageTime: formattedDate,
                     messageContent: messageController.text,
                     messageSender: CurrentUserData.currentUserName);
-                FirebaseService.addMessage(
+                FirebaseService().addMessage(
                     chatMessage: chatMessage, chatRoomId: chatRoomId);
                 messageController.text = '';
               },

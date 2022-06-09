@@ -42,7 +42,7 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
       );
-      FirebaseService.uploadUserInfo(name: name, email: email);
+      FirebaseService().uploadUserInfo(name: name, email: email);
       emit(AuthSuccess());
     } on FirebaseAuthException catch (_) {
       emit(AuthError());

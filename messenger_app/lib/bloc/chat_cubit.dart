@@ -11,7 +11,7 @@ class ChatCubit extends Cubit<ChatState> {
   void downloadChats() {
     try {
       Stream<DocumentSnapshot<Map<String, dynamic>>> stream;
-      stream = FirebaseService.getUserDataStream();
+      stream = FirebaseService().getUserDataStream();
       emit(ChatDownloadedChats(stream: stream));
     } catch (e) {
       emit(ChatError());
