@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/pages/chat_detail_page/widgets/input_text_field_widget.dart';
-import 'package:messenger_app/services/firebase_methods.dart';
+import 'package:messenger_app/services/firebase_service.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
 import '../../utils/main_colors.dart';
@@ -28,7 +28,7 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
   @override
   void initState() {
     super.initState();
-    chats = FirebaseMethods.getChatsStream(widget.chatRoomId);
+    chats = FirebaseService.getChatsStream(widget.chatRoomId);
   }
 
   @override

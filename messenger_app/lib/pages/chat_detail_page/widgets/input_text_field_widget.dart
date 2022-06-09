@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:messenger_app/models/chat_message_model.dart';
 import 'package:messenger_app/services/current_user_data.dart';
-import 'package:messenger_app/services/firebase_methods.dart';
+import 'package:messenger_app/services/firebase_service.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
 import '../../../utils/main_colors.dart';
@@ -71,7 +71,7 @@ class InputTextFieldWidget extends StatelessWidget {
                     messageTime: formattedDate,
                     messageContent: messageController.text,
                     messageSender: CurrentUserData.currentUserName);
-                FirebaseMethods.addMessage(
+                FirebaseService.addMessage(
                     chatMessage: chatMessage, chatRoomId: chatRoomId);
                 messageController.text = '';
               },

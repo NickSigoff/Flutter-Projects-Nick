@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:messenger_app/pages/chat_detail_page/chat_detail_page.dart';
-import 'package:messenger_app/services/firebase_methods.dart';
+import 'package:messenger_app/services/firebase_service.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
@@ -24,7 +24,7 @@ class UserChatWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot<Object?>>(
-        stream: FirebaseMethods.getChatsStream(chatRoomId),
+        stream: FirebaseService.getChatsStream(chatRoomId),
         builder: (BuildContext context, snapshot) {
           return GestureDetector(
             onTap: () {

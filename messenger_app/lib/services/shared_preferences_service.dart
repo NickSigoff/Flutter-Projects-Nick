@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:messenger_app/services/current_user_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class SharedPreferencesMethods {
+import 'firebase_service.dart';
+
+class SharedPreferencesService {
   static const String _sharedPreferencesNameKey = 'UserNameKey';
   static const String _sharedPreferencesEmailKey = 'UserEmailKey';
   static const String _sharedPreferencesIdKey = 'UserIdKey';
@@ -47,6 +50,5 @@ abstract class SharedPreferencesMethods {
     CurrentUserData.currentUserId = await getUserIdSharedPreferences() ?? '';
     await Future.delayed(const Duration(milliseconds: 500));
     return true;
-
   }
 }

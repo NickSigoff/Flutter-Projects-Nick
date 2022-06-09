@@ -2,21 +2,12 @@ import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../../../services/firebase_methods.dart';
+import '../../../services/firebase_service.dart';
 
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
-
-  Future<bool> uploadToSharedPreferences() async {
-    final currentUser = FirebaseAuth.instance.currentUser;
-    if (currentUser != null) {
-      await FirebaseMethods.downloadUserInfo(currentUser.uid);
-      return true;
-    }
-    return false;
-  }
 
   void signIn({
     required String email,
@@ -51,7 +42,7 @@ class AuthCubit extends Cubit<AuthState> {
         email: email,
         password: password,
       );
-      FirebaseMethods.uploadUserInfo(name: name, email: email);
+      FirebaseService.uploadUserInfo(name: name, email: email);
       emit(AuthSuccess());
     } on FirebaseAuthException catch (_) {
       emit(AuthError());
@@ -59,10 +50,14 @@ class AuthCubit extends Cubit<AuthState> {
   }
 
   void onTapVisiblePasswordSignIn(bool isVisiblePassword) {
-    emit(AuthVisiblePasswordSignIn(visiblePassword: isVisiblePassword));
+    isVisiblePassword
+        ? emit(AuthVisiblePasswordSignIn())
+        : emit(AuthNotVisiblePasswordSignIn());
   }
 
   void onTapVisiblePasswordSignUp(bool isVisiblePassword) {
-    emit(AuthVisiblePasswordSignUp(visiblePassword: isVisiblePassword));
+    isVisiblePassword
+        ? emit(AuthVisiblePasswordSignUp())
+        : emit(AuthNotVisiblePasswordSignUp());
   }
 }

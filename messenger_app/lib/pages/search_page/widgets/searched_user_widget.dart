@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:messenger_app/pages/chat_detail_page/chat_detail_page.dart';
 import 'package:messenger_app/services/current_user_data.dart';
-import 'package:messenger_app/services/firebase_methods.dart';
+import 'package:messenger_app/services/firebase_service.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
@@ -49,7 +49,7 @@ class SearchedUser extends StatelessWidget {
                 //todo checking twin chats
                 onTap: () {
                   String chatRoomId =
-                      FirebaseMethods.createChatRoomAddToUsersList(
+                      FirebaseService.createChatRoomAddToUsersList(
                     searchedUserId: searchedUserId,
                     currentUserId: CurrentUserData.currentUserId,
                   );

@@ -3,12 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:messenger_app/models/chat_message_model.dart';
 import 'package:messenger_app/models/user_model.dart';
 import 'package:messenger_app/services/current_user_data.dart';
-import 'package:messenger_app/services/shared_preferences_methods.dart';
+import 'package:messenger_app/services/shared_preferences_service.dart';
 import 'package:messenger_app/utils/firebase_constants.dart';
 
-class FirebaseMethods {
+class FirebaseService {
   ///
-  static Future<QuerySnapshot<Map<String, dynamic>>> getUserByName(
+  Future<QuerySnapshot<Map<String, dynamic>>> getUserByName(
       String username) async {
     return await FirebaseFirestore.instance
         .collection(FirebaseConstants.userCollectionName)
@@ -43,24 +43,26 @@ class FirebaseMethods {
     );
     await userDocument.set(user.toJson());
 
-    await SharedPreferencesMethods.setUserNameSharedPreferences(name);
-    await SharedPreferencesMethods.setUserEmailSharedPreferences(email);
-    await SharedPreferencesMethods.setUserIdSharedPreferences(userDocument.id);
+    await SharedPreferencesService.setUserNameSharedPreferences(name);
+    await SharedPreferencesService.setUserEmailSharedPreferences(email);
+    await SharedPreferencesService.setUserIdSharedPreferences(userDocument.id);
   }
 
   ///
-  static downloadUserInfo(String userId) async {
+  Future<bool> downloadUserInfo() async {
+    final currentUser = FirebaseAuth.instance.currentUser;
     final userMap = await FirebaseFirestore.instance
         .collection(FirebaseConstants.userCollectionName)
-        .doc(userId)
+        .doc(currentUser!.uid)
         .get();
 
     UserModel userModel = UserModel.fromJson(userMap.data()!);
-    await SharedPreferencesMethods.setUserNameSharedPreferences(userModel.name);
-    await SharedPreferencesMethods.setUserEmailSharedPreferences(
+    await SharedPreferencesService.setUserNameSharedPreferences(userModel.name);
+    await SharedPreferencesService.setUserEmailSharedPreferences(
         userModel.email);
-    await SharedPreferencesMethods.setUserIdSharedPreferences(userModel.id);
-    await SharedPreferencesMethods.setCurrentsUser();
+    await SharedPreferencesService.setUserIdSharedPreferences(userModel.id);
+    await SharedPreferencesService.setCurrentsUser();
+    return true;
   }
 
   ///

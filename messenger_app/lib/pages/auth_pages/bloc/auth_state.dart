@@ -12,13 +12,17 @@ class AuthError extends AuthState {}
 class AuthSuccess extends AuthState {}
 
 class AuthVisiblePasswordSignIn extends AuthState {
-  final bool visiblePassword;
+  final bool visiblePassword = true;
+}
 
-  AuthVisiblePasswordSignIn({this.visiblePassword = true});
+class AuthNotVisiblePasswordSignIn extends AuthState {
+  final bool visiblePassword = false;
 }
 
 class AuthVisiblePasswordSignUp extends AuthState {
-  final bool visiblePassword;
+  final bool visiblePassword = true;
+}
 
-  AuthVisiblePasswordSignUp({this.visiblePassword = true});
+class AuthNotVisiblePasswordSignUp extends AuthState {
+  final bool visiblePassword = false;
 }
