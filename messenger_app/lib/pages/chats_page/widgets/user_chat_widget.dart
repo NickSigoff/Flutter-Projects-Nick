@@ -75,7 +75,10 @@ class UserChatWidget extends StatelessWidget {
                                     ),
                                     Text(
                                       snapshot.hasData
-                                          ? snapshot.data!.docs.last.get('messageContent')
+                                          ? snapshot.data!.docs.isEmpty
+                                              ? 'Chat is empty'
+                                              : snapshot.data!.docs.last
+                                                  .get('messageContent')
                                           : 'Some message text',
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
@@ -93,12 +96,12 @@ class UserChatWidget extends StatelessWidget {
                       ),
                       Text(
                         snapshot.hasData
-                            ? snapshot.data!.docs.last.get('messageTime')
+                            ? snapshot.data!.docs.isEmpty
+                                ? ''
+                                : snapshot.data!.docs.last.get('messageTime')
                             : '00:00',
-                        style: MainTextStyles.smallInputBlockStyle
-                            .copyWith(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w400),
+                        style: MainTextStyles.smallInputBlockStyle.copyWith(
+                            fontSize: 12, fontWeight: FontWeight.w400),
                       )
                     ],
                   ),
