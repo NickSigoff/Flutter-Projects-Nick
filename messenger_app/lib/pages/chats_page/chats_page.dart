@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messenger_app/bloc/chat_cubit.dart';
+import 'package:messenger_app/pages/chats_page/bloc/current_message/current_message_cubit.dart';
 import 'package:messenger_app/pages/chats_page/widgets/user_chat_widget.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
@@ -8,10 +9,15 @@ class ChatsPage extends StatelessWidget {
   const ChatsPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    context.read<ChatCubit>().downloadChats(); // todo where is better?
+  Widget build(BuildContext context) { // todo where is better?
+    context.read<ChatCubit>().downloadChats();
+
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
+        if(state is CurrentMessageLoaded) {
+          print(state.runtimeType);
+        }
+
         if (state is ChatLoading) {
           return _buildChatsLoading(context);
         } else if (state is ChatEmptyChats) {
@@ -23,13 +29,8 @@ class ChatsPage extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return UserChatWidget(
-                searchedUserName:
-                    state.chatRoomModelList[index].anotherUserName,
-                searchedUserEmail:
-                    state.chatRoomModelList[index].anotherUserEmail,
-                imageUrl: state.chatRoomModelList[index].anotherUserImageUrl,
+                chatRoomModel: state.chatRoomModelList[index],
                 index: index,
-                chatRoomId: state.chatRoomModelList[index].chatRoomId,
               );
             },
           );
@@ -75,3 +76,4 @@ class ChatsPage extends StatelessWidget {
     );
   }
 }
+
