@@ -9,15 +9,12 @@ class ChatsPage extends StatelessWidget {
   const ChatsPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) { // todo where is better?
+  Widget build(BuildContext context) {
+    // todo where is better?
     context.read<ChatCubit>().downloadChats();
 
     return BlocBuilder<ChatCubit, ChatState>(
       builder: (context, state) {
-        if(state is CurrentMessageLoaded) {
-          print(state.runtimeType);
-        }
-
         if (state is ChatLoading) {
           return _buildChatsLoading(context);
         } else if (state is ChatEmptyChats) {
@@ -76,4 +73,3 @@ class ChatsPage extends StatelessWidget {
     );
   }
 }
-

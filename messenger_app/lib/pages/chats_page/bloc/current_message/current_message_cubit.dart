@@ -11,7 +11,7 @@ part 'current_message_state.dart';
 class CurrentMessageCubit extends Cubit<CurrentMessageState> {
   CurrentMessageCubit() : super(CurrentMessageLoading());
 
-  void downloadCurrentChat(String chatRoomId) {
+  void downloadCurrentChat(String chatRoomId, int index) {
     try {
       Stream<QuerySnapshot<Map<String, dynamic>>> stream =
           FirebaseService().getChatsStream(chatRoomId);
@@ -20,16 +20,19 @@ class CurrentMessageCubit extends Cubit<CurrentMessageState> {
           StreamController();
 
       controller.addStream(stream);
-      controller.stream.listen((event) {
+      controller.stream.listen((event) async {
         if (event.docs.isEmpty) {
           emit(CurrentMessageEmpty());
         } else {
           emit(CurrentMessageLoading());
           String messageContent = event.docs.last.get('messageContent');
           String messageTime = event.docs.last.get('messageTime');
+          print('download $index $messageContent $messageTime');
+          await Future.delayed(Duration(seconds: 2));
           emit(CurrentMessageLoaded(
             messageContent: messageContent,
             messageTime: messageTime,
+            index: index
           ));
         }
       });
