@@ -23,13 +23,8 @@ class ChatsPage extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return UserChatWidget(
-                searchedUserName:
-                    state.chatRoomModelList[index].anotherUserName,
-                searchedUserEmail:
-                    state.chatRoomModelList[index].anotherUserEmail,
-                imageUrl: state.chatRoomModelList[index].anotherUserImageUrl,
+                chatRoomModel: state.chatRoomModelList[index],
                 index: index,
-                chatRoomId: state.chatRoomModelList[index].chatRoomId,
               );
             },
           );
