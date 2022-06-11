@@ -1,7 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:messenger_app/models/chat_message_model.dart';
+import 'package:messenger_app/pages/chat_detail_page/bloc/chat_detail_cubit.dart';
 import 'package:messenger_app/pages/chat_detail_page/widgets/input_text_field_widget.dart';
-import 'package:messenger_app/services/firebase_service.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
 import '../../utils/main_colors.dart';
@@ -23,57 +24,36 @@ class ChatDetailsPage extends StatefulWidget {
 }
 
 class _ChatDetailsPageState extends State<ChatDetailsPage> {
-  Stream<QuerySnapshot>? chats;
   final messageController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    chats = FirebaseService().getChatsStream(widget.chatRoomId);
+    context
+        .read<ChatDetailCubit>()
+        .downLoadChatHistory(chatRoomId: widget.chatRoomId);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppBarWidget(context),
-      body: SizedBox(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 60.0),
-              child: StreamBuilder<QuerySnapshot<Object?>>(
-                  stream: chats,
-                  builder: (BuildContext context, snapshot) {
-                    return snapshot.hasData
-                        ? ListView.builder(
-                            reverse: true,
-                            itemCount: snapshot.data?.docs.length,
-                            shrinkWrap: true,
-                            padding: const EdgeInsets.symmetric(vertical: 8.0),
-                            itemBuilder: (context, index) {
-                              int reverseIndex =
-                                  snapshot.data!.docs.length - 1 - index;
-                              //todo stick of death
-                              var doc = snapshot.data!.docs[reverseIndex];
-                              return doc.get('messageSender') == widget.userName
-                                  ? _buildLeftDialog(
-                                      message: doc.get('messageContent'),
-                                      time: doc.get('messageTime'))
-                                  : _buildRightDialog(
-                                      message: doc.get('messageContent'),
-                                      time: doc.get('messageTime'),
-                                    );
-                            },
-                          )
-                        : Container();
-                  }),
+    return BlocBuilder<ChatDetailCubit, ChatDetailState>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: _buildAppBarWidget(context),
+          body: SizedBox(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Stack(
+              children: [
+                _buildChatConversation(state),
+                InputTextFieldWidget(
+                    chatRoomId: widget.chatRoomId,
+                    messageController: messageController),
+              ],
             ),
-            InputTextFieldWidget(chatRoomId: widget.chatRoomId, messageController: messageController),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
@@ -88,9 +68,7 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
             children: [
               IconButton(
                 onPressed: () {
-                  if(messageController.text != '') {
-
-                  }
+                  if (messageController.text != '') {}
                   Navigator.pop(context);
                 },
                 icon: const Icon(
@@ -118,8 +96,8 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
                     widget.email == null
                         ? const CircularProgressIndicator()
                         : Text(widget.email!,
-                        style: MainTextStyles.smallInputBlockStyle
-                            .copyWith(fontWeight: FontWeight.w500)),
+                            style: MainTextStyles.smallInputBlockStyle
+                                .copyWith(fontWeight: FontWeight.w500)),
                     Text("Online",
                         style: MainTextStyles.smallInputBlockStyle.copyWith(
                             color: MainColors.lightBlue, fontSize: 8)),
@@ -136,6 +114,36 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
         ),
       ),
     );
+  }
+
+  Widget _buildChatConversation(ChatDetailState state) {
+    if (state is ChatDetailEmpty) {
+      return const Text('Chat is empty');
+    } else if (state is ChatDetailLoading) {
+      return const Center(child: CircularProgressIndicator());
+    } else if (state is ChatDetailLoaded) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 60.0),
+        child: ListView.builder(
+          reverse: true,
+          itemCount: state.messagesList.length,
+          shrinkWrap: true,
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          itemBuilder: (context, index) {
+            int reverseIndex = state.messagesList.length - 1 - index;
+            ChatMessage doc = state.messagesList[reverseIndex];
+
+            return doc.messageSender == widget.userName
+                ? _buildLeftDialog(
+                    message: doc.messageContent, time: doc.messageTime)
+                : _buildRightDialog(
+                    message: doc.messageContent, time: doc.messageTime);
+          },
+        ),
+      );
+    } else {
+      return const Text('Error');
+    }
   }
 
   Widget _buildLeftDialog({required String message, required String time}) {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:messenger_app/bloc/chat_cubit.dart';
 import 'package:messenger_app/pages/auth_pages/bloc/auth_cubit.dart';
-import 'package:messenger_app/pages/chat_detail_page/bloc/input_field_cubit.dart';
+import 'package:messenger_app/pages/chat_detail_page/bloc/chat_detail_cubit.dart';
 import 'package:messenger_app/pages/chats_page/bloc/current_message/current_message_cubit.dart';
 import 'package:messenger_app/pages/search_page/bloc/search_cubit.dart';
 import 'package:messenger_app/pages/splash_pages/sign_in_splash_page.dart';
@@ -18,8 +18,8 @@ void main() async {
       providers: [
         BlocProvider(create: (_) => AuthCubit()),
         BlocProvider(create: (_) => BottomBarCubit()),
+        BlocProvider(create: (_) => ChatDetailCubit()),
         BlocProvider(create: (_) => SearchCubit()),
-        BlocProvider(create: (_) => InputFieldCubit()),
         BlocProvider(create: (_) => ChatCubit()),
         BlocProvider(create: (_) => CurrentMessageCubit()),
       ],
