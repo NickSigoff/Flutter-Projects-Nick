@@ -88,8 +88,8 @@ class FirebaseService {
     required String searchedUserId,
   }) {
     return currentUserId.compareTo(searchedUserId) > 0
-        ? '$currentUserId\\_$searchedUserId'
-        : '$searchedUserId\\_$currentUserId';
+        ? '${currentUserId}_$searchedUserId'
+        : '${searchedUserId}_$currentUserId';
   }
 
   ///

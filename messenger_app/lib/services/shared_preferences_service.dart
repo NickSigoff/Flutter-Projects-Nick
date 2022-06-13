@@ -23,6 +23,12 @@ class SharedPreferencesService {
     return await sharedPreferences.setString(_sharedPreferencesIdKey, id);
   }
 
+  Future<bool> setUserSharedPreferencesDraft(
+      {required String value, required String key}) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return await sharedPreferences.setString(key, value);
+  }
+
   ///get
   Future<String?> getUserEmailSharedPreferences() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -37,6 +43,11 @@ class SharedPreferencesService {
   Future<String?> getUserIdSharedPreferences() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return sharedPreferences.getString(_sharedPreferencesIdKey);
+  }
+
+  Future<String?> getUserSharedPreferencesDraft(String key) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getString(key);
   }
 
   Future<bool> setCurrentsUser() async {

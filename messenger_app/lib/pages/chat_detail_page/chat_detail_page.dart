@@ -8,17 +8,21 @@ import 'package:messenger_app/utils/main_text_styles.dart';
 import '../../utils/main_colors.dart';
 
 class ChatDetailsPage extends StatelessWidget {
+  final String? draft;
   final String? userName;
   final String? email;
   final String chatRoomId;
-  final messageController = TextEditingController();
+  late final TextEditingController messageController;
 
   ChatDetailsPage(
       {required this.userName,
+      this.draft,
       required this.email,
       required this.chatRoomId,
       Key? key})
-      : super(key: key);
+      : super(key: key) {
+    messageController = TextEditingController(text: draft);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +57,12 @@ class ChatDetailsPage extends StatelessWidget {
           child: Row(
             children: [
               IconButton(
-                onPressed: () {
-                  if (messageController.text != '') {}
-                  Navigator.pop(context);
+                onPressed: () async {
+                  Navigator.of(context).maybePop(await context
+                      .read<ChatDetailCubit>()
+                      .saveMessageDraft(
+                          value: messageController.text.trim(),
+                          chatRoomId: chatRoomId));
                 },
                 icon: const Icon(
                   Icons.arrow_back,

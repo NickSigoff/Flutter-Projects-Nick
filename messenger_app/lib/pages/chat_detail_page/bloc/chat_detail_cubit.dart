@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:messenger_app/models/chat_message_model.dart';
+import 'package:messenger_app/services/current_user_data.dart';
+import 'package:messenger_app/services/shared_preferences_service.dart';
 import 'package:meta/meta.dart';
 
 import '../../../services/firebase_service.dart';
@@ -39,5 +41,24 @@ class ChatDetailCubit extends Cubit<ChatDetailState> {
     } catch (e) {
       emit(ChatDetailError());
     }
+  }
+
+  Future<bool> saveMessageDraft({
+    required String value,
+    required String chatRoomId,
+  }) async {
+    print('save $value');
+    String key = '${CurrentUserData.currentUserId}_$chatRoomId';
+    await SharedPreferencesService()
+        .setUserSharedPreferencesDraft(value: value, key: key);
+    return true;
+  }
+
+  Future<String> getMessageDraft({required String chatRoomId}) async {
+    String key = '${CurrentUserData.currentUserId}_$chatRoomId';
+    String? draft =
+        await SharedPreferencesService().getUserSharedPreferencesDraft(key);
+    print('get $draft');
+    return draft ?? '';
   }
 }
