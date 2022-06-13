@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:messenger_app/pages/chat_detail_page/bloc/chat_detail_cubit.dart';
 import 'package:messenger_app/pages/chat_detail_page/chat_detail_page.dart';
 import 'package:messenger_app/services/firebase_service.dart';
 import 'package:messenger_app/utils/main_colors.dart';
@@ -29,6 +31,9 @@ class UserChatWidget extends StatelessWidget {
                           userName: chatRoomModel.anotherUserName,
                           email: chatRoomModel.anotherUserEmail,
                           chatRoomId: chatRoomModel.chatRoomId)));
+              context
+                  .read<ChatDetailCubit>()
+                  .downLoadChatHistory(chatRoomId: chatRoomModel.chatRoomId);
             },
             child: Container(
               padding:

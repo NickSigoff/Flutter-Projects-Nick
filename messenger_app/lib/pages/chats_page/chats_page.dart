@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messenger_app/bloc/chat_cubit.dart';
-import 'package:messenger_app/pages/chats_page/bloc/current_message/current_message_cubit.dart';
 import 'package:messenger_app/pages/chats_page/widgets/user_chat_widget.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
@@ -10,7 +9,6 @@ class ChatsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // todo where is better?
     context.read<ChatCubit>().downloadChats();
 
     return BlocBuilder<ChatCubit, ChatState>(

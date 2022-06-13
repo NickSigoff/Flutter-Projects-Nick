@@ -14,7 +14,7 @@ class CurrentMessageLoaded extends CurrentMessageState {
     required this.messageContent,
     required this.messageTime,
     required this.index,
-  }) {print('state $messageContent $messageTime');}
+  });
 }
 
 class CurrentMessageEmpty extends CurrentMessageState {}

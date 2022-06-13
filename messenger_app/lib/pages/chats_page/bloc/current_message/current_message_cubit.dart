@@ -27,8 +27,6 @@ class CurrentMessageCubit extends Cubit<CurrentMessageState> {
           emit(CurrentMessageLoading());
           String messageContent = event.docs.last.get('messageContent');
           String messageTime = event.docs.last.get('messageTime');
-          print('download $index $messageContent $messageTime');
-          await Future.delayed(Duration(seconds: 2));
           emit(CurrentMessageLoaded(
             messageContent: messageContent,
             messageTime: messageTime,

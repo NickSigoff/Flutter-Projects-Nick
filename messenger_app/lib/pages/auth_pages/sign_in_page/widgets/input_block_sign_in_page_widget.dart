@@ -13,10 +13,10 @@ import '../../../../global_widgets/social_media_authorize_widget.dart';
 import '../../../../utils/main_colors.dart';
 
 class InputBlockSignInPage extends StatelessWidget {
-  static final emailController = TextEditingController();
-  static final passwordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 
-  const InputBlockSignInPage({Key? key}) : super(key: key);
+  InputBlockSignInPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,10 @@ class InputBlockSignInPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           _buildHeaderInputForm(),
-          const TextFieldsInputFormSignIn(),
+          TextFieldsInputFormSignIn(
+            emailController: emailController,
+            passwordController: passwordController,
+          ),
           Container(
             alignment: Alignment.centerRight,
             child: Text(

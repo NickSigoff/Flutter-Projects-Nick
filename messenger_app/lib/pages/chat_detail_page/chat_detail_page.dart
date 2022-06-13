@@ -7,32 +7,18 @@ import 'package:messenger_app/utils/main_text_styles.dart';
 
 import '../../utils/main_colors.dart';
 
-class ChatDetailsPage extends StatefulWidget {
+class ChatDetailsPage extends StatelessWidget {
   final String? userName;
   final String? email;
   final String chatRoomId;
+  final messageController = TextEditingController();
 
-  const ChatDetailsPage(
+  ChatDetailsPage(
       {required this.userName,
       required this.email,
       required this.chatRoomId,
       Key? key})
       : super(key: key);
-
-  @override
-  State<ChatDetailsPage> createState() => _ChatDetailsPageState();
-}
-
-class _ChatDetailsPageState extends State<ChatDetailsPage> {
-  final messageController = TextEditingController();
-
-  @override
-  void initState() {
-    super.initState();
-    context
-        .read<ChatDetailCubit>()
-        .downLoadChatHistory(chatRoomId: widget.chatRoomId);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +33,7 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
               children: [
                 _buildChatConversation(state),
                 InputTextFieldWidget(
-                    chatRoomId: widget.chatRoomId,
+                    chatRoomId: chatRoomId,
                     messageController: messageController),
               ],
             ),
@@ -88,14 +74,14 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    widget.userName == null
+                    userName == null
                         ? const CircularProgressIndicator()
-                        : Text(widget.userName!,
+                        : Text(userName!,
                             style: MainTextStyles.smallInputBlockStyle
                                 .copyWith(fontWeight: FontWeight.w500)),
-                    widget.email == null
+                    email == null
                         ? const CircularProgressIndicator()
-                        : Text(widget.email!,
+                        : Text(email!,
                             style: MainTextStyles.smallInputBlockStyle
                                 .copyWith(fontWeight: FontWeight.w500)),
                     Text("Online",
@@ -133,7 +119,7 @@ class _ChatDetailsPageState extends State<ChatDetailsPage> {
             int reverseIndex = state.messagesList.length - 1 - index;
             ChatMessage doc = state.messagesList[reverseIndex];
 
-            return doc.messageSender == widget.userName
+            return doc.messageSender == userName
                 ? _buildLeftDialog(
                     message: doc.messageContent, time: doc.messageTime)
                 : _buildRightDialog(

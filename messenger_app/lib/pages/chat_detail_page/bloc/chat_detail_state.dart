@@ -8,7 +8,9 @@ class ChatDetailLoading extends ChatDetailState {}
 class ChatDetailLoaded extends ChatDetailState {
   final List<ChatMessage> messagesList;
 
-  ChatDetailLoaded({required this.messagesList});
+  ChatDetailLoaded({
+    required this.messagesList,
+  });
 }
 
 class ChatDetailEmpty extends ChatDetailState {}
