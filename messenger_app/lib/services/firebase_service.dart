@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:messenger_app/models/chat_message_model.dart';
 import 'package:messenger_app/models/user_model.dart';
 import 'package:messenger_app/services/current_user_data.dart';
@@ -26,17 +27,21 @@ class FirebaseService {
   }
 
   ///
-  void uploadUserInfo({required String name, required String email}) async {
+  Future<void> uploadUserInfo(
+      {required String name, required String email}) async {
     //todo the Stick of death
     String userId = FirebaseAuth.instance.currentUser!.uid;
     final userDocument = FirebaseFirestore.instance
         .collection(FirebaseConstants.userCollectionName)
         .doc(userId);
 
+    String? token = await FirebaseMessaging.instance.getToken();
+
     UserModel user = UserModel(
       name: name,
       email: email,
       id: userId,
+      token: token,
       chatRoomList: [],
     );
     await userDocument.set(user.toJson());
@@ -97,7 +102,7 @@ class FirebaseService {
     required String currentUserId,
     required String searchedUserId,
     required String chatRoomId,
-  }) async {
+  }) {
     List<String> chatRoomUsers = [currentUserId, searchedUserId];
 
     Map<String, dynamic> chatRoom = {
@@ -112,7 +117,7 @@ class FirebaseService {
 
   ///
   //todo is there a simple way?
-  void _addChatRoomToList({
+  Future<void> _addChatRoomToList({
     required String chatRoomId,
     required String userId,
   }) async {
@@ -143,10 +148,24 @@ class FirebaseService {
   }
 
   ///
-  void addMessage({
+  Future<void> addMessage({
     required String chatRoomId,
     required ChatMessage chatMessage,
   }) async {
+    //print(chatRoomId);
+    // List<String> users = chatRoomId.split('_');
+    // String anotherUserId =
+    // users[0].compareTo(CurrentUserData.currentUserId) == 0
+    //     ? users[1]
+    //     : users[0];
+    // DocumentSnapshot<Map<String, dynamic>> anotherUser =
+    // await FirebaseService().getUserById(anotherUserId);
+    // String anotherUserToken = anotherUser.get('token');
+    //print(anotherUserToken);
+    // FirebaseMessaging.instance.sendMessage(
+    //   to: anotherUserToken,
+    //   data:{},
+    // );
     await FirebaseFirestore.instance
         .collection(FirebaseConstants.chatRoomName)
         .doc(chatRoomId)
@@ -157,8 +176,7 @@ class FirebaseService {
 
   ///
   Stream<QuerySnapshot<Map<String, dynamic>>> getChatsStream(
-    String chatRoomId,
-  ) {
+      String chatRoomId) {
     return FirebaseFirestore.instance
         .collection(FirebaseConstants.chatRoomName)
         .doc(chatRoomId)
@@ -168,7 +186,7 @@ class FirebaseService {
   }
 
   ///
-  Stream<DocumentSnapshot<Map<String, dynamic>>> getUserDataStream() {
+  Stream<DocumentSnapshot<Map<String, dynamic>>> getChatRoomStream() {
     return FirebaseFirestore.instance
         .collection(FirebaseConstants.userCollectionName)
         .doc(CurrentUserData.currentUserId)

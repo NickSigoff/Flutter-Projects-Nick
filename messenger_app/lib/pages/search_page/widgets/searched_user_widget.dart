@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messenger_app/pages/chat_detail_page/chat_detail_page.dart';
 import 'package:messenger_app/services/current_user_data.dart';
 import 'package:messenger_app/services/firebase_service.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
+
+import '../../chat_detail_page/bloc/chat_detail_cubit.dart';
 
 class SearchedUser extends StatelessWidget {
   final int index;
@@ -58,10 +61,13 @@ class SearchedUser extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => ChatDetailsPage(
-                            draft: '',
+                              draft: '',
                               userName: searchedUserName,
                               email: searchedUserEmail,
                               chatRoomId: chatRoomId)));
+                  context
+                      .read<ChatDetailCubit>()
+                      .downLoadChatHistory(chatRoomId: chatRoomId);
                 },
                 child: Container(
                   alignment: Alignment.center,

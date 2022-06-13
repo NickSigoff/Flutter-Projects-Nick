@@ -9,6 +9,7 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthState> {
   AuthCubit() : super(AuthInitial());
 
+  ///
   void signIn({
     required String email,
     required String password,
@@ -25,6 +26,7 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  ///
   void signUp({
     required String email,
     required String name,
@@ -49,12 +51,14 @@ class AuthCubit extends Cubit<AuthState> {
     }
   }
 
+  ///
   void onTapVisiblePasswordSignIn(bool isVisiblePassword) {
     isVisiblePassword
         ? emit(AuthVisiblePasswordSignIn())
         : emit(AuthNotVisiblePasswordSignIn());
   }
 
+  ///
   void onTapVisiblePasswordSignUp(bool isVisiblePassword) {
     isVisiblePassword
         ? emit(AuthVisiblePasswordSignUp())

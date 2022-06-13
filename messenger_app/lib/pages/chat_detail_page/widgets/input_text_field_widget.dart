@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:messenger_app/models/chat_message_model.dart';
-import 'package:messenger_app/services/current_user_data.dart';
-import 'package:messenger_app/services/firebase_service.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:messenger_app/pages/chat_detail_page/bloc/chat_detail_cubit.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
 import '../../../utils/main_colors.dart';
@@ -65,15 +63,10 @@ class InputTextFieldWidget extends StatelessWidget {
             ),
             FloatingActionButton(
               onPressed: () {
-                DateTime now = DateTime.now();
-                String formattedDate = DateFormat('kk:mm').format(now);
-                ChatMessage chatMessage = ChatMessage(
-                    messageTimeOrder: now.millisecondsSinceEpoch.toString(),
-                    messageTime: formattedDate,
-                    messageContent: messageController.text,
-                    messageSender: CurrentUserData.currentUserName);
-                FirebaseService().addMessage(
-                    chatMessage: chatMessage, chatRoomId: chatRoomId);
+                context.read<ChatDetailCubit>().createAndAddMessage(
+                      message: messageController.text,
+                      chatRoomId: chatRoomId,
+                    );
                 messageController.text = '';
               },
               backgroundColor: MainColors.deepBlue,

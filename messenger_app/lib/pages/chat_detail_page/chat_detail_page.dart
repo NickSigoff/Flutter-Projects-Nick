@@ -26,6 +26,7 @@ class ChatDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return BlocBuilder<ChatDetailCubit, ChatDetailState>(
       builder: (context, state) {
         return Scaffold(
@@ -124,13 +125,15 @@ class ChatDetailsPage extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           itemBuilder: (context, index) {
             int reverseIndex = state.messagesList.length - 1 - index;
-            ChatMessage doc = state.messagesList[reverseIndex];
+            ChatMessage chatMessage = state.messagesList[reverseIndex];
 
-            return doc.messageSender == userName
+            return chatMessage.messageSender == userName
                 ? _buildLeftDialog(
-                    message: doc.messageContent, time: doc.messageTime)
+                    message: chatMessage.messageContent,
+                    time: chatMessage.messageTime)
                 : _buildRightDialog(
-                    message: doc.messageContent, time: doc.messageTime);
+                    message: chatMessage.messageContent,
+                    time: chatMessage.messageTime);
           },
         ),
       );

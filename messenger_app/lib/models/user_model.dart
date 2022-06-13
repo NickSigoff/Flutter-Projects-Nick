@@ -7,9 +7,11 @@ class UserModel {
   final String name;
   final String email;
   final String id;
+  final String? token;
   final List<String> chatRoomList;
 
   UserModel({
+    this.token,
     required this.id,
     required this.name,
     required this.email,
