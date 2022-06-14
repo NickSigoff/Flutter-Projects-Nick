@@ -47,6 +47,7 @@ class ChatCubit extends Cubit<ChatState> {
       DocumentSnapshot<Map<String, dynamic>> anotherUser =
           await FirebaseService().getUserById(anotherUserId);
       ChatRoomModel chatRoomModel = ChatRoomModel(
+          anotherUserId: anotherUser.get('id'),
           anotherUserEmail: anotherUser.get('email'),
           anotherUserImageUrl: 'assets/images/avatars/11.jpg',
           anotherUserName: anotherUser.get('name'),

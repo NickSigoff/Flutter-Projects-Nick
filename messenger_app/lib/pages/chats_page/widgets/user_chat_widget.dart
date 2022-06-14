@@ -25,19 +25,20 @@ class UserChatWidget extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ChatDetailsPage(
-                          userName: chatRoomModel.anotherUserName,
-                          email: chatRoomModel.anotherUserEmail,
-                          chatRoomId: chatRoomModel.chatRoomId)));
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChatDetailsPage(
+                    chatRoomModel: chatRoomModel,
+                  ),
+                ),
+              );
               context
                   .read<ChatDetailCubit>()
                   .downLoadChatHistory(chatRoomId: chatRoomModel.chatRoomId);
             },
             child: Container(
               padding:
-              const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Column(
                 children: [
                   _buildFirstDivider(index),
@@ -48,7 +49,7 @@ class UserChatWidget extends StatelessWidget {
                           children: [
                             CircleAvatar(
                               backgroundImage:
-                              AssetImage(chatRoomModel.anotherUserImageUrl),
+                                  AssetImage(chatRoomModel.anotherUserImageUrl),
                               maxRadius: 30,
                             ),
                             const SizedBox(
@@ -73,16 +74,16 @@ class UserChatWidget extends StatelessWidget {
                                     Text(
                                       snapshot.hasData
                                           ? snapshot.data!.docs.isEmpty
-                                          ? 'Chat is empty'
-                                          : snapshot.data!.docs.last
-                                          .get('messageContent')
+                                              ? 'Chat is empty'
+                                              : snapshot.data!.docs.last
+                                                  .get('messageContent')
                                           : 'Some message text',
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: MainTextStyles.smallInputBlockStyle
                                           .copyWith(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400),
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w400),
                                     )
                                   ],
                                 ),
@@ -94,8 +95,8 @@ class UserChatWidget extends StatelessWidget {
                       Text(
                         snapshot.hasData
                             ? snapshot.data!.docs.isEmpty
-                            ? ''
-                            : snapshot.data!.docs.last.get('messageTime')
+                                ? ''
+                                : snapshot.data!.docs.last.get('messageTime')
                             : '00:00',
                         style: MainTextStyles.smallInputBlockStyle.copyWith(
                             fontSize: 12, fontWeight: FontWeight.w400),

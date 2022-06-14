@@ -75,8 +75,9 @@ class FirebaseService {
     required String searchedUserId,
     required String currentUserId,
   }) {
-    String chatRoomId = _createChatRoomId(
+    String chatRoomId = createChatRoomId(
         searchedUserId: searchedUserId, currentUserId: currentUserId);
+
     _createChatRoom(
       currentUserId: currentUserId,
       searchedUserId: searchedUserId,
@@ -88,7 +89,7 @@ class FirebaseService {
   }
 
   ///
-  String _createChatRoomId({
+  String createChatRoomId({
     required String currentUserId,
     required String searchedUserId,
   }) {
@@ -116,7 +117,6 @@ class FirebaseService {
   }
 
   ///
-  //todo is there a simple way?
   Future<void> _addChatRoomToList({
     required String chatRoomId,
     required String userId,

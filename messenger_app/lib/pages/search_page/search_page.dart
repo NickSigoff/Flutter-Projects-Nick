@@ -52,17 +52,13 @@ class SearchPage extends StatelessWidget {
             ),
             body: state is SearchFound
                 ? ListView.builder(
-                    itemCount: state.searchedUsers.length,
+                    itemCount: state.chatRoomList.length,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
-                      var searchedUserData =
-                          state.searchedUsers[index].docs.first;
                       return SearchedUser(
                         index: index,
-                        searchedUserId: searchedUserData.get('id'),
-                        searchedUserName: searchedUserData.get('name'),
-                        searchedUserEmail: searchedUserData.get('email'),
+                        chatRoomModel: state.chatRoomList[index],
                       );
                     },
                   )

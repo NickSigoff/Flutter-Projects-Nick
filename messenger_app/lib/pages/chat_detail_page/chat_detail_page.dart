@@ -5,28 +5,25 @@ import 'package:messenger_app/pages/chat_detail_page/bloc/chat_detail_cubit.dart
 import 'package:messenger_app/pages/chat_detail_page/widgets/input_text_field_widget.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
+import '../../models/chat_room_model.dart';
 import '../../utils/main_colors.dart';
 
 class ChatDetailsPage extends StatelessWidget {
+  final ChatRoomModel chatRoomModel;
   final String? draft;
-  final String? userName;
-  final String? email;
-  final String chatRoomId;
+
   late final TextEditingController messageController;
 
-  ChatDetailsPage(
-      {required this.userName,
-      this.draft,
-      required this.email,
-      required this.chatRoomId,
-      Key? key})
+  ChatDetailsPage({this.draft, required this.chatRoomModel, Key? key})
       : super(key: key) {
     messageController = TextEditingController(text: draft);
   }
 
   @override
   Widget build(BuildContext context) {
-
+    // context
+    //     .read<ChatDetailCubit>()
+    //     .downLoadChatHistory(chatRoomId: 'chatRoomId');
     return BlocBuilder<ChatDetailCubit, ChatDetailState>(
       builder: (context, state) {
         return Scaffold(
@@ -38,7 +35,7 @@ class ChatDetailsPage extends StatelessWidget {
               children: [
                 _buildChatConversation(state),
                 InputTextFieldWidget(
-                    chatRoomId: chatRoomId,
+                    chatRoomId: chatRoomModel.chatRoomId,
                     messageController: messageController),
               ],
             ),
@@ -63,7 +60,7 @@ class ChatDetailsPage extends StatelessWidget {
                       .read<ChatDetailCubit>()
                       .saveMessageDraft(
                           value: messageController.text.trim(),
-                          chatRoomId: chatRoomId));
+                          chatRoomId: chatRoomModel.chatRoomId));
                 },
                 icon: const Icon(
                   Icons.arrow_back,
@@ -82,16 +79,12 @@ class ChatDetailsPage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    userName == null
-                        ? const CircularProgressIndicator()
-                        : Text(userName!,
-                            style: MainTextStyles.smallInputBlockStyle
-                                .copyWith(fontWeight: FontWeight.w500)),
-                    email == null
-                        ? const CircularProgressIndicator()
-                        : Text(email!,
-                            style: MainTextStyles.smallInputBlockStyle
-                                .copyWith(fontWeight: FontWeight.w500)),
+                    Text(chatRoomModel.anotherUserName,
+                        style: MainTextStyles.smallInputBlockStyle
+                            .copyWith(fontWeight: FontWeight.w500)),
+                    Text(chatRoomModel.anotherUserEmail,
+                        style: MainTextStyles.smallInputBlockStyle
+                            .copyWith(fontWeight: FontWeight.w500)),
                     Text("Online",
                         style: MainTextStyles.smallInputBlockStyle.copyWith(
                             color: MainColors.lightBlue, fontSize: 8)),
@@ -127,7 +120,7 @@ class ChatDetailsPage extends StatelessWidget {
             int reverseIndex = state.messagesList.length - 1 - index;
             ChatMessage chatMessage = state.messagesList[reverseIndex];
 
-            return chatMessage.messageSender == userName
+            return chatMessage.messageSender == chatRoomModel.anotherUserName
                 ? _buildLeftDialog(
                     message: chatMessage.messageContent,
                     time: chatMessage.messageTime)

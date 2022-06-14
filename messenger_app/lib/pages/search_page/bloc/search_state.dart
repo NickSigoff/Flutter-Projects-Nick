@@ -4,11 +4,11 @@ part of 'search_cubit.dart';
 abstract class SearchState {}
 
 class SearchInitial extends SearchState {
-  final List<QuerySnapshot> searchedUsers = [];
+  final List<ChatRoomModel> chatRoomList = [];
 }
 
 class SearchFound extends SearchState {
-  final List<QuerySnapshot> searchedUsers;
+  final List<ChatRoomModel> chatRoomList;
 
-  SearchFound({required this.searchedUsers});
+  SearchFound({required this.chatRoomList});
 }
