@@ -175,10 +175,8 @@ class FirebaseService {
         .doc()
         .set(chatMessage.toJson());
     await FirebaseFirestore.instance
-        .collection(FirebaseConstants.chatRoomName)
+        .collection('last_messages')
         .doc(chatRoomId)
-        .collection('last_message')
-        .doc('last_message')
         .set(chatMessage.toJson());
   }
 
@@ -201,20 +199,9 @@ class FirebaseService {
         .snapshots();
   }
 
-  // ///
-  // Future<ChatMessage?> getLastMessage(String chatRoomId) async {
-  //   DocumentSnapshot<Map<String, dynamic>> lastMessage = await FirebaseFirestore
-  //       .instance
-  //       .collection(FirebaseConstants.chatRoomName)
-  //       .doc(chatRoomId)
-  //       .collection('messages')
-  //       .doc('lastMessage')
-  //       .get();
-  //
-  //   return lastMessage.data() == null
-  //       ? null
-  //       : ChatMessage.fromJson(lastMessage.data()!);
-  // }
+  Stream<QuerySnapshot<Map<String, dynamic>>> getLastMessageStream() {
+    return FirebaseFirestore.instance.collection('last_messages').snapshots();
+  }
 
   Future<void> signOut() async {
     FirebaseAuth.instance.signOut();

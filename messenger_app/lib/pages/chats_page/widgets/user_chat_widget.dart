@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messenger_app/pages/chat_detail_page/bloc/chat_detail_cubit.dart';
 import 'package:messenger_app/pages/chat_detail_page/chat_detail_page.dart';
+import 'package:messenger_app/pages/chats_page/bloc/last_message_cubit.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
@@ -17,87 +18,111 @@ class UserChatWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ChatDetailsPage(
-              chatRoomModel: chatRoomModel,
-            ),
-          ),
+    context
+        .read<LastMessageCubit>()
+        .downloadLastMessage(chatRoomModel.chatRoomId);
+    return BlocBuilder<LastMessageCubit, LastMessageState>(
+      builder: (context, state) {
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChatDetailsPage(
+                  chatRoomModel: chatRoomModel,
+                ),
+              ),
+            );
+            context
+                .read<ChatDetailCubit>()
+                .downLoadChatHistory(chatRoomId: chatRoomModel.chatRoomId);
+          },
+          child: _buildWidgetBody(state, chatRoomModel.chatRoomId),
         );
-        context
-            .read<ChatDetailCubit>()
-            .downLoadChatHistory(chatRoomId: chatRoomModel.chatRoomId);
       },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-        child: Column(
-          children: [
-            _buildFirstDivider(index),
-            Row(
-              children: [
-                Expanded(
-                  child: Row(
-                    children: [
-                      CircleAvatar(
-                        backgroundImage:
-                            AssetImage(chatRoomModel.anotherUserImageUrl),
-                        maxRadius: 30,
-                      ),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Expanded(
-                        child: Container(
-                          color: Colors.transparent,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                chatRoomModel.anotherUserName,
-                                style: MainTextStyles.smallInputBlockStyle
-                                    .copyWith(
-                                  color: MainColors.lightBlue,
-                                ),
+    );
+  }
+
+  Widget _buildWidgetBody(LastMessageState state, String chatRoomId) {
+
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Column(
+        children: [
+          _buildFirstDivider(index),
+          Row(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage:
+                          AssetImage(chatRoomModel.anotherUserImageUrl),
+                      maxRadius: 30,
+                    ),
+                    const SizedBox(
+                      width: 16,
+                    ),
+                    Expanded(
+                      child: Container(
+                        color: Colors.transparent,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              chatRoomModel.anotherUserName,
+                              style:
+                                  MainTextStyles.smallInputBlockStyle.copyWith(
+                                color: MainColors.lightBlue,
                               ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                'last message',
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: MainTextStyles.smallInputBlockStyle
-                                    .copyWith(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w400),
-                              )
-                            ],
-                          ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              state is LastMessageLoaded
+                                  ? state.las
+                                      .where(
+                                          (element) => element.id == chatRoomId)
+                                      .first
+                                      .get('messageContent')
+                                  : '',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: MainTextStyles.smallInputBlockStyle
+                                  .copyWith(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400),
+                            )
+                          ],
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                Text(
-                  '00:00',
-                  style: MainTextStyles.smallInputBlockStyle
-                      .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
-                )
-              ],
-            ),
-            const SizedBox(
-              height: 16.0,
-            ),
-            const Divider(
-              height: 1.0,
-              thickness: 1.0,
-              color: MainColors.lightGrey,
-            ),
-          ],
-        ),
+              ),
+              Text(
+                state is LastMessageLoaded
+                    ? state.las
+                    .where(
+                        (element) => element.id == chatRoomId)
+                    .first
+                    .get('messageTime')
+                    : '00:00',
+                style: MainTextStyles.smallInputBlockStyle
+                    .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
+          const Divider(
+            height: 1.0,
+            thickness: 1.0,
+            color: MainColors.lightGrey,
+          ),
+        ],
       ),
     );
   }

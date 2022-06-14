@@ -29,7 +29,7 @@ class InputTextFieldWidget extends StatelessWidget {
             border: Border.symmetric(
                 horizontal: BorderSide(color: MainColors.lightGrey))),
         child: Row(
-          children: <Widget>[
+          children: [
             GestureDetector(
               onTap: () {},
               child: Container(
@@ -63,11 +63,15 @@ class InputTextFieldWidget extends StatelessWidget {
             ),
             FloatingActionButton(
               onPressed: () {
-                context.read<ChatDetailCubit>().createAndAddMessage(
-                      message: messageController.text,
-                      chatRoomId: chatRoomId,
-                    );
-                messageController.text = '';
+                messageController.text.trim() == ''
+                    ? {messageController.text = ''}
+                    : {
+                        context.read<ChatDetailCubit>().createAndAddMessage(
+                              message: messageController.text,
+                              chatRoomId: chatRoomId,
+                            ),
+                        messageController.text = ''
+                      };
               },
               backgroundColor: MainColors.deepBlue,
               elevation: 0,
