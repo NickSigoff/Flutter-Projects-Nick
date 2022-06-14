@@ -115,7 +115,6 @@ class ChatDetailsPage extends StatelessWidget {
           reverse: true,
           itemCount: state.messagesList.length,
           shrinkWrap: true,
-          //todo
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           itemBuilder: (context, index) {
             int reverseIndex = state.messagesList.length - 1 - index;

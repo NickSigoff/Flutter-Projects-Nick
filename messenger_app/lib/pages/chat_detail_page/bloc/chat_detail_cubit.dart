@@ -32,7 +32,7 @@ class ChatDetailCubit extends Cubit<ChatDetailState> {
         } else {
           emit(ChatDetailLoading());
           List<ChatMessage> messages = [];
-          for (int i = 0; i < event.docs.length - 1; i++) {
+          for (int i = 0; i < event.docs.length; i++) {
             messages.add(ChatMessage.fromJson(event.docs[i].data()));
           }
           emit(ChatDetailLoaded(

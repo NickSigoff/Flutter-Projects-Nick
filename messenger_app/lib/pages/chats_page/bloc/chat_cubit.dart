@@ -3,12 +3,9 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:messenger_app/models/chat_room_model.dart';
-import 'package:messenger_app/models/user_chat_model.dart';
 import 'package:messenger_app/services/current_user_data.dart';
 import 'package:messenger_app/services/firebase_service.dart';
 import 'package:meta/meta.dart';
-
-import '../../../models/chat_message_model.dart';
 
 part 'chat_state.dart';
 
@@ -30,7 +27,7 @@ class ChatCubit extends Cubit<ChatState> {
           emit(ChatEmptyChats(chatRoomList: chatRoomList));
         } else {
           emit(ChatLoading());
-          List<UserChatModel> chatRoomModelList =
+          List<ChatRoomModel> chatRoomModelList =
               await _createUserChatModelList(chatRoomList);
 
           emit(ChatDownloadedChats(chatRoomModelList: chatRoomModelList));
@@ -41,10 +38,10 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-  Future<List<UserChatModel>> _createUserChatModelList(
+  Future<List<ChatRoomModel>> _createUserChatModelList(
     List<dynamic> chatRoomList,
   ) async {
-    List<UserChatModel> chatRoomModelList = [];
+    List<ChatRoomModel> chatRoomModelList = [];
     for (int i = 0; i < chatRoomList.length; i++) {
       String chatRoomId = chatRoomList[i];
       String anotherUserId = _getAnotherUser(
@@ -60,11 +57,7 @@ class ChatCubit extends Cubit<ChatState> {
           anotherUserName: anotherUser.get('name'),
           chatRoomId: chatRoomId);
 
-      ChatMessage? lastMessage =
-          await FirebaseService().getLastMessage(chatRoomId);
-
-      chatRoomModelList.add(
-          UserChatModel(chatRoom: chatRoomModel, lastMessage: lastMessage));
+      chatRoomModelList.add(chatRoomModel);
     }
     return chatRoomModelList;
   }

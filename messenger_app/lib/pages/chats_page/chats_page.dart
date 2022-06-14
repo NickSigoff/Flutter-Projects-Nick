@@ -16,7 +16,7 @@ class ChatsPage extends StatelessWidget {
         if (state is ChatLoading) {
           return _buildChatsLoading(context);
         } else if (state is ChatEmptyChats) {
-          return _buildEmptyChats();
+          return _buildEmptyChats(context);
         } else if (state is ChatDownloadedChats) {
           return ListView.builder(
             itemCount: state.chatRoomModelList.length,
@@ -24,7 +24,7 @@ class ChatsPage extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return UserChatWidget(
-                userChatModel: state.chatRoomModelList[index],
+                chatRoomModel: state.chatRoomModelList[index],
                 index: index,
               );
             },
@@ -54,20 +54,26 @@ class ChatsPage extends StatelessWidget {
     );
   }
 
-  Column _buildEmptyChats() {
-    return Column(
-      children: [
-        Container(
-            height: 150.0,
-            width: 150.0,
-            decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/empty_chats.png')))),
-        const Text(
-          'Your chat list is empty',
-          style: MainTextStyles.largeInputBlockStyle,
-        ),
-      ],
+  Widget _buildEmptyChats(BuildContext context) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height - 120,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+              height: 150.0,
+              width: 150.0,
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/empty_chats.png')))),
+          const Text(
+            'Your chat list is empty',
+            style: MainTextStyles.largeInputBlockStyle,
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:messenger_app/models/user_chat_model.dart';
 import 'package:messenger_app/pages/chat_detail_page/bloc/chat_detail_cubit.dart';
 import 'package:messenger_app/pages/chat_detail_page/chat_detail_page.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
+import '../../../models/chat_room_model.dart';
+
 class UserChatWidget extends StatelessWidget {
-  final UserChatModel userChatModel;
+  final ChatRoomModel chatRoomModel;
   final int index;
 
   const UserChatWidget(
-      {required this.userChatModel, required this.index, Key? key})
+      {required this.chatRoomModel, required this.index, Key? key})
       : super(key: key);
 
   @override
@@ -22,13 +23,13 @@ class UserChatWidget extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => ChatDetailsPage(
-              chatRoomModel: userChatModel.chatRoom,
+              chatRoomModel: chatRoomModel,
             ),
           ),
         );
         context
             .read<ChatDetailCubit>()
-            .downLoadChatHistory(chatRoomId: userChatModel.chatRoom.chatRoomId);
+            .downLoadChatHistory(chatRoomId: chatRoomModel.chatRoomId);
       },
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
@@ -41,8 +42,8 @@ class UserChatWidget extends StatelessWidget {
                   child: Row(
                     children: [
                       CircleAvatar(
-                        backgroundImage: AssetImage(
-                            userChatModel.chatRoom.anotherUserImageUrl),
+                        backgroundImage:
+                            AssetImage(chatRoomModel.anotherUserImageUrl),
                         maxRadius: 30,
                       ),
                       const SizedBox(
@@ -55,7 +56,7 @@ class UserChatWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                userChatModel.chatRoom.anotherUserName,
+                                chatRoomModel.anotherUserName,
                                 style: MainTextStyles.smallInputBlockStyle
                                     .copyWith(
                                   color: MainColors.lightBlue,
@@ -65,8 +66,7 @@ class UserChatWidget extends StatelessWidget {
                                 height: 8,
                               ),
                               Text(
-                                //todo stick of  death
-                                userChatModel.lastMessage!.messageContent,
+                                'last message',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: MainTextStyles.smallInputBlockStyle
@@ -82,7 +82,7 @@ class UserChatWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  userChatModel.lastMessage!.messageTime,
+                  '00:00',
                   style: MainTextStyles.smallInputBlockStyle
                       .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
                 )
