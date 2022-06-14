@@ -44,7 +44,6 @@ class UserChatWidget extends StatelessWidget {
   }
 
   Widget _buildWidgetBody(LastMessageState state, String chatRoomId) {
-
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: Column(
@@ -79,21 +78,7 @@ class UserChatWidget extends StatelessWidget {
                             const SizedBox(
                               height: 8,
                             ),
-                            Text(
-                              state is LastMessageLoaded
-                                  ? state.las
-                                      .where(
-                                          (element) => element.id == chatRoomId)
-                                      .first
-                                      .get('messageContent')
-                                  : '',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: MainTextStyles.smallInputBlockStyle
-                                  .copyWith(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w400),
-                            )
+                            _buildMessageContent(state, chatRoomId)
                           ],
                         ),
                       ),
@@ -101,17 +86,7 @@ class UserChatWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              Text(
-                state is LastMessageLoaded
-                    ? state.las
-                    .where(
-                        (element) => element.id == chatRoomId)
-                    .first
-                    .get('messageTime')
-                    : '00:00',
-                style: MainTextStyles.smallInputBlockStyle
-                    .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
-              )
+              _buildLastMessageTime(state, chatRoomId)
             ],
           ),
           const SizedBox(
@@ -124,6 +99,42 @@ class UserChatWidget extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Text _buildLastMessageTime(LastMessageState state, String chatRoomId) {
+    return Text(
+      state is LastMessageLoaded
+          ? state.lastMessagesList
+          .where((element) => element.id == chatRoomId)
+          .isNotEmpty
+          ? state.lastMessagesList
+          .where((element) => element.id == chatRoomId)
+          .first
+          .get('messageTime')
+          : ''
+          : '',
+      style: MainTextStyles.smallInputBlockStyle
+          .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
+    );
+  }
+
+  Text _buildMessageContent(LastMessageState state, String chatRoomId) {
+    return Text(
+      state is LastMessageLoaded
+          ? state.lastMessagesList
+          .where((element) => element.id == chatRoomId)
+          .isNotEmpty
+          ? state.lastMessagesList
+          .where((element) => element.id == chatRoomId)
+          .first
+          .get('messageContent')
+          : ''
+          : '',
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,
+      style: MainTextStyles.smallInputBlockStyle
+          .copyWith(fontSize: 12, fontWeight: FontWeight.w400),
     );
   }
 

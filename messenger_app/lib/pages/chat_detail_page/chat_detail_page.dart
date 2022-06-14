@@ -27,13 +27,14 @@ class ChatDetailsPage extends StatelessWidget {
     return BlocBuilder<ChatDetailCubit, ChatDetailState>(
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: MainColors.white,
           appBar: _buildAppBarWidget(context),
           body: SizedBox(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
             child: Stack(
               children: [
-                _buildChatConversation(state),
+                _buildChatConversation(state, context),
                 InputTextFieldWidget(
                     chatRoomId: chatRoomModel.chatRoomId,
                     messageController: messageController),
@@ -103,9 +104,26 @@ class ChatDetailsPage extends StatelessWidget {
     );
   }
 
-  Widget _buildChatConversation(ChatDetailState state) {
+  Widget _buildChatConversation(ChatDetailState state, BuildContext context) {
     if (state is ChatDetailEmpty) {
-      return const Text('Chat is empty');
+      return SizedBox(
+        height: MediaQuery.of(context).size.height - 120,
+        width: MediaQuery.of(context).size.width,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Image(
+              height: 250.0,
+              width: 250.0,
+              image: AssetImage('assets/images/empty_chat.png'),
+            ),
+            Text(
+              'Nothing here. Start your conversation',
+              style: MainTextStyles.largeInputBlockStyle,
+            )
+          ],
+        ),
+      );
     } else if (state is ChatDetailLoading) {
       return const Center(child: CircularProgressIndicator());
     } else if (state is ChatDetailLoaded) {

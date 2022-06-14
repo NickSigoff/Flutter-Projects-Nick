@@ -26,7 +26,7 @@ class LastMessageCubit extends Cubit<LastMessageState> {
           emit(LastMessageEmpty());
         } else {
           emit(LastMessageLoading());
-          emit(LastMessageLoaded(las: event.docs));
+          emit(LastMessageLoaded(lastMessagesList: event.docs));
         }
       });
     } catch (e) {

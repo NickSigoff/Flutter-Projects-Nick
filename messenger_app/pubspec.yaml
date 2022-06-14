@@ -64,6 +64,7 @@ flutter:
     - assets/images/avatars/10.jpg
     - assets/images/avatars/11.jpg
     - assets/images/empty_chats.png
+    - assets/images/empty_chat.png
 
   fonts:
     - family: Poppins
