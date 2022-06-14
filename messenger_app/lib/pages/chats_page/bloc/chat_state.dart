@@ -6,9 +6,11 @@ abstract class ChatState {}
 class ChatLoading extends ChatState {}
 
 class ChatDownloadedChats extends ChatState {
-  final List<ChatRoomModel> chatRoomModelList;
+  final List<UserChatModel> chatRoomModelList;
 
-  ChatDownloadedChats({required this.chatRoomModelList});
+  ChatDownloadedChats({
+    required this.chatRoomModelList,
+  });
 }
 
 class ChatEmptyChats extends ChatState {

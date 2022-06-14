@@ -3,9 +3,12 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:messenger_app/models/chat_room_model.dart';
+import 'package:messenger_app/models/user_chat_model.dart';
 import 'package:messenger_app/services/current_user_data.dart';
 import 'package:messenger_app/services/firebase_service.dart';
 import 'package:meta/meta.dart';
+
+import '../../../models/chat_message_model.dart';
 
 part 'chat_state.dart';
 
@@ -27,8 +30,9 @@ class ChatCubit extends Cubit<ChatState> {
           emit(ChatEmptyChats(chatRoomList: chatRoomList));
         } else {
           emit(ChatLoading());
-          List<ChatRoomModel> chatRoomModelList =
-              await _createChatRoomModelList(chatRoomList);
+          List<UserChatModel> chatRoomModelList =
+              await _createUserChatModelList(chatRoomList);
+
           emit(ChatDownloadedChats(chatRoomModelList: chatRoomModelList));
         }
       });
@@ -37,22 +41,30 @@ class ChatCubit extends Cubit<ChatState> {
     }
   }
 
-  Future<List<ChatRoomModel>> _createChatRoomModelList(
-      List<dynamic> chatRoomList) async {
-    List<ChatRoomModel> chatRoomModelList = [];
+  Future<List<UserChatModel>> _createUserChatModelList(
+    List<dynamic> chatRoomList,
+  ) async {
+    List<UserChatModel> chatRoomModelList = [];
     for (int i = 0; i < chatRoomList.length; i++) {
       String chatRoomId = chatRoomList[i];
       String anotherUserId = _getAnotherUser(
           chatRoomId: chatRoomId, currentUserId: CurrentUserData.currentUserId);
+
       DocumentSnapshot<Map<String, dynamic>> anotherUser =
           await FirebaseService().getUserById(anotherUserId);
+
       ChatRoomModel chatRoomModel = ChatRoomModel(
           anotherUserId: anotherUser.get('id'),
           anotherUserEmail: anotherUser.get('email'),
           anotherUserImageUrl: 'assets/images/avatars/11.jpg',
           anotherUserName: anotherUser.get('name'),
           chatRoomId: chatRoomId);
-      chatRoomModelList.add(chatRoomModel);
+
+      ChatMessage? lastMessage =
+          await FirebaseService().getLastMessage(chatRoomId);
+
+      chatRoomModelList.add(
+          UserChatModel(chatRoom: chatRoomModel, lastMessage: lastMessage));
     }
     return chatRoomModelList;
   }

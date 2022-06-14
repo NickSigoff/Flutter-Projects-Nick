@@ -51,7 +51,6 @@ class SearchedUser extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => ChatDetailsPage(
-                                ///model
                                 draft: '',
                                 chatRoomModel: chatRoomModel,
                               )));

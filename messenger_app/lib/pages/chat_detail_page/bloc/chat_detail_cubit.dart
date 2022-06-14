@@ -19,7 +19,7 @@ class ChatDetailCubit extends Cubit<ChatDetailState> {
   void downLoadChatHistory({required String chatRoomId}) {
     try {
       Stream<QuerySnapshot<Map<String, dynamic>>> chatStream =
-          FirebaseService().getChatsStream(chatRoomId);
+          FirebaseService().getMessageStream(chatRoomId);
 
       StreamController<QuerySnapshot<Map<String, dynamic>>>
           chatStreamController = StreamController();
@@ -32,7 +32,7 @@ class ChatDetailCubit extends Cubit<ChatDetailState> {
         } else {
           emit(ChatDetailLoading());
           List<ChatMessage> messages = [];
-          for (int i = 0; i < event.docs.length; i++) {
+          for (int i = 0; i < event.docs.length - 1; i++) {
             messages.add(ChatMessage.fromJson(event.docs[i].data()));
           }
           emit(ChatDetailLoaded(

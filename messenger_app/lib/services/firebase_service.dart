@@ -152,6 +152,7 @@ class FirebaseService {
     required String chatRoomId,
     required ChatMessage chatMessage,
   }) async {
+    ///push
     //print(chatRoomId);
     // List<String> users = chatRoomId.split('_');
     // String anotherUserId =
@@ -166,16 +167,23 @@ class FirebaseService {
     //   to: anotherUserToken,
     //   data:{},
     // );
+    ///push
     await FirebaseFirestore.instance
         .collection(FirebaseConstants.chatRoomName)
         .doc(chatRoomId)
         .collection('messages')
         .doc()
         .set(chatMessage.toJson());
+    await FirebaseFirestore.instance
+        .collection(FirebaseConstants.chatRoomName)
+        .doc(chatRoomId)
+        .collection('messages')
+        .doc('lastMessage')
+        .set(chatMessage.toJson());
   }
 
   ///
-  Stream<QuerySnapshot<Map<String, dynamic>>> getChatsStream(
+  Stream<QuerySnapshot<Map<String, dynamic>>> getMessageStream(
       String chatRoomId) {
     return FirebaseFirestore.instance
         .collection(FirebaseConstants.chatRoomName)
@@ -191,6 +199,21 @@ class FirebaseService {
         .collection(FirebaseConstants.userCollectionName)
         .doc(CurrentUserData.currentUserId)
         .snapshots();
+  }
+
+  ///
+  Future<ChatMessage?> getLastMessage(String chatRoomId) async {
+    DocumentSnapshot<Map<String, dynamic>> lastMessage = await FirebaseFirestore
+        .instance
+        .collection(FirebaseConstants.chatRoomName)
+        .doc(chatRoomId)
+        .collection('messages')
+        .doc('lastMessage')
+        .get();
+
+    return lastMessage.data() == null
+        ? null
+        : ChatMessage.fromJson(lastMessage.data()!);
   }
 
   Future<void> signOut() async {

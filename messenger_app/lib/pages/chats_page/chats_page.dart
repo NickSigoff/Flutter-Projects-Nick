@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:messenger_app/bloc/chat_cubit.dart';
+import 'package:messenger_app/pages/chats_page/bloc/chat_cubit.dart';
 import 'package:messenger_app/pages/chats_page/widgets/user_chat_widget.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
@@ -24,7 +24,7 @@ class ChatsPage extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
               return UserChatWidget(
-                chatRoomModel: state.chatRoomModelList[index],
+                userChatModel: state.chatRoomModelList[index],
                 index: index,
               );
             },
