@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_shadows.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
@@ -16,15 +17,26 @@ class SocialMediaAuthorizeWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const SocialAuthWidget(
-                color: Colors.black,
-                child: Icon(
-                  Icons.apple,
-                  color: MainColors.creamWhite,
+              SocialAuthWidget(
+                onTap: () {},
+                color: MainColors.twitterColor,
+                child: const Image(
+                  height: 28,
+                  width: 28,
+                  image: AssetImage('assets/images/twitter_bird.png'),
                 ),
               ),
               const Spacer(),
               SocialAuthWidget(
+                onTap: () async {
+                  final GoogleSignIn googleUser = GoogleSignIn();
+                  await googleUser.signIn();
+                  print(googleUser.currentUser?.email);
+                  print(await googleUser.isSignedIn());
+                  await googleUser.signOut();
+                  print(await googleUser.isSignedIn());
+                 // print()
+                },
                 color: MainColors.red,
                 child: Text(
                   'G',
@@ -34,6 +46,7 @@ class SocialMediaAuthorizeWidget extends StatelessWidget {
               ),
               const Spacer(),
               SocialAuthWidget(
+                onTap: () {},
                 color: MainColors.blue,
                 child: Text(
                   'f',
@@ -83,22 +96,27 @@ class SocialMediaAuthorizeWidget extends StatelessWidget {
 class SocialAuthWidget extends StatelessWidget {
   final Color color;
   final Widget child;
+  final VoidCallback onTap;
 
-  const SocialAuthWidget({Key? key, required this.color, required this.child})
+  const SocialAuthWidget(
+      {Key? key, required this.color, required this.child, required this.onTap})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       flex: 9,
-      child: Container(
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            boxShadow: MainShadows.containerShadow,
-            color: color,
-            borderRadius: const BorderRadius.all(Radius.circular(16.0))),
-        height: 52.0,
-        child: child,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              boxShadow: MainShadows.containerShadow,
+              color: color,
+              borderRadius: const BorderRadius.all(Radius.circular(16.0))),
+          height: 52.0,
+          child: child,
+        ),
       ),
     );
   }

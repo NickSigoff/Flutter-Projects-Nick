@@ -31,7 +31,7 @@ class SignInPage extends StatelessWidget {
                   children: [
                     _buildLogoWidget(height),
                     const Spacer(),
-                    InputBlockSignInPage(),
+                    const InputBlockSignInPage(),
                   ],
                 ),
               ),

@@ -13,4 +13,5 @@ abstract class MainColors {
   static const Color blue = Color(0xff3c66c3);
   static Color textShadow = const Color(0x00000000).withAlpha(50);
   static Color containerShadow = const Color(0x00000000).withAlpha(90);
+  static Color twitterColor = const Color.fromRGBO(85, 172, 230, 1);
 }
