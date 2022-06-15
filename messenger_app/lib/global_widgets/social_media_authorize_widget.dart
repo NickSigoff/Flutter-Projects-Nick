@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:messenger_app/utils/main_colors.dart';
 import 'package:messenger_app/utils/main_shadows.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
 class SocialMediaAuthorizeWidget extends StatelessWidget {
-  const SocialMediaAuthorizeWidget({Key? key}) : super(key: key);
+  final VoidCallback? googleSignIn;
+  final VoidCallback? facebookSignIn;
+  final VoidCallback? twitterSignIn;
+
+  const SocialMediaAuthorizeWidget(
+      {Key? key, this.googleSignIn, this.facebookSignIn, this.twitterSignIn})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +23,7 @@ class SocialMediaAuthorizeWidget extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SocialAuthWidget(
-                onTap: () {},
+                onTap: twitterSignIn ?? () {},
                 color: MainColors.twitterColor,
                 child: const Image(
                   height: 28,
@@ -28,15 +33,7 @@ class SocialMediaAuthorizeWidget extends StatelessWidget {
               ),
               const Spacer(),
               SocialAuthWidget(
-                onTap: () async {
-                  final GoogleSignIn googleUser = GoogleSignIn();
-                  await googleUser.signIn();
-                  print(googleUser.currentUser?.email);
-                  print(await googleUser.isSignedIn());
-                  await googleUser.signOut();
-                  print(await googleUser.isSignedIn());
-                 // print()
-                },
+                onTap: googleSignIn ?? () {},
                 color: MainColors.red,
                 child: Text(
                   'G',
@@ -46,7 +43,7 @@ class SocialMediaAuthorizeWidget extends StatelessWidget {
               ),
               const Spacer(),
               SocialAuthWidget(
-                onTap: () {},
+                onTap: facebookSignIn ?? () {},
                 color: MainColors.blue,
                 child: Text(
                   'f',

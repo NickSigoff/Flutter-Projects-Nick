@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:messenger_app/pages/auth_pages/bloc/auth_cubit.dart';
+import 'package:messenger_app/pages/auth_pages/sign_in_page/sign_in_page.dart';
 import 'package:messenger_app/services/current_user_data.dart';
-import 'package:messenger_app/services/firebase_service.dart';
 
 import '../../utils/main_colors.dart';
 import '../../utils/main_text_styles.dart';
@@ -11,49 +12,67 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Settings',
-            style: MainTextStyles.largeInputBlockStyle
-                .copyWith(color: MainColors.lightBlue),
-          ),
-          const SizedBox(height: 16.0),
-          Row(
+    print(CurrentUserData.currentUserId);
+    print(CurrentUserData.currentUserName);
+    print(CurrentUserData.currentUserEmail);
+
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if (state is UnAuthenticated) {
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (context) => const SignInPage()));
+        }
+        if (state is AuthError) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+        }
+      },
+      builder: (context, state) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Icon(Icons.person_pin,
-                  color: MainColors.lightBlue, size: 70.0),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Text(
+                'Settings',
+                style: MainTextStyles.largeInputBlockStyle
+                    .copyWith(color: MainColors.lightBlue),
+              ),
+              const SizedBox(height: 16.0),
+              Row(
                 children: [
-                  Text(CurrentUserData.currentUserName,
-                      style: MainTextStyles.smallInputBlockStyle
-                          .copyWith(fontSize: 24, color: MainColors.lightBlue)),
-                  Text(CurrentUserData.currentUserEmail,
-                      style: MainTextStyles.smallInputBlockStyle),
+                  const Icon(Icons.person_pin,
+                      color: MainColors.lightBlue, size: 70.0),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(CurrentUserData.currentUserName,
+                          style: MainTextStyles.smallInputBlockStyle.copyWith(
+                              fontSize: 24, color: MainColors.lightBlue)),
+                      Text(CurrentUserData.currentUserEmail,
+                          style: MainTextStyles.smallInputBlockStyle),
+                    ],
+                  ),
+                  const Spacer(),
+                  IconButton(
+                      onPressed: () async {
+                        await context.read<AuthCubit>().signOut();
+                      },
+                      icon: const Icon(
+                        Icons.exit_to_app,
+                        color: MainColors.lightBlue,
+                      )),
                 ],
               ),
-              const Spacer(),
-              IconButton(
-                  onPressed: () async {
-                    await FirebaseService().signOut();
-                  },
-                  icon: const Icon(
-                    Icons.exit_to_app,
-                    color: MainColors.lightBlue,
-                  )),
+              const Divider(
+                thickness: 1.0,
+                color: MainColors.lightGrey,
+              ),
+              ..._buildOptionListWidget(),
             ],
           ),
-          const Divider(
-            thickness: 1.0,
-            color: MainColors.lightGrey,
-          ),
-          ..._buildOptionListWidget(),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -77,7 +96,8 @@ List<Widget> _buildOptionListWidget() {
   ];
   return List<Widget>.generate(
       iconsList.length,
-      (index) => Padding(
+          (index) =>
+          Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Row(
               children: [
@@ -85,9 +105,9 @@ List<Widget> _buildOptionListWidget() {
                 const SizedBox(width: 8.0),
                 Expanded(
                     child: Text(
-                  textList[index],
-                  style: MainTextStyles.smallInputBlockStyle,
-                )),
+                      textList[index],
+                      style: MainTextStyles.smallInputBlockStyle,
+                    )),
                 const Icon(Icons.arrow_forward_ios, color: MainColors.grey)
               ],
             ),

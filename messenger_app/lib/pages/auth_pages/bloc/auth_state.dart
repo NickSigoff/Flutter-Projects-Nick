@@ -3,13 +3,17 @@ part of 'auth_cubit.dart';
 @immutable
 abstract class AuthState {}
 
-class AuthInitial extends AuthState {}
+class Authenticated extends AuthState {}
 
-class AuthLoading extends AuthState {}
+class UnAuthenticated extends AuthState {}
 
-class AuthError extends AuthState {}
+class Loading extends AuthState {}
 
-class AuthSuccess extends AuthState {}
+class AuthError extends AuthState {
+  final String errorMessage;
+
+  AuthError({required this.errorMessage});
+}
 
 class AuthVisiblePasswordSignIn extends AuthState {
   final bool visiblePassword = true;

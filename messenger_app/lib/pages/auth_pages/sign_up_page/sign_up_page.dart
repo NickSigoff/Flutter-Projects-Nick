@@ -51,8 +51,8 @@ class SignUpPage extends StatelessWidget {
       alignment: Alignment.center,
       child: Image.asset(
         ImageConstants.labelImage,
-        width: 100,
-        height: 100,
+        width: 100.0,
+        height: 100.0,
       ),
     );
   }

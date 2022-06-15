@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messenger_app/global_widgets/confirm_button_widget.dart';
 import 'package:messenger_app/pages/auth_pages/bloc/auth_cubit.dart';
 import 'package:messenger_app/pages/auth_pages/sign_in_page/widgets/text_fields_input_form_sign_in.dart';
-import 'package:messenger_app/pages/splash_pages/sign_up_splash_page.dart';
+import 'package:messenger_app/pages/auth_pages/sign_up_page/sign_up_page.dart';
+import 'package:messenger_app/pages/home_page/home_page.dart';
 
 import 'package:messenger_app/utils/main_text_styles.dart';
 import 'package:messenger_app/utils/size_constants.dart';
@@ -43,7 +44,19 @@ class InputBlockSignInPage extends StatelessWidget {
                   .copyWith(color: MainColors.lightBlue),
             ),
           ),
-          BlocBuilder<AuthCubit, AuthState>(
+          BlocConsumer<AuthCubit, AuthState>(
+              listener: (context, state) {
+                if (state is Authenticated) {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomePage()));
+                }
+                if (state is AuthError) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text(state.errorMessage)));
+                }
+              },
               builder: (context, state) => _buildConfirmButton(context, state)),
           Container(
             alignment: Alignment.center,
@@ -58,8 +71,7 @@ class InputBlockSignInPage extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) =>
-                                        const SplashSignUpPage()));
+                                    builder: (context) => const SignUpPage()));
                           },
                         text: ' Sign Up',
                         style: MainTextStyles.smallInputBlockStyle
@@ -67,7 +79,8 @@ class InputBlockSignInPage extends StatelessWidget {
                   ]),
             ),
           ),
-          const SocialMediaAuthorizeWidget(),
+          SocialMediaAuthorizeWidget(
+              googleSignIn: context.read<AuthCubit>().googleSignIn),
         ],
       ),
     );
@@ -93,13 +106,13 @@ class InputBlockSignInPage extends StatelessWidget {
         width: double.infinity,
         text: state is AuthError ? 'Something wrong. Try again' : 'Sign in',
         onTap: () {
-          state is AuthLoading?
+          state is Loading?
               ? {}
-              : context.read<AuthCubit>().signIn(
+              : context.read<AuthCubit>().emailPasswordSignIn(
                   email: emailController.text.trim(),
                   password: passwordController.text.trim());
         },
-        child: state is AuthLoading
+        child: state is Loading
             ? const Center(child: CircularProgressIndicator())
             : null);
   }
