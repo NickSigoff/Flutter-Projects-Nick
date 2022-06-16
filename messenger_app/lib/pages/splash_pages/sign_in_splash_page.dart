@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:messenger_app/pages/auth_pages/sign_in_page/sign_in_page.dart';
+import 'package:messenger_app/pages/splash_pages/bloc/set_current_user_cubit.dart';
 
 import 'package:messenger_app/pages/splash_pages/widgets/waiting_page_widget.dart';
 
@@ -15,11 +17,27 @@ class SplashSignInPage extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const WaitingPage();
+            return const WaitingPage(text: 'Waiting please');
           } else if (snapshot.hasError) {
             return const WaitingPage(text: 'Something went wrong');
           } else if (snapshot.hasData) {
-            return const HomePage();
+            context.read<SetCurrentUserCubit>().setCurrentsUser();
+            return BlocConsumer<SetCurrentUserCubit, SetCurrentUserState>(
+                listener: (context, state) {
+              if (state is UnidentifiedCurrentUser) {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignInPage()));
+              } else if (state is Error) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+              }
+            }, builder: (context, state) {
+              return state is IdentifiedCurrentUser
+                  ? const HomePage()
+                  : const WaitingPage();
+            });
           } else {
             return const SignInPage();
           }

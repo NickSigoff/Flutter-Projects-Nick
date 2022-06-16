@@ -17,7 +17,7 @@ class SearchCubit extends Cubit<SearchState> {
       if (value.docs.isNotEmpty) {
         var doc = value.docs.first;
         String chatRoomId = FirebaseService().createChatRoomId(
-            currentUserId: CurrentUserData.currentUserId,
+            currentUserId: CurrentUserData.currentUser.id,
             searchedUserId: doc.get('id'));
 
         chatRoomList.add(ChatRoomModel(
@@ -35,7 +35,7 @@ class SearchCubit extends Cubit<SearchState> {
   void tapMessageButton({required String userId}) {
     FirebaseService().createChatRoomAddToUsersList(
       searchedUserId: userId,
-      currentUserId: CurrentUserData.currentUserId,
+      currentUserId: CurrentUserData.currentUser.id,
     );
   }
 }

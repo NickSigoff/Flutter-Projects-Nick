@@ -55,7 +55,7 @@ class ChatDetailCubit extends Cubit<ChatDetailState> {
         messageTimeOrder: now.millisecondsSinceEpoch.toString(),
         messageTime: formattedDate,
         messageContent: message,
-        messageSender: CurrentUserData.currentUserName);
+        messageSender: CurrentUserData.currentUser.name);
 
     await FirebaseService()
         .addMessage(chatMessage: chatMessage, chatRoomId: chatRoomId);
@@ -66,7 +66,7 @@ class ChatDetailCubit extends Cubit<ChatDetailState> {
     required String value,
     required String chatRoomId,
   }) async {
-    String key = '${CurrentUserData.currentUserId}_$chatRoomId';
+    String key = '${CurrentUserData.currentUser.id}_$chatRoomId';
     await SharedPreferencesService()
         .setUserSharedPreferencesDraft(value: value, key: key);
     return true;
@@ -74,7 +74,7 @@ class ChatDetailCubit extends Cubit<ChatDetailState> {
 
   ///
   Future<String> getMessageDraft({required String chatRoomId}) async {
-    String key = '${CurrentUserData.currentUserId}_$chatRoomId';
+    String key = '${CurrentUserData.currentUser.id}_$chatRoomId';
     String? draft =
         await SharedPreferencesService().getUserSharedPreferencesDraft(key);
     return draft ?? '';

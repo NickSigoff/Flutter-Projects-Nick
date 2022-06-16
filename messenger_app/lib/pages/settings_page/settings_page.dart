@@ -12,10 +12,6 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(CurrentUserData.currentUserId);
-    print(CurrentUserData.currentUserName);
-    print(CurrentUserData.currentUserEmail);
-
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is UnAuthenticated) {
@@ -46,10 +42,10 @@ class SettingsPage extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(CurrentUserData.currentUserName,
+                      Text(CurrentUserData.currentUser.name,
                           style: MainTextStyles.smallInputBlockStyle.copyWith(
                               fontSize: 24, color: MainColors.lightBlue)),
-                      Text(CurrentUserData.currentUserEmail,
+                      Text(CurrentUserData.currentUser.email,
                           style: MainTextStyles.smallInputBlockStyle),
                     ],
                   ),
@@ -96,8 +92,7 @@ List<Widget> _buildOptionListWidget() {
   ];
   return List<Widget>.generate(
       iconsList.length,
-          (index) =>
-          Padding(
+      (index) => Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
             child: Row(
               children: [
@@ -105,9 +100,9 @@ List<Widget> _buildOptionListWidget() {
                 const SizedBox(width: 8.0),
                 Expanded(
                     child: Text(
-                      textList[index],
-                      style: MainTextStyles.smallInputBlockStyle,
-                    )),
+                  textList[index],
+                  style: MainTextStyles.smallInputBlockStyle,
+                )),
                 const Icon(Icons.arrow_forward_ios, color: MainColors.grey)
               ],
             ),

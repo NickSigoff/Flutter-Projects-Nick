@@ -1,5 +1,6 @@
+import 'package:messenger_app/models/user_model.dart';
+
 abstract class CurrentUserData {
-  static String currentUserName = '';
-  static String currentUserEmail = '';
-  static String currentUserId = '';
+  static UserModel currentUser =
+      UserModel(id: '', name: '', email: '', chatRoomList: []);
 }

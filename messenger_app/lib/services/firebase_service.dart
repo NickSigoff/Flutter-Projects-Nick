@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -13,7 +15,7 @@ class FirebaseService {
       String username) async {
     return await FirebaseFirestore.instance
         .collection(FirebaseConstants.userCollectionName)
-        .where('name', isNotEqualTo: CurrentUserData.currentUserName)
+        .where('name', isNotEqualTo: CurrentUserData.currentUser.name)
         .where('name', isEqualTo: username)
         .get();
   }
@@ -29,7 +31,6 @@ class FirebaseService {
   ///
   Future<void> uploadUserInfo(
       {required String name, required String email}) async {
-    //todo the Stick of death
     String userId = FirebaseAuth.instance.currentUser!.uid;
     final userDocument = FirebaseFirestore.instance
         .collection(FirebaseConstants.userCollectionName)
@@ -44,16 +45,14 @@ class FirebaseService {
       token: token,
       chatRoomList: [],
     );
-    await userDocument.set(user.toJson());
-
-    await SharedPreferencesService().setUserNameSharedPreferences(name);
-    await SharedPreferencesService().setUserEmailSharedPreferences(email);
+    Map<String, dynamic> userToJson = user.toJson();
+    await userDocument.set(userToJson);
     await SharedPreferencesService()
-        .setUserIdSharedPreferences(userDocument.id);
+        .setUserInfoSharedPreferences(jsonEncode(userToJson));
   }
 
   ///
-  Future<bool> downloadUserInfo() async {
+  Future<void> downloadUserInfo() async {
     final currentUser = FirebaseAuth.instance.currentUser;
     final userMap = await FirebaseFirestore.instance
         .collection(FirebaseConstants.userCollectionName)
@@ -61,13 +60,9 @@ class FirebaseService {
         .get();
 
     UserModel userModel = UserModel.fromJson(userMap.data()!);
+
     await SharedPreferencesService()
-        .setUserNameSharedPreferences(userModel.name);
-    await SharedPreferencesService()
-        .setUserEmailSharedPreferences(userModel.email);
-    await SharedPreferencesService().setUserIdSharedPreferences(userModel.id);
-    await SharedPreferencesService().setCurrentsUser();
-    return true;
+        .setUserInfoSharedPreferences(jsonEncode(userModel.toJson()));
   }
 
   ///
@@ -195,20 +190,11 @@ class FirebaseService {
   Stream<DocumentSnapshot<Map<String, dynamic>>> getChatRoomStream() {
     return FirebaseFirestore.instance
         .collection(FirebaseConstants.userCollectionName)
-        .doc(CurrentUserData.currentUserId)
+        .doc(CurrentUserData.currentUser.id)
         .snapshots();
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getLastMessageStream() {
     return FirebaseFirestore.instance.collection('last_messages').snapshots();
-  }
-
-  Future<void> signOut() async {
-    FirebaseAuth.instance.signOut();
-    await SharedPreferencesService()
-        .setUserNameSharedPreferences('Default name');
-    await SharedPreferencesService()
-        .setUserEmailSharedPreferences('Default email');
-    await SharedPreferencesService().setUserIdSharedPreferences('Default id');
   }
 }

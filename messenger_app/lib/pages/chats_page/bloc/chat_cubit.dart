@@ -45,7 +45,7 @@ class ChatCubit extends Cubit<ChatState> {
     for (int i = 0; i < chatRoomList.length; i++) {
       String chatRoomId = chatRoomList[i];
       String anotherUserId = _getAnotherUser(
-          chatRoomId: chatRoomId, currentUserId: CurrentUserData.currentUserId);
+          chatRoomId: chatRoomId, currentUserId: CurrentUserData.currentUser.id);
 
       DocumentSnapshot<Map<String, dynamic>> anotherUser =
           await FirebaseService().getUserById(anotherUserId);

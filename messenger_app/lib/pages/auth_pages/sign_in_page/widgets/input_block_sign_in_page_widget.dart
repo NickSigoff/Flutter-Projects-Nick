@@ -6,6 +6,7 @@ import 'package:messenger_app/pages/auth_pages/bloc/auth_cubit.dart';
 import 'package:messenger_app/pages/auth_pages/sign_in_page/widgets/text_fields_input_form_sign_in.dart';
 import 'package:messenger_app/pages/auth_pages/sign_up_page/sign_up_page.dart';
 import 'package:messenger_app/pages/home_page/home_page.dart';
+import 'package:messenger_app/pages/splash_pages/sign_in_splash_page.dart';
 
 import 'package:messenger_app/utils/main_text_styles.dart';
 import 'package:messenger_app/utils/size_constants.dart';
@@ -50,7 +51,7 @@ class InputBlockSignInPage extends StatelessWidget {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const HomePage()));
+                          builder: (context) => const SplashSignInPage()));
                 }
                 if (state is AuthError) {
                   ScaffoldMessenger.of(context).showSnackBar(

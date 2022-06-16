@@ -6,6 +6,7 @@ import 'package:messenger_app/pages/chat_detail_page/bloc/chat_detail_cubit.dart
 import 'package:messenger_app/pages/chats_page/bloc/chat_cubit.dart';
 import 'package:messenger_app/pages/chats_page/bloc/last_message_cubit.dart';
 import 'package:messenger_app/pages/search_page/bloc/search_cubit.dart';
+import 'package:messenger_app/pages/splash_pages/bloc/set_current_user_cubit.dart';
 import 'package:messenger_app/pages/splash_pages/sign_in_splash_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,6 +24,7 @@ void main() async {
         BlocProvider(create: (_) => SearchCubit()),
         BlocProvider(create: (_) => ChatCubit()),
         BlocProvider(create: (_) => LastMessageCubit()),
+        BlocProvider(create: (_) => SetCurrentUserCubit()),
       ],
       child: const MaterialApp(
         home: SplashSignInPage(),
