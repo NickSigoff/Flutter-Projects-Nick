@@ -46,7 +46,8 @@ class AuthCubit extends Cubit<AuthState> {
         idToken: googleAuth?.idToken,
       );
       await FirebaseAuth.instance.signInWithCredential(credential);
-      emit(Authenticated());
+     await FirebaseService().processGoogleUserInfo();
+     emit(Authenticated());
     } catch (e) {
       emit(AuthError(errorMessage: e.toString()));
       await Future.delayed(const Duration(seconds: 2));

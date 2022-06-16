@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-import 'package:messenger_app/models/user_model.dart';
-import 'package:messenger_app/services/current_user_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {

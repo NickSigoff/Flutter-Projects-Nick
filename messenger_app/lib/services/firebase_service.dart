@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:messenger_app/models/chat_message_model.dart';
 import 'package:messenger_app/models/user_model.dart';
 import 'package:messenger_app/services/current_user_data.dart';
@@ -63,6 +64,39 @@ class FirebaseService {
 
     await SharedPreferencesService()
         .setUserInfoSharedPreferences(jsonEncode(userModel.toJson()));
+  }
+
+  ///
+  Future<void> processGoogleUserInfo() async {
+    String? token = await FirebaseMessaging.instance.getToken();
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final currentUser = FirebaseAuth.instance.currentUser;
+    if (googleUser == null || currentUser == null) {
+      throw Exception();
+    } else {
+      String userId = currentUser.uid;
+      final userDocument = FirebaseFirestore.instance
+          .collection(FirebaseConstants.userCollectionName)
+          .doc(userId);
+      UserModel userModel;
+      userDocument.get().then((docSnapshot) async {
+        if (docSnapshot.exists) {
+          userModel = UserModel.fromJson(docSnapshot.data()!);
+        } else {
+          userModel = UserModel(
+            name: googleUser.displayName ?? 'Google name',
+            email: googleUser.email,
+            id: userId,
+            token: token,
+            chatRoomList: [],
+          );
+          Map<String, dynamic> userToJson = userModel.toJson();
+          await userDocument.set(userToJson);
+        }
+        await SharedPreferencesService()
+            .setUserInfoSharedPreferences(jsonEncode(userModel.toJson()));
+      });
+    }
   }
 
   ///
@@ -194,6 +228,7 @@ class FirebaseService {
         .snapshots();
   }
 
+  ///
   Stream<QuerySnapshot<Map<String, dynamic>>> getLastMessageStream() {
     return FirebaseFirestore.instance.collection('last_messages').snapshots();
   }
