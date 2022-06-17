@@ -13,7 +13,7 @@ class SetCurrentUserCubit extends Cubit<SetCurrentUserState> {
   SetCurrentUserCubit() : super(UnidentifiedCurrentUser());
 
   Future<void> setCurrentUser() async {
-    await Future.delayed(const Duration(seconds: 2));
+    //await Future.delayed(const Duration(seconds: 2));
     try {
       emit(Loading());
       await SharedPreferencesService().getUserInfoSharedPreferences().then((json) {

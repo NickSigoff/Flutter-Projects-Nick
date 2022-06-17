@@ -179,6 +179,7 @@ class FirebaseService {
   Future<void> addMessage({
     required String chatRoomId,
     required ChatMessage chatMessage,
+    required String docName,
   }) async {
     ///push
     //print(chatRoomId);
@@ -200,7 +201,7 @@ class FirebaseService {
         .collection(FirebaseConstants.chatRoomName)
         .doc(chatRoomId)
         .collection('messages')
-        .doc()
+        .doc(docName)
         .set(chatMessage.toJson());
     await FirebaseFirestore.instance
         .collection('last_messages')
@@ -215,7 +216,6 @@ class FirebaseService {
         .collection(FirebaseConstants.chatRoomName)
         .doc(chatRoomId)
         .collection('messages')
-        .orderBy('messageTimeOrder')
         .snapshots();
   }
 

@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:messenger_app/models/chat_message_model.dart';
 import 'package:messenger_app/services/current_user_data.dart';
 import 'package:messenger_app/services/shared_preferences_service.dart';
+import 'package:messenger_app/utils/firebase_constants.dart';
 import 'package:meta/meta.dart';
 
 import '../../../services/firebase_service.dart';
@@ -52,13 +53,20 @@ class ChatDetailCubit extends Cubit<ChatDetailState> {
     String formattedDate = DateFormat('kk:mm').format(now);
 
     ChatMessage chatMessage = ChatMessage(
-        messageTimeOrder: now.millisecondsSinceEpoch.toString(),
         messageTime: formattedDate,
         messageContent: message,
         messageSender: CurrentUserData.currentUser.name);
 
-    await FirebaseService()
-        .addMessage(chatMessage: chatMessage, chatRoomId: chatRoomId);
+    var messagesSnapshot = await FirebaseFirestore.instance
+        .collection(FirebaseConstants.chatRoomName)
+        .doc(chatRoomId)
+        .collection('messages')
+        .get();
+
+    await FirebaseService().addMessage(
+        chatMessage: chatMessage,
+        chatRoomId: chatRoomId,
+        docName: messagesSnapshot.docs.length.toString());
   }
 
   ///
