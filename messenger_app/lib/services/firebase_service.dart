@@ -79,23 +79,22 @@ class FirebaseService {
           .collection(FirebaseConstants.userCollectionName)
           .doc(userId);
       UserModel userModel;
-      userDocument.get().then((docSnapshot) async {
-        if (docSnapshot.exists) {
-          userModel = UserModel.fromJson(docSnapshot.data()!);
-        } else {
-          userModel = UserModel(
-            name: googleUser.displayName ?? 'Google name',
-            email: googleUser.email,
-            id: userId,
-            token: token,
-            chatRoomList: [],
-          );
-          Map<String, dynamic> userToJson = userModel.toJson();
-          await userDocument.set(userToJson);
-        }
-        await SharedPreferencesService()
-            .setUserInfoSharedPreferences(jsonEncode(userModel.toJson()));
-      });
+      var docSnapshot = await userDocument.get();
+      if (docSnapshot.exists) {
+        userModel = UserModel.fromJson(docSnapshot.data()!);
+      } else {
+        userModel = UserModel(
+          name: googleUser.displayName ?? 'Google name',
+          email: googleUser.email,
+          id: userId,
+          token: token,
+          chatRoomList: [],
+        );
+      }
+      Map<String, dynamic> userToJson = userModel.toJson();
+      await userDocument.set(userToJson);
+      await SharedPreferencesService()
+          .setUserInfoSharedPreferences(jsonEncode(userModel.toJson()));
     }
   }
 

@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:messenger_app/models/chat_message_model.dart';
 import 'package:messenger_app/services/firebase_service.dart';
 import 'package:meta/meta.dart';
 

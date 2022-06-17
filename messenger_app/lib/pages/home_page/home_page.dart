@@ -8,7 +8,6 @@ import 'package:messenger_app/pages/settings_page/settings_page.dart';
 import 'package:messenger_app/utils/image_constants.dart';
 import 'package:messenger_app/utils/main_text_styles.dart';
 
-import '../../services/current_user_data.dart';
 import '../../utils/main_colors.dart';
 
 class HomePage extends StatelessWidget {

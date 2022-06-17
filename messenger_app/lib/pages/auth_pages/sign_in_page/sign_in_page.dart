@@ -10,6 +10,7 @@ class SignInPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('sign in');
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: MainColors.lightBlue,

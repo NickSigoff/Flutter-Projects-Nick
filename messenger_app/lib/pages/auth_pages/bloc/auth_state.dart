@@ -7,7 +7,7 @@ class Authenticated extends AuthState {}
 
 class UnAuthenticated extends AuthState {}
 
-class Loading extends AuthState {}
+class LoadingAuth extends AuthState {}
 
 class AuthError extends AuthState {
   final String errorMessage;

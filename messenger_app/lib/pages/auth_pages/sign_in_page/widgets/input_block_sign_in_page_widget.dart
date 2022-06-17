@@ -106,13 +106,13 @@ class InputBlockSignInPage extends StatelessWidget {
         width: double.infinity,
         text: state is AuthError ? 'Something wrong. Try again' : 'Sign in',
         onTap: () {
-          state is Loading?
+          state is LoadingAuth?
               ? {}
               : context.read<AuthCubit>().emailPasswordSignIn(
                   email: emailController.text.trim(),
                   password: passwordController.text.trim());
         },
-        child: state is Loading
+        child: state is LoadingAuth
             ? const Center(child: CircularProgressIndicator())
             : null);
   }

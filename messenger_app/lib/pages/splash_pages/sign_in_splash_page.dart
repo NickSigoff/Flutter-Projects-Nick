@@ -21,8 +21,7 @@ class SplashSignInPage extends StatelessWidget {
           } else if (snapshot.hasError) {
             return const WaitingPage(text: 'Something went wrong');
           } else if (snapshot.hasData) {
-            print(2);
-            context.read<SetCurrentUserCubit>().setCurrentsUser();
+            context.read<SetCurrentUserCubit>().setCurrentUser();
             return BlocConsumer<SetCurrentUserCubit, SetCurrentUserState>(
                 listener: (context, state) {
               if (state is UnidentifiedCurrentUser) {

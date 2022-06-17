@@ -15,7 +15,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> emailPasswordSignIn(
       {required String email, required String password}) async {
     try {
-      emit(Loading());
+      emit(LoadingAuth());
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       await FirebaseService().downloadUserInfo();
@@ -35,7 +35,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> googleSignIn() async {
     try {
-      emit(Loading());
+      emit(LoadingAuth());
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       final GoogleSignInAuthentication? googleAuth =
@@ -46,8 +46,8 @@ class AuthCubit extends Cubit<AuthState> {
         idToken: googleAuth?.idToken,
       );
       await FirebaseAuth.instance.signInWithCredential(credential);
-     await FirebaseService().processGoogleUserInfo();
-     emit(Authenticated());
+      await FirebaseService().processGoogleUserInfo();
+      emit(Authenticated());
     } catch (e) {
       emit(AuthError(errorMessage: e.toString()));
       await Future.delayed(const Duration(seconds: 2));
@@ -61,7 +61,7 @@ class AuthCubit extends Cubit<AuthState> {
     required String name,
   }) async {
     try {
-      emit(Loading());
+      emit(LoadingAuth());
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       await FirebaseService().uploadUserInfo(name: name, email: email);
@@ -86,7 +86,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   Future<void> signOut() async {
     try {
-      emit(Loading());
+      emit(LoadingAuth());
       await FirebaseAuth.instance.signOut();
       emit(UnAuthenticated());
     } catch (e) {

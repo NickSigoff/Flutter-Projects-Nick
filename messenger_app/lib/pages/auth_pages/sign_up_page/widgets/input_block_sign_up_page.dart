@@ -58,7 +58,7 @@ class InputBlockSignUpPage extends StatelessWidget {
                 width: double.infinity,
                 text: 'Sign up',
                 onTap: () {
-                  state is Loading
+                  state is LoadingAuth
                       ? {}
                       : context.read<AuthCubit>().emailPasswordSignUp(
                             name: nameController.text.trim(),
@@ -66,7 +66,7 @@ class InputBlockSignUpPage extends StatelessWidget {
                             password: passwordController.text.trim(),
                           );
                 },
-                child: state is Loading
+                child: state is LoadingAuth
                     ? const Center(child: CircularProgressIndicator())
                     : null,
               );
