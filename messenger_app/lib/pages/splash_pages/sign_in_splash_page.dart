@@ -28,10 +28,14 @@ class SplashSignInPage extends StatelessWidget {
                 Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const SignInPage()));
+                        builder: (context) => const SplashSignInPage()));
               } else if (state is Error) {
                 ScaffoldMessenger.of(context)
                     .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignInPage()));
               }
             }, builder: (context, state) {
               return state is IdentifiedCurrentUser
