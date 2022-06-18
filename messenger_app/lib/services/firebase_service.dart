@@ -7,6 +7,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:messenger_app/models/chat_message_model.dart';
 import 'package:messenger_app/models/user_model.dart';
 import 'package:messenger_app/services/current_user_data.dart';
+import 'package:messenger_app/services/push_notification_service.dart';
 import 'package:messenger_app/services/shared_preferences_service.dart';
 import 'package:messenger_app/utils/firebase_constants.dart';
 
@@ -61,7 +62,6 @@ class FirebaseService {
         .get();
 
     UserModel userModel = UserModel.fromJson(userMap.data()!);
-
     await SharedPreferencesService()
         .setUserInfoSharedPreferences(jsonEncode(userModel.toJson()));
   }
@@ -181,22 +181,10 @@ class FirebaseService {
     required ChatMessage chatMessage,
     required String docName,
   }) async {
-    ///push
-    //print(chatRoomId);
-    // List<String> users = chatRoomId.split('_');
-    // String anotherUserId =
-    // users[0].compareTo(CurrentUserData.currentUserId) == 0
-    //     ? users[1]
-    //     : users[0];
-    // DocumentSnapshot<Map<String, dynamic>> anotherUser =
-    // await FirebaseService().getUserById(anotherUserId);
-    // String anotherUserToken = anotherUser.get('token');
-    //print(anotherUserToken);
-    // FirebaseMessaging.instance.sendMessage(
-    //   to: anotherUserToken,
-    //   data:{},
-    // );
-    ///push
+    await pushNotification(
+        chatRoomId: chatRoomId, message: chatMessage.messageContent);
+
+
     await FirebaseFirestore.instance
         .collection(FirebaseConstants.chatRoomName)
         .doc(chatRoomId)
@@ -207,6 +195,23 @@ class FirebaseService {
         .collection('last_messages')
         .doc(chatRoomId)
         .set(chatMessage.toJson());
+  }
+
+  ///
+  Future<void> pushNotification(
+      {required String chatRoomId, required String message}) async {
+    List<String> users = chatRoomId.split('_');
+    String anotherUserId =
+    users[0].compareTo(CurrentUserData.currentUser.id) == 0
+        ? users[1]
+        : users[0];
+    DocumentSnapshot<Map<String, dynamic>> anotherUser =
+    await FirebaseService().getUserById(anotherUserId);
+    String anotherUserToken = anotherUser.get('token');
+    await PushNotificationService().push(
+        to: anotherUserToken,
+        title: 'Message from ${CurrentUserData.currentUser.name}',
+        body: message);
   }
 
   ///
