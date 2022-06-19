@@ -38,7 +38,7 @@ class NavigationStatusWidget extends StatelessWidget {
       height: 10,
       width: width,
       decoration: BoxDecoration(
-        color: width > 10 ? Colors.white : MainColors.lightGrey,
+        color: width > 10 ? MainColors.white : MainColors.lightGrey,
         borderRadius: BorderRadius.circular(10),
       ),
     );

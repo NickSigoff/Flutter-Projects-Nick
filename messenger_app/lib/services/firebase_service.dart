@@ -179,17 +179,15 @@ class FirebaseService {
   Future<void> addMessage({
     required String chatRoomId,
     required ChatMessage chatMessage,
-    required String docName,
   }) async {
     await pushNotification(
         chatRoomId: chatRoomId, message: chatMessage.messageContent);
-
 
     await FirebaseFirestore.instance
         .collection(FirebaseConstants.chatRoomName)
         .doc(chatRoomId)
         .collection('messages')
-        .doc(docName)
+        .doc()
         .set(chatMessage.toJson());
     await FirebaseFirestore.instance
         .collection('last_messages')
@@ -202,11 +200,11 @@ class FirebaseService {
       {required String chatRoomId, required String message}) async {
     List<String> users = chatRoomId.split('_');
     String anotherUserId =
-    users[0].compareTo(CurrentUserData.currentUser.id) == 0
-        ? users[1]
-        : users[0];
+        users[0].compareTo(CurrentUserData.currentUser.id) == 0
+            ? users[1]
+            : users[0];
     DocumentSnapshot<Map<String, dynamic>> anotherUser =
-    await FirebaseService().getUserById(anotherUserId);
+        await FirebaseService().getUserById(anotherUserId);
     String anotherUserToken = anotherUser.get('token');
     await PushNotificationService().push(
         to: anotherUserToken,
@@ -221,6 +219,7 @@ class FirebaseService {
         .collection(FirebaseConstants.chatRoomName)
         .doc(chatRoomId)
         .collection('messages')
+        .orderBy('order')
         .snapshots();
   }
 

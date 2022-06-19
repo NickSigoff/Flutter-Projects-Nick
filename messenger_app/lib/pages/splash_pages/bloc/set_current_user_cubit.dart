@@ -1,6 +1,9 @@
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:messenger_app/utils/firebase_constants.dart';
 import 'package:meta/meta.dart';
 
 import '../../../models/user_model.dart';
@@ -13,8 +16,9 @@ class SetCurrentUserCubit extends Cubit<SetCurrentUserState> {
   SetCurrentUserCubit() : super(UnidentifiedCurrentUser());
 
   Future<void> setCurrentUser() async {
+    emit(Loading());
+    String? newToken = await FirebaseMessaging.instance.getToken();
     try {
-      emit(Loading());
       await SharedPreferencesService()
           .getUserInfoSharedPreferences()
           .then((json) {
@@ -22,7 +26,16 @@ class SetCurrentUserCubit extends Cubit<SetCurrentUserState> {
           emit(UnidentifiedCurrentUser());
         } else {
           UserModel userModel = UserModel.fromJson(jsonDecode(json));
-          CurrentUserData.currentUser = userModel;
+          if (userModel.token == newToken) {
+            CurrentUserData.currentUser = userModel;
+          } else {
+            UserModel userWithNewToken = userModel.copyWith(token: newToken);
+            CurrentUserData.currentUser = userWithNewToken;
+            FirebaseFirestore.instance
+                .collection(FirebaseConstants.userCollectionName)
+                .doc(userWithNewToken.id)
+                .set(userWithNewToken.toJson());
+          }
           emit(IdentifiedCurrentUser());
         }
       });

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../utils/main_colors.dart';
+
 class BackgroundWidget extends StatelessWidget {
   final double minClipperHeight;
   final double maxClipperHeight;
@@ -18,7 +20,7 @@ class BackgroundWidget extends StatelessWidget {
         max: maxClipperHeight,
       ),
       child: Container(
-        color: Colors.white,
+        color: MainColors.white,
       ),
     );
   }

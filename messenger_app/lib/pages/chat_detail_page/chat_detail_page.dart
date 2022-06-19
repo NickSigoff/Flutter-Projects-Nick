@@ -65,7 +65,7 @@ class ChatDetailsPage extends StatelessWidget {
                 },
                 icon: const Icon(
                   Icons.arrow_back,
-                  color: Colors.black,
+                  color: MainColors.black,
                 ),
               ),
               const CircleAvatar(

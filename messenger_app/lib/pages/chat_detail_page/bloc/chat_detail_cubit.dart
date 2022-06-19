@@ -52,21 +52,22 @@ class ChatDetailCubit extends Cubit<ChatDetailState> {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('kk:mm').format(now);
 
-    ChatMessage chatMessage = ChatMessage(
-        messageTime: formattedDate,
-        messageContent: message,
-        messageSender: CurrentUserData.currentUser.name);
-
     var messagesSnapshot = await FirebaseFirestore.instance
         .collection(FirebaseConstants.chatRoomName)
         .doc(chatRoomId)
         .collection('messages')
         .get();
 
+    ChatMessage chatMessage = ChatMessage(
+        messageTime: formattedDate,
+        messageContent: message,
+        messageSender: CurrentUserData.currentUser.name,
+        order: messagesSnapshot.docs.length);
+
     await FirebaseService().addMessage(
-        chatMessage: chatMessage,
-        chatRoomId: chatRoomId,
-        docName: messagesSnapshot.docs.length.toString());
+      chatMessage: chatMessage,
+      chatRoomId: chatRoomId,
+    );
   }
 
   ///

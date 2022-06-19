@@ -22,4 +22,17 @@ class UserModel {
       _$UserModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$UserModelToJson(this);
+
+  UserModel copyWith(
+          {String? name,
+          String? email,
+          String? id,
+          String? token,
+          List<String>? chatRoomList}) =>
+      UserModel(
+          name: name ?? this.name,
+          email: email ?? this.email,
+          id: id ?? this.id,
+          token: token ?? this.token,
+          chatRoomList: chatRoomList ?? this.chatRoomList);
 }

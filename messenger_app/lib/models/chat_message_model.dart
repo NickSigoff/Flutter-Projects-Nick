@@ -7,11 +7,13 @@ class ChatMessage {
   String messageContent;
   String messageSender;
   String messageTime;
+  int order;
 
   ChatMessage({
     required this.messageTime,
     required this.messageContent,
     required this.messageSender,
+    required this.order,
   });
 
   factory ChatMessage.fromJson(Map<String, dynamic> json) =>
