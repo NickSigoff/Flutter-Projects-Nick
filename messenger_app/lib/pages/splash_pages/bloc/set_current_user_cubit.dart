@@ -13,15 +13,13 @@ import '../../../services/shared_preferences_service.dart';
 part 'set_current_user_state.dart';
 
 class SetCurrentUserCubit extends Cubit<SetCurrentUserState> {
-  SetCurrentUserCubit() : super(UnidentifiedCurrentUser());
+  SetCurrentUserCubit() : super(Loading());
 
   Future<void> setCurrentUser() async {
     emit(Loading());
-    String? newToken = await FirebaseMessaging.instance.getToken();
     try {
-      await SharedPreferencesService()
-          .getUserInfoSharedPreferences()
-          .then((json) {
+      String? newToken = await FirebaseMessaging.instance.getToken();
+      SharedPreferencesService().getUserInfoSharedPreferences().then((json) {
         if (json == null) {
           emit(UnidentifiedCurrentUser());
         } else {

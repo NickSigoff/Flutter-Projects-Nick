@@ -24,19 +24,23 @@ class SplashSignInPage extends StatelessWidget {
             context.read<SetCurrentUserCubit>().setCurrentUser();
             return BlocConsumer<SetCurrentUserCubit, SetCurrentUserState>(
                 listener: (context, state) async {
-                 if (state is Error) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(
-                        SnackBar(content: Text(state.errorMessage)));
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const SignInPage()));
-                  }
-                }, builder: (context, state) {
+              if (state is Error) {
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignInPage()));
+              } else if (state is UnidentifiedCurrentUser) {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignInPage()));
+              }
+            }, builder: (context, state) {
               return state is IdentifiedCurrentUser
                   ? const HomePage()
-                  : const WaitingPage();
+                  : const WaitingPage(text: 'Loading');
             });
           } else {
             return const SignInPage();
