@@ -25,6 +25,10 @@ flutter:
 
   assets:
     - assets/images/bank_welcome_image.png
+    - assets/images/bank_logo.png
+    - assets/images/twitter_bird.png
+    - assets/images/facebook_logo.png
+    - assets/images/google_logo.png
 
   fonts:
     - family: Orbitron

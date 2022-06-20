@@ -16,7 +16,7 @@ class WelcomePage extends StatelessWidget {
         child: Column(
           children: [
             const Spacer(),
-            _buildBankLogo(),
+            _buildLogoWidget(),
             const Spacer(),
             _buildLogInButton(onTap: () {}),
             const SizedBox(height: 40.0),
@@ -35,7 +35,7 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildBankLogo() {
+  Widget _buildLogoWidget() {
     return Container(
       height: 300.0,
       width: 300.0,
