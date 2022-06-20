@@ -1,11 +1,13 @@
-import 'package:flutter/material.dart';
-import 'package:mobil_banking_app/pages/sign_in_page/widgets/input_block_sign_in_page.dart';
-import 'package:mobil_banking_app/pages/sign_in_page/widgets/social_sign_in_widget.dart';
-import 'package:mobil_banking_app/utils/main_colors.dart';
-import 'package:mobil_banking_app/utils/main_text_styles.dart';
 
-class SignInPage extends StatelessWidget {
-  const SignInPage({Key? key}) : super(key: key);
+
+import 'package:flutter/material.dart';
+import 'package:mobil_banking_app/pages/sign_up_page/widgets/input_block_sign_up_page.dart';
+
+import '../../utils/main_colors.dart';
+import '../../utils/main_text_styles.dart';
+
+class SignUpPage extends StatelessWidget {
+  const SignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,18 +20,16 @@ class SignInPage extends StatelessWidget {
           child: Column(children: [
             _buildLogoWidget(),
             const Spacer(),
-            const InputBlockSignInPage(),
+            const InputBlockSignUpPage(),
             const Spacer(),
-            const SocialSignInWidget(),
-            const SizedBox(height: 40),
             RichText(
               text: TextSpan(
-                  text: 'Don\'t have an account?',
+                  text: 'Already have an account?',
                   style: MainTextStyles.regularTextHint
                       .copyWith(color: MainColors.commonBlack),
                   children: const [
                     TextSpan(
-                        text: ' Sign up',
+                        text: ' Sign in',
                         style: MainTextStyles.regularTextHint),
                   ]),
             ),
@@ -51,3 +51,4 @@ class SignInPage extends StatelessWidget {
     );
   }
 }
+

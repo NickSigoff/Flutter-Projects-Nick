@@ -1,18 +1,41 @@
 import 'package:flutter/material.dart';
-import 'package:mobil_banking_app/utils/main_text_styles.dart';
 
 import '../../../utils/main_borders.dart';
 import '../../../utils/main_colors.dart';
-import 'input_block_sign_in_page.dart';
+import '../../../utils/main_text_styles.dart';
+import 'input_block_sign_up_page.dart';
 
-class TextFieldsSignInPage extends StatelessWidget {
-  const TextFieldsSignInPage({Key? key}) : super(key: key);
+class TextFieldsSignUpPage extends StatelessWidget {
+  const TextFieldsSignUpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          child: Text(
+            'Name',
+            textAlign: TextAlign.start,
+            style: MainTextStyles.regularTextHint
+                .copyWith(color: MainColors.commonBlack),
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+            color: MainColors.extraLightGrey,
+            borderRadius: BorderRadius.circular(6.0),
+          ),
+          child: TextField(
+            decoration: const InputDecoration(
+              focusedBorder: MainBorders.outlineInputBorderFocused,
+              enabledBorder: MainBorders.outlineInputBorder,
+              border: InputBorder.none,
+            ),
+            controller: InputBlockSignUpPage.nameController,
+          ),
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0),
           child: Text(
@@ -33,7 +56,7 @@ class TextFieldsSignInPage extends StatelessWidget {
               enabledBorder: MainBorders.outlineInputBorder,
               border: InputBorder.none,
             ),
-            controller: InputBlockSignInPage.emailController,
+            controller: InputBlockSignUpPage.emailController,
             keyboardType: TextInputType.emailAddress,
           ),
         ),
@@ -50,7 +73,7 @@ class TextFieldsSignInPage extends StatelessWidget {
           ),
           child: TextField(
             //obscureText: !isVisiblePasswordState,
-            controller: InputBlockSignInPage.passwordController,
+            controller: InputBlockSignUpPage.passwordController,
             keyboardType: TextInputType.text,
             decoration: InputDecoration(
               border: InputBorder.none,
