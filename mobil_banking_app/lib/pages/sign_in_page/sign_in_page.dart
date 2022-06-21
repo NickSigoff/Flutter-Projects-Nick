@@ -1,8 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mobil_banking_app/pages/sign_in_page/widgets/input_block_sign_in_page.dart';
 import 'package:mobil_banking_app/pages/sign_in_page/widgets/social_sign_in_widget.dart';
 import 'package:mobil_banking_app/utils/main_colors.dart';
 import 'package:mobil_banking_app/utils/main_text_styles.dart';
+
+import '../sign_up_page/sign_up_page.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({Key? key}) : super(key: key);
@@ -27,9 +30,16 @@ class SignInPage extends StatelessWidget {
                   text: 'Don\'t have an account?',
                   style: MainTextStyles.regularTextHint
                       .copyWith(color: MainColors.commonBlack),
-                  children: const [
+                  children: [
                     TextSpan(
                         text: ' Sign up',
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = (() {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SignUpPage()));
+                          }),
                         style: MainTextStyles.regularTextHint),
                   ]),
             ),

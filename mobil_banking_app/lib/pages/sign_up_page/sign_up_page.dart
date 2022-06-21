@@ -1,6 +1,6 @@
-
-
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:mobil_banking_app/pages/sign_in_page/sign_in_page.dart';
 import 'package:mobil_banking_app/pages/sign_up_page/widgets/input_block_sign_up_page.dart';
 
 import '../../utils/main_colors.dart';
@@ -27,9 +27,16 @@ class SignUpPage extends StatelessWidget {
                   text: 'Already have an account?',
                   style: MainTextStyles.regularTextHint
                       .copyWith(color: MainColors.commonBlack),
-                  children: const [
+                  children: [
                     TextSpan(
                         text: ' Sign in',
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = (() {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SignInPage()));
+                          }),
                         style: MainTextStyles.regularTextHint),
                   ]),
             ),
@@ -51,4 +58,3 @@ class SignUpPage extends StatelessWidget {
     );
   }
 }
-

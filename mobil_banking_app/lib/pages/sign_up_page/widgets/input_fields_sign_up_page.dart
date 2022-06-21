@@ -14,7 +14,7 @@ class TextFieldsSignUpPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: Text(
             'Name',
             textAlign: TextAlign.start,
@@ -37,7 +37,7 @@ class TextFieldsSignUpPage extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8.0),
+          padding: const EdgeInsets.symmetric(vertical: 16.0),
           child: Text(
             'Email',
             textAlign: TextAlign.start,
