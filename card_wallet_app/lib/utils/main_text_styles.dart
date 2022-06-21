@@ -22,4 +22,10 @@ abstract class MainTextStyles {
     color: MainColors.lightGrey,
     fontSize: 16.0,
   );
+
+  static const TextStyle profileTextStyle = TextStyle(
+    fontFamily: 'Raleway',
+    fontWeight: FontWeight.w600,
+    fontSize: 16.0,
+  );
 }

@@ -96,8 +96,9 @@ class NavigationBarItem extends StatelessWidget {
           context.read<CurrentPageBloc>().add(OnPressEvent(index));
         },
         child: Icon(iconData,
-            color:
-                state == index ? MainColors.commonWhite : MainColors.backgroundDarkGradient),
+            color: state == index
+                ? MainColors.commonWhite
+                : MainColors.backgroundDarkGradient),
       ),
     );
   }

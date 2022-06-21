@@ -28,6 +28,7 @@ flutter:
 
   assets:
     - assets/images/card_logo.png
+    - assets/images/avatar.jpg
 
   fonts:
     - family: Orbitron
