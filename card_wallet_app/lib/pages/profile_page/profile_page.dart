@@ -28,7 +28,8 @@ class ProfilePage extends StatelessWidget {
             top: 80.0,
             child: Container(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 56.0),
+                  const EdgeInsets.fromLTRB(16.0, 48.0, 16.0, 16.0),
+              height: height * 0.7,
               width: width - 32.0,
               decoration: BoxDecoration(
                 border: Border.all(width: 1.0, color: MainColors.lightGrey),
@@ -38,7 +39,6 @@ class ProfilePage extends StatelessWidget {
                     Colors.white.withAlpha(50),
                     Colors.white.withAlpha(15),
                   ],
-                  //stops: [0.2, 1.0],
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                 ),
@@ -46,44 +46,15 @@ class ProfilePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RichText(
-                      text: const TextSpan(
-                          text: 'Name:\n',
-                          style: MainTextStyles.profileTextStyle,
-                          children: [TextSpan(text: 'William Smith')])),
-                  const SizedBox(height: 20.0),
-                  RichText(
-                      text: const TextSpan(
-                          text: 'Email:\n',
-                          style: MainTextStyles.profileTextStyle,
-                          children: [TextSpan(text: 'email@gmail.com')])),
-                  const SizedBox(height: 20.0),
-                  RichText(
-                      text: const TextSpan(
-                          text: 'Contact Number:\n',
-                          style: MainTextStyles.profileTextStyle,
-                          children: [TextSpan(text: '+16 6540 789 890')])),
-                  const SizedBox(height: 20.0),
-                  RichText(
-                      text: const TextSpan(
-                          text: 'DOB:\n',
-                          style: MainTextStyles.profileTextStyle,
-                          children: [TextSpan(text: '23 February 1900')])),
-                  const SizedBox(height: 20.0),
-                  RichText(
-                      text: const TextSpan(
-                          text: 'Gender:\n',
-                          style: MainTextStyles.profileTextStyle,
-                          children: [TextSpan(text: 'Male')])),
-                  const SizedBox(height: 20.0),
-                  RichText(
-                      text: const TextSpan(
-                          text: 'Location:\n',
-                          style: MainTextStyles.profileTextStyle,
-                          children: [TextSpan(text: 'London')])),
                   const Divider(
                     color: MainColors.lightGrey,
-                    height: 60.0,
+                    height: 40.0,
+                    thickness: 1.0,
+                  ),
+                  _buildInfoWidget(context),
+                  const Divider(
+                    color: MainColors.lightGrey,
+                    height: 40.0,
                     thickness: 1.0,
                   ),
                   _buildEditProfileButton(),
@@ -105,6 +76,51 @@ class ProfilePage extends StatelessWidget {
                   borderRadius: BorderRadius.circular(50.0)),
             ),
           )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildInfoWidget(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.4,
+      child: ListView(
+        children: [
+          RichText(
+              text: const TextSpan(
+                  text: 'Name:\n',
+                  style: MainTextStyles.profileTextStyle,
+                  children: [TextSpan(text: 'William Smith')])),
+          const SizedBox(height: 20.0),
+          RichText(
+              text: const TextSpan(
+                  text: 'Email:\n',
+                  style: MainTextStyles.profileTextStyle,
+                  children: [TextSpan(text: 'email@gmail.com')])),
+          const SizedBox(height: 20.0),
+          RichText(
+              text: const TextSpan(
+                  text: 'Contact Number:\n',
+                  style: MainTextStyles.profileTextStyle,
+                  children: [TextSpan(text: '+16 6540 789 890')])),
+          const SizedBox(height: 20.0),
+          RichText(
+              text: const TextSpan(
+                  text: 'DOB:\n',
+                  style: MainTextStyles.profileTextStyle,
+                  children: [TextSpan(text: '23 February 1900')])),
+          const SizedBox(height: 20.0),
+          RichText(
+              text: const TextSpan(
+                  text: 'Gender:\n',
+                  style: MainTextStyles.profileTextStyle,
+                  children: [TextSpan(text: 'Male')])),
+          const SizedBox(height: 20.0),
+          RichText(
+              text: const TextSpan(
+                  text: 'Location:\n',
+                  style: MainTextStyles.profileTextStyle,
+                  children: [TextSpan(text: 'London')])),
         ],
       ),
     );

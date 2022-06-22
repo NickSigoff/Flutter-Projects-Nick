@@ -10,6 +10,13 @@ abstract class MainTextStyles {
     fontSize: 24.0,
   );
 
+  static const TextStyle cardInscription = TextStyle(
+    color: MainColors.commonWhite,
+    fontFamily: 'Raleway',
+    fontWeight: FontWeight.w800,
+    fontSize: 24.0,
+  );
+
   static const TextStyle regularButtonText = TextStyle(
     fontFamily: 'Raleway',
     fontWeight: FontWeight.w400,
