@@ -11,6 +11,7 @@ abstract class MainColors {
 
   static const Color backgroundLineLightGradient = Color(0xffa8a3a3);
   static const Color backgroundLineDarkGradient = Color(0x10090320);
+  static Color textShadow = const Color(0x00000000).withAlpha(50);
 
   static const Color buttonLightGradient = Color(0xffffda15);
   static const Color buttonDarkGradient = Color(0xff179ac3);

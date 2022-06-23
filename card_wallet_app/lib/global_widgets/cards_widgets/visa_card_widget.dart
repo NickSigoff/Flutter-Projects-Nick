@@ -1,13 +1,13 @@
-import 'package:card_wallet_app/utils/main_colors.dart';
-import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/card_model.dart';
+import '../../utils/main_colors.dart';
+import '../../utils/main_text_styles.dart';
 
-class MasterCardWidget extends StatelessWidget {
+class VisaCardWidget extends StatelessWidget {
   final CardModel cardModel;
 
-  const MasterCardWidget({required this.cardModel, Key? key}) : super(key: key);
+  const VisaCardWidget({required this.cardModel, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +21,12 @@ class MasterCardWidget extends StatelessWidget {
         children: [
           _buildBackgroundCard(),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    const Spacer(),
-                    Image.asset('assets/images/mastercard_logo.png'),
-                  ],
-                ),
+                Image.asset('assets/images/visa_logo.png'),
                 Row(
                   children: [
                     const Expanded(
@@ -62,8 +57,11 @@ class MasterCardWidget extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Text('Balance', style: MainTextStyles.cardInscription),
-                    const SizedBox(width: 16.0),
+                    Text(
+                      'Balance',
+                      style: MainTextStyles.cardInscription,
+                    ),
+                    const Spacer(),
                     Text(
                       '\$ ${cardModel.balance}',
                       style: MainTextStyles.cardInscription
@@ -108,12 +106,12 @@ class BackgroundClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     Path path = Path()
-      ..moveTo(size.width * 0.65, size.height)
-      ..conicTo(size.width * 0.55, size.height * 0.3, size.width,
-          size.height * 0.5, 0.6)
-      ..lineTo(size.width, size.height - 18)
-      ..quadraticBezierTo(
-          size.width, size.height, size.width - 18, size.height);
+      ..moveTo(0, size.height * 0.7)
+      ..lineTo(0, size.height - 18)
+      ..quadraticBezierTo(0, size.height, 18, size.height)
+      ..lineTo(size.width - 18, size.height)
+      ..quadraticBezierTo(size.width, size.height, size.width, size.height - 18)
+      ..lineTo(size.width, size.height * 0.7);
 
     return path;
   }

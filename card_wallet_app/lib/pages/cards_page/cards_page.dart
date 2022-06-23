@@ -1,4 +1,6 @@
 import 'package:card_wallet_app/model/card_model.dart';
+import 'package:card_wallet_app/pages/add_card_page/add_card_page.dart';
+import 'package:card_wallet_app/utils/card_enum.dart';
 
 import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +40,9 @@ class CardsPage extends StatelessWidget {
             title: const Text('Cards', style: MainTextStyles.largeText),
             actions: [
               IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.add_circle_outline))
+                  onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context) => AddCardPage())),
+                  icon: const Icon(Icons.add_circle_outline))
             ],
           ),
           SliverGrid(
@@ -49,14 +53,21 @@ class CardsPage extends StatelessWidget {
               childAspectRatio: 3 / 2,
             ),
             delegate: SliverChildBuilderDelegate(
-                  (context, index) {
+              (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    //CardModel cardModel = CardModel(color: colors[index]);
-                    // Navigator.of(context).push(
-                    //     MaterialPageRoute(
-                    //         builder: (context) =>
-                    //             DetailCard(cardModel: cardModel)));
+                    CardModel cardModel = CardModel(
+                      lastFourNumber: '0 4 0 5',
+                      validity: '04/25',
+                      color: colors[index],
+                      balance: 1000,
+                      cardOwner: 'Frank Franklin',
+                      cardType:
+                          index.isEven ? CardType.masterCard : CardType.visa,
+                    );
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            DetailCard(cardModel: cardModel)));
                   },
                   child: Card(
                     color: colors[index],

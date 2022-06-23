@@ -10,11 +10,25 @@ abstract class MainTextStyles {
     fontSize: 24.0,
   );
 
-  static const TextStyle cardInscription = TextStyle(
-    color: MainColors.commonWhite,
+  static TextStyle cardInscription = TextStyle(
+    shadows: [
+      Shadow(
+        offset: const Offset(1.0, 4.0),
+        blurRadius: 5.0,
+        color: MainColors.textShadow,
+      ),
+    ],
+    color: MainColors.commonWhite.withAlpha(90),
     fontFamily: 'Raleway',
     fontWeight: FontWeight.w800,
     fontSize: 24.0,
+  );
+
+  static const TextStyle cardNumber = TextStyle(
+    color: MainColors.commonWhite,
+    fontFamily: 'Orbitron',
+    fontWeight: FontWeight.w400,
+    fontSize: 18.0,
   );
 
   static const TextStyle regularButtonText = TextStyle(
