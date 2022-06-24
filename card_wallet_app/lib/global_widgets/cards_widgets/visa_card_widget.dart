@@ -31,7 +31,8 @@ class VisaCardWidget extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        cardModel.cardNumber,
+                        _getCardNumber(cardModel.cardNumber),
+                        textAlign: TextAlign.center,
                         style: MainTextStyles.cardNumber,
                       ),
                     ),
@@ -79,6 +80,18 @@ class VisaCardWidget extends StatelessWidget {
         color: Colors.white.withOpacity(0.4),
       ),
     );
+  }
+
+  String _getCardNumber(String cardNumber) {
+    String result = '';
+    for (int i = 0; i < cardNumber.length; i++) {
+      if (i != 0 && i % 4 == 0) {
+        result = '$result   ${cardNumber[i]}';
+      } else {
+        result = '$result${cardNumber[i]}';
+      }
+    }
+    return result;
   }
 }
 

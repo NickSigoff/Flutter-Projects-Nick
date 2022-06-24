@@ -20,6 +20,6 @@ void main() {
       ],
       child: MaterialApp(
         key: Navigation.mainNavigation,
-        home: AddCardPage(),
+        home: SignInPage(),
       )));
 }

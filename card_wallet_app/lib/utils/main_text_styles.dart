@@ -10,6 +10,13 @@ abstract class MainTextStyles {
     fontSize: 24.0,
   );
 
+  static const TextStyle signInLargeText = TextStyle(
+    color: MainColors.commonWhite,
+    fontFamily: 'Orbitron',
+    fontWeight: FontWeight.w800,
+    fontSize: 35.0,
+  );
+
   static TextStyle cardInscription = TextStyle(
     shadows: [
       Shadow(
@@ -28,7 +35,7 @@ abstract class MainTextStyles {
     color: MainColors.commonWhite,
     fontFamily: 'Orbitron',
     fontWeight: FontWeight.w400,
-    fontSize: 18.0,
+    fontSize: 20.0,
   );
 
   static const TextStyle regularButtonText = TextStyle(

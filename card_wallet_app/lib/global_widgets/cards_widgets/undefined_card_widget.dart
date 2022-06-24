@@ -29,7 +29,8 @@ class UndefinedCardWidget extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    cardModel.cardNumber,
+                    _getCardNumber(cardModel.cardNumber),
+                    textAlign: TextAlign.center,
                     style: MainTextStyles.cardNumber,
                   ),
                 ),
@@ -66,5 +67,17 @@ class UndefinedCardWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _getCardNumber(String cardNumber) {
+    String result = '';
+    for (int i = 0; i < cardNumber.length; i++) {
+      if (i != 0 && i % 4 == 0) {
+        result = '$result   ${cardNumber[i]}';
+      } else {
+        result = '$result${cardNumber[i]}';
+      }
+    }
+    return result;
   }
 }

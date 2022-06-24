@@ -13,7 +13,7 @@ class CardModel {
 
   CardModel({
     this.cardType = CardType.undefinedCard,
-    this.cardNumber = '0 0 0 0  0 0 0 0  0 0 0 0  0 0 0 0',
+    this.cardNumber = '0000000000000000',
     this.color = MainColors.lightGrey,
     this.balance = 0,
     this.cardOwner = 'Default Name',

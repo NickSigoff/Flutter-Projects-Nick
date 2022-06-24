@@ -28,6 +28,7 @@ class MasterCardWidget extends StatelessWidget {
               children: [
                 Row(
                   children: [
+                    const Text('MasterCard', style: MainTextStyles.largeText),
                     const Spacer(),
                     Image.asset('assets/images/mastercard_logo.png'),
                   ],
@@ -36,7 +37,8 @@ class MasterCardWidget extends StatelessWidget {
                   children: [
                     Expanded(
                       child: Text(
-                        cardModel.cardNumber,
+                        _getCardNumber(cardModel.cardNumber),
+                        textAlign: TextAlign.center,
                         style: MainTextStyles.cardNumber,
                       ),
                     ),
@@ -81,6 +83,18 @@ class MasterCardWidget extends StatelessWidget {
         color: Colors.white.withOpacity(0.4),
       ),
     );
+  }
+
+  String _getCardNumber(String cardNumber) {
+    String result = '';
+    for (int i = 0; i < cardNumber.length; i++) {
+      if (i != 0 && i % 4 == 0) {
+        result = '$result   ${cardNumber[i]}';
+      } else {
+        result = '$result${cardNumber[i]}';
+      }
+    }
+    return result;
   }
 }
 
