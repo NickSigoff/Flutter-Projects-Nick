@@ -4,6 +4,7 @@ abstract class MainColors {
   static const Color commonWhite = Color(0xffe5e5e5);
   static const Color commonBlack = Color(0xff000000);
   static const Color lightGrey = Color(0xffa5a5a8);
+  static const Color hintGrey = Color(0xff6f6f72);
   static const Color lightBlueGrey = Color(0xff201c30);
 
   static const Color backgroundLightGradient = Color(0xff111017);

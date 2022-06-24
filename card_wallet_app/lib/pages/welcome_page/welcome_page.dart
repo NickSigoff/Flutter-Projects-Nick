@@ -1,4 +1,5 @@
-import 'package:card_wallet_app/pages/welcome_page/widgets/background_welcome_page.dart';
+import 'package:card_wallet_app/pages/auth_pages/sign_in_page/sign_in_page.dart';
+import 'package:card_wallet_app/global_widgets/background_welcome_page.dart';
 import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -16,32 +17,22 @@ class WelcomePage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 64.0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                const Spacer(flex: 6),
-                Container(
-                  height: 380,
-                  width: 560,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/card_logo.png'),
-                    ),
-                  ),
-                ),
-                const Spacer(flex: 3),
                 const Text(
                   'Manage Your Cards.\nAll in One Place',
                   textAlign: TextAlign.center,
                   style: MainTextStyles.largeText,
                 ),
-                const Spacer(flex: 1),
+                const SizedBox(height: 16.0),
                 const Text(
                   'Eliminate physical cards, get virtual payment option in your hand',
                   textAlign: TextAlign.center,
                   style: MainTextStyles.regularGreyText,
                 ),
-                const Spacer(flex: 3),
-                _buildGetStartedButton(),
-                const Spacer(flex: 3),
+                const SizedBox(height: 32.0),
+                _buildGetStartedButton(context),
+                const SizedBox(height: 32.0),
               ],
             ),
           ),
@@ -50,25 +41,31 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
-  Widget _buildGetStartedButton() {
-    return Container(
-      height: 60.0,
-      width: 260.0,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        gradient: const LinearGradient(
-          colors: [
-            MainColors.buttonLightGradient,
-            MainColors.buttonDarkGradient,
-          ],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
+  Widget _buildGetStartedButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => SignInPage()));
+      },
+      child: Container(
+        height: 60.0,
+        width: 260.0,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          gradient: const LinearGradient(
+            colors: [
+              MainColors.buttonLightGradient,
+              MainColors.buttonDarkGradient,
+            ],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          ),
         ),
-      ),
-      child: const Text(
-        'Get Started',
-        style: MainTextStyles.largeText,
+        child: const Text(
+          'Get Started',
+          style: MainTextStyles.largeText,
+        ),
       ),
     );
   }

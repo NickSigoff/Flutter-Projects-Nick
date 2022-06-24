@@ -9,14 +9,27 @@ class BackgroundWelcomePage extends StatelessWidget {
     return Container(
       decoration: MainGradients.backgroundMainPageGradient,
       child: Stack(
-        children: const [
-          BackgroundLine(
+        alignment: Alignment.center,
+        children: [
+          const BackgroundLine(
             maxClipperHeight: 0.35,
             minClipperHeight: 0.15,
           ),
-          BackgroundLine(
+          const BackgroundLine(
             minClipperHeight: 0.3,
             maxClipperHeight: 0.5,
+          ),
+          Positioned(
+            top: 120.0,
+            child: Container(
+              height: 380.0,
+              width: 560.0,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/card_logo.png'),
+                ),
+              ),
+            ),
           ),
         ],
       ),

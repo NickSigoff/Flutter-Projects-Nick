@@ -47,7 +47,7 @@ abstract class MainTextStyles {
   static const TextStyle regularGreyText = TextStyle(
     fontFamily: 'Raleway',
     fontWeight: FontWeight.w600,
-    color: MainColors.lightGrey,
+    color: MainColors.hintGrey,
     fontSize: 16.0,
   );
 
