@@ -27,27 +27,9 @@ class UndefinedCardWidget extends StatelessWidget {
             const Text('Undefined Card', style: MainTextStyles.largeText),
             Row(
               children: [
-                const Expanded(
-                  child: Text(
-                    '* * * *',
-                    style: MainTextStyles.cardNumber,
-                  ),
-                ),
-                const Expanded(
-                  child: Text(
-                    '* * * *',
-                    style: MainTextStyles.cardNumber,
-                  ),
-                ),
-                const Expanded(
-                  child: Text(
-                    '* * * *',
-                    style: MainTextStyles.cardNumber,
-                  ),
-                ),
                 Expanded(
                   child: Text(
-                    cardModel.lastFourNumber,
+                    cardModel.cardNumber,
                     style: MainTextStyles.cardNumber,
                   ),
                 ),

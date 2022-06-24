@@ -29,27 +29,9 @@ class VisaCardWidget extends StatelessWidget {
                 Image.asset('assets/images/visa_logo.png'),
                 Row(
                   children: [
-                    const Expanded(
-                      child: Text(
-                        '* * * *',
-                        style: MainTextStyles.cardNumber,
-                      ),
-                    ),
-                    const Expanded(
-                      child: Text(
-                        '* * * *',
-                        style: MainTextStyles.cardNumber,
-                      ),
-                    ),
-                    const Expanded(
-                      child: Text(
-                        '* * * *',
-                        style: MainTextStyles.cardNumber,
-                      ),
-                    ),
                     Expanded(
                       child: Text(
-                        cardModel.lastFourNumber,
+                        cardModel.cardNumber,
                         style: MainTextStyles.cardNumber,
                       ),
                     ),

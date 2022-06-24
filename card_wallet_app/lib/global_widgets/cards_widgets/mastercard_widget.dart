@@ -34,27 +34,9 @@ class MasterCardWidget extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    const Expanded(
-                      child: Text(
-                        '* * * *',
-                        style: MainTextStyles.cardNumber,
-                      ),
-                    ),
-                    const Expanded(
-                      child: Text(
-                        '* * * *',
-                        style: MainTextStyles.cardNumber,
-                      ),
-                    ),
-                    const Expanded(
-                      child: Text(
-                        '* * * *',
-                        style: MainTextStyles.cardNumber,
-                      ),
-                    ),
                     Expanded(
                       child: Text(
-                        cardModel.lastFourNumber,
+                        cardModel.cardNumber,
                         style: MainTextStyles.cardNumber,
                       ),
                     ),

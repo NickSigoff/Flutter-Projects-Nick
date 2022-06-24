@@ -57,7 +57,7 @@ class CardsPage extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     CardModel cardModel = CardModel(
-                      lastFourNumber: '0 4 0 5',
+                      cardNumber: '1 0 2 0  5 6 3 0  5 8 9 4  0 4 0 5',
                       validity: '04/25',
                       color: colors[index],
                       balance: 1000,

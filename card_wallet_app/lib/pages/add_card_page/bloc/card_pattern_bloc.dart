@@ -1,17 +1,30 @@
-import 'dart:async';
+import 'dart:ui';
 
 import 'package:bloc/bloc.dart';
+import 'package:card_wallet_app/utils/card_enum.dart';
 import 'package:meta/meta.dart';
 
 import '../../../model/card_model.dart';
 
 part 'card_pattern_event.dart';
+
 part 'card_pattern_state.dart';
 
 class CardPatternBloc extends Bloc<CardPatternEvent, CardPatternState> {
-  CardPatternBloc() : super(CardPatternInitial(cardModel: CardModel())) {
-    on<CardPatternEvent>((event, emit) {
-      // TODO: implement event handler
-    });
+  CardPatternBloc() : super(CardPatternState(cardModel: CardModel())) {
+    on<ChangeColorEvent>((event, emit) => emit(CardPatternState(
+        cardModel: state.cardModel.copyWith(color: event.cardColor))));
+
+    on<ChangeCardNumberEvent>((event, emit) => emit(CardPatternState(
+        cardModel: state.cardModel.copyWith(cardNumber: event.cardNumber))));
+
+    on<ChangeNameEvent>((event, emit) => emit(CardPatternState(
+        cardModel: state.cardModel.copyWith(cardOwner: event.ownerCardName))));
+
+    on<ChangeValidityDateEvent>((event, emit) => emit(CardPatternState(
+        cardModel: state.cardModel.copyWith(validity: event.validity))));
+
+    on<ChangeCardTypeEvent>((event, emit) => emit(CardPatternState(
+        cardModel: state.cardModel.copyWith(cardType: event.cardType))));
   }
 }

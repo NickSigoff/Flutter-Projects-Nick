@@ -9,14 +9,32 @@ class CardModel {
   final int balance;
   final String cardOwner;
   final String validity;
-  final String lastFourNumber;
+  final String cardNumber;
 
   CardModel({
-     this.cardType = CardType.undefinedCard,
-     this.lastFourNumber = '0 0 0 0',
-     this.color = MainColors.lightGrey,
-     this.balance = 0,
-     this.cardOwner = 'Default Name',
-     this.validity = '00/00',
+    this.cardType = CardType.undefinedCard,
+    this.cardNumber = '0 0 0 0  0 0 0 0  0 0 0 0  0 0 0 0',
+    this.color = MainColors.lightGrey,
+    this.balance = 0,
+    this.cardOwner = 'Default Name',
+    this.validity = '00/00',
   });
+
+  CardModel copyWith({
+    CardType? cardType,
+    Color? color,
+    int? balance,
+    String? cardOwner,
+    String? validity,
+    String? cardNumber,
+  }) {
+    return CardModel(
+      cardType: cardType ?? this.cardType,
+      color: color ?? this.color,
+      balance: balance ?? this.balance,
+      cardOwner: cardOwner ?? this.cardOwner,
+      validity: validity ?? this.validity,
+      cardNumber: cardNumber ?? this.cardNumber,
+    );
+  }
 }
