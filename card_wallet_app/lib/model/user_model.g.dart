@@ -7,6 +7,7 @@ part of 'user_model.dart';
 // **************************************************************************
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
+      cardList: json['cardList'] as List<dynamic>? ?? const [],
       password: json['password'] as String? ?? 'Default password',
       name: json['name'] as String? ?? 'Default name',
       email: json['email'] as String? ?? 'Default email',
@@ -18,4 +19,5 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'email': instance.email,
       'password': instance.password,
       'avatar': instance.avatar,
+      'cardList': instance.cardList,
     };

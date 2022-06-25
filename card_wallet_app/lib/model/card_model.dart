@@ -1,20 +1,23 @@
 import 'package:card_wallet_app/utils/card_enum.dart';
 import 'package:flutter/material.dart';
+import 'package:json_annotation/json_annotation.dart';
 
-import '../utils/main_colors.dart';
+part 'card_model.g.dart';
 
+@JsonSerializable()
+@immutable
 class CardModel {
   final CardType cardType;
-  final Color color;
+  final int colorValue;
   final int balance;
   final String cardOwner;
   final String validity;
   final String cardNumber;
 
-  CardModel({
+  const CardModel({
     this.cardType = CardType.undefinedCard,
     this.cardNumber = '0000000000000000',
-    this.color = MainColors.lightGrey,
+    this.colorValue = 4289045928,
     this.balance = 0,
     this.cardOwner = 'Default Name',
     this.validity = '00/00',
@@ -22,7 +25,7 @@ class CardModel {
 
   CardModel copyWith({
     CardType? cardType,
-    Color? color,
+    int? colorValue,
     int? balance,
     String? cardOwner,
     String? validity,
@@ -30,7 +33,7 @@ class CardModel {
   }) {
     return CardModel(
       cardType: cardType ?? this.cardType,
-      color: color ?? this.color,
+      colorValue: colorValue ?? this.colorValue,
       balance: balance ?? this.balance,
       cardOwner: cardOwner ?? this.cardOwner,
       validity: validity ?? this.validity,

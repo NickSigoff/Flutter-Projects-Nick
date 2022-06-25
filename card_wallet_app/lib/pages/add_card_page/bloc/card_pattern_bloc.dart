@@ -13,7 +13,8 @@ part 'card_pattern_state.dart';
 class CardPatternBloc extends Bloc<CardPatternEvent, CardPatternState> {
   CardPatternBloc() : super(CardPatternState(cardModel: CardModel())) {
     on<ChangeColorEvent>((event, emit) => emit(CardPatternState(
-        cardModel: state.cardModel.copyWith(color: event.cardColor))));
+        cardModel:
+            state.cardModel.copyWith(colorValue: event.cardColor.value))));
 
     on<ChangeCardNumberEvent>((event, emit) => emit(CardPatternState(
         cardModel: state.cardModel.copyWith(cardNumber: event.cardNumber))));

@@ -1,3 +1,5 @@
+import 'package:card_wallet_app/global_widgets/cards_widgets/small_mastercard_widget.dart';
+import 'package:card_wallet_app/global_widgets/cards_widgets/small_visa_card_widget.dart';
 import 'package:card_wallet_app/model/card_model.dart';
 import 'package:card_wallet_app/pages/add_card_page/add_card_page.dart';
 import 'package:card_wallet_app/utils/card_enum.dart';
@@ -7,25 +9,24 @@ import 'package:flutter/material.dart';
 
 import '../../utils/main_colors.dart';
 import '../../utils/main_gradients.dart';
-import '../detail_card/card_detaily.dart';
 
 class CardsPage extends StatelessWidget {
-  const CardsPage({Key? key}) : super(key: key);
-  final List<Color> colors = const [
-    Colors.red,
-    Colors.blue,
-    Colors.orange,
-    Colors.blueGrey,
-    Colors.brown,
-    Colors.grey,
-    Colors.green,
-    Colors.pink,
-    Colors.purple,
-    Colors.blueAccent,
-    Colors.indigo,
-    Colors.deepOrange,
-    Colors.greenAccent,
-    Colors.deepPurple,
+  CardsPage({Key? key}) : super(key: key);
+  final List<int> colors = [
+    Colors.red.value,
+    Colors.blue.value,
+    Colors.orange.value,
+    Colors.blueGrey.value,
+    Colors.brown.value,
+    Colors.grey.value,
+    Colors.green.value,
+    Colors.pink.value,
+    Colors.purple.value,
+    Colors.blueAccent.value,
+    Colors.indigo.value,
+    Colors.deepOrange.value,
+    Colors.greenAccent.value,
+    Colors.deepPurple.value,
   ];
 
   @override
@@ -54,29 +55,17 @@ class CardsPage extends StatelessWidget {
             ),
             delegate: SliverChildBuilderDelegate(
               (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    CardModel cardModel = CardModel(
-                      cardNumber: '1 0 2 0  5 6 3 0  5 8 9 4  0 4 0 5',
-                      validity: '04/25',
-                      color: colors[index],
-                      balance: 1000,
-                      cardOwner: 'Frank Franklin',
-                      cardType:
-                          index.isEven ? CardType.masterCard : CardType.visa,
-                    );
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            DetailCard(cardModel: cardModel)));
-                  },
-                  child: Card(
-                    color: colors[index],
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: Text('$index'),
-                    ),
-                  ),
+                CardModel cardModel = CardModel(
+                  cardNumber: '1234567891234567',
+                  validity: '04/25',
+                  colorValue: colors[index],
+                  balance: 1000,
+                  cardOwner: 'Frank Franklin',
+                  cardType: index.isEven ? CardType.masterCard : CardType.visa,
                 );
+                return cardModel.cardType == CardType.visa
+                    ? SmallVisaCardWidget(cardModel: cardModel)
+                    : SmallMasterCardWidget(cardModel: cardModel);
               },
               childCount: colors.length,
             ),

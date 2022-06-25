@@ -41,12 +41,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
-    on<PressSignOutEvent>((event, emit) async {
-      await SharedPreferencesService()
-          .setCurrentUserSharedPreferences(json.encode(UserModel().toJson()));
-      emit(UnauthenticatedState());
-    });
-
     on<PressSignUpEvent>((event, emit) async {
       try {
         emit(LoadingState());
@@ -78,8 +72,31 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
+    on<PressSignOutEvent>((event, emit) async {
+      await SharedPreferencesService()
+          .setCurrentUserSharedPreferences(json.encode(UserModel().toJson()));
+      emit(UnauthenticatedState());
+    });
+
     on<PressSignInSignUpNavigationEvent>((event, emit) {
       emit(UnauthenticatedState());
+    });
+
+    on<PressGetStarted>((event, emit) async {
+      String? currentUserJson =
+          await SharedPreferencesService().getCurrentUserSharedPreferences();
+      if (currentUserJson != null) {
+        UserModel currentUser =
+            UserModel.fromJson(json.decode(currentUserJson));
+        if (currentUser.email == 'Default email') {
+          emit(UnauthenticatedState());
+        } else {
+          CurrentUserProvider.currentUser = currentUser;
+          emit(AuthenticatedState());
+        }
+      } else {
+        emit(UnauthenticatedState());
+      }
     });
   }
 

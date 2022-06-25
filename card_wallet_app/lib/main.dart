@@ -18,6 +18,6 @@ void main() {
       ],
       child: MaterialApp(
         key: Navigation.mainNavigation,
-        home: SignInPage(),
+        home: WelcomePage(),
       )));
 }

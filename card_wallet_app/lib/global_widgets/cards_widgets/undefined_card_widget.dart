@@ -15,7 +15,7 @@ class UndefinedCardWidget extends StatelessWidget {
     return Container(
       height: 250.0,
       decoration: BoxDecoration(
-        color: cardModel.color,
+        color: Color(cardModel.colorValue),
         borderRadius: BorderRadius.circular(18.0),
       ),
       child: Padding(

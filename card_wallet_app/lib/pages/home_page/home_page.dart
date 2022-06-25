@@ -18,8 +18,6 @@ class HomePage extends StatelessWidget {
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
-
-            backgroundColor: Colors.red,
             body: Container(
               height: MediaQuery.of(context).size.height,
               width: width,
@@ -29,7 +27,7 @@ class HomePage extends StatelessWidget {
                 children: [
                   IndexedStack(
                     index: state,
-                    children: const [
+                    children:  [
                       CardsPage(),
                       LabelsPage(),
                       ProfilePage(),

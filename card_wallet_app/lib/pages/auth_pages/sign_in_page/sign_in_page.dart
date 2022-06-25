@@ -119,7 +119,7 @@ class _SignInPageState extends State<SignInPage> {
                                       .read<AuthBloc>()
                                       .add(PressSignInSignUpNavigationEvent());
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => SignUpPage()));
+                                      builder: (context) => const SignUpPage()));
                                 },
                                 child: Text('New Register',
                                     style: MainTextStyles.regularButtonText

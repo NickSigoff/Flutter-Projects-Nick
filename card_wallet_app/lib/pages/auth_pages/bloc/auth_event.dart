@@ -28,3 +28,5 @@ class PressSignUpEvent extends AuthEvent {
 class PressSignOutEvent extends AuthEvent {}
 
 class PressSignInSignUpNavigationEvent extends AuthEvent {}
+
+class PressGetStarted extends AuthEvent {}

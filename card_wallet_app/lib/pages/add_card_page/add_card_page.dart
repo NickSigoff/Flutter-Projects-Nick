@@ -107,7 +107,7 @@ class _AddCardPageState extends State<AddCardPage> {
                       title: Text('Pick a color!'),
                       content: SingleChildScrollView(
                         child: BlockPicker(
-                          pickerColor: state.cardModel.color, //default color
+                          pickerColor: Color(state.cardModel.colorValue), //default color
                           onColorChanged: (Color color) {
                             context
                                 .read<CardPatternBloc>()
@@ -132,7 +132,7 @@ class _AddCardPageState extends State<AddCardPage> {
               width: 40,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(50),
-                  color: state.cardModel.color),
+                  color: Color(state.cardModel.colorValue)),
             ),
           ),
           const SizedBox(height: 16.0),
