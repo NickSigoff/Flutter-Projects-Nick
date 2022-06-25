@@ -2,7 +2,10 @@ import 'package:card_wallet_app/utils/main_gradients.dart';
 import 'package:flutter/material.dart';
 
 class BackgroundWelcomePage extends StatelessWidget {
-  const BackgroundWelcomePage({Key? key}) : super(key: key);
+  final bool isImageVisible;
+
+  const BackgroundWelcomePage({this.isImageVisible = true, Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,18 +22,20 @@ class BackgroundWelcomePage extends StatelessWidget {
             minClipperHeight: 0.3,
             maxClipperHeight: 0.5,
           ),
-          Positioned(
-            top: 120.0,
-            child: Container(
-              height: 380.0,
-              width: 560.0,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage('assets/images/card_logo.png'),
-                ),
-              ),
-            ),
-          ),
+          isImageVisible
+              ? Positioned(
+                  top: 120.0,
+                  child: Container(
+                    height: 380.0,
+                    width: 560.0,
+                    decoration: const BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/card_logo.png'),
+                      ),
+                    ),
+                  ),
+                )
+              : Container(),
         ],
       ),
     );

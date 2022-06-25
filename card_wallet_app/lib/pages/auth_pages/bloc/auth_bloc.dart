@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:card_wallet_app/model/user_model.dart';
 import 'package:card_wallet_app/services/current_user_provider.dart';
-import 'package:card_wallet_app/services/shared_preferences_sevice.dart';
+import 'package:card_wallet_app/services/shared_preferences_service.dart';
 import 'package:meta/meta.dart';
 
 part 'auth_event.dart';

@@ -53,14 +53,9 @@ class _AddCardPageState extends State<AddCardPage> {
                 color: MainColors.commonWhite,
               ),
             ),
-            actions: [
-              IconButton(
-                  onPressed: () {}, icon: const Icon(Icons.add_circle_outline))
-            ],
           ),
           body: SingleChildScrollView(
             child: Container(
-              height: MediaQuery.of(context).size.height,
               decoration: MainGradients.backgroundMainPageGradient,
               padding:
                   const EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0),
@@ -81,7 +76,7 @@ class _AddCardPageState extends State<AddCardPage> {
   Container _buildInputForm(BuildContext context, CardPatternState state) {
     return Container(
       padding: const EdgeInsets.fromLTRB(16.0, 48.0, 16.0, 16.0),
-      height: MediaQuery.of(context).size.height * 0.6,
+      height: MediaQuery.of(context).size.height * 0.7,
       width: MediaQuery.of(context).size.width - 32.0,
       decoration: BoxDecoration(
         border: Border.all(width: 1.0, color: MainColors.lightGrey),
@@ -96,7 +91,7 @@ class _AddCardPageState extends State<AddCardPage> {
         ),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           GestureDetector(
             onTap: () {
@@ -104,10 +99,11 @@ class _AddCardPageState extends State<AddCardPage> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      title: Text('Pick a color!'),
+                      title: const Text('Pick a color!'),
                       content: SingleChildScrollView(
                         child: BlockPicker(
-                          pickerColor: Color(state.cardModel.colorValue), //default color
+                          pickerColor: Color(state.cardModel.colorValue),
+                          //default color
                           onColorChanged: (Color color) {
                             context
                                 .read<CardPatternBloc>()
@@ -186,6 +182,34 @@ class _AddCardPageState extends State<AddCardPage> {
               controller: _validityController,
               decoration: _buildInputDecoration(
                   hint: 'Enter the card validity', icon: Icons.calendar_month),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: GestureDetector(
+              onTap: (){
+
+              },
+              child: Container(
+                height: 60.0,
+                width: 200.0,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                  gradient: const LinearGradient(
+                    colors: [
+                      MainColors.buttonLightGradient,
+                      MainColors.buttonDarkGradient,
+                    ],
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  ),
+                ),
+                child: const Text(
+                  'Add Cart',
+                  style: MainTextStyles.largeText,
+                ),
+              ),
             ),
           ),
         ],
