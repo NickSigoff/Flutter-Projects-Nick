@@ -1,6 +1,14 @@
+import 'dart:convert';
+
+import 'package:card_wallet_app/pages/auth_pages/bloc/auth_bloc.dart';
+import 'package:card_wallet_app/pages/auth_pages/sign_in_page/sign_in_page.dart';
+import 'package:card_wallet_app/services/current_user_provider.dart';
+import 'package:card_wallet_app/services/shared_preferences_sevice.dart';
 import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../model/user_model.dart';
 import '../../utils/main_colors.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -16,19 +24,24 @@ class ProfilePage extends StatelessWidget {
       child: Stack(
         alignment: Alignment.center,
         children: [
-          const Positioned(
+          Positioned(
             top: 24.0,
             right: 16.0,
-            child: Icon(
-              Icons.notifications,
+            child: IconButton(
+              onPressed: () {
+                context.read<AuthBloc>().add(PressSignOutEvent());
+                CurrentUserProvider.currentUser = UserModel();
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => SignInPage()));
+              },
+              icon: const Icon(Icons.exit_to_app),
               color: MainColors.commonWhite,
             ),
           ),
           Positioned(
             top: 80.0,
             child: Container(
-              padding:
-                  const EdgeInsets.fromLTRB(16.0, 48.0, 16.0, 16.0),
+              padding: const EdgeInsets.fromLTRB(16.0, 48.0, 16.0, 16.0),
               height: height * 0.7,
               width: width - 32.0,
               decoration: BoxDecoration(
@@ -87,16 +100,20 @@ class ProfilePage extends StatelessWidget {
       child: ListView(
         children: [
           RichText(
-              text: const TextSpan(
+              text: TextSpan(
                   text: 'Name:\n',
                   style: MainTextStyles.profileTextStyle,
-                  children: [TextSpan(text: 'William Smith')])),
+                  children: [
+                TextSpan(text: CurrentUserProvider.currentUser.name)
+              ])),
           const SizedBox(height: 20.0),
           RichText(
-              text: const TextSpan(
+              text: TextSpan(
                   text: 'Email:\n',
                   style: MainTextStyles.profileTextStyle,
-                  children: [TextSpan(text: 'email@gmail.com')])),
+                  children: [
+                TextSpan(text: CurrentUserProvider.currentUser.email)
+              ])),
           const SizedBox(height: 20.0),
           RichText(
               text: const TextSpan(

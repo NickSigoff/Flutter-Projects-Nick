@@ -44,6 +44,13 @@ abstract class MainTextStyles {
     fontSize: 18.0,
   );
 
+  static const TextStyle errorText = TextStyle(
+    color: Colors.red,
+    fontFamily: 'Raleway',
+    fontWeight: FontWeight.w400,
+    fontSize: 18.0,
+  );
+
   static const TextStyle regularGreyText = TextStyle(
     fontFamily: 'Raleway',
     fontWeight: FontWeight.w600,
