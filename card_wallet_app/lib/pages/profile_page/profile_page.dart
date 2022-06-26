@@ -27,7 +27,7 @@ class ProfilePage extends StatelessWidget {
             child: IconButton(
               onPressed: () {
                 context.read<AuthBloc>().add(PressSignOutEvent());
-                CurrentUserProvider.currentUser = const UserModel();
+                CurrentUserProvider.currentUser = UserModel();
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => SignInPage()));
               },

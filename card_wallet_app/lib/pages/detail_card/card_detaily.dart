@@ -1,11 +1,10 @@
 import 'package:card_wallet_app/global_widgets/cards_widgets/mastercard_widget.dart';
 import 'package:card_wallet_app/global_widgets/cards_widgets/visa_card_widget.dart';
-import 'package:card_wallet_app/model/card_model.dart';
-import 'package:card_wallet_app/pages/cards_page/cards_page.dart';
 import 'package:card_wallet_app/utils/card_enum.dart';
 import 'package:card_wallet_app/utils/main_gradients.dart';
 import 'package:flutter/material.dart';
 
+import '../../model/user_model.dart';
 import '../../utils/main_colors.dart';
 
 class DetailCard extends StatelessWidget {

@@ -1,6 +1,6 @@
 import 'package:card_wallet_app/global_widgets/cards_widgets/small_mastercard_widget.dart';
 import 'package:card_wallet_app/global_widgets/cards_widgets/small_visa_card_widget.dart';
-import 'package:card_wallet_app/model/card_model.dart';
+import 'package:card_wallet_app/model/user_model.dart';
 import 'package:card_wallet_app/pages/add_card_page/add_card_page.dart';
 import 'package:card_wallet_app/services/current_user_provider.dart';
 import 'package:card_wallet_app/utils/card_enum.dart';
@@ -8,7 +8,6 @@ import 'package:card_wallet_app/utils/card_enum.dart';
 import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
 
-import '../../global_widgets/background_welcome_page.dart';
 import '../../utils/main_colors.dart';
 
 class CardsPage extends StatelessWidget {
@@ -38,18 +37,18 @@ class CardsPage extends StatelessWidget {
           ),
           delegate: SliverChildBuilderDelegate(
             (context, index) {
-              return (CurrentUserProvider.currentUser.cardList[index]
+              return (CurrentUserProvider.currentUser.cardModelList[index]
                               as CardModel)
                           .cardType ==
                       CardType.visa
                   ? SmallVisaCardWidget(
-                      cardModel: CurrentUserProvider.currentUser.cardList[index]
-                          as CardModel)
+                      cardModel: CurrentUserProvider
+                          .currentUser.cardModelList[index] as CardModel)
                   : SmallMasterCardWidget(
-                      cardModel: CurrentUserProvider.currentUser.cardList[index]
-                          as CardModel);
+                      cardModel: CurrentUserProvider
+                          .currentUser.cardModelList[index] as CardModel);
             },
-            childCount: CurrentUserProvider.currentUser.cardList.length,
+            childCount: CurrentUserProvider.currentUser.cardModelList.length,
           ),
         ),
       ],

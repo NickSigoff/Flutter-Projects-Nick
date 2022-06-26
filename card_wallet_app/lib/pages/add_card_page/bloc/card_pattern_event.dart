@@ -15,7 +15,6 @@ class ChangeCardTypeEvent extends CardPatternEvent {
   ChangeCardTypeEvent({required this.cardType});
 }
 
-
 class ChangeCardNumberEvent extends CardPatternEvent {
   final String cardNumber;
 
@@ -34,4 +33,8 @@ class ChangeValidityDateEvent extends CardPatternEvent {
   ChangeValidityDateEvent({required this.validity});
 }
 
+class AddCardToListEvent extends CardPatternEvent {
+  final CardModel card;
 
+  AddCardToListEvent({required this.card});
+}

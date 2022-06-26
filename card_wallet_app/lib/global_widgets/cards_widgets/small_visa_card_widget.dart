@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../model/card_model.dart';
+import '../../model/user_model.dart';
 import '../../pages/detail_card/card_detaily.dart';
 import '../../utils/main_colors.dart';
 import '../../utils/main_text_styles.dart';
@@ -35,14 +34,19 @@ class SmallVisaCardWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Image.asset('assets/images/visa_logo.png', height: 20, width: 60,),
+                  Image.asset(
+                    'assets/images/visa_logo.png',
+                    height: 20,
+                    width: 60,
+                  ),
                   Row(
                     children: [
                       Expanded(
                         child: Text(
                           _getCardNumber(cardModel.cardNumber),
                           textAlign: TextAlign.center,
-                          style: MainTextStyles.cardNumber.copyWith(fontSize: 10),
+                          style:
+                              MainTextStyles.cardNumber.copyWith(fontSize: 9),
                         ),
                       ),
                     ],
@@ -56,8 +60,8 @@ class SmallVisaCardWidget extends StatelessWidget {
                       const Spacer(),
                       Text(
                         '\$ ${cardModel.balance}',
-                        style: MainTextStyles.cardInscription
-                            .copyWith(color: MainColors.commonWhite, fontSize: 20),
+                        style: MainTextStyles.cardInscription.copyWith(
+                            color: MainColors.commonWhite, fontSize: 20),
                       ),
                     ],
                   ),

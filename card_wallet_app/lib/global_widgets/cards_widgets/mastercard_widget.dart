@@ -2,7 +2,7 @@ import 'package:card_wallet_app/utils/main_colors.dart';
 import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
 
-import '../../model/card_model.dart';
+import '../../model/user_model.dart';
 
 class MasterCardWidget extends StatelessWidget {
   final CardModel cardModel;

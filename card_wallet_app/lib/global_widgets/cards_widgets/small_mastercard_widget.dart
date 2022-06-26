@@ -2,7 +2,7 @@ import 'package:card_wallet_app/utils/main_colors.dart';
 import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
 
-import '../../model/card_model.dart';
+import '../../model/user_model.dart';
 import '../../pages/detail_card/card_detaily.dart';
 
 class SmallMasterCardWidget extends StatelessWidget {
@@ -55,7 +55,7 @@ class SmallMasterCardWidget extends StatelessWidget {
                           _getCardNumber(cardModel.cardNumber),
                           textAlign: TextAlign.center,
                           style:
-                              MainTextStyles.cardNumber.copyWith(fontSize: 10),
+                              MainTextStyles.cardNumber.copyWith(fontSize: 9),
                         ),
                       ),
                     ],

@@ -1,13 +1,14 @@
 import 'package:card_wallet_app/global_widgets/cards_widgets/mastercard_widget.dart';
 import 'package:card_wallet_app/global_widgets/cards_widgets/undefined_card_widget.dart';
 import 'package:card_wallet_app/global_widgets/cards_widgets/visa_card_widget.dart';
-import 'package:card_wallet_app/model/card_model.dart';
+import 'package:card_wallet_app/pages/home_page/home_page.dart';
 import 'package:card_wallet_app/utils/card_enum.dart';
 import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+import '../../model/user_model.dart';
 import '../../utils/main_colors.dart';
 import '../../utils/main_gradients.dart';
 import 'bloc/card_pattern_bloc.dart';
@@ -187,8 +188,12 @@ class _AddCardPageState extends State<AddCardPage> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: GestureDetector(
-              onTap: (){
-
+              onTap: () {
+                context
+                    .read<CardPatternBloc>()
+                    .add(AddCardToListEvent(card: state.cardModel));
+                Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => const HomePage()));
               },
               child: Container(
                 height: 60.0,

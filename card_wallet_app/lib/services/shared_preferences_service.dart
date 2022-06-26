@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesService {
   final String _currentUserKey = 'currentUserKey';
+  final String _currentUserCardListKey = 'currentUserCardListKey';
 
   ///Users map
   Future<bool> setUserInfoSharedPreferences(String userJson, String key) async {
@@ -15,8 +16,7 @@ class SharedPreferencesService {
   }
 
   ///Current User
-  Future<bool> setCurrentUserSharedPreferences(
-      String userJson) async {
+  Future<bool> setCurrentUserSharedPreferences(String userJson) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     return await sharedPreferences.setString(_currentUserKey, userJson);
   }
