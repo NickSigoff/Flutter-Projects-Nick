@@ -1,3 +1,4 @@
+import 'package:card_wallet_app/global_bloc/add_remove_card_bloc.dart';
 import 'package:card_wallet_app/pages/add_card_page/bloc/card_pattern_bloc.dart';
 import 'package:card_wallet_app/pages/auth_pages/bloc/auth_bloc.dart';
 import 'package:card_wallet_app/pages/auth_pages/sign_in_page/sign_in_page.dart';
@@ -15,6 +16,7 @@ void main() {
         BlocProvider(create: (_) => CurrentPageBloc()),
         BlocProvider(create: (_) => CardPatternBloc()),
         BlocProvider(create: (_) => AuthBloc()),
+        BlocProvider(create: (_) => AddRemoveCardBloc()),
       ],
       child: MaterialApp(
         key: Navigation.mainNavigation,

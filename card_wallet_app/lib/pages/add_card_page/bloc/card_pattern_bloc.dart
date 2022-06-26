@@ -1,9 +1,6 @@
-import 'dart:convert';
 import 'dart:ui';
 
 import 'package:bloc/bloc.dart';
-import 'package:card_wallet_app/services/current_user_provider.dart';
-import 'package:card_wallet_app/services/shared_preferences_service.dart';
 import 'package:card_wallet_app/utils/card_enum.dart';
 import 'package:meta/meta.dart';
 
@@ -30,15 +27,5 @@ class CardPatternBloc extends Bloc<CardPatternEvent, CardPatternState> {
 
     on<ChangeCardTypeEvent>((event, emit) => emit(CardPatternState(
         cardModel: state.cardModel.copyWith(cardType: event.cardType))));
-
-    on<AddCardToListEvent>((event, emit) async {
-      List<dynamic> cardList = [];
-      cardList.addAll(CurrentUserProvider.currentUser.cardModelList);
-      cardList.add(event.card);
-      CurrentUserProvider.currentUser.cardModelList = cardList;
-      await SharedPreferencesService().setCurrentUserSharedPreferences(
-          jsonEncode(CurrentUserProvider.currentUser.toJson()));
-      emit(CardPatternState(cardModel: state.cardModel));
-    });
   }
 }

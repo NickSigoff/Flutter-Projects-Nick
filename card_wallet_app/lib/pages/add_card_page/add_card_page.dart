@@ -1,3 +1,4 @@
+import 'package:card_wallet_app/global_bloc/add_remove_card_bloc.dart';
 import 'package:card_wallet_app/global_widgets/cards_widgets/mastercard_widget.dart';
 import 'package:card_wallet_app/global_widgets/cards_widgets/undefined_card_widget.dart';
 import 'package:card_wallet_app/global_widgets/cards_widgets/visa_card_widget.dart';
@@ -190,8 +191,8 @@ class _AddCardPageState extends State<AddCardPage> {
             child: GestureDetector(
               onTap: () {
                 context
-                    .read<CardPatternBloc>()
-                    .add(AddCardToListEvent(card: state.cardModel));
+                    .read<AddRemoveCardBloc>()
+                    .add(AddCardToList(card: state.cardModel));
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => const HomePage()));
               },

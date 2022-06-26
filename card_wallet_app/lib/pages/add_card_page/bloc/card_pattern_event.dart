@@ -32,9 +32,3 @@ class ChangeValidityDateEvent extends CardPatternEvent {
 
   ChangeValidityDateEvent({required this.validity});
 }
-
-class AddCardToListEvent extends CardPatternEvent {
-  final CardModel card;
-
-  AddCardToListEvent({required this.card});
-}
