@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+import '../../global_widgets/background_welcome_page.dart';
 import '../../model/user_model.dart';
 import '../../utils/main_colors.dart';
-import '../../utils/main_gradients.dart';
 import 'bloc/card_pattern_bloc.dart';
 
 class AddCardPage extends StatefulWidget {
@@ -46,6 +46,11 @@ class _AddCardPageState extends State<AddCardPage> {
           appBar: AppBar(
             backgroundColor: MainColors.backgroundLightGradient,
             automaticallyImplyLeading: false,
+            title: const Text(
+              'Add cart to the wallet',
+              style: MainTextStyles.regularButtonText,
+            ),
+            centerTitle: true,
             elevation: 0,
             leading: IconButton(
               onPressed: () {
@@ -57,19 +62,23 @@ class _AddCardPageState extends State<AddCardPage> {
               ),
             ),
           ),
-          body: SingleChildScrollView(
-            child: Container(
-              decoration: MainGradients.backgroundMainPageGradient,
-              padding:
+          body: Stack(
+            children: [
+              const BackgroundWelcomePage(isImageVisible: false),
+              SingleChildScrollView(
+                child: Container(
+                  padding:
                   const EdgeInsets.only(top: 16.0, right: 16.0, left: 16.0),
-              child: Column(
-                children: [
-                  _buildPatternCard(state.cardModel),
-                  const SizedBox(height: 16.0),
-                  _buildInputForm(context, state),
-                ],
+                  child: Column(
+                    children: [
+                      _buildPatternCard(state.cardModel),
+                      const SizedBox(height: 16.0),
+                      _buildInputForm(context, state),
+                    ],
+                  ),
+                ),
               ),
-            ),
+            ],
           ),
         );
       },
@@ -79,8 +88,14 @@ class _AddCardPageState extends State<AddCardPage> {
   Container _buildInputForm(BuildContext context, CardPatternState state) {
     return Container(
       padding: const EdgeInsets.fromLTRB(16.0, 48.0, 16.0, 16.0),
-      height: MediaQuery.of(context).size.height * 0.8,
-      width: MediaQuery.of(context).size.width - 32.0,
+      height: MediaQuery
+          .of(context)
+          .size
+          .height - 370,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width - 32.0,
       decoration: BoxDecoration(
         border: Border.all(width: 1.0, color: MainColors.lightGrey),
         borderRadius: BorderRadius.circular(16.0),
@@ -93,146 +108,178 @@ class _AddCardPageState extends State<AddCardPage> {
           end: Alignment.bottomRight,
         ),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Pick a color!'),
-                      content: SingleChildScrollView(
-                        child: BlockPicker(
-                          pickerColor: Color(state.cardModel.colorValue),
-                          //default color
-                          onColorChanged: (Color color) {
-                            context
-                                .read<CardPatternBloc>()
-                                .add(ChangeColorEvent(cardColor: color));
-                          },
-                        ),
-                      ),
-                      actions: <Widget>[
-                        ElevatedButton(
-                          child: const Text('DONE'),
-                          onPressed: () {
-                            Navigator.of(context)
-                                .pop(); //dismiss the color picker
-                          },
-                        ),
-                      ],
-                    );
-                  });
-            },
-            child: Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: Color(state.cardModel.colorValue)),
-            ),
-          ),
-          const SizedBox(height: 16.0),
-          DropdownButtonFormField(
-            style: MainTextStyles.profileTextStyle
-                .copyWith(color: MainColors.commonWhite),
-            items: items.map((String items) {
-              return DropdownMenuItem(value: items, child: Text(items));
-            }).toList(),
-            decoration: _buildInputDecoration(
-                hint: 'Choose the card type', icon: Icons.credit_card),
-            onChanged: (data) {
-              context.read<CardPatternBloc>().add(ChangeCardTypeEvent(
-                  cardType:
-                      data == 'Visa' ? CardType.visa : CardType.masterCard));
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: TextField(
-              style: MainTextStyles.profileTextStyle
-                  .copyWith(color: MainColors.commonWhite),
-              onChanged: (string) => context.read<CardPatternBloc>().add(
-                  ChangeCardNumberEvent(
-                      cardNumber: _cardNumberController.text.trim())),
-              controller: _cardNumberController,
-              decoration: _buildInputDecoration(
-                  hint: 'Enter the card number', icon: Icons.numbers),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: TextField(
-              style: MainTextStyles.profileTextStyle
-                  .copyWith(color: MainColors.commonWhite),
-              onChanged: (string) => context.read<CardPatternBloc>().add(
-                  ChangeNameEvent(ownerCardName: _nameController.text.trim())),
-              controller: _nameController,
-              decoration: _buildInputDecoration(
-                  hint: 'Enter your name', icon: Icons.person),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: TextField(
-              style: MainTextStyles.profileTextStyle
-                  .copyWith(color: MainColors.commonWhite),
-              onChanged: (string) => context.read<CardPatternBloc>().add(
-                  ChangeValidityDateEvent(
-                      validity: _validityController.text.trim())),
-              controller: _validityController,
-              decoration: _buildInputDecoration(
-                  hint: 'Enter the card validity', icon: Icons.calendar_month),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: TextField(
-              controller: _cssController,
-              style: MainTextStyles.profileTextStyle
-                  .copyWith(color: MainColors.commonWhite),
-              onChanged: (string) => context
-                  .read<CardPatternBloc>()
-                  .add(ChangeCssCodeEvent(cssCode: _cssController.text.trim())),
-              decoration: _buildInputDecoration(
-                  hint: 'Enter css code', icon: Icons.css),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            child: GestureDetector(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            GestureDetector(
               onTap: () {
-                context
-                    .read<AddRemoveCardBloc>()
-                    .add(AddCardToList(cardModel: state.cardModel));
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const HomePage()));
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: MainColors.lightBlueGrey,
+                        title: Text(
+                          'Pick a color!',
+                          style: MainTextStyles.regularButtonText
+                              .copyWith(color: MainColors.commonWhite),
+                        ),
+                        content: SingleChildScrollView(
+                          child: BlockPicker(
+                            pickerColor: Color(state.cardModel.colorValue),
+                            //default color
+                            onColorChanged: (Color color) {
+                              context
+                                  .read<CardPatternBloc>()
+                                  .add(ChangeColorEvent(cardColor: color));
+                            },
+                          ),
+                        ),
+                        actions: [
+                          GestureDetector(
+                            child: Container(
+                              height: 60.0,
+                              width: 120.0,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20.0),
+                                gradient: const LinearGradient(
+                                  colors: [
+                                    MainColors.buttonLightGradient,
+                                    MainColors.buttonDarkGradient,
+                                  ],
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                ),
+                              ),
+                              child: const Text(
+                                'Done',
+                                style: MainTextStyles.largeText,
+                              ),
+                            ),
+                            onTap: () =>
+                                Navigator.of(context)
+                                    .pop(),
+                          )
+                        ],
+                      );
+                    });
               },
               child: Container(
-                height: 60.0,
-                width: 200.0,
-                alignment: Alignment.center,
+                height: 40,
+                width: 40,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  gradient: const LinearGradient(
-                    colors: [
-                      MainColors.buttonLightGradient,
-                      MainColors.buttonDarkGradient,
-                    ],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
+                    borderRadius: BorderRadius.circular(50),
+                    color: Color(state.cardModel.colorValue)),
+              ),
+            ),
+            const SizedBox(height: 16.0),
+            DropdownButtonFormField(
+              dropdownColor: MainColors.lightBlueGrey,
+              style: MainTextStyles.profileTextStyle
+                  .copyWith(color: MainColors.commonWhite),
+              items: items.map((String items) {
+                return DropdownMenuItem(value: items, child: Text(items));
+              }).toList(),
+              decoration: _buildInputDecoration(
+                  hint: 'Choose the card type', icon: Icons.credit_card),
+              onChanged: (data) {
+                context.read<CardPatternBloc>().add(ChangeCardTypeEvent(
+                    cardType:
+                    data == 'Visa' ? CardType.visa : CardType.masterCard));
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: TextField(
+                style: MainTextStyles.profileTextStyle
+                    .copyWith(color: MainColors.commonWhite),
+                onChanged: (string) =>
+                    context.read<CardPatternBloc>().add(
+                        ChangeCardNumberEvent(
+                            cardNumber: _cardNumberController.text.trim())),
+                controller: _cardNumberController,
+                decoration: _buildInputDecoration(
+                    hint: 'Enter the card number', icon: Icons.numbers),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: TextField(
+                style: MainTextStyles.profileTextStyle
+                    .copyWith(color: MainColors.commonWhite),
+                onChanged: (string) =>
+                    context.read<CardPatternBloc>().add(
+                        ChangeNameEvent(
+                            ownerCardName: _nameController.text.trim())),
+                controller: _nameController,
+                decoration: _buildInputDecoration(
+                    hint: 'Enter your name', icon: Icons.person),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: TextField(
+                style: MainTextStyles.profileTextStyle
+                    .copyWith(color: MainColors.commonWhite),
+                onChanged: (string) =>
+                    context.read<CardPatternBloc>().add(
+                        ChangeValidityDateEvent(
+                            validity: _validityController.text.trim())),
+                controller: _validityController,
+                decoration: _buildInputDecoration(
+                    hint: 'Enter the card validity',
+                    icon: Icons.calendar_month),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              child: TextField(
+                controller: _cssController,
+                style: MainTextStyles.profileTextStyle
+                    .copyWith(color: MainColors.commonWhite),
+                onChanged: (string) =>
+                    context.read<CardPatternBloc>().add(
+                        ChangeCssCodeEvent(
+                            cssCode: _cssController.text.trim())),
+                decoration: _buildInputDecoration(
+                    hint: 'Enter css code', icon: Icons.css),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              child: GestureDetector(
+                onTap: () {
+                  context
+                      .read<AddRemoveCardBloc>()
+                      .add(AddCardToList(cardModel: state.cardModel));
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                      builder: (context) => const HomePage()));
+                },
+                child: Container(
+                  height: 60.0,
+                  width: 200.0,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                    gradient: const LinearGradient(
+                      colors: [
+                        MainColors.buttonLightGradient,
+                        MainColors.buttonDarkGradient,
+                      ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    ),
                   ),
-                ),
-                child: const Text(
-                  'Add Card',
-                  style: MainTextStyles.largeText,
+                  child: const Text(
+                    'Add Card',
+                    style: MainTextStyles.largeText,
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
