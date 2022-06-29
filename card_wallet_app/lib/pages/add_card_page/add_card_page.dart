@@ -25,6 +25,7 @@ class _AddCardPageState extends State<AddCardPage> {
   final TextEditingController _cardNumberController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _validityController = TextEditingController();
+  final TextEditingController _cssController = TextEditingController();
 
   final items = const [
     'MasterCard',
@@ -34,7 +35,6 @@ class _AddCardPageState extends State<AddCardPage> {
   @override
   void initState() {
     super.initState();
-    // _cardNumberController.addListener(() {context.read<C>() })
   }
 
   @override
@@ -42,6 +42,7 @@ class _AddCardPageState extends State<AddCardPage> {
     return BlocBuilder<CardPatternBloc, CardPatternState>(
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: MainColors.backgroundDarkGradient,
           appBar: AppBar(
             backgroundColor: MainColors.backgroundLightGradient,
             automaticallyImplyLeading: false,
@@ -78,7 +79,7 @@ class _AddCardPageState extends State<AddCardPage> {
   Container _buildInputForm(BuildContext context, CardPatternState state) {
     return Container(
       padding: const EdgeInsets.fromLTRB(16.0, 48.0, 16.0, 16.0),
-      height: MediaQuery.of(context).size.height * 0.7,
+      height: MediaQuery.of(context).size.height * 0.8,
       width: MediaQuery.of(context).size.width - 32.0,
       decoration: BoxDecoration(
         border: Border.all(width: 1.0, color: MainColors.lightGrey),
@@ -187,12 +188,25 @@ class _AddCardPageState extends State<AddCardPage> {
             ),
           ),
           Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16.0),
+            child: TextField(
+              controller: _cssController,
+              style: MainTextStyles.profileTextStyle
+                  .copyWith(color: MainColors.commonWhite),
+              onChanged: (string) => context
+                  .read<CardPatternBloc>()
+                  .add(ChangeCssCodeEvent(cssCode: _cssController.text.trim())),
+              decoration: _buildInputDecoration(
+                  hint: 'Enter css code', icon: Icons.css),
+            ),
+          ),
+          Padding(
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: GestureDetector(
               onTap: () {
                 context
                     .read<AddRemoveCardBloc>()
-                    .add(AddCardToList(card: state.cardModel));
+                    .add(AddCardToList(cardModel: state.cardModel));
                 Navigator.of(context).pushReplacement(
                     MaterialPageRoute(builder: (context) => const HomePage()));
               },
@@ -212,7 +226,7 @@ class _AddCardPageState extends State<AddCardPage> {
                   ),
                 ),
                 child: const Text(
-                  'Add Cart',
+                  'Add Card',
                   style: MainTextStyles.largeText,
                 ),
               ),

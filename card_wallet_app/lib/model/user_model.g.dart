@@ -7,7 +7,10 @@ part of 'user_model.dart';
 // **************************************************************************
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
-      cardModelList: json['cardModelList'] as List<dynamic>? ?? const [],
+      cardModelList: (json['cardModelList'] as List<dynamic>?)
+              ?.map((e) => CardModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
       password: json['password'] as String? ?? 'Default password',
       name: json['name'] as String? ?? 'Default name',
       email: json['email'] as String? ?? 'Default email',

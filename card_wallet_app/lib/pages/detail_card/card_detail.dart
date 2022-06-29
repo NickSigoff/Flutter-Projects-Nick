@@ -56,7 +56,7 @@ class DetailCard extends StatelessWidget {
                   onPressed: () {
                     context
                         .read<AddRemoveCardBloc>()
-                        .add(RemoveCardFromList(card: cardModel));
+                        .add(RemoveCardFromList(cardModel: cardModel));
                     Navigator.of(context).pop();
                   },
                   icon: const Icon(Icons.delete),

@@ -27,5 +27,8 @@ class CardPatternBloc extends Bloc<CardPatternEvent, CardPatternState> {
 
     on<ChangeCardTypeEvent>((event, emit) => emit(CardPatternState(
         cardModel: state.cardModel.copyWith(cardType: event.cardType))));
+
+    on<ChangeCssCodeEvent>((event, emit) => emit(CardPatternState(
+        cardModel: state.cardModel.copyWith(cssNumber: event.cssCode))));
   }
 }

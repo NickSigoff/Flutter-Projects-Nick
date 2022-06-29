@@ -30,8 +30,7 @@ class _SignInPageState extends State<SignInPage>
     animation = ColorTween(begin: MainColors.commonWhite, end: Colors.red)
         .animate(controller)
       ..addListener(() {
-        setState(() {
-        });
+        setState(() {});
       });
   }
 
@@ -58,6 +57,7 @@ class _SignInPageState extends State<SignInPage>
       },
       builder: (context, state) {
         return Scaffold(
+          backgroundColor: MainColors.backgroundDarkGradient,
           body: SingleChildScrollView(
             child: SizedBox(
               height: MediaQuery.of(context).size.height,
@@ -228,16 +228,3 @@ class _SignInPageState extends State<SignInPage>
     );
   }
 }
-
-// AnimatedContainer(
-// width: 50.0,
-// height: 50.0,
-// decoration: BoxDecoration(
-// color: state is ErrorState ? Colors.red : Colors.green,
-// borderRadius: BorderRadius.circular(50),
-// ),
-// duration: Duration(
-// milliseconds: 400,
-// ),
-// //curve: Curves.easeInOut,
-// ),

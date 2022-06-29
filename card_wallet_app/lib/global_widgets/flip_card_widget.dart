@@ -70,8 +70,4 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
       _showFrontSide = !_showFrontSide;
     });
   }
-
-  Widget _buildFront() {
-    return MasterCardWidget(cardModel: CardModel());
-  }
 }

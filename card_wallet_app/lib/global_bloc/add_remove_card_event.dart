@@ -4,13 +4,13 @@ part of 'add_remove_card_bloc.dart';
 abstract class AddRemoveCardEvent {}
 
 class AddCardToList extends AddRemoveCardEvent {
-  final CardModel card;
+  final CardModel cardModel;
 
-  AddCardToList({required this.card});
+  AddCardToList({required this.cardModel});
 }
 
 class RemoveCardFromList extends AddRemoveCardEvent {
-  final CardModel card;
+  final CardModel cardModel;
 
-  RemoveCardFromList({required this.card});
+  RemoveCardFromList({required this.cardModel});
 }

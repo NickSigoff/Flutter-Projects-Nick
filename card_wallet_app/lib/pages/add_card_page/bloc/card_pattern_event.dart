@@ -32,3 +32,9 @@ class ChangeValidityDateEvent extends CardPatternEvent {
 
   ChangeValidityDateEvent({required this.validity});
 }
+
+class ChangeCssCodeEvent extends CardPatternEvent {
+  final String cssCode;
+
+  ChangeCssCodeEvent({required this.cssCode});
+}

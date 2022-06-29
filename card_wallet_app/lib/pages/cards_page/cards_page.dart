@@ -42,8 +42,8 @@ class CardsPage extends StatelessWidget {
               ),
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
-                  CardModel cardModel = CardModel.fromJson(
-                      CurrentUserProvider.currentUser.cardModelList[index]);
+                  CardModel cardModel = CurrentUserProvider
+                      .currentUser.cardModelList[index] as CardModel;
                   return (cardModel.cardType == CardType.visa
                       ? SmallVisaCardWidget(cardModel: cardModel)
                       : SmallMasterCardWidget(cardModel: cardModel));

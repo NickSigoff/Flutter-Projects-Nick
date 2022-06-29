@@ -15,9 +15,10 @@ class AddRemoveCardBloc extends Bloc<AddRemoveCardEvent, AddRemoveCardState> {
   AddRemoveCardBloc() : super(AddRemoveCardInitial()) {
     on<AddCardToList>((event, emit) async {
       try {
-        List<dynamic> cardList = [];
+        print(' bloc ${event.cardModel.cssNumber}');
+        List<CardModel> cardList = [];
         cardList.addAll(CurrentUserProvider.currentUser.cardModelList);
-        cardList.add(event.card);
+        cardList.add(event.cardModel);
         CurrentUserProvider.currentUser.cardModelList = cardList;
         await SharedPreferencesService().setCurrentUserSharedPreferences(
             jsonEncode(CurrentUserProvider.currentUser.toJson()));
@@ -29,7 +30,7 @@ class AddRemoveCardBloc extends Bloc<AddRemoveCardEvent, AddRemoveCardState> {
 
     on<RemoveCardFromList>((event, emit) async {
       try {
-        CurrentUserProvider.currentUser.cardModelList.remove(event.card);
+        CurrentUserProvider.currentUser.cardModelList.remove(event.cardModel);
         await SharedPreferencesService().setCurrentUserSharedPreferences(
             jsonEncode(CurrentUserProvider.currentUser.toJson()));
         emit(AddRemoveCardSuccess());

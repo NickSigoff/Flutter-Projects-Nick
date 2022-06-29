@@ -11,7 +11,7 @@ class UserModel {
   final String email;
   final String password;
   final String avatar;
-  List<dynamic> cardModelList;
+  List<CardModel> cardModelList;
 
   UserModel({
     this.cardModelList = const [],
