@@ -15,9 +15,25 @@ class SignInPage extends StatefulWidget {
   State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _SignInPageState extends State<SignInPage>
+    with SingleTickerProviderStateMixin {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  late Animation<Color?> animation;
+  late AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+        duration: const Duration(milliseconds: 300), vsync: this);
+    animation = ColorTween(begin: MainColors.commonWhite, end: Colors.red)
+        .animate(controller)
+      ..addListener(() {
+        setState(() {
+        });
+      });
+  }
 
   @override
   void dispose() {
@@ -29,10 +45,15 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is AuthenticatedState) {
           Navigator.of(context).pushReplacement(
               MaterialPageRoute(builder: (context) => const HomePage()));
+        }
+        if (state is ErrorState) {
+          controller.forward();
+          await Future.delayed(const Duration(seconds: 1));
+          controller.reverse();
         }
       },
       builder: (context, state) {
@@ -119,7 +140,8 @@ class _SignInPageState extends State<SignInPage> {
                                       .read<AuthBloc>()
                                       .add(PressSignInSignUpNavigationEvent());
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => const SignUpPage()));
+                                      builder: (context) =>
+                                          const SignUpPage()));
                                 },
                                 child: Text('New Register',
                                     style: MainTextStyles.regularButtonText
@@ -178,22 +200,27 @@ class _SignInPageState extends State<SignInPage> {
               style: MainTextStyles.signInLargeText,
             ),
             const SizedBox(width: 8.0),
-            FloatingActionButton(
-              onPressed: state is LoadingState
-                  ? () {}
-                  : () {
-                      context.read<AuthBloc>().add(PressSignInEvent(
-                          userEmail: _emailController.text,
-                          userPassword: _passwordController.text));
-                    },
-              backgroundColor: MainColors.commonWhite,
-              child: state is LoadingState
-                  ? const Center(child: CircularProgressIndicator())
-                  : const Icon(
-                      Icons.input,
-                      size: 30,
-                      color: MainColors.commonBlack,
-                    ),
+            AnimatedBuilder(
+              animation: animation,
+              builder: (BuildContext context, Widget? child) {
+                return FloatingActionButton(
+                  onPressed: state is LoadingState
+                      ? () {}
+                      : () {
+                          context.read<AuthBloc>().add(PressSignInEvent(
+                              userEmail: _emailController.text,
+                              userPassword: _passwordController.text));
+                        },
+                  backgroundColor: animation.value,
+                  child: state is LoadingState
+                      ? const Center(child: CircularProgressIndicator())
+                      : const Icon(
+                          Icons.input,
+                          size: 30,
+                          color: MainColors.commonBlack,
+                        ),
+                );
+              },
             ),
           ],
         ),
@@ -201,3 +228,16 @@ class _SignInPageState extends State<SignInPage> {
     );
   }
 }
+
+// AnimatedContainer(
+// width: 50.0,
+// height: 50.0,
+// decoration: BoxDecoration(
+// color: state is ErrorState ? Colors.red : Colors.green,
+// borderRadius: BorderRadius.circular(50),
+// ),
+// duration: Duration(
+// milliseconds: 400,
+// ),
+// //curve: Curves.easeInOut,
+// ),

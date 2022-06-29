@@ -36,6 +36,7 @@ class CardModel {
   final String cardOwner;
   final String validity;
   final String cardNumber;
+  final String cssNumber;
 
   const CardModel({
     this.cardType = CardType.undefinedCard,
@@ -44,6 +45,7 @@ class CardModel {
     this.balance = 0,
     this.cardOwner = 'Default Name',
     this.validity = '00/00',
+    this.cssNumber = '000',
   });
 
   factory CardModel.fromJson(Map<String, dynamic> json) =>
@@ -59,6 +61,7 @@ class CardModel {
     String? cardOwner,
     String? validity,
     String? cardNumber,
+    String? cssNumber,
   }) {
     return CardModel(
       cardType: cardType ?? this.cardType,
@@ -67,6 +70,7 @@ class CardModel {
       cardOwner: cardOwner ?? this.cardOwner,
       validity: validity ?? this.validity,
       cardNumber: cardNumber ?? this.cardNumber,
+      cssNumber: cssNumber ?? this.cssNumber,
     );
   }
 }

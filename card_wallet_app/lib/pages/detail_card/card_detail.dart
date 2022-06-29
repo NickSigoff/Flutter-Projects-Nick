@@ -1,12 +1,10 @@
-import 'package:card_wallet_app/global_widgets/cards_widgets/mastercard_widget.dart';
-import 'package:card_wallet_app/global_widgets/cards_widgets/visa_card_widget.dart';
-import 'package:card_wallet_app/utils/card_enum.dart';
 import 'package:card_wallet_app/utils/main_gradients.dart';
 import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../global_bloc/add_remove_card_bloc.dart';
+import '../../global_widgets/flip_card_widget.dart';
 import '../../model/user_model.dart';
 import '../../utils/main_colors.dart';
 
@@ -71,9 +69,7 @@ class DetailCard extends StatelessWidget {
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
             child: Column(
               children: [
-                cardModel.cardType == CardType.visa
-                    ? VisaCardWidget(cardModel: cardModel)
-                    : MasterCardWidget(cardModel: cardModel),
+                FlipCardWidget(cardModel: cardModel),
               ],
             ),
           ),

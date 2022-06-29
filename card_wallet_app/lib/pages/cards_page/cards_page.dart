@@ -27,10 +27,9 @@ class CardsPage extends StatelessWidget {
               title: const Text('Cards', style: MainTextStyles.largeText),
               actions: [
                 IconButton(
-                    onPressed: () =>
-                        Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) => const AddCardPage())),
+                    onPressed: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (context) => const AddCardPage())),
                     icon: const Icon(Icons.add_circle_outline))
               ],
             ),
@@ -42,20 +41,15 @@ class CardsPage extends StatelessWidget {
                 childAspectRatio: 3 / 2,
               ),
               delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                  return (CurrentUserProvider.currentUser.cardModelList[index]
-                  as CardModel)
-                      .cardType ==
-                      CardType.visa
-                      ? SmallVisaCardWidget(
-                      cardModel: CurrentUserProvider
-                          .currentUser.cardModelList[index] as CardModel)
-                      : SmallMasterCardWidget(
-                      cardModel: CurrentUserProvider
-                          .currentUser.cardModelList[index] as CardModel);
+                (context, index) {
+                  CardModel cardModel = CardModel.fromJson(
+                      CurrentUserProvider.currentUser.cardModelList[index]);
+                  return (cardModel.cardType == CardType.visa
+                      ? SmallVisaCardWidget(cardModel: cardModel)
+                      : SmallMasterCardWidget(cardModel: cardModel));
                 },
-                childCount: CurrentUserProvider.currentUser.cardModelList
-                    .length,
+                childCount:
+                    CurrentUserProvider.currentUser.cardModelList.length,
               ),
             ),
           ],

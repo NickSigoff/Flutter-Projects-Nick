@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../model/user_model.dart';
-import '../../pages/detail_card/card_detaily.dart';
+import '../../pages/detail_card/card_detail.dart';
 import '../../utils/main_colors.dart';
 import '../../utils/main_text_styles.dart';
 

@@ -7,10 +7,7 @@ part of 'user_model.dart';
 // **************************************************************************
 
 UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
-      cardModelList: (json['cardModelList'] as List<dynamic>?)
-              ?.map((e) => CardModel.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
+      cardModelList: json['cardModelList'] as List<dynamic>? ?? const [],
       password: json['password'] as String? ?? 'Default password',
       name: json['name'] as String? ?? 'Default name',
       email: json['email'] as String? ?? 'Default email',
@@ -33,6 +30,7 @@ CardModel _$CardModelFromJson(Map<String, dynamic> json) => CardModel(
       balance: json['balance'] as int? ?? 0,
       cardOwner: json['cardOwner'] as String? ?? 'Default Name',
       validity: json['validity'] as String? ?? '00/00',
+      cssNumber: json['cssNumber'] as String? ?? '000',
     );
 
 Map<String, dynamic> _$CardModelToJson(CardModel instance) => <String, dynamic>{
@@ -42,6 +40,7 @@ Map<String, dynamic> _$CardModelToJson(CardModel instance) => <String, dynamic>{
       'cardOwner': instance.cardOwner,
       'validity': instance.validity,
       'cardNumber': instance.cardNumber,
+      'cssNumber': instance.cssNumber,
     };
 
 const _$CardTypeEnumMap = {

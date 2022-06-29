@@ -3,7 +3,7 @@ import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
 
 import '../../model/user_model.dart';
-import '../../pages/detail_card/card_detaily.dart';
+import '../../pages/detail_card/card_detail.dart';
 
 class SmallMasterCardWidget extends StatelessWidget {
   final CardModel cardModel;
