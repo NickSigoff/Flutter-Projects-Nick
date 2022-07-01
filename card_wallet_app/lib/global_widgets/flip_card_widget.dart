@@ -33,7 +33,7 @@ class _FlipCardWidgetState extends State<FlipCardWidget> {
       child: AnimatedSwitcher(
         duration: const Duration(milliseconds: 800),
         transitionBuilder: transitionBuilder,
-        layoutBuilder: (widget, list) => Stack(children: [widget!, ...list]),
+        //layoutBuilder: (widget, list) => Stack(children: [widget!, ...list]),
         switchInCurve: Curves.easeInBack,
         switchOutCurve: Curves.easeInBack.flipped,
         child: _showFrontSide
