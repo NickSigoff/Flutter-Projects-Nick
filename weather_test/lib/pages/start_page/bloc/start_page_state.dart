@@ -7,6 +7,16 @@ class StartPageInitial extends StartPageState {}
 
 class StartPageLoading extends StartPageState {}
 
-class StartPageSuccess extends StartPageState {}
+class StartPageSuccess extends StartPageState {
+  final WeatherForecast weatherForecast;
 
-class StartPageError extends StartPageState {}
+  StartPageSuccess({required this.weatherForecast});
+}
+
+class StartPageFieldError extends StartPageState {
+  final String errorMessage;
+
+  StartPageFieldError({required this.errorMessage});
+}
+
+class StartPageErrorFetching extends StartPageState {}

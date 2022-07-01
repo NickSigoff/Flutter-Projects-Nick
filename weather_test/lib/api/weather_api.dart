@@ -1,23 +1,16 @@
+import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 
-//https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=alerts,minutely&appid=8f497a8cda33335076d8575eb89a68a8
+//https://api.openweathermap.org/data/2.5/forecast?q=London&appid=8f497a8cda33335076d8575eb89a68a8
 
+import '../models/weather_forecast.dart';
 import '../utils/constants.dart';
 
 class WeatherApi {
-  Future<WeatherForecast> fetchWeatherForecastWithCoordinates(
-      {double? lat, double? lon}) async {
-    Location location = Location();
-    LocationPermission permission = await Geolocator.requestPermission();
-
-    if (lat == null || lon == null) {
-      await location.getCurrentLocation();
-    }
-
+  Future<WeatherForecast> fetchWeatherForecastWithCity(String city) async {
     var parameters = {
-      'lat': lat ?? location.lat.toString(),
-      'lon': lon ?? location.lon.toString(),
-      'exclude': Constants.weatherExclude,
+      'qo': city,
       'appid': Constants.weatherAppId,
       'units': 'metric',
     };
@@ -29,7 +22,7 @@ class WeatherApi {
     if (response.statusCode == 200) {
       return WeatherForecast.fromJson(json.decode(response.body));
     } else {
-      throw Exception('Something is wrong. Status code ${response.statusCode}');
+      throw Exception();
     }
   }
 }

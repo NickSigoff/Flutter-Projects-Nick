@@ -11,76 +11,86 @@ class StartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.all(32.0),
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(colors: [
-            MainColors.mainDeepBlueGradient,
-            MainColors.mainLightBlueGradient,
-          ], begin: Alignment.bottomLeft, end: Alignment.topRight),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Welcome to\nWeather App',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
+    return BlocConsumer<StartPageBloc, StartPageState>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+      builder: (context, state) {
+        return Scaffold(
+          body: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.all(32.0),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(colors: [
+                MainColors.mainDeepBlueGradient,
+                MainColors.mainLightBlueGradient,
+              ], begin: Alignment.bottomLeft, end: Alignment.topRight),
             ),
-            const Spacer(),
-            Container(
-              height: 300,
-              padding: const EdgeInsets.all(16.0),
-              decoration: BoxDecoration(
-                color: Colors.black.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(32.0),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TextField(
-                    style: const TextStyle(color: Colors.white, fontSize: 20),
-                    controller: _cityNameController,
-                    decoration: _buildInputDecoration(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'Welcome to\nWeather App',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+                const Spacer(),
+                Container(
+                  height: 300,
+                  padding: const EdgeInsets.all(16.0),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(32.0),
                   ),
-                  const SizedBox(height: 32.0),
-                  GestureDetector(
-                    onTap: () {
-                      context
-                          .read<StartPageBloc>()
-                          .add(OnTapContinueButtonEvent());
-                    },
-                    child: Container(
-                      alignment: Alignment.center,
-                      height: 60,
-                      width: 200,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(32.0),
-                        color: Colors.white,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      TextField(
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 20),
+                        controller: _cityNameController,
+                        decoration: _buildInputDecoration(state),
                       ),
-                      child: const Text(
-                        'Continue',
-                        style: TextStyle(fontSize: 25),
+                      const SizedBox(height: 32.0),
+                      GestureDetector(
+                        onTap: () {
+                          context.read<StartPageBloc>().add(
+                              OnTapContinueButtonEvent(
+                                  cityName: _cityNameController.text.trim()));
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 60,
+                          width: 200,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(32.0),
+                            color: Colors.white,
+                          ),
+                          child: state is StartPageLoading
+                              ? const Center(child: CircularProgressIndicator())
+                              : const Text(
+                                  'Continue',
+                                  style: TextStyle(fontSize: 25),
+                                ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+                const Spacer(),
+              ],
             ),
-            const Spacer(),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 
-  InputDecoration _buildInputDecoration() {
+  InputDecoration _buildInputDecoration(StartPageState state) {
     return InputDecoration(
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(32.0),
