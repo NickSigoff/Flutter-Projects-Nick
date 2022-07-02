@@ -11,6 +11,7 @@ class StartPageBloc extends Bloc<StartPageEvent, StartPageState> {
   StartPageBloc() : super(StartPageInitial()) {
     on<OnTapContinueButtonEvent>((event, emit) async {
       try {
+
         emit(StartPageLoading());
         String cityName = event.cityName;
         if (cityName.isEmpty) {
