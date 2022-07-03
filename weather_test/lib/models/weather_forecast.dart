@@ -2,6 +2,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'weather_forecast.g.dart';
 
+/// The main weather model received from the site openweathermap
+/// Includes information about current weather and 5 days forecast
 @JsonSerializable()
 class WeatherForecast {
   String? cod;

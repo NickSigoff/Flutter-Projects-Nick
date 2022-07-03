@@ -4,6 +4,7 @@ import 'package:weather_test/utils/main_gradients.dart';
 
 import '../../utils/main_text_styles.dart';
 
+/// Widget daily forecast
 class DailyForecast extends StatelessWidget {
   final WeatherForecast weatherForecast;
 
@@ -12,7 +13,7 @@ class DailyForecast extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Main> weatherList = _buildWeatherList(weatherForecast);
+    final List<Main> weatherList = _buildWeatherList(weatherForecast);
 
     return Scaffold(
       appBar: AppBar(
@@ -39,6 +40,20 @@ class DailyForecast extends StatelessWidget {
     );
   }
 
+  List<Main> _buildWeatherList(WeatherForecast weatherForecast) {
+    List<Main> result = [];
+    for (int i = 1; i < 4; i++) {
+      Main? weather = weatherForecast.list?[i * 8].main!;
+      if (weather != null) {
+        weather.dtTxt = weatherForecast.list?[i * 8].dtTxt!;
+        weather.icon = weatherForecast.list?[i * 8].weather![0].icon;
+        result.add(weather);
+      }
+    }
+    result.sort((a, b) => a.temp!.compareTo(b.temp!));
+    return result;
+  }
+
   Widget _buildDayForecast(Main weatherForecast) {
     return Container(
       width: double.infinity,
@@ -51,14 +66,16 @@ class DailyForecast extends StatelessWidget {
       child: Column(
         children: [
           Image.network(
-              'http://openweathermap.org/img/wn/${weatherForecast.icon}.png', scale: 0.8,),
+            'http://openweathermap.org/img/wn/${weatherForecast.icon}.png',
+            scale: 0.8,
+          ),
           RichText(
             text: TextSpan(
                 text: 'Date: ',
                 style: MainTextStyles.smallInscriptionsDark,
                 children: [
                   TextSpan(
-                    text: weatherForecast.dtTxt!.substring(0, 11),
+                    text: weatherForecast.dtTxt?.substring(0, 11),
                     style: MainTextStyles.smallInscriptionsLight,
                   ),
                 ]),
@@ -99,17 +116,5 @@ class DailyForecast extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  List<Main> _buildWeatherList(WeatherForecast weatherForecast) {
-    List<Main> result = [];
-    for (int i = 1; i < 4; i++) {
-      Main weather = weatherForecast.list![i * 8].main!;
-      weather.dtTxt = weatherForecast.list![i * 8].dtTxt!;
-      weather.icon = weatherForecast.list![i * 8].weather![0].icon;
-      result.add(weather);
-    }
-    result.sort((a, b) => a.temp!.compareTo(b.temp!));
-    return result;
   }
 }

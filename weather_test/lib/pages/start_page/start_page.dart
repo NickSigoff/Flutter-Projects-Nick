@@ -4,9 +4,14 @@ import 'package:weather_test/pages/home_page/home_page.dart';
 import 'package:weather_test/pages/start_page/bloc/start_page_bloc.dart';
 import 'package:weather_test/utils/main_gradients.dart';
 
+import '../../utils/main_colors.dart';
+
+/// The start page widget has a field for entering the city for finding the weather.
+/// The class is built on the bloc state manager and navigates to the desired page
+/// based on the data received from the block
+
 class StartPage extends StatelessWidget {
-  final TextEditingController _cityNameController =
-      TextEditingController(text: 'London');
+  final TextEditingController _cityNameController = TextEditingController();
 
   StartPage({Key? key}) : super(key: key);
 
@@ -42,7 +47,7 @@ class StartPage extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
-                      color: Colors.white),
+                      color: MainColors.mainWhite),
                 ),
                 const Spacer(),
                 Container(
@@ -56,8 +61,8 @@ class StartPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       TextField(
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 20),
+                        style: const TextStyle(
+                            color: MainColors.mainWhite, fontSize: 20),
                         controller: _cityNameController,
                         decoration: _buildInputDecoration(state),
                       ),
@@ -74,7 +79,7 @@ class StartPage extends StatelessWidget {
                           width: 200,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(32.0),
-                            color: Colors.white,
+                            color: MainColors.mainWhite,
                           ),
                           child: state is StartPageLoading
                               ? const Center(child: CircularProgressIndicator())
@@ -96,15 +101,17 @@ class StartPage extends StatelessWidget {
     );
   }
 
+  /// The methods contains all the borders for the input field
+  /// [state] - a state which was emitted by the bloc class
   InputDecoration _buildInputDecoration(StartPageState state) {
     return InputDecoration(
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(32.0),
-        borderSide: const BorderSide(color: Colors.blue, width: 2.0),
+        borderSide: const BorderSide(color: MainColors.mainBlue, width: 2.0),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(32.0),
-        borderSide: const BorderSide(color: Colors.white, width: 2.0),
+        borderSide: const BorderSide(color: MainColors.mainWhite, width: 2.0),
       ),
       hintText: 'Enter your city to continue',
       hintStyle: TextStyle(fontSize: 20, color: Colors.white.withOpacity(0.5)),
@@ -114,7 +121,7 @@ class StartPage extends StatelessWidget {
           : null,
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(32.0),
-        borderSide: const BorderSide(color: Colors.red, width: 2.0),
+        borderSide: const BorderSide(color: MainColors.mainRed, width: 2.0),
       ),
     );
   }

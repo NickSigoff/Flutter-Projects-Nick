@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 
+/// This class applies gradient effect to text
+/// [text] - String of text to be processed
+/// [gradient] - Gradient applied to text
+/// [style] - TextStyle inputted text
 class GradientText extends StatelessWidget {
   const GradientText(
-      this.text, {
-        Key? key,
-        required this.gradient,
-        this.style,
-      }) : super(key: key);
+    this.text, {
+    Key? key,
+    required this.gradient,
+    this.style,
+  }) : super(key: key);
 
   final String text;
   final TextStyle? style;

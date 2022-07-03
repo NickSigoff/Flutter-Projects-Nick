@@ -1,6 +1,8 @@
+/// The class determines the direction of the wind by the obtained angle value
 class WindDirection {
+  ///[directionDegree] - wind angle
   String chooseWindDirection(int? directionDegree) {
-    if(directionDegree == null) {
+    if (directionDegree == null) {
       return '';
     }
     switch ((directionDegree / 10).ceil() * 10) {

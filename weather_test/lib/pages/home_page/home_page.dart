@@ -5,7 +5,12 @@ import 'package:weather_test/pages/home_page/widgets/main_weather_parameters_wid
 import 'package:weather_test/utils/main_text_styles.dart';
 
 import '../../global_widgets/gradient_text.dart';
+import '../../utils/main_colors.dart';
 import '../../utils/main_gradients.dart';
+
+///The main page containing information about the current weather of the entered city.
+/// Notifies the user if there is a data retrieval error.
+/// [weatherForecast] - weather model
 
 class HomePage extends StatelessWidget {
   final WeatherForecast? weatherForecast;
@@ -22,11 +27,18 @@ class HomePage extends StatelessWidget {
                 gradient: MainGradients.backgroundGradient,
               ),
               child: Center(
-                child: Text(
-                  'Error by fetching data! Check your internet connection',
-                  textAlign: TextAlign.center,
-                  style: MainTextStyles.topTextTextStyle
-                      .copyWith(color: Colors.white),
+                child: AlertDialog(
+                  titleTextStyle: MainTextStyles.dailyDetails
+                      .copyWith(color: MainColors.mainBlack),
+                  title: const Text(
+                    'Error by fetching data! Check your internet connection',
+                    textAlign: TextAlign.center,
+                  ),
+                  actions: [
+                    ElevatedButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: const Text('Back'))
+                  ],
                 ),
               ),
             ),
@@ -58,10 +70,10 @@ class HomePage extends StatelessWidget {
                   children: [
                     _buildCityNameWidget(),
                     MainWeatherParametersWidget(
-                      mainWeather: weatherForecast!.list!.first.main,
+                      mainWeather: weatherForecast!.list?.first.main,
                       description: weatherForecast!
-                          .list!.first.weather!.first.description,
-                      wind: weatherForecast!.list!.first.wind,
+                          .list?.first.weather?.first.description,
+                      wind: weatherForecast!.list?.first.wind,
                     ),
                   ],
                 ),
@@ -70,12 +82,13 @@ class HomePage extends StatelessWidget {
           );
   }
 
+  /// The method builds city name widget at the top of the page
   Widget _buildCityNameWidget() {
     if (weatherForecast!.city != null) {
       return GradientText(
           '${weatherForecast!.city!.name ?? ''}, ${weatherForecast!.city!.country ?? ''}',
           style: const TextStyle(
-            color: Colors.white,
+            color: MainColors.mainWhite,
             fontSize: 50,
             fontWeight: FontWeight.w400,
           ),
