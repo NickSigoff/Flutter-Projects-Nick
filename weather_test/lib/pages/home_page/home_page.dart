@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:weather_test/models/weather_forecast.dart';
+import 'package:weather_test/pages/home_page/widgets/main_weather_parameters_widget.dart';
+import 'package:weather_test/utils/main_text_styles.dart';
 
-import '../../utils/constants.dart';
+import '../../global_widgets/gradient_text.dart';
+import '../../utils/main_gradients.dart';
 
 class HomePage extends StatelessWidget {
   final WeatherForecast weatherForecast;
@@ -11,14 +14,28 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        title: Text('Current weather', style: MainTextStyles.dailyDetails),
+        centerTitle: true,
+        actions: [
+          IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_forward)),
+        ],
+      ),
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.all(32.0),
+        decoration: const BoxDecoration(
+          gradient: MainGradients.backgroundGradient,
+        ),
         child: Column(
           children: [
             _buildCityNameWidget(),
-            _buildMainWeatherWidget(),
+            MainWeatherParametersWidget(
+                mainWeather: weatherForecast.list!.first.main,
+                description:
+                    weatherForecast.list!.first.weather!.first.description),
           ],
         ),
       ),
@@ -27,29 +44,14 @@ class HomePage extends StatelessWidget {
 
   Widget _buildCityNameWidget() {
     if (weatherForecast.city != null) {
-      return Text(
-        '${weatherForecast.city!.name ?? ''}, ${weatherForecast.city!.country ?? ''}',
-        style: const TextStyle(fontSize: 30, fontWeight: FontWeight.w600),
-      );
-    } else {
-      return const Text('');
-    }
-  }
-
-  Widget _buildMainWeatherWidget() {
-    if (weatherForecast.list != null && weatherForecast.list![0].main != null) {
-      return Column(
-        children: [
-          Text(
-            '${weatherForecast.list![0].main!.temp == null ? '' : weatherForecast.list![0].main!.temp!.round()} ${Constants.degreeSymbol}',
-            style: const TextStyle(
-              fontSize: 180,
-              fontWeight: FontWeight.w400,
-            ),
+      return GradientText(
+          '${weatherForecast.city!.name ?? ''}, ${weatherForecast.city!.country ?? ''}',
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 50,
+            fontWeight: FontWeight.w400,
           ),
-
-        ],
-      );
+          gradient: MainGradients.textGradient);
     } else {
       return const Text('');
     }

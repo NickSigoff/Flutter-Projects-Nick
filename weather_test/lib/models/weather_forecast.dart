@@ -22,7 +22,7 @@ class WeatherForecast {
 class WeatherList {
   int? dt;
   Main? main;
-  List<WeatherForecast>? weather;
+  List<Weather>? weather;
   Clouds? clouds;
   Wind? wind;
   int? visibility;
@@ -52,6 +52,7 @@ class WeatherList {
 @JsonSerializable()
 class Main {
   double? temp;
+  @JsonKey(name: 'feels_like')
   double? feelsLike;
   double? tempMin;
   double? tempMax;

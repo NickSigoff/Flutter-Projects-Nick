@@ -34,7 +34,7 @@ WeatherList _$WeatherListFromJson(Map<String, dynamic> json) => WeatherList(
           ? null
           : Main.fromJson(json['main'] as Map<String, dynamic>),
       weather: (json['weather'] as List<dynamic>?)
-          ?.map((e) => WeatherForecast.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => Weather.fromJson(e as Map<String, dynamic>))
           .toList(),
       clouds: json['clouds'] == null
           ? null
@@ -69,7 +69,7 @@ Map<String, dynamic> _$WeatherListToJson(WeatherList instance) =>
 
 Main _$MainFromJson(Map<String, dynamic> json) => Main(
       temp: (json['temp'] as num?)?.toDouble(),
-      feelsLike: (json['feelsLike'] as num?)?.toDouble(),
+      feelsLike: (json['feels_like'] as num?)?.toDouble(),
       tempMin: (json['tempMin'] as num?)?.toDouble(),
       tempMax: (json['tempMax'] as num?)?.toDouble(),
       pressure: json['pressure'] as int?,
@@ -81,7 +81,7 @@ Main _$MainFromJson(Map<String, dynamic> json) => Main(
 
 Map<String, dynamic> _$MainToJson(Main instance) => <String, dynamic>{
       'temp': instance.temp,
-      'feelsLike': instance.feelsLike,
+      'feels_like': instance.feelsLike,
       'tempMin': instance.tempMin,
       'tempMax': instance.tempMax,
       'pressure': instance.pressure,

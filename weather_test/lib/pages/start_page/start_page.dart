@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:weather_test/pages/home_page/home_page.dart';
 import 'package:weather_test/pages/start_page/bloc/start_page_bloc.dart';
+import 'package:weather_test/utils/main_gradients.dart';
 
 import '../../utils/main_colors.dart';
 
 class StartPage extends StatelessWidget {
-  final TextEditingController _cityNameController = TextEditingController();
+  final TextEditingController _cityNameController = TextEditingController(text: 'London');
 
   StartPage({Key? key}) : super(key: key);
 
@@ -15,8 +16,9 @@ class StartPage extends StatelessWidget {
     return BlocConsumer<StartPageBloc, StartPageState>(
       listener: (context, state) {
         if (state is StartPageSuccess) {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => HomePage(weatherForecast: state.weatherForecast)));
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) =>
+                  HomePage(weatherForecast: state.weatherForecast)));
         }
       },
       builder: (context, state) {
@@ -26,10 +28,7 @@ class StartPage extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.all(32.0),
             decoration: const BoxDecoration(
-              gradient: LinearGradient(colors: [
-                MainColors.mainDeepBlueGradient,
-                MainColors.mainLightBlueGradient,
-              ], begin: Alignment.bottomLeft, end: Alignment.topRight),
+              gradient: MainGradients.backgroundGradient,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
