@@ -13,10 +13,14 @@ class StartPageSuccess extends StartPageState {
   StartPageSuccess({required this.weatherForecast});
 }
 
-class StartPageFieldError extends StartPageState {
+class StartPageCityNameError extends StartPageState {
   final String errorMessage;
 
-  StartPageFieldError({required this.errorMessage});
+  StartPageCityNameError({required this.errorMessage});
 }
 
-class StartPageErrorFetching extends StartPageState {}
+class StartPageErrorFetching extends StartPageState {
+  final String? errorMessage;
+
+  StartPageErrorFetching({this.errorMessage});
+}

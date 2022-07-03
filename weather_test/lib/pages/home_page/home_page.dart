@@ -8,52 +8,72 @@ import '../../global_widgets/gradient_text.dart';
 import '../../utils/main_gradients.dart';
 
 class HomePage extends StatelessWidget {
-  final WeatherForecast weatherForecast;
+  final WeatherForecast? weatherForecast;
 
-  const HomePage({Key? key, required this.weatherForecast}) : super(key: key);
+  const HomePage({Key? key, this.weatherForecast}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Current weather', style: MainTextStyles.dailyDetails),
-        centerTitle: true,
-        actions: [
-          IconButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) =>
-                        DailyForecast(weatherForecast: weatherForecast)));
-              },
-              icon: const Icon(Icons.arrow_forward)),
-        ],
-      ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.all(32.0),
-        decoration: const BoxDecoration(
-          gradient: MainGradients.backgroundGradient,
-        ),
-        child: Column(
-          children: [
-            _buildCityNameWidget(),
-            MainWeatherParametersWidget(
-              mainWeather: weatherForecast.list!.first.main,
-              description:
-                  weatherForecast.list!.first.weather!.first.description,
-              wind: weatherForecast.list!.first.wind,
+    return weatherForecast == null
+        ? Scaffold(
+            appBar: AppBar(),
+            body: Container(
+              decoration: const BoxDecoration(
+                gradient: MainGradients.backgroundGradient,
+              ),
+              child: Center(
+                child: Text(
+                  'Error by fetching data! Check your internet connection',
+                  textAlign: TextAlign.center,
+                  style: MainTextStyles.topTextTextStyle
+                      .copyWith(color: Colors.white),
+                ),
+              ),
             ),
-          ],
-        ),
-      ),
-    );
+          )
+        : Scaffold(
+            appBar: AppBar(
+              title:
+                  Text('Current weather', style: MainTextStyles.dailyDetails),
+              centerTitle: true,
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => DailyForecast(
+                              weatherForecast: weatherForecast!)));
+                    },
+                    icon: const Icon(Icons.arrow_forward)),
+              ],
+            ),
+            body: SingleChildScrollView(
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.all(32.0),
+                decoration: const BoxDecoration(
+                  gradient: MainGradients.backgroundGradient,
+                ),
+                child: Column(
+                  children: [
+                    _buildCityNameWidget(),
+                    MainWeatherParametersWidget(
+                      mainWeather: weatherForecast!.list!.first.main,
+                      description: weatherForecast!
+                          .list!.first.weather!.first.description,
+                      wind: weatherForecast!.list!.first.wind,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
   }
 
   Widget _buildCityNameWidget() {
-    if (weatherForecast.city != null) {
+    if (weatherForecast!.city != null) {
       return GradientText(
-          '${weatherForecast.city!.name ?? ''}, ${weatherForecast.city!.country ?? ''}',
+          '${weatherForecast!.city!.name ?? ''}, ${weatherForecast!.city!.country ?? ''}',
           style: const TextStyle(
             color: Colors.white,
             fontSize: 50,

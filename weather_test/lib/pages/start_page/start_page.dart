@@ -19,6 +19,10 @@ class StartPage extends StatelessWidget {
               builder: (context) =>
                   HomePage(weatherForecast: state.weatherForecast)));
         }
+        if (state is StartPageErrorFetching) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => const HomePage()));
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -104,13 +108,14 @@ class StartPage extends StatelessWidget {
       ),
       hintText: 'Enter your city to continue',
       hintStyle: TextStyle(fontSize: 20, color: Colors.white.withOpacity(0.5)),
-      errorText: state is StartPageErrorFetching
+      errorStyle: const TextStyle(fontSize: 16),
+      errorText: state is StartPageCityNameError
           ? 'City not found! Please, try again'
           : null,
-      // errorBorder: OutlineInputBorder(
-      //   borderRadius: BorderRadius.circular(32.0),
-      //   borderSide: const BorderSide(color: Colors.red, width: 2.0),
-      // ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(32.0),
+        borderSide: const BorderSide(color: Colors.red, width: 2.0),
+      ),
     );
   }
 }

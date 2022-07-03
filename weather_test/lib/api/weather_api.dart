@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
@@ -16,11 +17,17 @@ class WeatherApi {
     };
     var uri = Uri.https(
         Constants.weatherDomainName, Constants.weatherForecastPath, parameters);
-    var response = await http.get(uri);
-    if (response.statusCode == 200) {
-      return WeatherForecast.fromJson(json.decode(response.body));
-    } else {
-      throw Exception();
+    try {
+      var response = await http.get(uri);
+      if (response.statusCode == 200) {
+        return WeatherForecast.fromJson(json.decode(response.body));
+      } else {
+        throw const FormatException('');
+      }
+    } on FormatException catch (_) {
+      throw const FormatException('');
+    } catch (e) {
+      throw const HttpException('');
     }
   }
 }
