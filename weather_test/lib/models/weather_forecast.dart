@@ -28,6 +28,7 @@ class WeatherList {
   int? visibility;
   double? pop;
   Sys? sys;
+  @JsonKey(name: 'dt_txt')
   String? dtTxt;
   Rain? rain;
 
@@ -61,6 +62,9 @@ class Main {
   int? grndLevel;
   int? humidity;
   double? tempKf;
+  @JsonKey(name: 'dt_txt')
+  String? dtTxt;
+  String? icon;
 
   Main(
       {this.temp,
@@ -71,6 +75,8 @@ class Main {
       this.seaLevel,
       this.grndLevel,
       this.humidity,
+      this.dtTxt,
+      this.icon,
       this.tempKf});
 
   factory Main.fromJson(Map<String, dynamic> json) => _$MainFromJson(json);

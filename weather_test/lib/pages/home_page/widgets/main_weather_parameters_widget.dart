@@ -10,9 +10,13 @@ import '../../../utils/main_text_styles.dart';
 class MainWeatherParametersWidget extends StatelessWidget {
   final Main? mainWeather;
   final String? description;
+  final Wind? wind;
 
   const MainWeatherParametersWidget(
-      {Key? key, required this.mainWeather, required this.description})
+      {Key? key,
+      required this.mainWeather,
+      required this.description,
+      required this.wind})
       : super(key: key);
 
   @override
@@ -68,7 +72,7 @@ class MainWeatherParametersWidget extends StatelessWidget {
                       style: MainTextStyles.smallInscriptionsDark,
                       children: [
                         TextSpan(
-                          text: '$windSpeed',
+                          text: '${wind?.speed}',
                           style: MainTextStyles.smallInscriptionsLight,
                         ),
                       ]),
@@ -79,7 +83,7 @@ class MainWeatherParametersWidget extends StatelessWidget {
                       style: MainTextStyles.smallInscriptionsDark,
                       children: [
                         TextSpan(
-                          text: '${WindDirection().chooseWindDirection(250)}',
+                          text: '${WindDirection().chooseWindDirection(wind?.deg)}',
                           style: MainTextStyles.smallInscriptionsLight,
                         ),
                       ]),
@@ -90,7 +94,7 @@ class MainWeatherParametersWidget extends StatelessWidget {
                       style: MainTextStyles.smallInscriptionsDark,
                       children: [
                         TextSpan(
-                          text: '$humidity',
+                          text: '${mainWeather?.humidity}',
                           style: MainTextStyles.smallInscriptionsLight,
                         ),
                       ]),

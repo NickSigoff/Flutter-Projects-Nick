@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_test/models/weather_forecast.dart';
+import 'package:weather_test/pages/daily_forecast/daily_forecast.dart';
 import 'package:weather_test/pages/home_page/widgets/main_weather_parameters_widget.dart';
 import 'package:weather_test/utils/main_text_styles.dart';
 
@@ -15,11 +16,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0.0,
         title: Text('Current weather', style: MainTextStyles.dailyDetails),
         centerTitle: true,
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_forward)),
+          IconButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        DailyForecast(weatherForecast: weatherForecast)));
+              },
+              icon: const Icon(Icons.arrow_forward)),
         ],
       ),
       body: Container(
@@ -33,9 +39,11 @@ class HomePage extends StatelessWidget {
           children: [
             _buildCityNameWidget(),
             MainWeatherParametersWidget(
-                mainWeather: weatherForecast.list!.first.main,
-                description:
-                    weatherForecast.list!.first.weather!.first.description),
+              mainWeather: weatherForecast.list!.first.main,
+              description:
+                  weatherForecast.list!.first.weather!.first.description,
+              wind: weatherForecast.list!.first.wind,
+            ),
           ],
         ),
       ),

@@ -4,10 +4,9 @@ import 'package:weather_test/pages/home_page/home_page.dart';
 import 'package:weather_test/pages/start_page/bloc/start_page_bloc.dart';
 import 'package:weather_test/utils/main_gradients.dart';
 
-import '../../utils/main_colors.dart';
-
 class StartPage extends StatelessWidget {
-  final TextEditingController _cityNameController = TextEditingController(text: 'London');
+  final TextEditingController _cityNameController =
+      TextEditingController(text: 'London');
 
   StartPage({Key? key}) : super(key: key);
 
@@ -105,11 +104,13 @@ class StartPage extends StatelessWidget {
       ),
       hintText: 'Enter your city to continue',
       hintStyle: TextStyle(fontSize: 20, color: Colors.white.withOpacity(0.5)),
-      errorText: 'City not found! Please, try again',
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(32.0),
-        borderSide: const BorderSide(color: Colors.red, width: 2.0),
-      ),
+      errorText: state is StartPageErrorFetching
+          ? 'City not found! Please, try again'
+          : null,
+      // errorBorder: OutlineInputBorder(
+      //   borderRadius: BorderRadius.circular(32.0),
+      //   borderSide: const BorderSide(color: Colors.red, width: 2.0),
+      // ),
     );
   }
 }

@@ -1,5 +1,8 @@
 class WindDirection {
-  String chooseWindDirection(int directionDegree) {
+  String chooseWindDirection(int? directionDegree) {
+    if(directionDegree == null) {
+      return '';
+    }
     switch ((directionDegree / 10).ceil() * 10) {
       case 350:
       case 360:
