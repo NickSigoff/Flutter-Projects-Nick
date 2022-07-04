@@ -13,7 +13,7 @@ abstract class MainBoxDecorations {
         ),
       ],
       borderRadius: BorderRadius.circular(20.0),
-      color: MainColors.lightBlueGrey);
+      color: MainColors.deepBlue);
 
 // static const BoxDecoration backgroundMainPageGradient = BoxDecoration(
 //   gradient: LinearGradient(

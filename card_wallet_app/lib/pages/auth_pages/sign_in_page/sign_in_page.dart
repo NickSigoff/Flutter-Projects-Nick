@@ -4,6 +4,7 @@ import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../global_widgets/page_transition.dart';
 import '../../../utils/main_colors.dart';
 import '../../../global_widgets/background_welcome_page.dart';
 import '../sign_up_page/sign_up_page.dart';
@@ -57,7 +58,6 @@ class _SignInPageState extends State<SignInPage>
       },
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: MainColors.backgroundDarkGradient,
           body: SingleChildScrollView(
             child: SizedBox(
               height: MediaQuery.of(context).size.height,
@@ -82,17 +82,10 @@ class _SignInPageState extends State<SignInPage>
                       height: MediaQuery.of(context).size.height * 0.5,
                       width: MediaQuery.of(context).size.width - 32.0,
                       decoration: BoxDecoration(
-                        border:
-                            Border.all(width: 1.0, color: MainColors.lightGrey),
+                        border: Border.all(
+                            width: 1.0, color: MainColors.commonWhite),
                         borderRadius: BorderRadius.circular(16.0),
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.black.withOpacity(0.6),
-                            Colors.black.withOpacity(0.9),
-                          ],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
+                        color: MainColors.deepBlue.withOpacity(0.9),
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -139,9 +132,13 @@ class _SignInPageState extends State<SignInPage>
                                   context
                                       .read<AuthBloc>()
                                       .add(PressSignInSignUpNavigationEvent());
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          const SignUpPage()));
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        page: const SignUpPage(),
+                                        axis: Axis.horizontal,
+                                        alignment: Alignment.centerRight,
+                                      ));
                                 },
                                 child: Text('New Register',
                                     style: MainTextStyles.regularButtonText
@@ -175,8 +172,7 @@ class _SignInPageState extends State<SignInPage>
       {required String hint, required IconData icon}) {
     return InputDecoration(
         focusedBorder: const OutlineInputBorder(
-          borderSide:
-              BorderSide(color: MainColors.lightBlueGrey, width: 2.0),
+          borderSide: BorderSide(color: MainColors.lightBlue, width: 2.0),
         ),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: MainColors.commonWhite, width: 2.0),
@@ -195,9 +191,10 @@ class _SignInPageState extends State<SignInPage>
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            const Text(
+            Text(
               'Login',
-              style: MainTextStyles.signInLargeText,
+              style: MainTextStyles.signInLargeText
+                  .copyWith(color: MainColors.commonWhite),
             ),
             const SizedBox(width: 8.0),
             AnimatedBuilder(

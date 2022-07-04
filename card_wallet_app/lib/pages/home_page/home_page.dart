@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
                           height: 60.0,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(28.0),
-                            color: MainColors.lightBlueGrey,
+                            color: MainColors.deepBlue,
                           ),
                           child: Row(
                             children: [

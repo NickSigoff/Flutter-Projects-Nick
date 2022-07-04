@@ -4,14 +4,14 @@ import 'main_colors.dart';
 
 abstract class MainTextStyles {
   static const TextStyle largeText = TextStyle(
-    color: MainColors.lightBlueGrey,
+    color: MainColors.deepBlue,
     fontFamily: 'Raleway',
     fontWeight: FontWeight.w800,
     fontSize: 24.0,
   );
 
   static const TextStyle signInLargeText = TextStyle(
-    color: MainColors.commonWhite,
+    color: MainColors.deepBlue,
     fontFamily: 'Orbitron',
     fontWeight: FontWeight.w800,
     fontSize: 35.0,

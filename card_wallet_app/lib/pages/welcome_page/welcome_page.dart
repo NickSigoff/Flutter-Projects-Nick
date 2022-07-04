@@ -7,6 +7,7 @@ import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../global_widgets/page_transition.dart';
 import '../../utils/main_colors.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -18,9 +19,10 @@ class WelcomePage extends StatelessWidget {
       listener: (context, state) {
         if (state is UnauthenticatedState) {
           Navigator.pushReplacement(
-              context, PageTransition(const SignInPage()));
+              context, PageTransition(page: const SignInPage()));
         } else if (state is AuthenticatedState) {
-          Navigator.pushReplacement(context, PageTransition(const HomePage()));
+          Navigator.pushReplacement(
+              context, PageTransition(page: const HomePage()));
         }
       },
       builder: (context, state) {
@@ -75,25 +77,4 @@ class WelcomePage extends StatelessWidget {
       ),
     );
   }
-}
-
-class PageTransition extends PageRouteBuilder {
-  final Widget page;
-
-  PageTransition(this.page)
-      : super(
-            pageBuilder: (context, animation, anotherAnimation) => page,
-            transitionDuration: const Duration(milliseconds: 700),
-            transitionsBuilder: (context, animation, anotherAnimation, child) {
-              animation = CurvedAnimation(
-                  parent: animation, curve: Curves.fastOutSlowIn);
-              return Align(
-                alignment: Alignment.topCenter,
-                child: SizeTransition(
-                  axis: Axis.vertical,
-                  sizeFactor: animation,
-                  child: page,
-                ),
-              );
-            });
 }

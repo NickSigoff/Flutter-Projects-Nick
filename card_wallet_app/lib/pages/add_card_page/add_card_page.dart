@@ -118,7 +118,7 @@ class _AddCardPageState extends State<AddCardPage> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        backgroundColor: MainColors.lightBlueGrey,
+                        backgroundColor: MainColors.deepBlue,
                         title: Text(
                           'Pick a color!',
                           style: MainTextStyles.regularButtonText
@@ -143,7 +143,7 @@ class _AddCardPageState extends State<AddCardPage> {
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20.0),
-                               color: MainColors.lightBlueGrey,
+                               color: MainColors.deepBlue,
                               ),
                               child: const Text(
                                 'Done',
@@ -168,7 +168,7 @@ class _AddCardPageState extends State<AddCardPage> {
             ),
             const SizedBox(height: 16.0),
             DropdownButtonFormField(
-              dropdownColor: MainColors.lightBlueGrey,
+              dropdownColor: MainColors.deepBlue,
               style: MainTextStyles.profileTextStyle
                   .copyWith(color: MainColors.commonWhite),
               items: items.map((String items) {
@@ -255,7 +255,7 @@ class _AddCardPageState extends State<AddCardPage> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    color: MainColors.lightBlueGrey,
+                    color: MainColors.deepBlue,
                   ),
                   child: const Text(
                     'Add Card',

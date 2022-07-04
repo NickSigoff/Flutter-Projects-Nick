@@ -146,7 +146,7 @@ class ProfilePage extends StatelessWidget {
       alignment: Alignment.center,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20.0),
-       color: MainColors.lightBlueGrey,
+       color: MainColors.deepBlue,
       ),
       child: const Text(
         'Edit Profile',
