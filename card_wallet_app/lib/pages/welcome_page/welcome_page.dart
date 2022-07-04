@@ -17,11 +17,10 @@ class WelcomePage extends StatelessWidget {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is UnauthenticatedState) {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const SignInPage()));
+          Navigator.pushReplacement(
+              context, PageTransition(const SignInPage()));
         } else if (state is AuthenticatedState) {
-          Navigator.of(context).pushReplacement(
-              MaterialPageRoute(builder: (context) => const HomePage()));
+          Navigator.pushReplacement(context, PageTransition(const HomePage()));
         }
       },
       builder: (context, state) {
@@ -76,4 +75,25 @@ class WelcomePage extends StatelessWidget {
       ),
     );
   }
+}
+
+class PageTransition extends PageRouteBuilder {
+  final Widget page;
+
+  PageTransition(this.page)
+      : super(
+            pageBuilder: (context, animation, anotherAnimation) => page,
+            transitionDuration: const Duration(milliseconds: 700),
+            transitionsBuilder: (context, animation, anotherAnimation, child) {
+              animation = CurvedAnimation(
+                  parent: animation, curve: Curves.fastOutSlowIn);
+              return Align(
+                alignment: Alignment.topCenter,
+                child: SizeTransition(
+                  axis: Axis.vertical,
+                  sizeFactor: animation,
+                  child: page,
+                ),
+              );
+            });
 }
