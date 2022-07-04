@@ -1,5 +1,7 @@
-import 'package:card_wallet_app/utils/main_gradients.dart';
+import 'package:card_wallet_app/utils/main_box_decorations.dart';
 import 'package:flutter/material.dart';
+
+import '../utils/main_colors.dart';
 
 class BackgroundWelcomePage extends StatelessWidget {
   final bool isImageVisible;
@@ -9,35 +11,32 @@ class BackgroundWelcomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: MainGradients.backgroundMainPageGradient,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          const BackgroundLine(
-            maxClipperHeight: 0.35,
-            minClipperHeight: 0.15,
-          ),
-          const BackgroundLine(
-            minClipperHeight: 0.3,
-            maxClipperHeight: 0.5,
-          ),
-          isImageVisible
-              ? Positioned(
-                  top: 120.0,
-                  child: Container(
-                    height: 380.0,
-                    width: 560.0,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/card_logo.png'),
-                      ),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        const BackgroundLine(
+          maxClipperHeight: 0.35,
+          minClipperHeight: 0.15,
+        ),
+        const BackgroundLine(
+          minClipperHeight: 0.3,
+          maxClipperHeight: 0.5,
+        ),
+        isImageVisible
+            ? Positioned(
+                top: 120.0,
+                child: Container(
+                  height: 380.0,
+                  width: 560.0,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/card_logo.png'),
                     ),
                   ),
-                )
-              : Container(),
-        ],
-      ),
+                ),
+              )
+            : Container(),
+      ],
     );
   }
 }
@@ -60,7 +59,9 @@ class BackgroundLine extends StatelessWidget {
         max: maxClipperHeight,
       ),
       child: Container(
-        decoration: MainGradients.backgroundLine,
+        decoration: BoxDecoration(
+          color: MainColors.lightGrey.withOpacity(0.1),
+        ),
       ),
     );
   }

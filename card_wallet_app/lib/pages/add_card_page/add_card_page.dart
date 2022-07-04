@@ -143,14 +143,7 @@ class _AddCardPageState extends State<AddCardPage> {
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20.0),
-                                gradient: const LinearGradient(
-                                  colors: [
-                                    MainColors.buttonLightGradient,
-                                    MainColors.buttonDarkGradient,
-                                  ],
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                ),
+                               color: MainColors.lightBlueGrey,
                               ),
                               child: const Text(
                                 'Done',
@@ -262,14 +255,7 @@ class _AddCardPageState extends State<AddCardPage> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
-                    gradient: const LinearGradient(
-                      colors: [
-                        MainColors.buttonLightGradient,
-                        MainColors.buttonDarkGradient,
-                      ],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                    ),
+                    color: MainColors.lightBlueGrey,
                   ),
                   child: const Text(
                     'Add Card',

@@ -2,6 +2,7 @@ import 'package:card_wallet_app/pages/auth_pages/bloc/auth_bloc.dart';
 import 'package:card_wallet_app/pages/auth_pages/sign_in_page/sign_in_page.dart';
 import 'package:card_wallet_app/global_widgets/background_welcome_page.dart';
 import 'package:card_wallet_app/pages/home_page/home_page.dart';
+import 'package:card_wallet_app/utils/main_box_decorations.dart';
 import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,20 +67,11 @@ class WelcomePage extends StatelessWidget {
         height: 60.0,
         width: 260.0,
         alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-          gradient: const LinearGradient(
-            colors: [
-              MainColors.buttonLightGradient,
-              MainColors.buttonDarkGradient,
-            ],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-        ),
-        child: const Text(
+        decoration: MainBoxDecorations.mainConfirmButton,
+        child: Text(
           'Get Started',
-          style: MainTextStyles.largeText,
+          style:
+              MainTextStyles.largeText.copyWith(color: MainColors.commonWhite),
         ),
       ),
     );

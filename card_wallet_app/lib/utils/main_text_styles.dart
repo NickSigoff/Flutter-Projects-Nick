@@ -4,7 +4,7 @@ import 'main_colors.dart';
 
 abstract class MainTextStyles {
   static const TextStyle largeText = TextStyle(
-    color: MainColors.commonWhite,
+    color: MainColors.lightBlueGrey,
     fontFamily: 'Raleway',
     fontWeight: FontWeight.w800,
     fontSize: 24.0,

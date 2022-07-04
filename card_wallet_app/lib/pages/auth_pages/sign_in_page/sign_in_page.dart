@@ -176,7 +176,7 @@ class _SignInPageState extends State<SignInPage>
     return InputDecoration(
         focusedBorder: const OutlineInputBorder(
           borderSide:
-              BorderSide(color: MainColors.buttonDarkGradient, width: 2.0),
+              BorderSide(color: MainColors.lightBlueGrey, width: 2.0),
         ),
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: MainColors.commonWhite, width: 2.0),
