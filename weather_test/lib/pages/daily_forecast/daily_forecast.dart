@@ -40,6 +40,7 @@ class DailyForecast extends StatelessWidget {
     );
   }
 
+  /// returns a list with three weather days
   List<Main> _buildWeatherList(WeatherForecast weatherForecast) {
     List<Main> result = [];
     for (int i = 1; i < 4; i++) {
@@ -54,6 +55,8 @@ class DailyForecast extends StatelessWidget {
     return result;
   }
 
+
+  /// methods builds a card with day forecast
   Widget _buildDayForecast(Main weatherForecast) {
     return Container(
       width: double.infinity,

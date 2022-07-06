@@ -7,6 +7,8 @@ import 'package:weather_test/utils/wind_direction.dart';
 import '../../../global_widgets/gradient_text.dart';
 import '../../../utils/main_text_styles.dart';
 
+/// the main weather parameters displayed on the screen of the current weather
+/// in the city
 class MainWeatherParametersWidget extends StatelessWidget {
   final Main? mainWeather;
   final String? description;
@@ -23,8 +25,6 @@ class MainWeatherParametersWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     String temp = '';
     String feelsLike = '';
-    String windSpeed = '12';
-    String humidity = '12';
     if (mainWeather != null) {
       temp = mainWeather!.temp == null
           ? ''
@@ -83,7 +83,8 @@ class MainWeatherParametersWidget extends StatelessWidget {
                       style: MainTextStyles.smallInscriptionsDark,
                       children: [
                         TextSpan(
-                          text: '${WindDirection().chooseWindDirection(wind?.deg)}',
+                          text:
+                              WindDirection().chooseWindDirection(wind?.deg),
                           style: MainTextStyles.smallInscriptionsLight,
                         ),
                       ]),

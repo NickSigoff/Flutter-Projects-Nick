@@ -86,7 +86,7 @@ class HomePage extends StatelessWidget {
   Widget _buildCityNameWidget() {
     if (weatherForecast!.city != null) {
       return GradientText(
-          '${weatherForecast!.city!.name ?? ''}, ${weatherForecast!.city!.country ?? ''}',
+          '${weatherForecast!.city?.name ?? ''}, ${weatherForecast!.city?.country ?? ''}',
           style: const TextStyle(
             color: MainColors.mainWhite,
             fontSize: 50,

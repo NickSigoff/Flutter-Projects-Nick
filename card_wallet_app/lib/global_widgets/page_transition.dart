@@ -7,8 +7,8 @@ class PageTransition extends PageRouteBuilder {
 
   PageTransition(
       {required this.page,
-      this.axis = Axis.vertical,
-      this.alignment = Alignment.bottomCenter})
+      this.axis = Axis.horizontal,
+      this.alignment = Alignment.center})
       : super(
             pageBuilder: (context, animation, anotherAnimation) => page,
             transitionDuration: const Duration(milliseconds: 700),

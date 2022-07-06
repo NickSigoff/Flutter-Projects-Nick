@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:card_wallet_app/pages/auth_pages/bloc/auth_bloc.dart';
 import 'package:card_wallet_app/pages/home_page/home_page.dart';
 import 'package:card_wallet_app/utils/main_text_styles.dart';
@@ -82,6 +84,14 @@ class _SignInPageState extends State<SignInPage>
                       height: MediaQuery.of(context).size.height * 0.5,
                       width: MediaQuery.of(context).size.width - 32.0,
                       decoration: BoxDecoration(
+                        boxShadow: const [
+                          BoxShadow(
+                            blurRadius: 3,
+                            color: MainColors.lightGrey,
+                            spreadRadius: 1.5,
+                            offset: Offset(0, 4),
+                          )
+                        ],
                         border: Border.all(
                             width: 1.0, color: MainColors.commonWhite),
                         borderRadius: BorderRadius.circular(16.0),
@@ -136,8 +146,6 @@ class _SignInPageState extends State<SignInPage>
                                       context,
                                       PageTransition(
                                         page: const SignUpPage(),
-                                        axis: Axis.horizontal,
-                                        alignment: Alignment.centerRight,
                                       ));
                                 },
                                 child: Text('New Register',
@@ -183,44 +191,41 @@ class _SignInPageState extends State<SignInPage>
   }
 
   Widget _buildLoginButton(BuildContext context, AuthState state) {
-    return GestureDetector(
-      onTap: () {},
-      child: SizedBox(
-        height: 100.0,
-        width: 200.0,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              'Login',
-              style: MainTextStyles.signInLargeText
-                  .copyWith(color: MainColors.commonWhite),
-            ),
-            const SizedBox(width: 8.0),
-            AnimatedBuilder(
-              animation: animation,
-              builder: (BuildContext context, Widget? child) {
-                return FloatingActionButton(
-                  onPressed: state is LoadingState
-                      ? () {}
-                      : () {
-                          context.read<AuthBloc>().add(PressSignInEvent(
-                              userEmail: _emailController.text,
-                              userPassword: _passwordController.text));
-                        },
-                  backgroundColor: animation.value,
-                  child: state is LoadingState
-                      ? const Center(child: CircularProgressIndicator())
-                      : const Icon(
-                          Icons.input,
-                          size: 30,
-                          color: MainColors.commonBlack,
-                        ),
-                );
-              },
-            ),
-          ],
-        ),
+    return SizedBox(
+      height: 100.0,
+      width: 200.0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Text(
+            'Login',
+            style: MainTextStyles.signInLargeText
+                .copyWith(color: MainColors.commonWhite),
+          ),
+          const SizedBox(width: 8.0),
+          AnimatedBuilder(
+            animation: animation,
+            builder: (BuildContext context, Widget? child) {
+              return FloatingActionButton(
+                onPressed: state is LoadingState
+                    ? () {}
+                    : () {
+                        context.read<AuthBloc>().add(PressSignInEvent(
+                            userEmail: _emailController.text,
+                            userPassword: _passwordController.text));
+                      },
+                backgroundColor: animation.value,
+                child: state is LoadingState
+                    ? const Center(child: CircularProgressIndicator())
+                    : const Icon(
+                        Icons.input,
+                        size: 30,
+                        color: MainColors.commonBlack,
+                      ),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

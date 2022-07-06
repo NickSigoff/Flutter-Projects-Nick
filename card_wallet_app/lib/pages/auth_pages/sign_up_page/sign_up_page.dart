@@ -17,9 +17,7 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _nameController = TextEditingController();
-
   final TextEditingController _emailController = TextEditingController();
-
   final TextEditingController _passwordController = TextEditingController();
 
   @override
@@ -65,6 +63,14 @@ class _SignUpPageState extends State<SignUpPage> {
                       height: MediaQuery.of(context).size.height * 0.55,
                       width: MediaQuery.of(context).size.width - 32.0,
                       decoration: BoxDecoration(
+                        boxShadow: const [
+                          BoxShadow(
+                            blurRadius: 3,
+                            color: MainColors.lightGrey,
+                            spreadRadius: 1.5,
+                            offset: Offset(0, 4),
+                          )
+                        ],
                         border:
                             Border.all(width: 1.0, color: MainColors.lightGrey),
                         borderRadius: BorderRadius.circular(16.0),
@@ -132,8 +138,6 @@ class _SignUpPageState extends State<SignUpPage> {
                                   .add(PressSignInSignUpNavigationEvent());
                               Navigator.of(context).pop(PageTransition(
                                 page: const SignUpPage(),
-                                axis: Axis.horizontal,
-                                alignment: Alignment.centerLeft,
                               ));
                             },
                             child: Text('Already have an account?',
