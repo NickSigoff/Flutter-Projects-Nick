@@ -25,6 +25,9 @@ class StartPage extends StatelessWidget {
                   HomePage(weatherForecast: state.weatherForecast)));
         }
         if (state is StartPageErrorFetching) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(state.errorMessage ?? 'Error'),
+            backgroundColor: MainColors.mainRed),);
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => const HomePage()));
         }
@@ -32,8 +35,14 @@ class StartPage extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           body: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
+            height: MediaQuery
+                .of(context)
+                .size
+                .height,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width,
             padding: const EdgeInsets.all(32.0),
             decoration: const BoxDecoration(
               gradient: MainGradients.backgroundGradient,
@@ -84,9 +93,9 @@ class StartPage extends StatelessWidget {
                           child: state is StartPageLoading
                               ? const Center(child: CircularProgressIndicator())
                               : const Text(
-                                  'Continue',
-                                  style: TextStyle(fontSize: 25),
-                                ),
+                            'Continue',
+                            style: TextStyle(fontSize: 25),
+                          ),
                         ),
                       ),
                     ],
