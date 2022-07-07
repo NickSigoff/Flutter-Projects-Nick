@@ -1,4 +1,4 @@
-part of 'auth_bloc.dart';
+part of '../../../blocs/auth_bloc/auth_bloc.dart';
 
 @immutable
 abstract class AuthEvent {}

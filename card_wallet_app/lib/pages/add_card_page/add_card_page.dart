@@ -12,7 +12,7 @@ import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import '../../global_widgets/background_welcome_page.dart';
 import '../../model/user_model.dart';
 import '../../utils/main_colors.dart';
-import 'bloc/card_pattern_bloc.dart';
+import '../../blocs/card_add_bloc/card_pattern_bloc.dart';
 
 class AddCardPage extends StatefulWidget {
   const AddCardPage({Key? key}) : super(key: key);

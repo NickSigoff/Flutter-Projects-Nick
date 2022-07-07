@@ -1,4 +1,4 @@
-part of 'card_pattern_bloc.dart';
+part of '../../../blocs/card_add_bloc/card_pattern_bloc.dart';
 
 @immutable
 abstract class CardPatternEvent {}

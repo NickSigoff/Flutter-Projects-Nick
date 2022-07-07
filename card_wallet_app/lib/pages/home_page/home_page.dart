@@ -1,6 +1,6 @@
 import 'package:card_wallet_app/global_widgets/background_welcome_page.dart';
 import 'package:card_wallet_app/pages/cards_page/cards_page.dart';
-import 'package:card_wallet_app/pages/home_page/bloc/current_page_bloc.dart';
+import 'package:card_wallet_app/blocs/bottom_bar_bloc/current_page_bloc.dart';
 import 'package:card_wallet_app/pages/home_page/widgets/navigation_bar_item.dart';
 import 'package:card_wallet_app/pages/labels_page/labels_page.dart';
 import 'package:card_wallet_app/pages/profile_page/profile_page.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../utils/main_colors.dart';
-import '../bloc/current_page_bloc.dart';
+import '../../../blocs/bottom_bar_bloc/current_page_bloc.dart';
 
 class NavigationBarItem extends StatelessWidget {
   final IconData iconData;

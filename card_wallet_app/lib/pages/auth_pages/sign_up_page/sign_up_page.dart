@@ -1,4 +1,4 @@
-import 'package:card_wallet_app/pages/auth_pages/bloc/auth_bloc.dart';
+import 'package:card_wallet_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:card_wallet_app/pages/home_page/home_page.dart';
 import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -47,14 +47,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 alignment: Alignment.center,
                 children: [
                   const BackgroundWelcomePage(),
-                  const Positioned(
-                    top: 32.0,
-                    left: 32.0,
-                    child: Text(
-                      'Create\nNew Account',
-                      style: MainTextStyles.signInLargeText,
-                    ),
-                  ),
+                  _buildUpperGreetings(),
                   Positioned(
                     bottom: 16.0,
                     child: Container(
@@ -76,76 +69,7 @@ class _SignUpPageState extends State<SignUpPage> {
                         borderRadius: BorderRadius.circular(16.0),
                         color: MainColors.deepBlue.withOpacity(0.9),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          TextField(
-                            style: MainTextStyles.profileTextStyle
-                                .copyWith(color: MainColors.commonWhite),
-                            controller: _nameController,
-                            decoration: _buildInputDecoration(
-                                hint: 'Enter your name', icon: Icons.person),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              state is ErrorState
-                                  ? state.validateNameError
-                                  : '',
-                              style: MainTextStyles.errorText,
-                            ),
-                          ),
-                          TextField(
-                            style: MainTextStyles.profileTextStyle
-                                .copyWith(color: MainColors.commonWhite),
-                            controller: _emailController,
-                            decoration: _buildInputDecoration(
-                                hint: 'Enter your email', icon: Icons.email),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              state is ErrorState
-                                  ? state.validateEmailError
-                                  : '',
-                              style: MainTextStyles.errorText,
-                            ),
-                          ),
-                          TextField(
-                            style: MainTextStyles.profileTextStyle
-                                .copyWith(color: MainColors.commonWhite),
-                            controller: _passwordController,
-                            decoration: _buildInputDecoration(
-                                hint: 'Enter your password',
-                                icon: Icons.password),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              state is ErrorState
-                                  ? state.validatePasswordError
-                                  : '',
-                              style: MainTextStyles.errorText
-                                  .copyWith(fontSize: 10),
-                            ),
-                          ),
-                          _buildLoginButton(state, context),
-                          const Spacer(),
-                          GestureDetector(
-                            onTap: () {
-                              context
-                                  .read<AuthBloc>()
-                                  .add(PressSignInSignUpNavigationEvent());
-                              Navigator.of(context).pop(PageTransition(
-                                page: const SignUpPage(),
-                              ));
-                            },
-                            child: Text('Already have an account?',
-                                style: MainTextStyles.regularButtonText
-                                    .copyWith(color: MainColors.commonWhite)),
-                          ),
-                        ],
-                      ),
+                      child: _buildInputForm(state, context),
                     ),
                   ),
                 ],
@@ -154,6 +78,108 @@ class _SignUpPageState extends State<SignUpPage> {
           ),
         );
       },
+    );
+  }
+
+  Column _buildInputForm(AuthState state, BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        _textNameField(),
+        _buildNameError(state),
+        _buildTextEmailField(),
+        _buildTextEmailError(state),
+        _buildTextPasswordField(),
+        _buildTextPasswordError(state),
+        _buildLoginButton(state, context),
+        const Spacer(),
+        _buildHaveAccountButton(context),
+      ],
+    );
+  }
+
+  GestureDetector _buildHaveAccountButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        context.read<AuthBloc>().add(PressSignInSignUpNavigationEvent());
+        Navigator.of(context).pop(PageTransition(
+          page: const SignUpPage(),
+        ));
+      },
+      child: Text('Already have an account?',
+          style: MainTextStyles.regularButtonText
+              .copyWith(color: MainColors.commonWhite)),
+    );
+  }
+
+  Padding _buildTextPasswordError(AuthState state) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Text(
+        state is ErrorState ? state.validatePasswordError : '',
+        style: MainTextStyles.errorText.copyWith(fontSize: 10),
+      ),
+    );
+  }
+
+  TextField _buildTextPasswordField() {
+    return TextField(
+      style: MainTextStyles.profileTextStyle
+          .copyWith(color: MainColors.commonWhite),
+      controller: _passwordController,
+      decoration: _buildInputDecoration(
+          hint: 'Enter your password', icon: Icons.password),
+    );
+  }
+
+  Padding _buildTextEmailError(AuthState state) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Text(
+        state is ErrorState ? state.validateEmailError : '',
+        style: MainTextStyles.errorText,
+      ),
+    );
+  }
+
+  TextField _buildTextEmailField() {
+    return TextField(
+      style: MainTextStyles.profileTextStyle
+          .copyWith(color: MainColors.commonWhite),
+      controller: _emailController,
+      decoration:
+          _buildInputDecoration(hint: 'Enter your email', icon: Icons.email),
+    );
+  }
+
+  Padding _buildNameError(AuthState state) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Text(
+        state is ErrorState ? state.validateNameError : '',
+        style: MainTextStyles.errorText,
+      ),
+    );
+  }
+
+  TextField _textNameField() {
+    return TextField(
+      style: MainTextStyles.profileTextStyle
+          .copyWith(color: MainColors.commonWhite),
+      controller: _nameController,
+      decoration:
+          _buildInputDecoration(hint: 'Enter your name', icon: Icons.person),
+    );
+  }
+
+  Positioned _buildUpperGreetings() {
+    return const Positioned(
+      top: 32.0,
+      left: 32.0,
+      child: Text(
+        'Create\nNew Account',
+        style: MainTextStyles.signInLargeText,
+      ),
     );
   }
 

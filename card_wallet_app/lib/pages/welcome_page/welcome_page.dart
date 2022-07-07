@@ -1,4 +1,4 @@
-import 'package:card_wallet_app/pages/auth_pages/bloc/auth_bloc.dart';
+import 'package:card_wallet_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:card_wallet_app/pages/auth_pages/sign_in_page/sign_in_page.dart';
 import 'package:card_wallet_app/global_widgets/background_welcome_page.dart';
 import 'package:card_wallet_app/pages/home_page/home_page.dart';
@@ -35,17 +35,9 @@ class WelcomePage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    const Text(
-                      'Manage Your Cards.\nAll in One Place',
-                      textAlign: TextAlign.center,
-                      style: MainTextStyles.largeText,
-                    ),
+                    _buildTextAtTop(),
                     const SizedBox(height: 16.0),
-                    const Text(
-                      'Eliminate physical cards, get virtual payment option in your hand',
-                      textAlign: TextAlign.center,
-                      style: MainTextStyles.regularGreyText,
-                    ),
+                    _buildAppDescriptionText(),
                     const SizedBox(height: 32.0),
                     _buildGetStartedButton(context),
                     const SizedBox(height: 32.0),
@@ -56,6 +48,22 @@ class WelcomePage extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Text _buildTextAtTop() {
+    return const Text(
+      'Manage Your Cards.\nAll in One Place',
+      textAlign: TextAlign.center,
+      style: MainTextStyles.largeText,
+    );
+  }
+
+  Text _buildAppDescriptionText() {
+    return const Text(
+      'Eliminate physical cards, get virtual payment option in your hand',
+      textAlign: TextAlign.center,
+      style: MainTextStyles.regularGreyText,
     );
   }
 

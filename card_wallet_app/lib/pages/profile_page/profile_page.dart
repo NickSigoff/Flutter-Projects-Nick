@@ -1,4 +1,4 @@
-import 'package:card_wallet_app/pages/auth_pages/bloc/auth_bloc.dart';
+import 'package:card_wallet_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:card_wallet_app/pages/auth_pages/sign_in_page/sign_in_page.dart';
 import 'package:card_wallet_app/services/current_user_provider.dart';
 import 'package:card_wallet_app/utils/main_text_styles.dart';

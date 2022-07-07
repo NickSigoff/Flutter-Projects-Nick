@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:card_wallet_app/utils/card_enum.dart';
 import 'package:meta/meta.dart';
 
-import '../../../model/user_model.dart';
+import '../../model/user_model.dart';
 
 part 'card_pattern_event.dart';
 

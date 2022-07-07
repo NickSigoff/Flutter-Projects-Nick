@@ -1,7 +1,6 @@
-
-import 'package:card_wallet_app/pages/add_card_page/bloc/card_pattern_bloc.dart';
-import 'package:card_wallet_app/pages/auth_pages/bloc/auth_bloc.dart';
-import 'package:card_wallet_app/pages/home_page/bloc/current_page_bloc.dart';
+import 'package:card_wallet_app/blocs/card_add_bloc/card_pattern_bloc.dart';
+import 'package:card_wallet_app/blocs/auth_bloc/auth_bloc.dart';
+import 'package:card_wallet_app/blocs/bottom_bar_bloc/current_page_bloc.dart';
 import 'package:card_wallet_app/pages/welcome_page/welcome_page.dart';
 import 'package:card_wallet_app/utils/navigator_keys.dart';
 import 'package:flutter/material.dart';

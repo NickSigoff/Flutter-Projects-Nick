@@ -1,6 +1,4 @@
-import 'dart:ui';
-
-import 'package:card_wallet_app/pages/auth_pages/bloc/auth_bloc.dart';
+import 'package:card_wallet_app/blocs/auth_bloc/auth_bloc.dart';
 import 'package:card_wallet_app/pages/home_page/home_page.dart';
 import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
@@ -68,14 +66,7 @@ class _SignInPageState extends State<SignInPage>
                 alignment: Alignment.center,
                 children: [
                   const BackgroundWelcomePage(),
-                  const Positioned(
-                    top: 32.0,
-                    left: 32.0,
-                    child: Text(
-                      'Hello Again',
-                      style: MainTextStyles.signInLargeText,
-                    ),
-                  ),
+                  _buildUpperGreetings(),
                   Positioned(
                     bottom: 16.0,
                     child: Container(
@@ -97,74 +88,7 @@ class _SignInPageState extends State<SignInPage>
                         borderRadius: BorderRadius.circular(16.0),
                         color: MainColors.deepBlue.withOpacity(0.9),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          TextField(
-                            style: MainTextStyles.profileTextStyle
-                                .copyWith(color: MainColors.commonWhite),
-                            controller: _emailController,
-                            decoration: _buildInputDecoration(
-                                hint: 'Enter your login', icon: Icons.person),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              state is ErrorState
-                                  ? state.validateEmailError
-                                  : '',
-                              style: MainTextStyles.errorText,
-                            ),
-                          ),
-                          TextField(
-                            style: MainTextStyles.profileTextStyle
-                                .copyWith(color: MainColors.commonWhite),
-                            controller: _passwordController,
-                            decoration: _buildInputDecoration(
-                                hint: 'Enter your password',
-                                icon: Icons.password),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(4.0),
-                            child: Text(
-                              state is ErrorState
-                                  ? state.validatePasswordError
-                                  : '',
-                              style: MainTextStyles.errorText,
-                            ),
-                          ),
-                          _buildLoginButton(context, state),
-                          const Spacer(),
-                          Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  context
-                                      .read<AuthBloc>()
-                                      .add(PressSignInSignUpNavigationEvent());
-                                  Navigator.push(
-                                      context,
-                                      PageTransition(
-                                        page: const SignUpPage(),
-                                      ));
-                                },
-                                child: Text('New Register',
-                                    style: MainTextStyles.regularButtonText
-                                        .copyWith(
-                                            color: MainColors.commonWhite)),
-                              ),
-                              const Spacer(),
-                              GestureDetector(
-                                onTap: () {},
-                                child: Text('Forget Password?',
-                                    style: MainTextStyles.regularButtonText
-                                        .copyWith(
-                                            color: MainColors.commonWhite)),
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
+                      child: _buildInputForm(state, context),
                     ),
                   ),
                 ],
@@ -173,6 +97,99 @@ class _SignInPageState extends State<SignInPage>
           ),
         );
       },
+    );
+  }
+
+  Column _buildInputForm(AuthState state, BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        _buildLoginText(),
+        _buildLoginErrorText(state),
+        _buildPasswordText(),
+        _buildPasswordTextError(state),
+        _buildLoginButton(context, state),
+        const Spacer(),
+        _buildForgetPasswordRow(context)
+      ],
+    );
+  }
+
+  Positioned _buildUpperGreetings() {
+    return const Positioned(
+      top: 32.0,
+      left: 32.0,
+      child: Text(
+        'Hello Again',
+        style: MainTextStyles.signInLargeText,
+      ),
+    );
+  }
+
+  Row _buildForgetPasswordRow(BuildContext context) {
+    return Row(
+      children: [
+        GestureDetector(
+          onTap: () {
+            context.read<AuthBloc>().add(PressSignInSignUpNavigationEvent());
+            Navigator.push(
+                context,
+                PageTransition(
+                  page: const SignUpPage(),
+                ));
+          },
+          child: Text('New Register',
+              style: MainTextStyles.regularButtonText
+                  .copyWith(color: MainColors.commonWhite)),
+        ),
+        const Spacer(),
+        GestureDetector(
+          onTap: () {},
+          child: Text('Forget Password?',
+              style: MainTextStyles.regularButtonText
+                  .copyWith(color: MainColors.commonWhite)),
+        ),
+      ],
+    );
+  }
+
+  Padding _buildPasswordTextError(AuthState state) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Text(
+        state is ErrorState ? state.validatePasswordError : '',
+        style: MainTextStyles.errorText,
+      ),
+    );
+  }
+
+  TextField _buildPasswordText() {
+    return TextField(
+      style: MainTextStyles.profileTextStyle
+          .copyWith(color: MainColors.commonWhite),
+      controller: _passwordController,
+      decoration: _buildInputDecoration(
+          hint: 'Enter your password', icon: Icons.password),
+    );
+  }
+
+  Padding _buildLoginErrorText(AuthState state) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Text(
+        state is ErrorState ? state.validateEmailError : '',
+        style: MainTextStyles.errorText,
+      ),
+    );
+  }
+
+  TextField _buildLoginText() {
+    return TextField(
+      style: MainTextStyles.profileTextStyle
+          .copyWith(color: MainColors.commonWhite),
+      controller: _emailController,
+      decoration:
+          _buildInputDecoration(hint: 'Enter your login', icon: Icons.person),
     );
   }
 
