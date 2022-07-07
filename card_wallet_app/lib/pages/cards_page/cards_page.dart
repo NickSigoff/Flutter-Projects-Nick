@@ -1,4 +1,5 @@
-import 'package:card_wallet_app/global_bloc/add_remove_card_bloc.dart';
+
+import 'package:card_wallet_app/blocs/card_action_bloc/card_action_bloc.dart';
 import 'package:card_wallet_app/global_widgets/cards_widgets/small_mastercard_widget.dart';
 import 'package:card_wallet_app/global_widgets/cards_widgets/small_visa_card_widget.dart';
 import 'package:card_wallet_app/model/user_model.dart';
@@ -17,7 +18,7 @@ class CardsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AddRemoveCardBloc, AddRemoveCardState>(
+    return BlocBuilder<CardActionBloc, CardActionState>(
       builder: (context, state) {
         return CustomScrollView(
           slivers: [
@@ -43,7 +44,7 @@ class CardsPage extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
                 (context, index) {
                   CardModel cardModel = CurrentUserProvider
-                      .currentUser.cardModelList[index] as CardModel;
+                      .currentUser.cardModelList[index];
                   return (cardModel.cardType == CardType.visa
                       ? SmallVisaCardWidget(cardModel: cardModel)
                       : SmallMasterCardWidget(cardModel: cardModel));

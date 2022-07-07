@@ -1,9 +1,8 @@
-import 'package:card_wallet_app/utils/main_box_decorations.dart';
+import 'package:card_wallet_app/blocs/card_action_bloc/card_action_bloc.dart';
 import 'package:card_wallet_app/utils/main_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../global_bloc/add_remove_card_bloc.dart';
 import '../../global_widgets/flip_card_widget.dart';
 import '../../model/user_model.dart';
 import '../../utils/main_colors.dart';
@@ -15,9 +14,9 @@ class DetailCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AddRemoveCardBloc, AddRemoveCardState>(
+    return BlocConsumer<CardActionBloc, CardActionState>(
       listener: (context, state) {
-        if (state is AddRemoveCardError) {
+        if (state is CardRemoveError) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text(
               'Error by removing',
@@ -26,7 +25,7 @@ class DetailCard extends StatelessWidget {
             backgroundColor: Colors.red,
           ));
         }
-        if (state is AddRemoveCardSuccess) {
+        if (state is CardRemoveSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text(
               'The Card has been deleted',
@@ -55,8 +54,8 @@ class DetailCard extends StatelessWidget {
               IconButton(
                   onPressed: () {
                     context
-                        .read<AddRemoveCardBloc>()
-                        .add(RemoveCardFromList(cardModel: cardModel));
+                        .read<CardActionBloc>()
+                        .add(RemoveCardEvent(cardModel: cardModel));
                     Navigator.of(context).pop();
                   },
                   icon: const Icon(Icons.delete),
