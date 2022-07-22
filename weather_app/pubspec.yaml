@@ -40,7 +40,7 @@ flutter:
     - assets/images/welcome_images/sun.png
     - assets/images/welcome_images/rain.png
     - assets/images/welcome_images/sun_cloud.png
-    - assets/images/common_weather_icons/humidity.png
+    - assets/images/humidity.png
     - assets/images/common_weather_icons/pressure.png
     - assets/images/common_weather_icons/wind_direction.png
     - assets/images/common_weather_icons/sunset.png

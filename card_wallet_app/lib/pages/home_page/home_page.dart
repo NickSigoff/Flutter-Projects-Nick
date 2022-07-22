@@ -36,40 +36,26 @@ class HomePage extends StatelessWidget {
                           ProfilePage(),
                         ],
                       ),
-                      Positioned(
-                        bottom: 16.0,
-                        child: Container(
-                          width: width - 32.0,
-                          height: 60.0,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(28.0),
-                            color: MainColors.deepBlue,
-                          ),
-                          child: Row(
-                            children: [
-                              NavigationBarItem(
-                                index: 0,
-                                iconData: Icons.credit_card,
-                                state: state,
-                              ),
-                              NavigationBarItem(
-                                index: 1,
-                                iconData: Icons.bookmark,
-                                state: state,
-                              ),
-                              NavigationBarItem(
-                                index: 2,
-                                iconData: Icons.person,
-                                state: state,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
               ],
+            ),
+            bottomNavigationBar: Container(
+              margin: const EdgeInsets.all(20),
+              height: width * 0.155,
+              decoration: BoxDecoration(
+                color: MainColors.commonWhite,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(15),
+                    blurRadius: 30,
+                    offset: const Offset(0, 10)
+                  )
+                ],
+                borderRadius: BorderRadius.circular(50),
+              ),
+              child: ListView.builder(itemBuilder: itemBuilder, itemCount: 3, scrollDirection: Axis.horizontal,),
             ),
           ),
         );
@@ -77,3 +63,31 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+// Container(
+// width: width - 32.0,
+// height: 60.0,
+// decoration: BoxDecoration(
+// borderRadius: BorderRadius.circular(28.0),
+// color: MainColors.deepBlue,
+// ),
+// child: Row(
+// children: [
+// NavigationBarItem(
+// index: 0,
+// iconData: Icons.credit_card,
+// state: state,
+// ),
+// NavigationBarItem(
+// index: 1,
+// iconData: Icons.bookmark,
+// state: state,
+// ),
+// NavigationBarItem(
+// index: 2,
+// iconData: Icons.person,
+// state: state,
+// ),
+// ],
+// ),
+// ),

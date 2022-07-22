@@ -26,7 +26,7 @@ class NavigationBarItem extends StatelessWidget {
         child: Icon(iconData,
             color: state == index
                 ? MainColors.commonWhite
-                : MainColors.backgroundDarkGradient),
+                : MainColors.lightGrey),
       ),
     );
   }
